@@ -110,7 +110,7 @@ function MyComponent(props: Props){
 ```
 
 Many pain points:
-- Because TypeScript doesn't support [partial argument inference](https://github.com/microsoft/TypeScript/issues/26242)
+- Because TypeScript doesn't support [partial argument inference](https://github.com/microsoft/TypeScript/issues/26242),
   we have to explicitly enumerate the classes name as an union type `"root" | "label"`.
 - We shouldn't have to import `createStyles` to get correct typings.
 - Inconsistent naming conventions `makeStyles -> useStyles -> classes`
