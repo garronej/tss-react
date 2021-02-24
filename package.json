@@ -1,6 +1,6 @@
 {
     "name": "jss-emotion",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "JSS like API implemented with emotion",
     "repository": {
         "type": "git",

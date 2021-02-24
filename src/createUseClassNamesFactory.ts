@@ -38,14 +38,14 @@ export function createUseClassNamesFactory<Theme extends Object = {}>(
     function createUseClassNames<Params extends Record<string, unknown>>() {
 
         return function <Key extends string>(
-            getCssObjects: (themeWrap: { theme: Theme; }, params: Params) => Record<Key, CSSObject>
+            getCssObjects: (theme:Theme, params: Params) => Record<Key, CSSObject>
         ) {
 
             function useClassNames(params: Params) {
 
                 const theme = useTheme();
 
-                const cssObjects = getCssObjects({ theme }, params);
+                const cssObjects = getCssObjects(theme, params);
 
                 return {
                     "classNames": Object.fromEntries(
