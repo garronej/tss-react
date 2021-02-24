@@ -21,14 +21,6 @@ $ npm install --save jss-emotion
     <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
 </p>
 
-[![js-emotion-play](https://user-images.githubusercontent.com/6702424/109008103-383eed80-76ad-11eb-8f7a-90e81b5e54a4.png)](https://stackblitz.com/edit/jss-emotion?file=Hello.tsx)
-
-<p align="center">
-<a href='https://stackblitz.com/edit/jss-emotion?file=Hello.tsx'>
-    <img src="https://user-images.githubusercontent.com/6702424/109008103-383eed80-76ad-11eb-8f7a-90e81b5e54a4.png">
-</a>
-</p>
-
 # Usage
 
 `./MyComponent.tsx`
