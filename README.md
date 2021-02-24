@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png">  
 </p>
 <p align="center">
-    <i>JSS like API implemented with emotion</i>
+    <i>JSS like API implemented with emotion for TypeScript users</i>
     <br>
     <br>
     <img src="https://github.com/garronej/jss-emotion/workflows/ci/badge.svg?branch=develop">
@@ -10,57 +10,152 @@
     <img src="https://img.shields.io/npm/dw/jss-emotion">
     <img src="https://img.shields.io/npm/l/jss-emotion">
 </p>
-<p align="center">
-  <a href="https://github.com/garronej/jss-emotion">Home</a>
-  -
-  <a href="https://github.com/garronej/jss-emotion">Documentation</a>
-</p>
-
-# Install / Import
 
 ```bash
 $ npm install --save jss-emotion
 ```
+# Usage
 
+`./MyComponent.tsx`
 ```typescript
-import { myFunction, myObject } from "jss-emotion";
+import { createUseClassNames } from "./useClassNames";
+
+const { useClassNames } = createUseClassNames<Props & { color: "red" | "blue" }>()({
+   (theme, { color })=> ({
+       "root": { 
+           color,
+           "backgroundColor": theme.primaryColor
+        }
+   })
+});
+
+
+function MyComponent(props: Props){
+
+    const [ color, setColor ]= useState<"red" | "blue">("red");
+
+    const { classNames }=useClassNames({...props, color });
+
+    return <span className={classNames.root}>hello world</span>;
+
+}
 ```
 
-Specific imports:
-
+`./useClassNames.ts`
 ```typescript
-import { myFunction } from "jss-emotion/myFunction";
-import { myObject } from "jss-emotion/myObject";
+import { createUseClassNamesFactory } from "jss-emotion";
+
+const theme = {
+    "primaryColor": "blue";
+};
+
+function useTheme(){
+    return theme;
+}
+
+export const { createUseClassNames } = createUseClassNamesFactory({ useTheme });
 ```
 
-## Import from HTML, with CDN
+# Why this instead of JSS? 
 
-Import it via a bundle that creates a global ( wider browser support ):
+Consider this example use of JSS:
 
-```html
-<script src="//unpkg.com/jss-emotion/bundle.min.js"></script>
-<script>
-    const { myFunction, myObject } = jss_emotion;
-</script>
+```tsx
+//JSS in bundled in @material-ui
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+
+type Props = {
+    color: "red" | "blue";
+};
+
+const useStyles = makeStyles(
+  theme => createStyles<"root" | "label">, Props>({
+    "root": {
+        "backgroundColor": theme.palette.primary.main
+    },
+    "label": ({ color })=>({
+        color
+    })
+  })
+);
+
+function MyComponent(props: Props){
+
+    const classes = useStyles(props);
+
+    return (
+        <div className={classes.root}>
+            <span className={classes.label}>
+                Hello World
+            </span>
+        </div>
+    );
+
+}
 ```
 
-Or import it as an ES module:
+Many pain points:
+- Because TypeScript doesn't support [partial argument inference](https://github.com/microsoft/TypeScript/issues/26242)
+  we have to explicitly enumerate the classes name as an union type `"root" | "label"`.
+- We shouldn't have to import `createStyles` to get correct typings.
+- Inconsistent naming conventions `makeStyles -> useStyles -> classes`
 
-```html
-<script type="module">
-    import {
-        myFunction,
-        myObject,
-    } from "//unpkg.com/jss-emotion/zz_esm/index.js";
-</script>
+Let's now compare with `jss-emotion`
+
+```tsx
+import { createUseClassNames } from "./useClassNames";
+
+type Props = {
+    color: "red" | "blue";
+};
+
+const { useClassNames } = createUseClassNames<Props>()(
+  (theme, { color })=> ({
+    "root": {
+        "backgroundColor": theme.palette.primary.main
+    },
+    "label": {
+        color
+    }
+  })
+    );
+
+function MyComponent(props: Props){
+
+    const { classNames } = useClassNames(props);
+
+    return (
+        <div className={classNames.root}>
+            <span className={classNames.label}>
+                Hello World
+            </span>
+        </div>
+    );
+
+}
 ```
 
-_You can specify the version you wish to import:_ [unpkg.com](https://unpkg.com)
+Benefits: 
+- Less verbose, same type safety.
+- Consistent naming convention `createUseClassNames -> useClassNames -> classNames`.
+- You don't need to remember how things are supposed to be named, just let intellisense guide you.
 
-## Contribute
+Besides, `JSS`, at least the version bundled into `material-ui`, have other problems:  
+- It has one major bug: [see issue](https://github.com/mui-org/material-ui/issues/24513#issue-790027173)
+- `JSS` has poor performances compared to `emotion` [source](https://github.com/mui-org/material-ui/issues/22342#issue-684407575)
 
-```bash
-npm install
-npm run build
-npm test
-```
+
+# Why not Styled component ?
+
+See [this issue](https://github.com/mui-org/material-ui/issues/22342#issuecomment-764495033)
+
+
+# API Reference
+
+This module exports: 
+
+- `createUseClassNamesFactory()`
+- `css`: Reexport of [`import { css } from "@emotion/css"`](https://emotion.sh/docs/@emotion/css#css)
+- `keyframes`:Reexport of [`import { keyframes } from "@emotion/css"`](https://emotion.sh/docs/@emotion/css#animation-keyframes)
+- `cx`: Reexport of [`import { cx } from "@emotion/css"`](https://emotion.sh/docs/@emotion/css#cx)
+- `injectGlobal`: Reexport of [`import { injectGlobal } from "@emotion/injectGlobal"`](https://emotion.sh/docs/@emotion/css#injectGlobal)
