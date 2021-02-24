@@ -20,6 +20,9 @@ $ npm install --save jss-emotion
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
+</p>
+<p align="center">
+    <i>Try it now:</i><br>
     <a href='https://stackblitz.com/edit/jss-emotion?file=Hello.tsx'>
         <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
     </a>
