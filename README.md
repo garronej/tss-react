@@ -15,7 +15,9 @@
 $ npm install --save jss-emotion
 ```
 
-![jss-emotion](https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
+</p>
 
 # Usage
 
