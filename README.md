@@ -114,11 +114,9 @@ const { useClassNames } = createUseClassNames<Props>()(
     "root": {
         "backgroundColor": theme.palette.primary.main
     },
-    "label": {
-        color
-    }
+    "label": { color }
   })
-    );
+);
 
 function MyComponent(props: Props){
 
