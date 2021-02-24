@@ -154,7 +154,7 @@ Benefits:
 - You don't need to remember how things are supposed to be named, just let intellisense guide you.
 
 Besides, `JSS`, at least the version bundled into `material-ui`, have other problems:  
-- It has one major bug: [see issue](https://github.com/mui-org/material-ui/issues/24513#issue-790027173)
+- One major bug: [see issue](https://github.com/mui-org/material-ui/issues/24513#issue-790027173)
 - `JSS` has poor performances compared to `emotion` [source](https://github.com/mui-org/material-ui/issues/22342#issue-684407575)
 
 
