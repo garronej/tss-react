@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png">  
 </p>
 <p align="center">
-    <i>💅 JSS-like API for TypeScript users powered by emotion 💅 
+    <i>💅 JSS-like API for TypeScript users powered by emotion 💅 </i>
     <br>
     <br>
     <img src="https://github.com/garronej/jss-emotion/workflows/ci/badge.svg?branch=develop">
@@ -17,14 +17,11 @@ $ yarn add jss-emotion
 $ npm install --save jss-emotion
 ```
 
+
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
-</p>
-
-
-<p align="center">
     <a href='https://stackblitz.com/edit/jss-emotion?file=Hello.tsx'>
-        <img src="https://user-images.githubusercontent.com/6702424/109008103-383eed80-76ad-11eb-8f7a-90e81b5e54a4.png">
+        <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
     </a>
 </p>
 
