@@ -21,10 +21,18 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
-    - run: npm ci
-    - run: npm run build
-    - run: npm run test
+      run: |
+        PACKAGE_MANAGER=npm
 
+        if [ -f "./yarn.lock" ]; then
+            yarn install --frozen-lockfile                                                                                                                                                                                        
+            PACKAGE_MANAGER=yarn
+        else
+            npm ci
+        fi
+
+        $PACKAGE_MANAGER run build
+        $PACKAGE_MANAGER test
 
   trigger_publish:
     name: Trigger publish.yaml workflow if package.json version updated ( and secrets.PAT is set ).
