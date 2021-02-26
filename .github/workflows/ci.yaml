@@ -21,7 +21,7 @@ jobs:
       id: _1
       uses: garronej/github_actions_toolkit@v1.10
       with: 
-        action_name: get_package_json_version
+        action_name: tell_if_project_uses_npm_or_yarn
         owner: ${{github.repository_owner}}
         repo: ${{github.event.repository.name}}
         branch: ${{github.ref}}
