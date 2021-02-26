@@ -2,19 +2,19 @@
     <img src="https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png">  
 </p>
 <p align="center">
-    <i>💅 JSS-like API for TypeScript users powered by emotion 💅 </i>
+    <i>💅 Like JSS but for TypeScript. Powered by emotion 💅 </i>
     <br>
     <br>
-    <img src="https://github.com/garronej/jss-emotion/workflows/ci/badge.svg?branch=develop">
-    <img src="https://img.shields.io/bundlephobia/minzip/jss-emotion">
-    <img src="https://img.shields.io/npm/dw/jss-emotion">
-    <img src="https://img.shields.io/npm/l/jss-emotion">
+    <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=develop">
+    <img src="https://img.shields.io/bundlephobia/minzip/tss-react">
+    <img src="https://img.shields.io/npm/dw/tss-react">
+    <img src="https://img.shields.io/npm/l/tss-react">
 </p>
 
 ```bash
-$ yarn add jss-emotion
+$ yarn add tss-react
 #OR
-$ npm install --save jss-emotion
+$ npm install --save tss-react
 ```
 
 
@@ -23,7 +23,7 @@ $ npm install --save jss-emotion
 </p>
 <p align="center">
     <i>Try it now:</i><br>
-    <a href='https://stackblitz.com/edit/jss-emotion?file=Hello.tsx'>
+    <a href='https://stackblitz.com/edit/tss-react?file=Hello.tsx'>
         <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
     </a>
 </p>
@@ -58,7 +58,7 @@ function MyComponent(props: Props){
 
 `./useClassNames.ts`
 ```typescript
-import { createUseClassNamesFactory } from "jss-emotion";
+import { createUseClassNamesFactory } from "tss-react";
 
 const theme = {
     "primaryColor": "blue";
@@ -115,7 +115,7 @@ Many pain points:
 - We shouldn't have to import `createStyles` to get correct typings.
 - Inconsistent naming conventions `makeStyles -> useStyles -> classes`
 
-Let's now compare with `jss-emotion`
+Let's now compare with `tss-react`
 
 ```tsx
 import { createUseClassNames } from "./useClassNames";
