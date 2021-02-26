@@ -1,7 +1,5 @@
 <p align="center">
-    <img src="
-    https://user-images.githubusercontent.com/6702424/109330891-79293480-785c-11eb-9fc7-2567f460bf72.png
-    ">  
+    <img src="https://user-images.githubusercontent.com/6702424/109330891-79293480-785c-11eb-9fc7-2567f460bf72.png">  
 </p>
 <p align="center">
     <i>✨ Like JSS but for TypeScript. Powered by emotion ✨</i>
