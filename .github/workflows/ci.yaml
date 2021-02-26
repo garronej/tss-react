@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Tell if project is using npm or yarn
       id: _1
-      uses: garronej/github_actions_toolkit@v1.10
+      uses: garronej/github_actions_toolkit@v1.11
       with: 
         action_name: tell_if_project_uses_npm_or_yarn
         owner: ${{github.repository_owner}}
@@ -51,7 +51,7 @@ jobs:
 
     - name: Get version on latest
       id: v_latest
-      uses: garronej/github_actions_toolkit@v1.10
+      uses: garronej/github_actions_toolkit@v1.11
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
@@ -61,7 +61,7 @@ jobs:
 
     - name: Get version on develop
       id: v_develop
-      uses: garronej/github_actions_toolkit@v1.10
+      uses: garronej/github_actions_toolkit@v1.11
       with: 
         action_name: get_package_json_version
         owner: ${{github.repository_owner}}
@@ -71,7 +71,7 @@ jobs:
 
     - name: 'Trigger the ''publish'' workflow' 
       if: ${{ !!env.PAT && steps.v_develop.outputs.compare_result == '1' }}
-      uses: garronej/github_actions_toolkit@v1.10
+      uses: garronej/github_actions_toolkit@v1.11
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
