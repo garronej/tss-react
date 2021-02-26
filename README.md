@@ -4,7 +4,7 @@
     ">  
 </p>
 <p align="center">
-    <i>Like JSS but for TypeScript. Powered by emotion 💅 </i>
+    <i>✨ Like JSS but for TypeScript. Powered by emotion ✨</i>
     <br>
     <br>
     <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=develop">
