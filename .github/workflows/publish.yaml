@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Synchronize package.json  and package-lock.json version if needed.
-      uses: garronej/github_actions_toolkit@v1.9
+      uses: garronej/github_actions_toolkit@v1.10
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
@@ -19,7 +19,7 @@ jobs:
         commit_author_email: ts_ci@github.com
     - name: Update CHANGELOG.md
       if: ${{ !!github.event.client_payload.from_version }}
-      uses: garronej/github_actions_toolkit@v1.9
+      uses: garronej/github_actions_toolkit@v1.10
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }} 
       with:
