@@ -1,3 +1,9 @@
+### **0.0.7** (2021-02-26)  
+  
+- Fix logo  
+- Change emoji  
+- Feat standalone or plugin, update readme    
+  
 ### **0.0.6** (2021-02-26)  
   
 - Change package name  
