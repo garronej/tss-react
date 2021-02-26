@@ -1,39 +1,22 @@
 
 
-import "minimal-polyfills/Object.fromEntries";
-import { css } from "@emotion/css";
+import "./tools/Object.fromEntries";
 import type { CSSObject } from "@emotion/css";
-import { objectKeys } from "evt/tools/typeSafety/objectKeys";
+import { objectKeys } from "./tools/objectKeys";
 
 /** 
+ * https://github.com/garronej/tss-react 
  * 
- * Implementation of JSS createStyles() based on @emotion/react
- * 
- * const { useClassNames } = createUseClassNames<Props & { color: "red" | "blue" }>()({
- *    (theme, { color })=> ({
- *        "root": { color }
- *    })
- * });
- * 
- * 
- * function MyComponent(props: Props){
- * 
- *     const [ color, setColor ]= useState<"red" | "blue">("red");
- * 
- *     const { classNames }=useClassNames({...props, color });
- * 
- *     return <span className={classNames.root}>hello world</span>;
- * 
- * }
- * 
- */
+ * */
 export function createUseClassNamesFactory<Theme extends Object = {}>(
     params: {
         useTheme(): Theme;
+        /** The css function as in: import { css } from "@emotion/css" */
+        css(cssObject: CSSObject): string
     }
 ) {
 
-    const { useTheme } = params;
+    const { useTheme, css } = params;
 
     function createUseClassNames<Params extends Record<string, unknown>>() {
 

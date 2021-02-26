@@ -1,8 +1,10 @@
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/6702424/80216211-00ef5280-863e-11ea-81de-59f3a3d4b8e4.png">  
+    <img src="
+    https://user-images.githubusercontent.com/6702424/109330891-79293480-785c-11eb-9fc7-2567f460bf72.png
+    ">  
 </p>
 <p align="center">
-    <i>💅 Like JSS but for TypeScript. Powered by emotion 💅 </i>
+    <i>Like JSS but for TypeScript. Powered by emotion 💅 </i>
     <br>
     <br>
     <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=develop">
@@ -11,12 +13,21 @@
     <img src="https://img.shields.io/npm/l/tss-react">
 </p>
 
+
+`'tss-react'` is intended to be a replacement for `'react-jss'`.  
+It's API is focused on providing maximum type safety and minimum verbosity.  
+This module is nothing but a tinny extension for [`@emotion/css`](https://emotion.sh/docs/@emotion/css).
+
+- ✅  As fast as `emotion`
+- ✅  As lightweight as `emotion/css`.
+- ✅  Well integrated with [material-ui](https://material-ui.com). Perfect for those who don't like [the switch to Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
+
+
 ```bash
 $ yarn add tss-react
 #OR
 $ npm install --save tss-react
 ```
-
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
@@ -68,6 +79,7 @@ function useTheme(){
     return theme;
 }
 
+// material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles"
 export const { createUseClassNames } = createUseClassNamesFactory({ useTheme });
 ```
 
@@ -157,18 +169,27 @@ Besides, `JSS`, at least the version bundled into `material-ui`, have other prob
 - One major bug: [see issue](https://github.com/mui-org/material-ui/issues/24513#issue-790027173)
 - `JSS` has poor performances compared to `emotion` [source](https://github.com/mui-org/material-ui/issues/22342#issue-684407575)
 
-
-# Why not Styled component ?
+# Why this instead of Styled component ?
 
 See [this issue](https://github.com/mui-org/material-ui/issues/22342#issuecomment-764495033)
 
+# Avoid bundling in another copy of `@emotion/css`
+
+Internally this module makes use of the `css` function from `@emotion/css`. 
+If you already have `@emotion/css` as dependency and want to make sure not 
+to bundle `@emotion/css` twice you can provide your own copy of `css()`:
+
+`./useClassNames.ts`
+```typescript
+import { createUseClassNamesFactory } from "tss-react/createUseClassNamesFactory";
+import { css } from "@emotion/css";
+
+...
+
+export const { createUseClassNames } = createUseClassNamesFactory({ useTheme, css });
+```
 
 # API Reference
 
-This module exports: 
-
 - `createUseClassNamesFactory()`
-- `css`: Reexport of [`import { css } from "@emotion/css"`](https://emotion.sh/docs/@emotion/css#css)
-- `keyframes`:Reexport of [`import { keyframes } from "@emotion/css"`](https://emotion.sh/docs/@emotion/css#animation-keyframes)
-- `cx`: Reexport of [`import { cx } from "@emotion/css"`](https://emotion.sh/docs/@emotion/css#cx)
-- `injectGlobal`: Reexport of [`import { injectGlobal } from "@emotion/injectGlobal"`](https://emotion.sh/docs/@emotion/css#injectGlobal)
+- Reexport everything all [`@emotion/css`](https://emotion.sh/docs/@emotion/css)

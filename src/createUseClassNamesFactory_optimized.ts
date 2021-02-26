@@ -1,4 +1,4 @@
-import "minimal-polyfills/Object.fromEntries";
+import "./tools/Object.fromEntries";
 import { assert } from "evt/tools/typeSafety/assert";
 import { typeGuard } from "evt/tools/typeSafety/typeGuard";
 import { getRefFromDepsFactory } from "./tools/getRefFromDeps";
@@ -6,7 +6,7 @@ import { areSameSet } from "./tools/areSameSet";
 import { Polyfill as WeakMap } from "minimal-polyfills/WeakMap";
 import { css } from "@emotion/css";
 import type { CSSObject } from "@emotion/css";
-import { objectKeys } from "evt/tools/typeSafety/objectKeys";
+import { objectKeys } from "./tools/objectKeys";
 
 /** 
  * !EXPERIMENTAL!
