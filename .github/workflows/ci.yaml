@@ -17,22 +17,28 @@ jobs:
         os: [ windows-latest, ubuntu-latest ]
     name: Test with Node v${{ matrix.node }} on ${{ matrix.os }}
     steps:
+    - name: Tell if project is using npm or yarn
+      id: step1
+      uses: garronej/github_actions_toolkit@v1.10
+      with: 
+        action_name: get_package_json_version
+        owner: ${{github.repository_owner}}
+        repo: ${{github.event.repository.name}}
+        branch: ${{github.ref}}
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
-    - run: |
-        PACKAGE_MANAGER=npm
-
-        if [ -f "./yarn.lock" ]; then
-            yarn install --frozen-lockfile                                                                                                                                                                                        
-            PACKAGE_MANAGER=yarn
-        else
-            npm ci
-        fi
-
-        $PACKAGE_MANAGER run build
-        $PACKAGE_MANAGER test
+    - if: step1.npm_or_yarn == 'yarn'
+      run: |
+        yarn install --frozen-lockfile                                                                                                                                                                                        
+        yarn run build
+        yarn run test
+    - if: step1.npm_or_yarn == 'npm'
+      run: |
+        npm ci                                                                                                                                                                                        
+        npm run build
+        npm run test
 
   trigger_publish:
     name: Trigger publish.yaml workflow if package.json version updated ( and secrets.PAT is set ).
