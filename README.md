@@ -30,12 +30,6 @@ $ npm install --save tss-react
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
 </p>
-<p align="center">
-    <i>Try it now:</i><br>
-    <a href='https://stackblitz.com/edit/tss-react?file=Hello.tsx'>
-        <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
-    </a>
-</p>
 
 # Usage
 
@@ -60,7 +54,11 @@ function MyComponent(props: Props){
 
     const { classNames }=useClassNames({...props, color });
 
-    return <span className={classNames.root}>hello world</span>;
+    return (
+        <span className={classNames.root}>
+            hello world
+        </span>
+    );
 
 }
 ```
@@ -69,17 +67,22 @@ function MyComponent(props: Props){
 ```typescript
 import { createUseClassNamesFactory } from "tss-react";
 
-const theme = {
-    "primaryColor": "blue";
-};
-
 function useTheme(){
-    return theme;
+    return {
+        "primaryColor": "blue";
+    };
 }
 
 // material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles"
 export const { createUseClassNames } = createUseClassNamesFactory({ useTheme });
 ```
+
+<p align="center">
+    <i>Try it now:</i><br>
+    <a href='https://stackblitz.com/edit/tss-react?file=Hello.tsx'>
+        <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
+    </a>
+</p>
 
 # Why this instead of JSS? 
 
@@ -190,4 +193,4 @@ export const { createUseClassNames } = createUseClassNamesFactory({ useTheme, c
 # API Reference
 
 - `createUseClassNamesFactory()`
-- Reexport everything all [`@emotion/css`](https://emotion.sh/docs/@emotion/css)
+- Direct re-export of [`@emotion/css`](https://emotion.sh/docs/@emotion/css)
