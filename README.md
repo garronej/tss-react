@@ -16,9 +16,9 @@
 It's API is focused on providing maximum type safety and minimum verbosity.  
 This module is nothing but a tinny extension for [`@emotion/css`](https://emotion.sh/docs/@emotion/css).
 
-- ✅  As fast as `emotion`
+- ✅  As fast as `emotion` (which is [mutch fater](https://github.com/mui-org/material-ui/issues/22342#issue-684407575) than JSS)
 - ✅  As lightweight as `emotion/css`.
-- ✅  Well integrated with [material-ui](https://material-ui.com). Perfect for those who don't like [the switch to Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
+- ✅  Seamless integration with [material-ui](https://material-ui.com). Perfect for those who don't like [the switch to Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
 
 
 ```bash
@@ -31,7 +31,7 @@ $ npm install --save tss-react
     <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
 </p>
 
-# Usage
+# Quick start
 
 `./MyComponent.tsx`
 ```typescript
@@ -84,12 +84,11 @@ export const { createUseClassNames } = createUseClassNamesFactory({ useTheme })
     </a>
 </p>
 
-# Why this instead of JSS? 
+# Why this instead of `react-jss` or [the hook API](https://material-ui.com/styles/basics/#hook-api) of Material UI v4's styling solution? 
 
-Consider this example use of JSS:
+Let's see what's wrong with `react-jss`:
 
 ```tsx
-//JSS in bundled in @material-ui
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 type Props = {
@@ -125,7 +124,7 @@ function MyComponent(props: Props){
 Many pain points:
 - Because TypeScript doesn't support [partial argument inference](https://github.com/microsoft/TypeScript/issues/26242),
   we have to explicitly enumerate the classes name as an union type `"root" | "label"`.
-- We shouldn't have to import `createStyles` to get correct typings.
+- We shouldn't have to import [`createStyles`](https://material-ui.com/styles/api/#createstyles-styles-styles) to get correct typings.
 - Inconsistent naming conventions `makeStyles -> useStyles -> classes`
 
 Let's now compare with `tss-react`
