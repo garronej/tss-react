@@ -6,7 +6,6 @@ import { objectKeys } from "./tools/objectKeys";
 
 /** 
  * https://github.com/garronej/tss-react 
- * 
  * */
 export function createUseClassNamesFactory<Theme extends Object = {}>(
     params: {

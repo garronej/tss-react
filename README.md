@@ -77,6 +77,21 @@ function useTheme(){
 export const { createUseClassNames } = createUseClassNamesFactory({ useTheme });
 ```
 
+**Material-UI users only**, don't forget to enable [injectFirst](https://material-ui.com/styles/advanced/#injectfirst)
+
+```tsx
+import reactDom from "react-dom";
+import { StylesProvider } from "@material-ui/core/styles";
+
+reactDom.render(
+    <StylesProvider injectFirst>
+        <Root/>,
+    </StylesProvider>,
+    document.getElementById("root")
+);
+
+```
+
 <p align="center">
     <i>Try it now:</i><br>
     <a href='https://stackblitz.com/edit/tss-react?file=Hello.tsx'>
@@ -84,7 +99,7 @@ export const { createUseClassNames } = createUseClassNamesFactory({ useTheme })
     </a>
 </p>
 
-# Why this instead of `react-jss` or [the hook API](https://material-ui.com/styles/basics/#hook-api) of Material UI v4's styling solution? 
+# Why this instead of [`react-jss`](https://cssinjs.org/react-jss/?v=v10.5.1) or [the hook API](https://material-ui.com/styles/basics/#hook-api) of Material UI v4's styling solution? 
 
 Let's see what's wrong with `react-jss`:
 
@@ -173,7 +188,7 @@ Besides, `JSS`, at least the version bundled into `material-ui`, have other prob
 
 See [this issue](https://github.com/mui-org/material-ui/issues/22342#issuecomment-764495033)
 
-# Avoid bundling in another copy of `@emotion/css`
+# How to avoid bundling in another copy of `@emotion/css`
 
 Internally this module makes use of the `css` function from `@emotion/css`. 
 If you already have `@emotion/css` as dependency and want to make sure not 
@@ -189,7 +204,77 @@ import { css } from "@emotion/css";
 export const { createUseClassNames } = createUseClassNamesFactory({ useTheme, css });
 ```
 
-# API Reference
+# API References
 
 - `createUseClassNamesFactory()`
 - Direct re-export of [`@emotion/css`](https://emotion.sh/docs/@emotion/css)
+
+The three function that you should end up using the most are `css` any `cx`, reexported from `@emotion/css`, and 
+`createUseClassNamesFactory`, the only function that this module actually implement. 
+
+Consider this example to understand how `css`, `cx` and `useClassNames` are supposed to be
+used together:
+
+`MyButton.tsx`
+```tsx
+import { createUseClassNames } from "./useClassNames";
+import { cx, css } from "tss-react";
+
+export type Props ={
+    text: string;
+    onClick(): void;
+    isDangerous: boolean;
+    className?: string;
+};
+
+const { useClassesNames } = createUseClassNames<Props>()(
+    (theme, { color })=>({
+        "root": {
+            "backgroundColor": isDangerous ? "red" : "grey"
+        }
+    })
+);
+
+export function MyButton(props: Props){
+
+    const { className, onClick, text } = props;
+
+    const { classesNames } = useClassesNames(props);
+
+    return (
+        <button 
+            //You want to apply the styles in this order 
+            //because the parent should be able ( with 
+            //the className prop) to overwrite the internal 
+            //styles ( classesNames.root )
+            className={cx(classesNames.root, className)}
+            onClick={onClick}
+        >
+            {text}
+        </button>
+    );
+
+}
+```
+
+`App.tsx`
+```tsx
+import { css } from "tss-react";
+
+function App(){
+
+    return (
+        <MyButton
+            //The css function return a className, it let you
+            //apply style directly on in the structure without
+            //having to use createUseClassNames
+            className={css({ "margin": 40 })}
+
+            text="click me!"
+            isDangerous={false}
+            onClick={()=> console.log("click!")}
+        />
+    );
+
+}
+```
