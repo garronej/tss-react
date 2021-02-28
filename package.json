@@ -1,6 +1,6 @@
 {
     "name": "tss-react",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Like JSS but for TypeScript",
     "repository": {
         "type": "git",
