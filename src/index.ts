@@ -4,7 +4,7 @@ export type { ArrayCSSInterpolation, CSSObject, CSSInterpolation, CSSStyleSheet,
 export  { cache, flush, getRegisteredStyles, hydrate, injectGlobal, keyframes, merge, sheet } from "@emotion/css";
 import { cx as cx_ } from "@emotion/css";
 
-export interface ArrayClassNamesArg extends Array<ClassNamesArg> {}
+export interface ArrayClassNamesArg extends ReadonlyArray<ClassNamesArg> {}
 
 export type ClassNamesArg =
   | undefined
