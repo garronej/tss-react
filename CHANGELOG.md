@@ -1,3 +1,7 @@
+### **0.0.10** (2021-03-05)  
+  
+- Fix the type definition of cx    
+  
 ### **0.0.9** (2021-02-28)  
   
 - update readme  
