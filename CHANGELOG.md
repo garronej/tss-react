@@ -1,3 +1,7 @@
+### **0.0.12** (2021-03-20)  
+  
+- Default params is no properties    
+  
 ### **0.0.10** (2021-03-05)  
   
 - Fix the type definition of cx    
