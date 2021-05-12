@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/6702424/109334865-8f85bf00-7861-11eb-90ab-da36f9afe1b6.png">  
 </p>
 <p align="center">
-    <i>✨ Like JSS but for TypeScript. Powered by emotion ✨</i>
+    <i>✨ Like JSS but with better typing. Powered by emotion ✨</i>
     <br>
     <br>
     <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=develop">
