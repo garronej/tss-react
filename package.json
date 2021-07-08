@@ -9,23 +9,27 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "test": "true",
         "build": "tsc",
-        "enable_short_import_path": "npm run build && denoify_enable_short_npm_import_path"
+        "link": "node dist/bin/link",
+        "start_spa": "yarn run link && cd src/test/spa && yarn && yarn start",
+        "start_ssr": "yarn run link && cd src/test/ssr && yarn && yarn start"
     },
     "author": "u/garronej",
     "license": "MIT",
     "files": [
         "src/",
         "!src/test/",
+        "!src/bin/",
         "dist/",
         "!dist/test/",
+        "!dist/bin/",
         "!dist/tsconfig.tsbuildinfo"
     ],
     "keywords": [],
     "homepage": "https://github.com/garronej/tss-react",
     "dependencies": {
-        "@emotion/css": "^11.1.3"
+        "@emotion/css": "^11.1.3",
+        "@emotion/react": "^11.4.0"
     },
     "devDependencies": {
         "@types/memoizee": "^0.4.5",
@@ -36,6 +40,6 @@
         "minimal-polyfills": "^2.1.6",
         "lint-staged": "^10.5.4",
         "memoizee": "^0.4.15",
-        "typescript": "^4.1.5"
+        "typescript": "^4.3.5"
     }
 }

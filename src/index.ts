@@ -32,5 +32,3 @@ export function createUseClassNamesFactory<Theme extends Object = {}>(
     return createUseClassNamesFactoryNeedsCssFn({ useTheme, css });
 
 }
-
-

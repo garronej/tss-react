@@ -278,3 +278,19 @@ function App(){
 
 }
 ```
+# Development
+
+```bash
+yarn
+yarn build 
+#For automatically recompiling when file change
+#npx tsc -w
+
+# To start the Single Page Application test app (create react app)
+yarn start_spa
+
+# To start the Server Side Rendering app (next.js)
+yarn start_ssr
+```
+
+In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)

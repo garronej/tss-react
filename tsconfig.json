@@ -16,5 +16,6 @@
         "jsx": "react-jsx",
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["src/test/spa", "src/test/ssr"]
 }
