@@ -300,3 +300,4 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 - [ ] Server side rendering compat ( e.g. Next.js project)
 - [ ] Relying on `@emotion/react` istead of `@emotion/css` for better `@material-ui` v5 integration.
 - [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
+- [ ] API improvements: [#4](https://github.com/garronej/tss-react/issues/4), ...maybe more
