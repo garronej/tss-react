@@ -294,3 +294,9 @@ yarn start_ssr
 ```
 
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
+
+# Roadmap to v1
+
+- [ ] Server side rendering compat ( e.g. Next.js project)
+- [ ] Relying on `@emotion/react` istead of `@emotion/css` for better `@material-ui` v5 integration.
+- [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
