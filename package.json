@@ -35,7 +35,6 @@
         "@types/memoizee": "^0.4.5",
         "@types/node": "^10.0.0",
         "@types/react": "^17.0.2",
-        "denoify": "^0.6.4",
         "evt": "^1.9.12",
         "minimal-polyfills": "^2.1.6",
         "lint-staged": "^10.5.4",
