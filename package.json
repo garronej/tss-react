@@ -11,9 +11,9 @@
     "scripts": {
         "build": "tsc",
         "link_tss_in_test_projects": "node dist/bin/link_tss_in_test_projects",
-        "start_spa": "yarn link_tss_in_test_projects && cd src/test/spa && yarn start",
-        "copy_shared": "cd src/test && cp -r spa/src/shared ssr/pages",
-        "start_ssr": "yarn link_tss_in_test_projects && yarn copy_shared && cd src/test/ssr && yarn dev",
+        "start_spa": "yarn link_tss_in_test_projects && yarn copy_shared && cd src/test/spa && yarn start",
+        "copy_shared": "cd src/test && cp -r ssr/src/shared spa/pages",
+        "start_ssr": "yarn link_tss_in_test_projects && cd src/test/ssr && yarn dev",
         "postinstall": "yarn build"
     },
     "author": "u/garronej",
@@ -31,7 +31,8 @@
     "homepage": "https://github.com/garronej/tss-react",
     "dependencies": {
         "@emotion/css": "^11.1.3",
-        "@emotion/react": "^11.4.0"
+        "@emotion/react": "^11.4.0",
+        "@emotion/styled": "^11.3.0"
     },
     "devDependencies": {
         "@types/memoizee": "^0.4.5",
@@ -41,8 +42,8 @@
         "lint-staged": "^10.5.4",
         "memoizee": "^0.4.15",
         "minimal-polyfills": "^2.1.6",
+        "react": "^17.0.2",
         "tsafe": "^0.4.1",
-        "typescript": "^4.3.5",
-        "react": "^17.0.2"
+        "typescript": "^4.3.5"
     }
 }

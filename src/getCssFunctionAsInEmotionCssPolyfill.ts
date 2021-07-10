@@ -14,6 +14,8 @@ export function getCssFunctionAsInEmotionCssPolyfill(
 
 	const { cssFunctionFromEmotionReact, insertStyles, createCache } = params;
 
+	console.log("run createCache");
+
 	const cache = createCache({ "key": "prefix", "prepend": true });
 	cache.compat = true;
 

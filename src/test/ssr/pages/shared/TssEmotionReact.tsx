@@ -28,13 +28,13 @@ const { useClassNames }= createUseClassNames()(
 	})
 );
 
-export function EmotionReact() {
+export function TssEmotionReact() {
 
 	const { classNames } = useClassNames({});
 
 	return (
 		<BaseComponent
-			testDescription="Test using @emotion/react"
+			testDescription="Test tss-react using @emotion/react"
 			classNameThatSetsBackgroundColorToLimeGreen={classNames.root}
 		/>
 	);
