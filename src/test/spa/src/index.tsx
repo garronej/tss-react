@@ -1,11 +1,7 @@
-import ReactDOM from 'react-dom';
-import { EmotionReact } from "./EmotionReact";
-import { EmotionCss } from "./EmotionCss";
+import { render } from "react-dom";
+import { App } from "./shared/App";
 
-ReactDOM.render(
-  <>
-    <EmotionCss />
-    <EmotionReact />
-  </>,
-  document.getElementById('root')
+render(
+  <App />,
+  document.getElementById("root")
 );

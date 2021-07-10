@@ -1,6 +1,6 @@
 import "./tools/Object.fromEntries";
-import { assert } from "evt/tools/typeSafety/assert";
-import { typeGuard } from "evt/tools/typeSafety/typeGuard";
+import { assert } from "tsafe/assert";
+import { typeGuard } from "tsafe/typeGuard";
 import { getRefFromDepsFactory } from "./tools/getRefFromDeps";
 import { areSameSet } from "./tools/areSameSet";
 import { Polyfill as WeakMap } from "minimal-polyfills/WeakMap";
@@ -63,7 +63,7 @@ export function createUseClassNamesFactory<Theme extends Object = {}>(
 
                                 assert(
                                     typeof prop === "string" &&
-                                    typeGuard<Key>(prop)
+                                    typeGuard<Key>(prop, true)
                                 );
 
                                 accessedParamsKeys.add(prop);
