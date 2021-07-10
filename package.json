@@ -13,7 +13,8 @@
         "link_tss_in_test_projects": "node dist/bin/link_tss_in_test_projects",
         "start_spa": "yarn link_tss_in_test_projects && cd src/test/spa && yarn start",
         "copy_shared": "cd src/test && cp -r spa/src/shared ssr/pages",
-        "start_ssr": "yarn link_tss_in_test_projects && yarn copy_shared && cd src/test/ssr && yarn dev"
+        "start_ssr": "yarn link_tss_in_test_projects && yarn copy_shared && cd src/test/ssr && yarn dev",
+        "postinstall": "yarn build"
     },
     "author": "u/garronej",
     "license": "MIT",
