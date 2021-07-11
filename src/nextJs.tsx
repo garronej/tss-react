@@ -1,6 +1,6 @@
 
 
-import Document from "next/document";
+import NextDocument from "next/document";
 import type { DocumentContext } from "next/document";
 
 import createEmotionServer from "@emotion/server/create-instance";
@@ -35,7 +35,7 @@ export async function getInitialProps(ctx: DocumentContext) {
 
 	const page = await ctx.renderPage();
 
-	const initialProps = await Document.getInitialProps(ctx);
+	const initialProps = await NextDocument.getInitialProps(ctx);
 
 	return {
 		...initialProps,
@@ -48,7 +48,7 @@ export async function getInitialProps(ctx: DocumentContext) {
 
 }
 
-export class AppDocument extends Document {
+export class Document extends NextDocument {
 
 	static async getInitialProps(ctx: DocumentContext) {
 		return getInitialProps(ctx);

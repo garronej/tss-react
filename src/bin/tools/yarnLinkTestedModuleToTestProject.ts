@@ -19,12 +19,12 @@ export function yarnLinkTestedModuleToTestProject(
 	} = params;
 
 
-	const testedModuleName =
-		JSON.parse(
-			fs.readFileSync(
-				pathJoin(testedModuleProjectDirPath, "package.json")
-			).toString("utf8")
-		)["name"];
+
+	const parsedPackageJson = JSON.parse(
+		fs.readFileSync(pathJoin(testedModuleProjectDirPath, "package.json")).toString("utf8")
+	);
+
+	const testedModuleName = parsedPackageJson["name"];
 
 	const moduleNames = (() => {
 
@@ -86,27 +86,52 @@ export function yarnLinkTestedModuleToTestProject(
 
 	});
 
-	console.log("Following warning can be safely ignored:");
-
-	child_process.execSync(
-		`yarn link`,
-		{ "cwd": testedModuleProjectDirPath, env }
+	fs.writeFileSync(
+		pathJoin(testedModuleProjectDirPath, "dist", "package.json"),
+		Buffer.from(
+			JSON.stringify({
+				...parsedPackageJson,
+				"main": parsedPackageJson["main"].replace(/^dist\//, ""),
+				"types": parsedPackageJson["types"].replace(/^dist\//, ""),
+			}, null, 2),
+			"utf8"
+		)
 	);
 
 	testProjectsDirPath.forEach(testProjectDirPath => {
 
-		console.log(`Installing ${testProjectDirPath}`);
+		console.log(`Installing ${testProjectDirPath} dependencies`);
 
 		child_process.execSync(
 			"yarn install",
 			{ "cwd": testProjectDirPath, env }
 		);
 
+		console.log("Linking dependencies");
+
 		child_process.execSync(
 			`yarn link ${testedModuleName} ${moduleNames.join(" ")}`,
 			{ "cwd": testProjectDirPath, env }
 		);
 
+		{
+
+			const path = pathJoin(testProjectDirPath, "node_modules", testedModuleName);
+
+			child_process.execSync(`rm -rf ${path}`);
+
+			child_process.execSync(
+				[
+					`ln -s`,
+					pathJoin(testedModuleProjectDirPath, "dist"),
+					path
+				].join(" ")
+			);
+
+		}
+
 	});
+
+	console.log("DONE");
 
 }

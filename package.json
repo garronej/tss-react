@@ -14,7 +14,7 @@
         "copy_shared": "cd src/test && cp -r ssr/src/shared spa/pages",
         "start_spa": "yarn link_test_projects_dependencies && yarn copy_shared && cd src/test/spa && yarn start",
         "start_ssr": "yarn link_test_projects_dependencies && cd src/test/ssr && yarn dev",
-        "postinstall": "yarn build"
+        "prepare": "yarn build"
     },
     "author": "u/garronej",
     "license": "MIT",
@@ -25,6 +25,7 @@
         "dist/",
         "!dist/test/",
         "!dist/bin/",
+        "!dist/package.json",
         "!dist/tsconfig.tsbuildinfo"
     ],
     "keywords": [
