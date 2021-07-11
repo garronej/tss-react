@@ -85,6 +85,8 @@ const { createUseCssAndCx } = (() => {
 
     const isWrappedIntoCacheProviderContext = createContext(false);
 
+    const isBrowser = typeof document !== "undefined";
+
     function createUseCssAndCx(
         params: {
             CacheProvider: typeof emotionReact.CacheProvider;
@@ -161,8 +163,11 @@ const { createUseCssAndCx } = (() => {
 
             const isWrappedIntoCacheProvider = useContext(isWrappedIntoCacheProviderContext);
 
-            if (!isWrappedIntoCacheProvider) {
-                throw new Error("");
+            if (!isBrowser && !isWrappedIntoCacheProvider) {
+                throw new Error([
+                    "For SSR to work your components must",
+                    `be wrapped within <${TssProviderForSsr.name}/>`
+                ].join(" "));
             }
 
             return { css, cx };
