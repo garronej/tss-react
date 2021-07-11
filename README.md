@@ -301,3 +301,57 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 - [ ] Relying on `@emotion/react` istead of `@emotion/css` for better `@material-ui` v5 integration.
 - [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
 - [ ] API improvements: [#4](https://github.com/garronej/tss-react/issues/4), ...maybe more
+
+
+# Other backend framework
+
+```tsx
+import { renderToString } from 'react-dom/server'
+import createEmotionServer from '@emotion/server/create-instance'
+
+import { cache } from "tss-react/cache";
+import { createMakeStyle } from "tss-react";
+
+const { 
+	extractCriticalToChunks, 
+	constructStyleTagsFromChunks 
+} = createEmotionServer(cache);
+
+function useTheme(){
+	return {
+		"limeGreen": "#32CD32"
+	}
+}
+
+const { TssProviderForSsr, makeStyles, useCssAndCx } = createMakeStyle({ useTheme });
+
+export  { makeStyles, useCssAndCx };
+
+
+const element = (
+	<TssProviderForSsr>
+    	<App />
+	</TssProviderForSsr>
+)
+
+const { html, styles } = extractCriticalToChunks(renderToString(element))
+
+res
+  .status(200)
+  .header('Content-Type', 'text/html')
+  .send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My site</title>
+    ${constructStyleTagsFromChunks({ html, styles })}
+</head>
+<body>
+    <div id="root">${html}</div>
+
+    <script src="./bundle.js"></script>
+</body>
+</html>`);
+```
