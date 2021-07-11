@@ -46,7 +46,9 @@ export function createMakeStyle<Theme>(
     function makeStyles<Params = void>() {
 
         return function <Key extends string>(
-            getCssObjects: (theme: Theme, params: Params) => Record<Key, CSSObject>
+            getCssObjects: 
+                ((theme: Theme, params: Params) => Record<Key, CSSObject>) | 
+                Record<Key, CSSObject>
         ) {
 
             function useStyles(params: Params) {
@@ -54,7 +56,9 @@ export function createMakeStyle<Theme>(
                 const theme = useTheme();
                 const { css, cx } = useCssAndCx();
 
-                const cssObjects = getCssObjects(theme, params);
+                const cssObjects = typeof getCssObjects === "function" ?  
+                    getCssObjects(theme, params) : 
+                    getCssObjects;
 
                 const classes = Object.fromEntries(
                     objectKeys(cssObjects)
