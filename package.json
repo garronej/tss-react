@@ -10,10 +10,10 @@
     "types": "dist/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "link_tss_in_test_projects": "node dist/bin/link_tss_in_test_projects",
-        "start_spa": "yarn link_tss_in_test_projects && yarn copy_shared && cd src/test/spa && yarn start",
+        "link_test_projects_dependencies": "node dist/bin/link_test_projects_dependencies",
         "copy_shared": "cd src/test && cp -r ssr/src/shared spa/pages",
-        "start_ssr": "yarn link_tss_in_test_projects && cd src/test/ssr && yarn dev",
+        "start_spa": "yarn link_test_projects_dependencies && yarn copy_shared && cd src/test/spa && yarn start",
+        "start_ssr": "yarn link_test_projects_dependencies && cd src/test/ssr && yarn dev",
         "postinstall": "yarn build"
     },
     "author": "u/garronej",
@@ -39,13 +39,10 @@
     },
     "devDependencies": {
         "next": "^11.0.1",
-        "@types/memoizee": "^0.4.5",
         "@types/node": "^10.0.0",
         "@types/react": "^17.0.2",
         "@types/react-dom": "^17.0.2",
         "evt": "beta",
-        "lint-staged": "^10.5.4",
-        "memoizee": "^0.4.15",
         "minimal-polyfills": "^2.1.6",
         "react": "^17.0.2",
         "tsafe": "^0.4.1",

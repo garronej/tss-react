@@ -5,68 +5,55 @@ import * as child_process from "child_process";
 import { join as pathJoin } from "path";
 import * as fs from "fs";
 import { arrPartition } from "evt/tools/reducers/partition";
-import { removeDuplicates } from "evt/tools/reducers/removeDuplicates";
-
 
 export function yarnLinkTestedModuleToTestProject(
 	params: {
 		testedModuleProjectDirPath: string;
 		testProjectsDirPath: string[];
-		dependenciesToIgnore?: string[];
 	}
 ) {
 
-	const { 
-		testedModuleProjectDirPath, 
-		testProjectsDirPath, 
-		dependenciesToIgnore=[] 
+	const {
+		testedModuleProjectDirPath,
+		testProjectsDirPath,
 	} = params;
 
 
+	const testedModuleName =
+		JSON.parse(
+			fs.readFileSync(
+				pathJoin(testedModuleProjectDirPath, "package.json")
+			).toString("utf8")
+		)["name"];
 
+	const moduleNames = (() => {
 
-	const { moduleNames, packageName } = (() => {
+		const [namespaceModuleNames, standaloneModuleNames] = arrPartition(
+			fs.readdirSync(pathJoin(testedModuleProjectDirPath, "node_modules"))
+				.filter(entry => entry !== ".bin"),
+			moduleName => moduleName.startsWith("@")
+		);
 
-		const parsedPackageJson =
-			JSON.parse(
-				fs.readFileSync(
-					pathJoin(testedModuleProjectDirPath, "package.json")
-				).toString("utf8")
-			);
-
-		const moduleNames = (() => {
-
-			const [moduleNamesStartingWithAt, otherModuleNames] = arrPartition(
-				["devDependencies", "dependencies"]
-					.map(property => Object.keys(parsedPackageJson[property] ?? {}))
-					.reduce((prev, curr) => [...prev, ...curr], [])
-					.filter(moduleName => ![dependenciesToIgnore, "typescript", "lint-staged"].includes(moduleName)),
-				moduleName => moduleName.startsWith("@")
-			);
-
-			return [
-				...moduleNamesStartingWithAt
-					.map(moduleName => moduleName.split("/")[0])
-					.reduce(...removeDuplicates<string>())
-					.map(atModuleName =>
-						fs.readdirSync(pathJoin(testedModuleProjectDirPath, "node_modules", atModuleName))
-							.map(submoduleName => `${atModuleName}/${submoduleName}`)
-					)
-					.reduce((prev, curr) => [...prev, ...curr], []),
-				...otherModuleNames
-			];
-
-		})();
-
-		const packageName = parsedPackageJson["name"];
-
-		return { moduleNames, packageName };
+		return [
+			...namespaceModuleNames
+				.map(namespaceModuleName =>
+					fs.readdirSync(pathJoin(testedModuleProjectDirPath, "node_modules", namespaceModuleName))
+						.map(submoduleName => `${namespaceModuleName}/${submoduleName}`)
+				)
+				.reduce((prev, curr) => [...prev, ...curr], []),
+			...standaloneModuleNames
+		];
 
 	})();
 
+	const env = {
+		...process.env,
+		"HOME": testedModuleProjectDirPath
+	};
+
 	child_process.execSync(
-		`rm -rf ${packageName} ${moduleNames.join(" ")}`,
-		{ "cwd": pathJoin(process.env["HOME"]!, ".config", "yarn", "link") }
+		`rm -rf ${testedModuleName} ${moduleNames.join(" ")}`,
+		{ "cwd": pathJoin(env["HOME"]!, ".config", "yarn", "link") }
 	);
 
 	moduleNames.forEach(
@@ -82,26 +69,27 @@ export function yarnLinkTestedModuleToTestProject(
 								moduleName.split("/") :
 								[moduleName]
 						)
-					])
+					]),
+					env
 				}
 			)
 	);
 
 	child_process.execSync(
 		`yarn link`,
-		{ "cwd": testedModuleProjectDirPath }
+		{ "cwd": testedModuleProjectDirPath, env }
 	);
 
 	testProjectsDirPath.forEach(testProjectDirPath => {
 
 		child_process.execSync(
-			"yarn", 
-			{ "cwd": testProjectDirPath }
+			"yarn install",
+			{ "cwd": testProjectDirPath, env }
 		);
 
 		child_process.execSync(
-			`yarn link ${packageName} ${moduleNames.join(" ")}`,
-			{ "cwd": testProjectDirPath }
+			`yarn link ${testedModuleName} ${moduleNames.join(" ")}`,
+			{ "cwd": testProjectDirPath, env }
 		);
 
 	});
