@@ -41,4 +41,4 @@ jspm_packages
 .DS_Store
 
 /dist
-/.config
+/.yarn_home

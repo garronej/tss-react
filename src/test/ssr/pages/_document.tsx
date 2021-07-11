@@ -1,7 +1,22 @@
 
+
+/*
 import { AppDocument } from "tss-react/dist/nextJs";
 
 export default AppDocument;
+*/
+
+import Document from "next/document";
+import type { DocumentContext } from "next/document";
+import { getInitialProps } from "tss-react/dist/nextJs";
+
+export default class AppDocument extends Document {
+
+	static async getInitialProps(ctx: DocumentContext) {
+		return getInitialProps(ctx);
+	}
+
+}
 
 /*
 import Document from "next/document";
