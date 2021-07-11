@@ -27,7 +27,12 @@
         "!dist/bin/",
         "!dist/tsconfig.tsbuildinfo"
     ],
-    "keywords": [],
+    "keywords": [
+        "jss",
+        "hooks",
+        "react",
+        "@material-ui"
+    ],
     "homepage": "https://github.com/garronej/tss-react",
     "dependencies": {
         "@emotion/react": "^11.0.0",
