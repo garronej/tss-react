@@ -1,3 +1,7 @@
+### **0.1.1** (2021-07-12)  
+  
+- Configure eslint and prettier    
+  
 ## **0.1.0** (2021-07-12)  
   
 - Update CI  
