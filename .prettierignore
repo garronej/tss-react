@@ -3,3 +3,4 @@ node_modules/
 /CHANGELOG.md
 /.yarn_home/
 /src/test/
+/src/tools/types/

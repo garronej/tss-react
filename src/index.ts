@@ -1,5 +1,5 @@
 import { createMakeStyle as createMakeStyleBase } from "./createMakeStyle";
-export type { ClassNamesContent, CxArg, Css, Cx, CSSObject } from "./types";
+export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 
 import { CacheProvider } from "@emotion/react";
 import { serializeStyles } from "@emotion/serialize";

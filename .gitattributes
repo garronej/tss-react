@@ -1,2 +1,3 @@
 src/test/spa/**/* linguist-documentation
 src/test/ssr/**/* linguist-documentation
+src/tools/types/**/* linguist-documentation

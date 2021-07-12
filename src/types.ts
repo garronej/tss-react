@@ -1,7 +1,11 @@
-import type { ClassNamesContent } from "@emotion/react";
-export type { ClassNamesContent };
-export type { CSSObject } from "@emotion/react";
-export type Css = ClassNamesContent["css"];
+export type { CSSObject } from "./tools/types/CSSObject";
+import type { CSSInterpolation } from "./tools/types/CSSObject";
+export { CSSInterpolation };
+
+export interface Css {
+    (template: TemplateStringsArray, ...args: CSSInterpolation[]): string;
+    (...args: CSSInterpolation[]): string;
+}
 
 import { CxArg } from "./tools/classnames";
 export { CxArg };
