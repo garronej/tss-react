@@ -16,7 +16,8 @@
 It's API is focused on providing maximum type safety and minimum verbosity.  
 This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/@emotion/react).
 
--   ✅ As fast as `emotion` (which is [much faster](https://github.com/mui-org/material-ui/issues/22342#issue-684407575) than `makeStyles`)
+-   ✅ As fast as `emotion` (which is [much faster](https://github.com/mui-org/material-ui/issues/22342#issue-684407575)
+    than mui's `makeStyles`)
 -   ✅ As lightweight as `emotion/react`.
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5. Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
@@ -26,7 +27,7 @@ $ yarn add tss-react
 ```
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/6702424/109001373-28231000-76a5-11eb-8547-c2108a6411c9.gif">
+    <img src="https://user-images.githubusercontent.com/6702424/125219855-ec8c8980-e2c5-11eb-8011-983251248bd2.gif">
 </p>
 
 # Quick start
