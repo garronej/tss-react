@@ -41,7 +41,6 @@ $ yarn add tss-react
         -   [Or, if have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
         -   [Or, if have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
     -   [Other frameworks](#other-frameworks)
--   [Road map to v1](#road-map-to-v1)
 -   [Development](#development)
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
@@ -281,10 +280,6 @@ res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
 </html>`);
 ```
 
-# Road map to v1
-
--   [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
-
 # Development
 
 ```bash
@@ -301,6 +296,10 @@ yarn start_ssr
 ```
 
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
+
+Road map to v1:
+
+-   [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
 
 # FAQ
 
