@@ -1,6 +1,3 @@
-
-
-
 import "./tools/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import { createContext, useContext } from "react";
@@ -12,146 +9,100 @@ import type * as emotionReact from "@emotion/react";
 import type * as emotionSerialize from "@emotion/serialize";
 import type * as emotionUtils from "@emotion/utils";
 
-/*
-import createCache from "@emotion/cache";
-
-const key = 'custom'
-export const cache = createCache({ key });
-*/
-
-/** 
- * https://github.com/garronej/tss-react 
+/**
+ * https://github.com/garronej/tss-react
  * */
-export function createMakeStyle<Theme>(
-    params: {
-        useTheme(): Theme;
-        CacheProvider: typeof emotionReact.CacheProvider;
-        serializeStyles: typeof emotionSerialize.serializeStyles;
-        insertStyles: typeof emotionUtils.insertStyles;
-        getRegisteredStyles: typeof emotionUtils.getRegisteredStyles;
-        cache: emotionReact.EmotionCache;
-    }
-) {
-
-    const { useTheme, CacheProvider, serializeStyles, insertStyles, cache, getRegisteredStyles } = params;
+export function createMakeStyle<Theme>(params: {
+    useTheme(): Theme;
+    CacheProvider: typeof emotionReact.CacheProvider;
+    serializeStyles: typeof emotionSerialize.serializeStyles;
+    insertStyles: typeof emotionUtils.insertStyles;
+    getRegisteredStyles: typeof emotionUtils.getRegisteredStyles;
+    cache: emotionReact.EmotionCache;
+}) {
+    const { useTheme, CacheProvider, serializeStyles, insertStyles, cache, getRegisteredStyles } =
+        params;
 
     const { TssProviderForSsr, useCssAndCx } = createUseCssAndCx({
         CacheProvider,
         serializeStyles,
         insertStyles,
         cache,
-        getRegisteredStyles
+        getRegisteredStyles,
     });
 
     function makeStyles<Params = void>() {
-
         return function <Key extends string>(
-            getCssObjects: 
-                ((theme: Theme, params: Params) => Record<Key, CSSObject>) | 
-                Record<Key, CSSObject>
+            getCssObjects:
+                | ((theme: Theme, params: Params) => Record<Key, CSSObject>)
+                | Record<Key, CSSObject>,
         ) {
-
             function useStyles(params: Params) {
-
                 const theme = useTheme();
                 const { css, cx } = useCssAndCx();
 
-                const cssObjects = typeof getCssObjects === "function" ?  
-                    getCssObjects(theme, params) : 
-                    getCssObjects;
+                const cssObjects =
+                    typeof getCssObjects === "function" ? getCssObjects(theme, params) : getCssObjects;
 
                 const classes = Object.fromEntries(
-                    objectKeys(cssObjects)
-                        .map(key => [key, css(cssObjects[key])])
+                    objectKeys(cssObjects).map(key => [key, css(cssObjects[key])]),
                 ) as Record<Key, string>;
 
                 return {
                     classes,
                     theme,
                     css,
-                    cx
+                    cx,
                 };
-
             }
 
             //TODO: Return for composition as well.
             return { useStyles };
-
-        }
-
+        };
     }
 
     return { makeStyles, useCssAndCx, TssProviderForSsr };
-
 }
 
 const { createUseCssAndCx } = (() => {
-
     const isWrappedIntoCacheProviderContext = createContext(false);
 
     const isBrowser = typeof document !== "undefined";
 
-    function createUseCssAndCx(
-        params: {
-            CacheProvider: typeof emotionReact.CacheProvider;
-            serializeStyles: typeof emotionSerialize.serializeStyles;
-            insertStyles: typeof emotionUtils.insertStyles;
-            getRegisteredStyles: typeof emotionUtils.getRegisteredStyles;
-            cache: emotionReact.EmotionCache;
-        }
-    ) {
-
-        const {
-            CacheProvider,
-            serializeStyles,
-            insertStyles,
-            getRegisteredStyles,
-            cache
-        } = params;
+    function createUseCssAndCx(params: {
+        CacheProvider: typeof emotionReact.CacheProvider;
+        serializeStyles: typeof emotionSerialize.serializeStyles;
+        insertStyles: typeof emotionUtils.insertStyles;
+        getRegisteredStyles: typeof emotionUtils.getRegisteredStyles;
+        cache: emotionReact.EmotionCache;
+    }) {
+        const { CacheProvider, serializeStyles, insertStyles, getRegisteredStyles, cache } = params;
 
         const css: Css = (...args) => {
-            const serialized = serializeStyles(args, cache.registered)
-            insertStyles(cache, serialized, false)
+            const serialized = serializeStyles(args, cache.registered);
+            insertStyles(cache, serialized, false);
             return `${cache.key}-${serialized.name}`;
         };
 
         const { cx } = (() => {
-
-            function merge(
-                registered: emotionSerialize.RegisteredCache,
-                css: (...args: Array<any>) => string,
-                className: string
-            ) {
-
+            function merge(registered: emotionSerialize.RegisteredCache, css: Css, className: string) {
                 const registeredStyles: string[] = [];
 
-                const rawClassName = getRegisteredStyles(
-                    registered,
-                    registeredStyles,
-                    className
-                );
+                const rawClassName = getRegisteredStyles(registered, registeredStyles, className);
 
                 if (registeredStyles.length < 2) {
                     return className;
                 }
 
                 return rawClassName + css(registeredStyles);
-
             }
 
-            const cx: Cx = (...args) => merge(
-                cache.registered,
-                css,
-                classnames(args)
-            );
+            const cx: Cx = (...args) => merge(cache.registered, css, classnames(args));
 
             return { cx };
-
-
         })();
 
-        function TssProviderForSsr(props: { children: ReactNode; }) {
-
+        function TssProviderForSsr(props: { children: ReactNode }) {
             const { children } = props;
 
             return (
@@ -164,26 +115,22 @@ const { createUseCssAndCx } = (() => {
         }
 
         function useCssAndCx() {
-
             const isWrappedIntoCacheProvider = useContext(isWrappedIntoCacheProviderContext);
 
             if (!isBrowser && !isWrappedIntoCacheProvider) {
-                throw new Error([
-                    "For SSR to work your components must",
-                    `be wrapped within <${TssProviderForSsr.name}/>`
-                ].join(" "));
+                throw new Error(
+                    [
+                        "For SSR to work your components must",
+                        `be wrapped within <${TssProviderForSsr.name}/>`,
+                    ].join(" "),
+                );
             }
 
             return { css, cx };
         }
 
         return { TssProviderForSsr, useCssAndCx };
-
     }
 
     return { createUseCssAndCx };
-
-
 })();
-
-

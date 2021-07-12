@@ -5,7 +5,8 @@ import { yarnLinkTestedModuleToTestProject } from "./tools/yarnLinkTestedModuleT
 const testedModuleProjectDirPath = pathJoin(__dirname, "..", "..");
 
 yarnLinkTestedModuleToTestProject({
-	testedModuleProjectDirPath,
-	"testProjectsDirPath": ["spa", "ssr"]
-		.map(type => pathJoin(testedModuleProjectDirPath, "src", "test", type))
+    testedModuleProjectDirPath,
+    "testProjectsDirPath": ["spa", "ssr"].map(type =>
+        pathJoin(testedModuleProjectDirPath, "src", "test", type),
+    ),
 });

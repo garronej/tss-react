@@ -1,15 +1,12 @@
-
-
 //Customization level: 0
 import { Document } from "tss-react/nextJs";
 
 export default Document;
-
-//Customization level: 1
 /*
+//Customization level: 1
 import Document from "next/document";
 import type { DocumentContext } from "next/document";
-import { getInitialProps } from "tss-react/nextJs";
+import { getInitialProps } from "tss-react/nextJs";
 
 export default class AppDocument extends Document {
 
@@ -19,7 +16,6 @@ export default class AppDocument extends Document {
 
 }
 */
-
 
 //Customization level: 2
 

@@ -27,6 +27,7 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
+    needs: test-lint
     strategy:
       matrix:
         node: [ '15', '14' ]

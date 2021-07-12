@@ -1,8 +1,5 @@
-
-export function useTheme(){
-
-	return {
-		"limeGreen": "#32CD32"
-	}
-
+export function useTheme() {
+    return {
+        "limeGreen": "#32CD32",
+    };
 }

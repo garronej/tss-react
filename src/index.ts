@@ -1,4 +1,3 @@
-
 import { createMakeStyle as createMakeStyleBase } from "./createMakeStyle";
 export type { ClassNamesContent, CxArg, Css, Cx, CSSObject } from "./types";
 
@@ -8,12 +7,7 @@ import { insertStyles, getRegisteredStyles } from "@emotion/utils";
 import { cache } from "./cache";
 
 /** https://github.com/garronej/tss-react */
-export function createMakeStyle<Theme>(
-    params: {
-        useTheme(): Theme;
-    }
-) {
-
+export function createMakeStyle<Theme>(params: { useTheme(): Theme }) {
     const { useTheme } = params;
 
     return createMakeStyleBase({
@@ -22,7 +16,6 @@ export function createMakeStyle<Theme>(
         serializeStyles,
         insertStyles,
         getRegisteredStyles,
-        cache
+        cache,
     });
-
 }
