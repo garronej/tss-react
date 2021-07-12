@@ -36,11 +36,11 @@ $ yarn add tss-react
     -   [`makeStyles()`](#makestyles)
     -   [`useStyle()`](#usestyle)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
-    -   [Next.js](#nextjs)
+    -   [With Next.js](#with-nextjs)
         -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
         -   [Or, if have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
         -   [Or, if have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
-    -   [Other frameworks](#other-frameworks)
+    -   [With any other framework](#with-any-other-framework)
 -   [Development](#development)
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
@@ -182,7 +182,7 @@ be able to access them here.
 There are some minimal configuration required to make `tss-react`
 work with SSR.
 
-## [Next.js](https://nextjs.org)
+## With [Next.js](https://nextjs.org)
 
 ### If you don't have a `_document.tsx`
 
@@ -238,7 +238,7 @@ export default class AppDocument extends Document {
 }
 ```
 
-## Other frameworks
+## With any other framework
 
 ```tsx
 import { renderToString } from "react-dom/server";
