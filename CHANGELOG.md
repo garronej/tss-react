@@ -1,3 +1,8 @@
+### **0.1.5** (2021-07-12)  
+  
+- Do not test on windows to save time  
+- Reexport keyframe from @emotion/react    
+  
 ### **0.1.4** (2021-07-12)  
   
 - Do not depend on @emotion/serialize types    
