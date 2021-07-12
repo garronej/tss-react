@@ -30,34 +30,51 @@ $ yarn add tss-react
     <img src="https://user-images.githubusercontent.com/6702424/125219855-ec8c8980-e2c5-11eb-8011-983251248bd2.gif">
 </p>
 
+-   [Quick start](#quick-start)
+-   [API documentation](#api-documentation)
+    -   [Exposed APIs](#exposed-apis)
+    -   [`makeStyles()`](#makestyles)
+    -   [`useStyle()`](#usestyle)
+-   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
+    -   [Next.js](#nextjs)
+        -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
+        -   [Or, if have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
+        -   [Or, if have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
+    -   [Other frameworks.](#other-frameworks)
+-   [Road map to v1](#road-map-to-v1)
+-   [Development](#development)
+-   [FAQ](#faq)
+    -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
+    -   [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
+
 # Quick start
 
-`./styleEngine.ts`
+`./makeStyles.ts`
 
 ```typescript
 import { createMakeStyles } from "tss-react";
 
 function useTheme(){
     return {
-        "limeGreen": "#32CD32";
+        "primaryColor": "#32CD32";
     };
 }
 
 // material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles";
-export const { makeStyles, useStyleTools } = createMakeStyles({ useTheme });
+export const { makeStyles } = createMakeStyles({ useTheme });
 ```
 
 `./MyComponent.tsx`
 
 ```tsx
-import { makeStyles } from "./styleEngine";
+import { makeStyles } from "./makeStyles";
 
 const { useStyles } = makeStyles<{ color: "red" | "blue" }>()({
    (theme, { color })=> ({
        "root": {
            color,
            "&:hover": {
-               "backgroundColor": theme.limeGreen
+               "backgroundColor": theme.primaryColor
            }
         }
    })
@@ -65,12 +82,14 @@ const { useStyles } = makeStyles<{ color: "red" | "blue" }>()({
 
 function MyComponent(props: Props){
 
+    const { className } = props;
+
     const [ color, setColor ]= useState<"red" | "blue">("red");
 
-    const { classes }=useStyles({ color });
+    const { classes, cx }=useStyles({ color });
 
     return (
-        <span className={classes.root}>
+        <span className={cx(classes.root, className)}>
             hello world
         </span>
     );
@@ -101,257 +120,67 @@ render(
 
 # API documentation
 
-```tsx
-import { makeStyles, useStyleTools } from "./styleEngine";
-
-const { useStyles } = makeStyles<{ color: "red" | "blue" }>()(
-    //NOTE: This doesn't have to be a function, it can be just an object.
-    (theme, { color }) => ({
-        "fooBar": {
-            "width": 100,
-            "height": 100,
-        },
-    }),
-);
-
-export function MyComponent(props: { className?: string }) {
-    //css and cx are the functions as defined in @emotion/css: https://emotion.sh
-    //theme is the object returned by your useTheme()
-    const { classes, css, cx, theme } = useStyles({ "color": "red" });
-
-    //You can also access css, cx and theme with useStyleTools()
-    //const { css, cx, theme }= useStyleTools();
-
-    return (
-        <div
-            className={cx(
-                classes.fooBar,
-                css({ "backgroundColor": theme.limeGreen }),
-                className,
-            )}
-        />
-    );
-}
-```
+## Exposed APIs
 
 ```typescript
-
-import { createMakeStyles } from "tss-react";
-
-function useTheme(){
-    return {
-        "limeGreen": "#32CD32";
-    };
-}
-
-export const { makeStyles, useStyleTools } = createMakeStyles({ useTheme });
-
+import {
+    createMakeStyle, //<- Create an instance of makeStyle() for your theme.
+    css, //<- The function as defined in @emotion/css https://emotion.sh
+    cx, //<- The function as defined in @emotion/css
+    keyframe, //<- The function as defined in @emotion/css
+} from "tss-react";
 ```
 
-# Why this instead of [the hook API](https://material-ui.com/styles/basics/#hook-api) of Material UI v4?
+## `makeStyles()`
 
-First of all because `makeStyle` is deprecated in `@material-ui` v5 but also
-because it has some major flaws. Let's consider this example:
+Your component style may depend on the props
+and state of the components:
 
-```tsx
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-
-type Props = {
-    color: "red" | "blue";
-};
-
-const useStyles = makeStyles(
-  theme => createStyles<"root" | "label">, { color: "red" | "blue"; }>({
-    "root": {
-        "backgroundColor": theme.palette.primary.main
-    },
-    "label": ({ color })=>({
-        color
+```typescript
+const { useStyles } = makeStyles<{ color: string; }>()({
+    (_theme, { color })=> ({
+        "root": {
+            "backgroundColor": color
+        }
     })
-  })
-);
+});
 
-function MyComponent(props: Props){
+//...
 
-    const classes = useStyles(props);
-
-    return (
-        <div className={classes.root}>
-            <span className={classes.label}>
-                Hello World
-            </span>
-        </div>
-    );
-
-}
+const { classes } = useStyles({ "color": "grey" });
 ```
 
-Two pain points:
+...Or it may not:
 
--   Because TypeScript doesn't support [partial argument inference](https://github.com/microsoft/TypeScript/issues/26242),
-    we have to explicitly enumerate the classes name as an union type `"root" | "label"`.
--   We shouldn't have to import [`createStyles`](https://material-ui.com/styles/api/#createstyles-styles-styles) to get correct typings.
+```typescript
+const { useStyles } = makeStyles()({
+    //If you don't need neither the theme nor any state or
+    //props to describe your component style you can pass-in
+    //an object instead of a callback.
+    "root": {
+        "backgroundColor": "pink",
+    },
+});
 
-Let's now compare with `tss-react`
+//...
 
-```tsx
-import { makeStyles } from "./styleEngine";
-
-type Props = {
-    color: "red" | "blue";
-};
-
-const { useStyles } = makeStyles<{ color: "red" | "blue" }>()(
-    (theme, { color }) => ({
-        "root": {
-            "backgroundColor": theme.palette.primary.main,
-        },
-        "label": { color },
-    }),
-);
-
-function MyComponent(props: Props) {
-    const { classes } = useStyles(props);
-
-    return (
-        <div className={classes.root}>
-            <span className={classes.label}>Hello World</span>
-        </div>
-    );
-}
+const { classes } = useStyles();
 ```
 
-Benefits:
+## `useStyle()`
 
--   Less verbose, same type safety.
--   You don't need to remember how things are supposed to be named, just let intellisense guide you.
+Beside the `classes`, `useStyles` also returns `cx`, `css` and your `theme`.
 
-Besides, the hook api of `material-ui`, have other problems:
-
--   One major bug: [see issue](https://github.com/mui-org/material-ui/issues/24513#issue-790027173)
--   `JSS` has poor performances compared to `emotion` [source](https://github.com/mui-org/material-ui/issues/22342#issue-684407575)
-
-# Why this instead of Styled component ?
-
-See [this issue](https://github.com/mui-org/material-ui/issues/22342#issuecomment-764495033)
-
-# Canonical usage example
-
-Consider this example to understand how `css`, `cx` and `makeStyles` are supposed to be
-used together:
-
-`MyButton.tsx`
-
-```tsx
-import { makeStyles } from "./styleEngine";
-
-export type Props = {
-    text: string;
-    onClick(): void;
-    isDangerous: boolean;
-    className?: string;
-};
-
-const { useStyles } = makeStyles<Pick<Props, "isDangerous">>()(
-    (theme, { isDangerous }) => ({
-        "root": {
-            "backgroundColor": isDangerous ? "red" : "grey",
-        },
-    }),
-);
-
-export function MyButton(props: Props) {
-    const { className, onClick, text } = props;
-
-    const { classes, cx } = useStyles(props);
-
-    return (
-        <button
-            //You want to apply the styles in this order
-            //because the parent should be able ( with
-            //the className prop) to overwrite the internal
-            //styles ( classesNames.root )
-            className={cx(classes.root, className)}
-            onClick={onClick}
-        >
-            {text}
-        </button>
-    );
-}
+```typescript
+const { classes, cx, css, theme } = useStyles(/*...*/);
 ```
 
-`App.tsx`
-
-```tsx
-import { useStyleTools } from "./styleEngine";
-
-function App() {
-    const { css } = useStyleTools();
-
-    return (
-        <MyButton
-            //The css function return a className, it let you
-            //apply style directly on in the structure without
-            //having to use createUseClassNames
-            className={css({ "margin": 40 })}
-            text="click me!"
-            isDangerous={false}
-            onClick={() => console.log("click!")}
-        />
-    );
-}
-```
-
-# Development
-
-```bash
-yarn
-yarn build
-#For automatically recompiling when file change
-#npx tsc -w
-
-# To start the Single Page Application test app (create react app)
-yarn start_spa
-
-# To start the Server Side Rendering app (next.js)
-yarn start_ssr
-```
-
-In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
+`cx` and `css` cans be imported directly from `tss-react` but it's convenient to
+be able to access them here.
 
 # Server Side Rendering (SSR)
 
-For SSR to work a provider must be used:
-
-`shared/styleEngine.ts`
-
-```tsx
-import { createMakeStyles } from "tss-react";
-import { useTheme } from "@material-ui/core/styles";
-
-export const {
-    makeStyles,
-    useStyleTools,
-    TssProviderForSsr, //<- This is what's new
-} = createMakesStyles({ theme });
-```
-
-`pages/index.tsx`
-
-```tsx
-import { createMakeStyle } from "tss-react";
-import { TssProviderForSsr } from "../shared/styleEngine";
-
-export default function Home() {
-    return (
-        <TssProviderForSsr>
-            <App />
-        </TssProviderForSsr>
-    );
-}
-```
-
-## Backend configuration with [Next.js](https://nextjs.org)
+## [Next.js](https://nextjs.org)
 
 ### If you don't have a `_document.tsx`
 
@@ -407,7 +236,7 @@ export default class AppDocument extends Document {
 }
 ```
 
-## Backend configuration general case.
+## Other frameworks.
 
 ```tsx
 import { renderToString } from "react-dom/server";
@@ -421,7 +250,7 @@ const { extractCriticalToChunks, constructStyleTagsFromChunks } =
 
 function useTheme() {
     return {
-        "limeGreen": "#32CD32",
+        "primaryColor": "#32CD32",
     };
 }
 
@@ -431,11 +260,7 @@ const { TssProviderForSsr, makeStyles, useStyleTools } = createMakeStyle({
 
 export { makeStyles, useStyleTools };
 
-const element = (
-    <TssProviderForSsr>
-        <App />
-    </TssProviderForSsr>
-);
+const element = <App />;
 
 const { html, styles } = extractCriticalToChunks(renderToString(element));
 
@@ -459,3 +284,114 @@ res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
 # Road map to v1
 
 -   [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
+
+# Development
+
+```bash
+yarn
+yarn build
+#For automatically recompiling when file change
+#npx tsc -w
+
+# To start the Single Page Application test app (create react app)
+yarn start_spa
+
+# To start the Server Side Rendering app (next.js)
+yarn start_ssr
+```
+
+In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
+
+# FAQ
+
+<details>
+  <summary>Click to expand</summary>
+
+## Why this instead of [the hook API](https://material-ui.com/styles/basics/#hook-api) of Material UI v4?
+
+First of all because `makeStyle` is deprecated in `@material-ui` v5 but also
+because it has some major flaws. Let's consider this example:
+
+```tsx
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+
+type Props = {
+    color: "red" | "blue";
+};
+
+const useStyles = makeStyles(
+  theme => createStyles<"root" | "label">, { color: "red" | "blue"; }>({
+    "root": {
+        "backgroundColor": theme.palette.primary.main
+    },
+    "label": ({ color })=>({
+        color
+    })
+  })
+);
+
+function MyComponent(props: Props){
+
+    const classes = useStyles(props);
+
+    return (
+        <div className={classes.root}>
+            <span className={classes.label}>
+                Hello World
+            </span>
+        </div>
+    );
+
+}
+```
+
+Two pain points:
+
+-   Because TypeScript doesn't support [partial argument inference](https://github.com/microsoft/TypeScript/issues/26242),
+    we have to explicitly enumerate the classes name as an union type `"root" | "label"`.
+-   We shouldn't have to import [`createStyles`](https://material-ui.com/styles/api/#createstyles-styles-styles) to get correct typings.
+
+Let's now compare with `tss-react`
+
+```tsx
+import { makeStyles } from "./makeStyles";
+
+type Props = {
+    color: "red" | "blue";
+};
+
+const { useStyles } = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            "backgroundColor": theme.palette.primary.main,
+        },
+        "label": { color },
+    }),
+);
+
+function MyComponent(props: Props) {
+    const { classes } = useStyles(props);
+
+    return (
+        <div className={classes.root}>
+            <span className={classes.label}>Hello World</span>
+        </div>
+    );
+}
+```
+
+Benefits:
+
+-   Less verbose, same type safety.
+-   You don't need to remember how things are supposed to be named, just let intellisense guide you.
+
+Besides, the hook api of `material-ui`, have other problems:
+
+-   One major bug: [see issue](https://github.com/mui-org/material-ui/issues/24513#issue-790027173)
+-   `JSS` has poor performances compared to `emotion` [source](https://github.com/mui-org/material-ui/issues/22342#issue-684407575)
+
+## Why this instead of Styled component ?
+
+See [this issue](https://github.com/mui-org/material-ui/issues/22342#issuecomment-764495033)
+
+</details>

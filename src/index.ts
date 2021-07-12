@@ -1,23 +1,23 @@
 import { createMakeStyle as createMakeStyleBase } from "./createMakeStyle";
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 
-import { CacheProvider } from "@emotion/react";
 import { serializeStyles } from "@emotion/serialize";
 import { insertStyles, getRegisteredStyles } from "@emotion/utils";
+import { createCssAndCx } from "./createCssAndCx";
 import { cache } from "./cache";
+
+export const { css, cx } = createCssAndCx({
+    cache,
+    getRegisteredStyles,
+    insertStyles,
+    serializeStyles,
+});
 
 /** https://github.com/garronej/tss-react */
 export function createMakeStyle<Theme>(params: { useTheme(): Theme }) {
     const { useTheme } = params;
 
-    return createMakeStyleBase({
-        useTheme,
-        CacheProvider,
-        serializeStyles,
-        insertStyles,
-        getRegisteredStyles,
-        cache,
-    });
+    return createMakeStyleBase({ useTheme, css, cx });
 }
 
 /** Reexport from @emotion/react */
