@@ -1,3 +1,9 @@
+### **0.1.2** (2021-07-12)  
+  
+- Exclude test apps from linting  
+- Fix workflow  
+- Format    
+  
 ### **0.1.1** (2021-07-12)  
   
 - Configure eslint and prettier    
