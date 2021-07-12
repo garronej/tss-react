@@ -44,7 +44,7 @@ function useTheme(){
 }
 
 // material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles";
-export const { makeStyles, useCssAndCx } = createMakeStyles({ useTheme });
+export const { makeStyles, useStyleTools } = createMakeStyles({ useTheme });
 ```
 
 `./MyComponent.tsx`
@@ -102,7 +102,7 @@ render(
 # API documentation
 
 ```tsx
-import { makeStyles, useCssAndCx } from "./styleEngine";
+import { makeStyles, useStyleTools } from "./styleEngine";
 
 const { useStyles } = makeStyles<{ color: "red" | "blue" }>()(
     //NOTE: This doesn't have to be a function, it can be just an object.
@@ -119,8 +119,8 @@ export function MyComponent(props: { className?: string }) {
     //theme is the object returned by your useTheme()
     const { classes, css, cx, theme } = useStyles({ "color": "red" });
 
-    //You can also access css and cx with useCssAndCx()
-    //const { css, cx }= useCssAndCx();
+    //You can also access css, cx and theme with useStyleTools()
+    //const { css, cx, theme }= useStyleTools();
 
     return (
         <div
@@ -144,7 +144,7 @@ function useTheme(){
     };
 }
 
-export const { makeStyles, useCssAndCx } = createMakeStyles({ useTheme });
+export const { makeStyles, useStyleTools } = createMakeStyles({ useTheme });
 
 ```
 
@@ -283,10 +283,10 @@ export function MyButton(props: Props) {
 `App.tsx`
 
 ```tsx
-import { useCssAndCx } from "./styleEngine";
+import { useStyleTools } from "./styleEngine";
 
 function App() {
-    const { css } = useCssAndCx();
+    const { css } = useStyleTools();
 
     return (
         <MyButton
@@ -331,7 +331,7 @@ import { useTheme } from "@material-ui/core/styles";
 
 export const {
     makeStyles,
-    useCssAndCx,
+    useStyleTools,
     TssProviderForSsr, //<- This is what's new
 } = createMakesStyles({ theme });
 ```
@@ -425,11 +425,11 @@ function useTheme() {
     };
 }
 
-const { TssProviderForSsr, makeStyles, useCssAndCx } = createMakeStyle({
+const { TssProviderForSsr, makeStyles, useStyleTools } = createMakeStyle({
     useTheme,
 });
 
-export { makeStyles, useCssAndCx };
+export { makeStyles, useStyleTools };
 
 const element = (
     <TssProviderForSsr>

@@ -8,9 +8,7 @@ import type * as emotionReact from "@emotion/react";
 import type * as emotionSerialize from "@emotion/serialize";
 import type * as emotionUtils from "@emotion/utils";
 
-/**
- * https://github.com/garronej/tss-react
- * */
+/** https://github.com/garronej/tss-react */
 export function createMakeStyle<Theme>(params: {
     useTheme(): Theme;
     CacheProvider: typeof emotionReact.CacheProvider;
@@ -71,7 +69,14 @@ export function createMakeStyle<Theme>(params: {
         };
     }
 
-    return { makeStyles, useCssAndCx, TssProviderForSsr };
+    function useStyleTools() {
+        const { css, cx } = useCssAndCx();
+        const theme = useTheme();
+
+        return { css, cx, theme };
+    }
+
+    return { makeStyles, useStyleTools, TssProviderForSsr };
 }
 
 const { createUseCssAndCx } = (() => {
@@ -127,6 +132,7 @@ const { createUseCssAndCx } = (() => {
             return { cx };
         })();
 
+        /** It can also be used in SPA but it will have no effect */
         function TssProviderForSsr(props: { children: ReactNode }) {
             const { children } = props;
 
