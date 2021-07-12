@@ -20,8 +20,14 @@ export function createMakeStyle<Theme>(params: {
     getRegisteredStyles: typeof emotionUtils.getRegisteredStyles;
     cache: emotionReact.EmotionCache;
 }) {
-    const { useTheme, CacheProvider, serializeStyles, insertStyles, cache, getRegisteredStyles } =
-        params;
+    const {
+        useTheme,
+        CacheProvider,
+        serializeStyles,
+        insertStyles,
+        cache,
+        getRegisteredStyles,
+    } = params;
 
     const { TssProviderForSsr, useCssAndCx } = createUseCssAndCx({
         CacheProvider,
@@ -42,10 +48,15 @@ export function createMakeStyle<Theme>(params: {
                 const { css, cx } = useCssAndCx();
 
                 const cssObjects =
-                    typeof getCssObjects === "function" ? getCssObjects(theme, params) : getCssObjects;
+                    typeof getCssObjects === "function"
+                        ? getCssObjects(theme, params)
+                        : getCssObjects;
 
                 const classes = Object.fromEntries(
-                    objectKeys(cssObjects).map(key => [key, css(cssObjects[key])]),
+                    objectKeys(cssObjects).map(key => [
+                        key,
+                        css(cssObjects[key]),
+                    ]),
                 ) as Record<Key, string>;
 
                 return {
@@ -76,7 +87,13 @@ const { createUseCssAndCx } = (() => {
         getRegisteredStyles: typeof emotionUtils.getRegisteredStyles;
         cache: emotionReact.EmotionCache;
     }) {
-        const { CacheProvider, serializeStyles, insertStyles, getRegisteredStyles, cache } = params;
+        const {
+            CacheProvider,
+            serializeStyles,
+            insertStyles,
+            getRegisteredStyles,
+            cache,
+        } = params;
 
         const css: Css = (...args) => {
             const serialized = serializeStyles(args, cache.registered);
@@ -85,10 +102,18 @@ const { createUseCssAndCx } = (() => {
         };
 
         const { cx } = (() => {
-            function merge(registered: emotionSerialize.RegisteredCache, css: Css, className: string) {
+            function merge(
+                registered: emotionSerialize.RegisteredCache,
+                css: Css,
+                className: string,
+            ) {
                 const registeredStyles: string[] = [];
 
-                const rawClassName = getRegisteredStyles(registered, registeredStyles, className);
+                const rawClassName = getRegisteredStyles(
+                    registered,
+                    registeredStyles,
+                    className,
+                );
 
                 if (registeredStyles.length < 2) {
                     return className;
@@ -97,7 +122,8 @@ const { createUseCssAndCx } = (() => {
                 return rawClassName + css(registeredStyles);
             }
 
-            const cx: Cx = (...args) => merge(cache.registered, css, classnames(args));
+            const cx: Cx = (...args) =>
+                merge(cache.registered, css, classnames(args));
 
             return { cx };
         })();
@@ -115,7 +141,9 @@ const { createUseCssAndCx } = (() => {
         }
 
         function useCssAndCx() {
-            const isWrappedIntoCacheProvider = useContext(isWrappedIntoCacheProviderContext);
+            const isWrappedIntoCacheProvider = useContext(
+                isWrappedIntoCacheProviderContext,
+            );
 
             if (!isBrowser && !isWrappedIntoCacheProvider) {
                 throw new Error(

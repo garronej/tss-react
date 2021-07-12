@@ -123,7 +123,13 @@ export function MyComponent(props: { className?: string }) {
     //const { css, cx }= useCssAndCx();
 
     return (
-        <div className={cx(classes.fooBar, css({ "backgroundColor": theme.limeGreen }), className)} />
+        <div
+            className={cx(
+                classes.fooBar,
+                css({ "backgroundColor": theme.limeGreen }),
+                className,
+            )}
+        />
     );
 }
 ```
@@ -195,12 +201,14 @@ type Props = {
     color: "red" | "blue";
 };
 
-const { useStyles } = makeStyles<{ color: "red" | "blue" }>()((theme, { color }) => ({
-    "root": {
-        "backgroundColor": theme.palette.primary.main,
-    },
-    "label": { color },
-}));
+const { useStyles } = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            "backgroundColor": theme.palette.primary.main,
+        },
+        "label": { color },
+    }),
+);
 
 function MyComponent(props: Props) {
     const { classes } = useStyles(props);
@@ -244,11 +252,13 @@ export type Props = {
     className?: string;
 };
 
-const { useStyles } = makeStyles<Pick<Props, "isDangerous">>()((theme, { isDangerous }) => ({
-    "root": {
-        "backgroundColor": isDangerous ? "red" : "grey",
-    },
-}));
+const { useStyles } = makeStyles<Pick<Props, "isDangerous">>()(
+    (theme, { isDangerous }) => ({
+        "root": {
+            "backgroundColor": isDangerous ? "red" : "grey",
+        },
+    }),
+);
 
 export function MyButton(props: Props) {
     const { className, onClick, text } = props;
@@ -406,7 +416,8 @@ import createEmotionServer from "@emotion/server/create-instance";
 import { cache } from "tss-react/cache";
 import { createMakeStyle } from "tss-react";
 
-const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache);
+const { extractCriticalToChunks, constructStyleTagsFromChunks } =
+    createEmotionServer(cache);
 
 function useTheme() {
     return {
@@ -414,7 +425,9 @@ function useTheme() {
     };
 }
 
-const { TssProviderForSsr, makeStyles, useCssAndCx } = createMakeStyle({ useTheme });
+const { TssProviderForSsr, makeStyles, useCssAndCx } = createMakeStyle({
+    useTheme,
+});
 
 export { makeStyles, useCssAndCx };
 

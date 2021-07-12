@@ -12,7 +12,9 @@ export function yarnLinkTestedModuleToTestProject(params: {
     const { testedModuleProjectDirPath, testProjectsDirPath } = params;
 
     const parsedPackageJson = JSON.parse(
-        fs.readFileSync(pathJoin(testedModuleProjectDirPath, "package.json")).toString("utf8"),
+        fs
+            .readFileSync(pathJoin(testedModuleProjectDirPath, "package.json"))
+            .toString("utf8"),
     );
 
     const testedModuleName = parsedPackageJson["name"];
@@ -20,7 +22,9 @@ export function yarnLinkTestedModuleToTestProject(params: {
     const moduleNames = (() => {
         const [namespaceModuleNames, standaloneModuleNames] = arrPartition(
             fs
-                .readdirSync(pathJoin(testedModuleProjectDirPath, "node_modules"))
+                .readdirSync(
+                    pathJoin(testedModuleProjectDirPath, "node_modules"),
+                )
                 .filter(entry => !entry.startsWith(".")),
             moduleName => moduleName.startsWith("@"),
         );
@@ -30,9 +34,16 @@ export function yarnLinkTestedModuleToTestProject(params: {
                 .map(namespaceModuleName =>
                     fs
                         .readdirSync(
-                            pathJoin(testedModuleProjectDirPath, "node_modules", namespaceModuleName),
+                            pathJoin(
+                                testedModuleProjectDirPath,
+                                "node_modules",
+                                namespaceModuleName,
+                            ),
                         )
-                        .map(submoduleName => `${namespaceModuleName}/${submoduleName}`),
+                        .map(
+                            submoduleName =>
+                                `${namespaceModuleName}/${submoduleName}`,
+                        ),
                 )
                 .reduce((prev, curr) => [...prev, ...curr], []),
             ...standaloneModuleNames,
@@ -62,7 +73,9 @@ export function yarnLinkTestedModuleToTestProject(params: {
             pathJoin(
                 ...[
                     ...pathStart,
-                    ...(moduleName.startsWith("@") ? moduleName.split("/") : [moduleName]),
+                    ...(moduleName.startsWith("@")
+                        ? moduleName.split("/")
+                        : [moduleName]),
                 ],
             ),
         );
@@ -93,19 +106,33 @@ export function yarnLinkTestedModuleToTestProject(params: {
     testProjectsDirPath.forEach(testProjectDirPath => {
         console.log(`Installing ${testProjectDirPath} dependencies`);
 
-        child_process.execSync("yarn install", { "cwd": testProjectDirPath, env });
+        child_process.execSync("yarn install", {
+            "cwd": testProjectDirPath,
+            env,
+        });
 
         console.log("Linking dependencies");
 
-        child_process.execSync(`yarn link ${moduleNames.join(" ")}`, { "cwd": testProjectDirPath, env });
+        child_process.execSync(`yarn link ${moduleNames.join(" ")}`, {
+            "cwd": testProjectDirPath,
+            env,
+        });
 
         {
-            const path = pathJoin(testProjectDirPath, "node_modules", testedModuleName);
+            const path = pathJoin(
+                testProjectDirPath,
+                "node_modules",
+                testedModuleName,
+            );
 
             child_process.execSync(`rm -rf ${path}`);
 
             child_process.execSync(
-                [`ln -s`, pathJoin(testedModuleProjectDirPath, "dist"), path].join(" "),
+                [
+                    `ln -s`,
+                    pathJoin(testedModuleProjectDirPath, "dist"),
+                    path,
+                ].join(" "),
             );
         }
     });

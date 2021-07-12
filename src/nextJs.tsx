@@ -5,7 +5,8 @@ import createEmotionServer from "@emotion/server/create-instance";
 import htmlReactParserParse from "html-react-parser";
 import { cache } from "./cache";
 
-const { extractCriticalToChunks, constructStyleTagsFromChunks } = createEmotionServer(cache);
+const { extractCriticalToChunks, constructStyleTagsFromChunks } =
+    createEmotionServer(cache);
 
 export function pageHtmlToStyleTags(params: { pageHtml: string }) {
     const { pageHtml } = params;
