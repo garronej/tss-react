@@ -1,3 +1,7 @@
+## **0.2.0** (2021-07-12)  
+  
+- Rename useCssAndCx -> useStyleTools and return theme as well    
+  
 ### **0.1.5** (2021-07-12)  
   
 - Do not test on windows to save time  
