@@ -34,7 +34,7 @@ $ yarn add tss-react
 
 `./MyComponent.tsx`
 ```tsx
-import { makeStyles } from "./makeStyles";
+import { makeStyles } from "./styleEngine";
 
 const { useStyles } = makeStyles<{ color: "red" | "blue" }>()({
    (theme, { color })=> ({
@@ -62,7 +62,7 @@ function MyComponent(props: Props){
 }
 ```
 
-`./makeStyles.ts`
+`./styleEngine.ts`
 ```typescript
 import { createMakeStyles } from "tss-react";
 
@@ -88,7 +88,6 @@ render(
     </StylesProvider>,
     document.getElementById("root")
 );
-
 ```
 
 <p align="center">
@@ -97,6 +96,56 @@ render(
         <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
     </a>
 </p>
+
+# API documentation
+
+```tsx
+import { makeStyles, useCssAndCx } from "./styleEngine";
+
+const { useStyles } = makeStyles<{ color: "red" | "blue"; }>()(
+    //NOTE: This doesn't have to be a function, it can be just an object.
+    (theme, { color })=> ({
+        "fooBar": {
+            "width": 100,
+            "height": 100
+        }
+    })
+);
+
+export function MyComponent(props: { className?: string; }){
+
+    //css and cx are the functions as defined in @emotion/css: https://emotion.sh
+    //theme is the object returned by your useTheme()
+    const { classes, css, cx, theme } = useStyles({ "color": "red" });
+
+    //You can also access css and cx with useCssAndCx()
+    //const { css, cx }= useCssAndCx();
+
+    return (
+        <div className={ cx(
+                classes.fooBar, 
+                css({ "backgroundColor": theme.limeGreen }),
+                className
+            )}
+        />
+    );
+
+}
+```
+
+```typescript
+
+import { createMakeStyles } from "tss-react";
+
+function useTheme(){
+    return {
+        "limeGreen": "#32CD32";
+    };
+}
+
+export const { makeStyles, useCssAndCx } = createMakeStyles({ useTheme });
+
+```
 
 # Why this instead of [the hook API](https://material-ui.com/styles/basics/#hook-api) of Material UI v4? 
 
@@ -144,7 +193,7 @@ Two pain points:
 Let's now compare with `tss-react`
 
 ```tsx
-import { makeStyles } from "./makeStyles";
+import { makeStyles } from "./styleEngine";
 
 type Props = {
     color: "red" | "blue";
@@ -186,20 +235,14 @@ Besides, the hook api of `material-ui`, have other problems:
 
 See [this issue](https://github.com/mui-org/material-ui/issues/22342#issuecomment-764495033)
 
-# API References
+# Canonical usage example
 
-- `createUseClassNamesFactory()`
-- Direct re-export of [`@emotion/css`](https://emotion.sh/docs/@emotion/css)
-
-The three function that you should end up using the most are `css` any `cx`, reexported from `@emotion/css`, and 
-`createUseClassNamesFactory`, the only function that this module actually implement. 
-
-Consider this example to understand how `css`, `cx` and `useClassNames` are supposed to be
+Consider this example to understand how `css`, `cx` and `makeStyles` are supposed to be
 used together:
 
 `MyButton.tsx`
 ```tsx
-import { makeStyles } from "./makeStyles";
+import { makeStyles } from "./styleEngine";
 
 export type Props ={
     text: string;
@@ -240,7 +283,7 @@ export function MyButton(props: Props){
 
 `App.tsx`
 ```tsx
-import { useCssAndCx } from "./makeStyles";
+import { useCssAndCx } from "./styleEngine";
 
 function App(){
 
@@ -277,15 +320,11 @@ yarn start_ssr
 
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
 
-# Roadmap to v1
-
-- [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
-
 # Server Side Rendering (SSR) 
 
 In order to get server side rendering to work you have to use a provider. 
 
-`shared/makeStyles.ts`
+`shared/styleEngine.ts`
 ```tsx
 import { createMakeStyles } from "tss-react";
 import { useTheme } from "@material-ui/core/styles";
@@ -301,7 +340,7 @@ export const {
 `pages/index.tsx`
 ```tsx
 import { createMakeStyle } from "tss-react";
-import { TssProviderForSsr } from "../shared/makeStyles";
+import { TssProviderForSsr } from "../shared/styleEngine";
 
 export default function Home() {
   return (
@@ -423,3 +462,7 @@ res
 </body>
 </html>`);
 ```
+
+# Road map to v1
+
+- [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
