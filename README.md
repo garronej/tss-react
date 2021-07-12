@@ -179,6 +179,9 @@ be able to access them here.
 
 # Server Side Rendering (SSR)
 
+There are some minimal configuration required to make `tss-react`
+work with SSR.
+
 ## [Next.js](https://nextjs.org)
 
 ### If you don't have a `_document.tsx`
