@@ -1,3 +1,8 @@
+### **0.1.3** (2021-07-12)  
+  
+- Internally define all the exposed API types  
+- Update README    
+  
 ### **0.1.2** (2021-07-12)  
   
 - Exclude test apps from linting  
