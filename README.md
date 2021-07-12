@@ -353,7 +353,7 @@ import { Document } from "tss-react/nextJs";
 export default Document;
 ```
 
-### If have have a `_document.tsx` but you haven't overloaded `getInitialProps`
+### Or, if have have a `_document.tsx` but you haven't overloaded `getInitialProps`
 
 ```tsx
 import Document from "next/document";
@@ -369,7 +369,7 @@ export default class AppDocument extends Document {
 }
 ```
 
-### If have have a `_document.tsx` and an overloaded `getInitialProps`
+### Or, if have have a `_document.tsx` and an overloaded `getInitialProps`
 
 ```tsx
 import Document from "next/document";
@@ -397,7 +397,7 @@ export default class AppDocument extends Document {
 }
 ```
 
-## Backend configuration general case.
+## Backend configuration general case.
 
 ```tsx
 import { renderToString } from "react-dom/server";
