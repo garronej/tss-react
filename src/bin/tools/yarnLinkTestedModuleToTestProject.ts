@@ -1,4 +1,3 @@
-
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import * as child_process from "child_process";
@@ -6,132 +5,110 @@ import { join as pathJoin } from "path";
 import * as fs from "fs";
 import { arrPartition } from "evt/tools/reducers/partition";
 
-export function yarnLinkTestedModuleToTestProject(
-	params: {
-		testedModuleProjectDirPath: string;
-		testProjectsDirPath: string[];
-	}
-) {
+export function yarnLinkTestedModuleToTestProject(params: {
+    testedModuleProjectDirPath: string;
+    testProjectsDirPath: string[];
+}) {
+    const { testedModuleProjectDirPath, testProjectsDirPath } = params;
 
-	const {
-		testedModuleProjectDirPath,
-		testProjectsDirPath,
-	} = params;
+    const parsedPackageJson = JSON.parse(
+        fs.readFileSync(pathJoin(testedModuleProjectDirPath, "package.json")).toString("utf8"),
+    );
 
+    const testedModuleName = parsedPackageJson["name"];
 
+    const moduleNames = (() => {
+        const [namespaceModuleNames, standaloneModuleNames] = arrPartition(
+            fs
+                .readdirSync(pathJoin(testedModuleProjectDirPath, "node_modules"))
+                .filter(entry => !entry.startsWith(".")),
+            moduleName => moduleName.startsWith("@"),
+        );
 
-	const parsedPackageJson = JSON.parse(
-		fs.readFileSync(pathJoin(testedModuleProjectDirPath, "package.json")).toString("utf8")
-	);
+        return [
+            ...namespaceModuleNames
+                .map(namespaceModuleName =>
+                    fs
+                        .readdirSync(
+                            pathJoin(testedModuleProjectDirPath, "node_modules", namespaceModuleName),
+                        )
+                        .map(submoduleName => `${namespaceModuleName}/${submoduleName}`),
+                )
+                .reduce((prev, curr) => [...prev, ...curr], []),
+            ...standaloneModuleNames,
+        ];
+    })();
 
-	const testedModuleName = parsedPackageJson["name"];
+    const env = {
+        ...process.env,
+        "HOME": pathJoin(testedModuleProjectDirPath, ".yarn_home"),
+    };
 
-	const moduleNames = (() => {
+    child_process.execSync(`mkdir -p ${env["HOME"]}`);
 
-		const [namespaceModuleNames, standaloneModuleNames] = arrPartition(
-			fs.readdirSync(pathJoin(testedModuleProjectDirPath, "node_modules"))
-				.filter(entry => !entry.startsWith(".")),
-			moduleName => moduleName.startsWith("@")
-		);
+    const total = moduleNames.length;
 
-		return [
-			...namespaceModuleNames
-				.map(namespaceModuleName =>
-					fs.readdirSync(pathJoin(testedModuleProjectDirPath, "node_modules", namespaceModuleName))
-						.map(submoduleName => `${namespaceModuleName}/${submoduleName}`)
-				)
-				.reduce((prev, curr) => [...prev, ...curr], []),
-			...standaloneModuleNames
-		];
+    let current = 0;
 
-	})();
+    moduleNames.forEach(moduleName => {
+        current++;
 
-	const env = {
-		...process.env,
-		"HOME": pathJoin(testedModuleProjectDirPath, ".yarn_home")
-	};
+        console.log(`${current}/${total} ${moduleName}`);
 
-	child_process.execSync(`mkdir -p ${env["HOME"]}`);
+        const [srcPath, targetPath] = [
+            [testedModuleProjectDirPath, "node_modules"],
+            [env["HOME"], ".config", "yarn", "link"],
+        ].map(pathStart =>
+            pathJoin(
+                ...[
+                    ...pathStart,
+                    ...(moduleName.startsWith("@") ? moduleName.split("/") : [moduleName]),
+                ],
+            ),
+        );
 
-	const total = moduleNames.length;
+        if (fs.existsSync(targetPath)) {
+            return;
+        }
 
-	let current = 0;
+        child_process.execSync("yarn link", { "cwd": srcPath, env });
+    });
 
-	moduleNames.forEach(moduleName => {
+    fs.writeFileSync(
+        pathJoin(testedModuleProjectDirPath, "dist", "package.json"),
+        Buffer.from(
+            JSON.stringify(
+                {
+                    ...parsedPackageJson,
+                    "main": parsedPackageJson["main"].replace(/^dist\//, ""),
+                    "types": parsedPackageJson["types"].replace(/^dist\//, ""),
+                },
+                null,
+                2,
+            ),
+            "utf8",
+        ),
+    );
 
-		current++;
+    testProjectsDirPath.forEach(testProjectDirPath => {
+        console.log(`Installing ${testProjectDirPath} dependencies`);
 
-		console.log(`${current}/${total} ${moduleName}`);
+        child_process.execSync("yarn install", { "cwd": testProjectDirPath, env });
 
-		const [srcPath, targetPath] = [
-			[testedModuleProjectDirPath, "node_modules"],
-			[env["HOME"], ".config", "yarn", "link"]
-		].map(pathStart => pathJoin(...[
-			...pathStart,
-			...(
-				moduleName.startsWith("@") ?
-					moduleName.split("/") :
-					[moduleName]
-			)
-		]));
+        console.log("Linking dependencies");
 
-		if (fs.existsSync(targetPath)) {
-			return;
-		}
+        child_process.execSync(`yarn link ${moduleNames.join(" ")}`, { "cwd": testProjectDirPath, env });
 
-		child_process.execSync(
-			"yarn link",
-			{ "cwd": srcPath, env }
-		);
+        {
+            const path = pathJoin(testProjectDirPath, "node_modules", testedModuleName);
 
-	});
+            child_process.execSync(`rm -rf ${path}`);
 
-	fs.writeFileSync(
-		pathJoin(testedModuleProjectDirPath, "dist", "package.json"),
-		Buffer.from(
-			JSON.stringify({
-				...parsedPackageJson,
-				"main": parsedPackageJson["main"].replace(/^dist\//, ""),
-				"types": parsedPackageJson["types"].replace(/^dist\//, ""),
-			}, null, 2),
-			"utf8"
-		)
-	);
+            child_process.execSync(
+                [`ln -s`, pathJoin(testedModuleProjectDirPath, "dist"), path].join(" "),
+            );
+        }
+    });
 
-	testProjectsDirPath.forEach(testProjectDirPath => {
-
-		console.log(`Installing ${testProjectDirPath} dependencies`);
-
-		child_process.execSync(
-			"yarn install",
-			{ "cwd": testProjectDirPath, env }
-		);
-
-		console.log("Linking dependencies");
-
-		child_process.execSync(
-			`yarn link ${testedModuleName} ${moduleNames.join(" ")}`,
-			{ "cwd": testProjectDirPath, env }
-		);
-
-		{
-
-			const path = pathJoin(testProjectDirPath, "node_modules", testedModuleName);
-
-			child_process.execSync(`rm -rf ${path}`);
-
-			child_process.execSync(
-				[
-					`ln -s`,
-					pathJoin(testedModuleProjectDirPath, "dist"),
-					path
-				].join(" ")
-			);
-
-		}
-
-	});
-
-	console.log("DONE");
-
+    console.log("DONE");
 }

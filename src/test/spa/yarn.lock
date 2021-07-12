@@ -10621,7 +10621,7 @@ tslib@^2.0.3:
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
 
 "tss-react@file:../../../dist":
-  version "0.0.12"
+  version "0.1.0"
   dependencies:
     "@emotion/cache" "^11.0.0"
     "@emotion/react" "^11.0.0"

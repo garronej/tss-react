@@ -13,7 +13,25 @@
         "link_test_projects_dependencies": "node dist/bin/link_test_projects_dependencies",
         "start_spa": "yarn link_test_projects_dependencies && cd src/test/spa && yarn start",
         "start_ssr": "yarn link_test_projects_dependencies && cd src/test/ssr && yarn dev",
-        "prepare": "yarn build"
+        "prepare": "yarn build",
+        "lint:check": "eslint . --ext .ts,.tsx",
+        "lint": "npm run lint:check -- --fix",
+        "_format": "prettier '**/*.{ts,tsx,json,md}'",
+        "format": "npm run _format -- --write",
+        "format:check": "npm run _format -- --list-different"
+    },
+    "lint-staged": {
+        "*.{ts,tsx}": [
+            "eslint --fix"
+        ],
+        "*.{ts,tsx,json,md}": [
+            "prettier --write"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged -v"
+        }
     },
     "author": "u/garronej",
     "license": "MIT",
@@ -43,7 +61,7 @@
         "html-react-parser": "^1.2.7"
     },
     "devDependencies": {
-        "@types/node": "^10.0.0",
+        "@types/node": "^15.3.1",
         "@types/react": "^17.0.2",
         "@types/react-dom": "^17.0.2",
         "anymatch": "^3.1.2",
@@ -58,6 +76,13 @@
         "remove-trailing-separator": "^1.1.0",
         "to-regex": "^3.0.2",
         "tsafe": "^0.4.1",
-        "typescript": "^4.3.5"
+        "typescript": "^4.3.5",
+        "lint-staged": "^11.0.0",
+        "husky": "^4.3.8",
+        "prettier": "^2.3.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint": "^7.26.0",
+        "@typescript-eslint/parser": "^4.24.0",
+        "@typescript-eslint/eslint-plugin": "^4.24.0"
     }
 }
