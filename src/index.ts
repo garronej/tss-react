@@ -19,3 +19,6 @@ export function createMakeStyle<Theme>(params: { useTheme(): Theme }) {
         cache,
     });
 }
+
+/** Reexport from @emotion/react */
+export { keyframes } from "@emotion/react";
