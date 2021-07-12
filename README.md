@@ -311,7 +311,7 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 
 # Server Side Rendering (SSR)
 
-In order to get server side rendering to work you have to use a provider.
+For SSR to work a provider must be used:
 
 `shared/styleEngine.ts`
 
