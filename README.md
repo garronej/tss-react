@@ -40,7 +40,7 @@ $ yarn add tss-react
         -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
         -   [Or, if have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
         -   [Or, if have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
-    -   [Other frameworks.](#other-frameworks)
+    -   [Other frameworks](#other-frameworks)
 -   [Road map to v1](#road-map-to-v1)
 -   [Development](#development)
 -   [FAQ](#faq)
@@ -236,7 +236,7 @@ export default class AppDocument extends Document {
 }
 ```
 
-## Other frameworks.
+## Other frameworks
 
 ```tsx
 import { renderToString } from "react-dom/server";
