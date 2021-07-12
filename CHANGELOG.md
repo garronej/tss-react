@@ -1,3 +1,26 @@
+## **0.1.0** (2021-07-12)  
+  
+- Update CI  
+- Format  
+- makeStyles accepts an object  
+- Fix SPA  
+- SSR working perfectly with Next.js  
+- Refactoring test environement  
+- update deps  
+- Provider not mandatory for SPA  
+- update keywords  
+- v1 API 🚀  
+- Build post install  
+- Setup testing setup for SSR  
+- Remove unessesary dev dependency  
+- Update README.md  
+- Update README.md  
+- Fix language statistics  
+- Implement test setup for SPA and SSR  
+- Use methode of @nguyenvanthanh97 for implementing a polyfil of @emotion/css from @emotion/react  
+- update ci  
+- Update README.md    
+  
 ### **0.0.12** (2021-03-20)  
   
 - Default params is no properties    
