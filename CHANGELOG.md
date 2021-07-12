@@ -1,3 +1,7 @@
+## **0.3.0** (2021-07-12)  
+  
+- Remove the need for a provider, even in SSR    
+  
 ## **0.2.0** (2021-07-12)  
   
 - Rename useCssAndCx -> useStyleTools and return theme as well    
