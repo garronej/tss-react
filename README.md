@@ -11,7 +11,6 @@
     <img src="https://img.shields.io/npm/l/tss-react">
 </p>
 
-
 `'tss-react'` is intended to be a replacement for `'react-jss'` and for 
 [@material-ui v4 `makeStyle`](https://material-ui.com/styles/basics/#hook-api).
 It's API is focused on providing maximum type safety and minimum verbosity.  
@@ -370,9 +369,9 @@ import { getInitialProps } from "tss-react/nextJs";
 
 export default class AppDocument extends Document {
 
-	static async getInitialProps(ctx: DocumentContext) {
-		return getInitialProps(ctx);
-	}
+    static async getInitialProps(ctx: DocumentContext) {
+        return getInitialProps(ctx);
+    }
 
     //...Rest of your class...
 
@@ -388,22 +387,22 @@ import { pageHtmlToStyleTags } from "tss-react/nextJs";
 
 export default class AppDocument extends Document {
 
-	static async getInitialProps(ctx: DocumentContext) {
+    static async getInitialProps(ctx: DocumentContext) {
 
-		const page = await ctx.renderPage();
+        const page = await ctx.renderPage();
 
-		const initialProps = await Document.getInitialProps(ctx);
+        const initialProps = await Document.getInitialProps(ctx);
 
-		return {
-			...initialProps,
-			"styles":
-				<>
-					{initialProps.styles}
-					{pageHtmlToStyleTags({ "pageHtml": page.html })}
-				</>
-		};
+        return {
+            ...initialProps,
+            "styles":
+                <>
+                    {initialProps.styles}
+                    {pageHtmlToStyleTags({ "pageHtml": page.html })}
+                </>
+        };
 
-	}
+    }
 
     //...Rest of your class...
 
@@ -420,25 +419,24 @@ import { cache } from "tss-react/cache";
 import { createMakeStyle } from "tss-react";
 
 const { 
-	extractCriticalToChunks, 
-	constructStyleTagsFromChunks 
+    extractCriticalToChunks, 
+    constructStyleTagsFromChunks 
 } = createEmotionServer(cache);
 
 function useTheme(){
-	return {
-		"limeGreen": "#32CD32"
-	}
+    return {
+        "limeGreen": "#32CD32"
+    }
 }
 
 const { TssProviderForSsr, makeStyles, useCssAndCx } = createMakeStyle({ useTheme });
 
 export  { makeStyles, useCssAndCx };
 
-
 const element = (
-	<TssProviderForSsr>
-    	<App />
-	</TssProviderForSsr>
+    <TssProviderForSsr>
+        <App />
+    </TssProviderForSsr>
 )
 
 const { html, styles } = extractCriticalToChunks(renderToString(element))
