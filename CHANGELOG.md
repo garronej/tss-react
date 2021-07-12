@@ -1,3 +1,7 @@
+### **0.1.4** (2021-07-12)  
+  
+- Do not depend on @emotion/serialize types    
+  
 ### **0.1.3** (2021-07-12)  
   
 - Internally define all the exposed API types  
