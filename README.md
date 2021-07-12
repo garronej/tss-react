@@ -32,6 +32,21 @@ $ yarn add tss-react
 
 # Quick start
 
+`./styleEngine.ts`
+
+```typescript
+import { createMakeStyles } from "tss-react";
+
+function useTheme(){
+    return {
+        "limeGreen": "#32CD32";
+    };
+}
+
+// material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles";
+export const { makeStyles, useCssAndCx } = createMakeStyles({ useTheme });
+```
+
 `./MyComponent.tsx`
 
 ```tsx
@@ -61,21 +76,6 @@ function MyComponent(props: Props){
     );
 
 }
-```
-
-`./styleEngine.ts`
-
-```typescript
-import { createMakeStyles } from "tss-react";
-
-function useTheme(){
-    return {
-        "limeGreen": "#32CD32";
-    };
-}
-
-// material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles";
-export const { makeStyles, useCssAndCx } = createMakeStyles({ useTheme });
 ```
 
 **Material-UI users only**, don't forget to enable [injectFirst](https://material-ui.com/styles/advanced/#injectfirst)
