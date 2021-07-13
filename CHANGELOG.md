@@ -1,3 +1,7 @@
+### **0.3.1** (2021-07-13)  
+  
+- Add <GlobalStyles>    
+  
 ## **0.3.0** (2021-07-12)  
   
 - Remove the need for a provider, even in SSR    
