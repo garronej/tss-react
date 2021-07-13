@@ -35,6 +35,7 @@ $ yarn add tss-react
     -   [Exposed APIs](#exposed-apis)
     -   [`makeStyles()`](#makestyles)
     -   [`useStyle()`](#usestyle)
+    -   [`<GlobalStyles />`](#globalstyles-)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
         -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
@@ -51,7 +52,7 @@ $ yarn add tss-react
 `./makeStyles.ts`
 
 ```typescript
-import { createMakeStyles } from "tss-react";
+import { createMakeStyless } from "tss-react";
 
 function useTheme(){
     return {
@@ -123,10 +124,11 @@ render(
 
 ```typescript
 import {
-    createMakeStyle, //<- Create an instance of makeStyle() for your theme.
+    createMakeStyles, //<- Create an instance of makeStyle() for your theme.
     css, //<- The function as defined in @emotion/css https://emotion.sh
     cx, //<- The function as defined in @emotion/css
-    keyframe, //<- The function as defined in @emotion/css
+    keyframe, //<- The function as defined in @emotion/react and @emotion/css
+    GlobalStyles, //<- A component to define global styles.
 } from "tss-react";
 ```
 
@@ -176,6 +178,36 @@ const { classes, cx, css, theme } = useStyles(/*...*/);
 
 `cx` and `css` cans be imported directly from `tss-react` but it's convenient to
 be able to access them here.
+
+## `<GlobalStyles />`
+
+Sometimes you might want to insert global css.
+You can use the `<GlobalStyles />` component to do this.
+
+It's `children` should be of same type as the `css()` function
+argument.
+
+```tsx
+import { Global } from "tss-react";
+
+function MyComponent() {
+    return (
+        <>
+            <GlobalStyles>
+                {{
+                    "body": {
+                        "backgroundColor": "pink",
+                    },
+                    ".foo": {
+                        "color": "cyan",
+                    },
+                }}
+            </GlobalStyles>
+            <h1 className="foo">This text will be cyan</h1>
+        </>
+    );
+}
+```
 
 # Server Side Rendering (SSR)
 
@@ -245,7 +277,7 @@ import { renderToString } from "react-dom/server";
 import createEmotionServer from "@emotion/server/create-instance";
 
 import { cache } from "tss-react/cache";
-import { createMakeStyle } from "tss-react";
+import { createMakeStyles } from "tss-react";
 
 const { extractCriticalToChunks, constructStyleTagsFromChunks } =
     createEmotionServer(cache);
@@ -256,7 +288,7 @@ function useTheme() {
     };
 }
 
-const { TssProviderForSsr, makeStyles, useStyleTools } = createMakeStyle({
+const { TssProviderForSsr, makeStyles, useStyleTools } = createMakeStyles({
     useTheme,
 });
 

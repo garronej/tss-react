@@ -4,7 +4,7 @@ import type { CSSObject } from "./types";
 import { Css, Cx } from "./types";
 
 /** https://github.com/garronej/tss-react */
-export function createMakeStyle<Theme>(params: {
+export function createMakeStyles<Theme>(params: {
     useTheme(): Theme;
     css: Css;
     cx: Cx;

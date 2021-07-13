@@ -1,4 +1,4 @@
-import { createMakeStyle as createMakeStyleBase } from "./createMakeStyle";
+import { createMakeStyles as createMakeStylesBase } from "./createMakeStyles";
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 
 import { serializeStyles } from "@emotion/serialize";
@@ -14,11 +14,13 @@ export const { css, cx } = createCssAndCx({
 });
 
 /** https://github.com/garronej/tss-react */
-export function createMakeStyle<Theme>(params: { useTheme(): Theme }) {
+export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
     const { useTheme } = params;
 
-    return createMakeStyleBase({ useTheme, css, cx });
+    return createMakeStylesBase({ useTheme, css, cx });
 }
 
 /** Reexport from @emotion/react */
 export { keyframes } from "@emotion/react";
+
+export { GlobalStyles } from "./GlobalStyles";
