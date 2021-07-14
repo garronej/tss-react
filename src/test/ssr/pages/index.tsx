@@ -33,14 +33,17 @@ function App(props: { className?: string; }) {
 
     return (
         <>
-            <GlobalStyles> {{
-                "body": {
-                    "backgroundColor": "pink"
-                },
-                ".foo": {
-                    "color": "cyan"
-                }
-            }} </GlobalStyles>
+            <GlobalStyles
+                styles={{
+                    "body": {
+                        "backgroundColor": "pink"
+                    },
+                    ".foo": {
+                        "color": "cyan"
+                    }
+
+                }}
+            />
             <div className={classes.root}>
                 <h1>Black</h1>
                 <h1>Should be lime green</h1>

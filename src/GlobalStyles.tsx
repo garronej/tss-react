@@ -1,8 +1,8 @@
 import * as reactEmotion from "@emotion/react";
 import type { CSSInterpolation } from "./types";
 
-export function GlobalStyles(props: { children: CSSInterpolation }) {
-    const { children } = props;
+export function GlobalStyles(props: { styles: CSSInterpolation }) {
+    const { styles } = props;
 
-    return <reactEmotion.Global styles={reactEmotion.css(children)} />;
+    return <reactEmotion.Global styles={reactEmotion.css(styles)} />;
 }

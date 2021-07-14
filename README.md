@@ -188,13 +188,13 @@ It's `children` should be of same type as the `css()` function
 argument.
 
 ```tsx
-import { Global } from "tss-react";
+import { GlobalStyles } from "tss-react";
 
 function MyComponent() {
     return (
         <>
-            <GlobalStyles>
-                {{
+            <GlobalStyles
+                styles={{
                     "body": {
                         "backgroundColor": "pink",
                     },
@@ -202,7 +202,7 @@ function MyComponent() {
                         "color": "cyan",
                     },
                 }}
-            </GlobalStyles>
+            />
             <h1 className="foo">This text will be cyan</h1>
         </>
     );
