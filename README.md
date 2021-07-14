@@ -184,7 +184,7 @@ be able to access them here.
 Sometimes you might want to insert global css.
 You can use the `<GlobalStyles />` component to do this.
 
-It's `children` should be of same type as the `css()` function
+It's `styles` (with an s) prop should be of same type as the `css()` function
 argument.
 
 ```tsx
