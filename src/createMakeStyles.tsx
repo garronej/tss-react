@@ -13,22 +13,24 @@ export function createMakeStyles<Theme>(params: {
 
     function makeStyles<Params = void>() {
         return function <Key extends string>(
-            getCssObjects:
+            getCssObjectOrCssObject:
                 | ((theme: Theme, params: Params) => Record<Key, CSSObject>)
                 | Record<Key, CSSObject>,
         ) {
+            const getCssObject =
+                typeof getCssObjectOrCssObject === "function"
+                    ? getCssObjectOrCssObject
+                    : () => getCssObjectOrCssObject;
+
             function useStyles(params: Params) {
                 const theme = useTheme();
 
-                const cssObjects =
-                    typeof getCssObjects === "function"
-                        ? getCssObjects(theme, params)
-                        : getCssObjects;
+                const cssObject = getCssObject(theme, params);
 
                 const classes = Object.fromEntries(
-                    objectKeys(cssObjects).map(key => [
+                    objectKeys(cssObject).map(key => [
                         key,
-                        css(cssObjects[key]),
+                        css(cssObject[key]),
                     ]),
                 ) as Record<Key, string>;
 
