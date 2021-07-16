@@ -36,6 +36,9 @@ $ yarn add tss-react
     -   [`makeStyles()`](#makestyles)
     -   [`useStyle()`](#usestyle)
     -   [`<GlobalStyles />`](#globalstyles-)
+-   [Composition](#composition)
+    -   [Internal composition](#internal-composition)
+    -   [Export rules](#export-rules)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
         -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
@@ -209,6 +212,65 @@ function MyComponent() {
 }
 ```
 
+# Composition
+
+`tss-react` unlike `jss-react` doesn't support the `$` syntax,
+but you'll see. It isn't needed.
+
+## Internal composition
+
+When you want to reuse style within the same component.
+
+```typescript
+import { makeStyles } from "./makeStyles";
+import type { CSSObject } from "tss-react";
+
+const { useStyles } = makeStyles<{ n: number; color: string }>()(
+    (theme, { n, color }) => {
+        const root: CSSObject = {
+            "color": theme.primaryColor,
+            "border": `${n}px solid black`,
+        };
+
+        return {
+            root,
+            "foo": {
+                ...root,
+                //Style specific to foo
+                color,
+            },
+        };
+    },
+);
+```
+
+## Export rules
+
+`MyComponent.tsx`
+
+```typescript
+import { makeStyles } from "./makeStyles";
+//You can always define the Theme type as: "export type Theme = ReturnType<typeof useTheme>;"
+import type { Theme } from "./makeStyles";
+import type { CSSObject } from "tss-react";
+
+//Can be used in another component
+export const getRootStyle = (
+    theme: Theme,
+    params: { n: number },
+): CSSObject => ({
+    "color": theme.primaryColor,
+    "border": `${params.n}px solid black`,
+});
+
+const { useStyles } = makeStyles<
+    Parameters<typeof getRootStyle>[1] & { color: string }
+>()((theme, { n, color }) => ({
+    "root": getRootStyle(theme, { n }),
+    //Other style...
+}));
+```
+
 # Server Side Rendering (SSR)
 
 There are some minimal configuration required to make `tss-react`
@@ -331,10 +393,6 @@ yarn start_ssr
 ```
 
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
-
-Road map to v1:
-
--   [ ] [Support composition](https://github.com/garronej/tss-react/issues/2#issuecomment-875205410)
 
 # FAQ
 
