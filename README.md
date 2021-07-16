@@ -42,8 +42,8 @@ $ yarn add tss-react
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
         -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
-        -   [Or, if have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
-        -   [Or, if have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
+        -   [**Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
+        -   [**Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
     -   [With any other framework](#with-any-other-framework)
 -   [Development](#development)
 -   [FAQ](#faq)
@@ -288,7 +288,7 @@ import { Document } from "tss-react/nextJs";
 export default Document;
 ```
 
-### Or, if have have a `_document.tsx` but you haven't overloaded `getInitialProps`
+### **Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`
 
 ```tsx
 import Document from "next/document";
@@ -304,7 +304,7 @@ export default class AppDocument extends Document {
 }
 ```
 
-### Or, if have have a `_document.tsx` and an overloaded `getInitialProps`
+### **Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`
 
 ```tsx
 import Document from "next/document";
