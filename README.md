@@ -36,6 +36,7 @@ $ yarn add tss-react
     -   [`makeStyles()`](#makestyles)
     -   [`useStyle()`](#usestyle)
     -   [`<GlobalStyles />`](#globalstyles-)
+    -   [`keyframe`](#keyframe)
 -   [Composition](#composition)
     -   [Internal composition](#internal-composition)
     -   [Export rules](#export-rules)
@@ -210,6 +211,33 @@ function MyComponent() {
         </>
     );
 }
+```
+
+## `keyframe`
+
+```typescript
+// Reexport from @emotion/react
+import { keyframe } from "tss-react";
+import { makeStyles } from "./makeStyles";
+
+export const { useStyles } = makeStyles()({
+    "svg": {
+        "& g": {
+            "opacity": 0,
+            "animation": `${keyframes`
+            60%, 100% {
+                opacity: 0;
+            }
+            0% {
+                opacity: 0;
+            }
+            40% {
+                opacity: 1;
+            }
+            `} 3.5s infinite ease-in-out`,
+        },
+    },
+});
 ```
 
 # Composition
