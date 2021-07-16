@@ -1,3 +1,9 @@
+### **0.3.3** (2021-07-16)  
+  
+- Document keyframe  
+- Sollution for composition #2  
+- Update README    
+  
 ### **0.3.2** (2021-07-14)  
   
 - Correct GlobalStyles API    
