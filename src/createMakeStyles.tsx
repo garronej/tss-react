@@ -4,7 +4,6 @@ import type { CSSObject } from "./types";
 import { Css, Cx } from "./types";
 
 /**
- * returns useStyle.
  * @see {@link https://github.com/garronej/tss-react}
  */
 export function createMakeStyles<Theme>(params: {
@@ -14,6 +13,7 @@ export function createMakeStyles<Theme>(params: {
 }) {
     const { useTheme, css, cx } = params;
 
+    /** returns useStyle. */
     function makeStyles<Params = void>() {
         return function <Key extends string>(
             getCssObjectOrCssObject:
