@@ -3,7 +3,10 @@ import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
 import { Css, Cx } from "./types";
 
-/** https://github.com/garronej/tss-react */
+/**
+ * returns useStyle.
+ * @see {@link https://github.com/garronej/tss-react}
+ */
 export function createMakeStyles<Theme>(params: {
     useTheme(): Theme;
     css: Css;
@@ -42,8 +45,7 @@ export function createMakeStyles<Theme>(params: {
                 };
             }
 
-            //TODO: Return for composition as well.
-            return { useStyles };
+            return useStyles;
         };
     }
 

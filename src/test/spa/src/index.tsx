@@ -9,7 +9,7 @@ export function useTheme() {
 
 const { makeStyles } = createMakeStyles({ useTheme });
 
-const { useStyles } = makeStyles()(theme => ({
+const useStyles = makeStyles()(theme => ({
     "root": {
         "& > h1:nth-child(2)": {
             "color": theme.limeGreen,

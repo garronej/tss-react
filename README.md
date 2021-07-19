@@ -73,7 +73,7 @@ export const { makeStyles } = createMakeStyles({ useTheme });
 ```tsx
 import { makeStyles } from "./makeStyles";
 
-const { useStyles } = makeStyles<{ color: "red" | "blue" }>()({
+const useStyles= makeStyles<{ color: "red" | "blue" }>()({
    (theme, { color })=> ({
        "root": {
            color,
@@ -142,7 +142,7 @@ Your component style may depend on the props
 and state of the components:
 
 ```typescript
-const { useStyles } = makeStyles<{ color: string; }>()({
+const useStyles= makeStyles<{ color: string; }>()({
     (_theme, { color })=> ({
         "root": {
             "backgroundColor": color
@@ -158,7 +158,7 @@ const { classes } = useStyles({ "color": "grey" });
 ...Or it may not:
 
 ```typescript
-const { useStyles } = makeStyles()({
+const useStyles = makeStyles()({
     //If you don't need neither the theme nor any state or
     //props to describe your component style you can pass-in
     //an object instead of a callback.
@@ -220,7 +220,7 @@ function MyComponent() {
 import { keyframe } from "tss-react";
 import { makeStyles } from "./makeStyles";
 
-export const { useStyles } = makeStyles()({
+export const useStyles = makeStyles()({
     "svg": {
         "& g": {
             "opacity": 0,
@@ -253,7 +253,7 @@ When you want to reuse style within the same component.
 import { makeStyles } from "./makeStyles";
 import type { CSSObject } from "tss-react";
 
-const { useStyles } = makeStyles<{ n: number; color: string }>()(
+const useStyles = makeStyles<{ n: number; color: string }>()(
     (theme, { n, color }) => {
         const root: CSSObject = {
             "color": theme.primaryColor,
@@ -291,7 +291,7 @@ export const getRootStyle = (
     "border": `${params.n}px solid black`,
 });
 
-const { useStyles } = makeStyles<
+const useStyles = makeStyles<
     Parameters<typeof getRootStyle>[1] & { color: string }
 >()((theme, { n, color }) => ({
     "root": getRootStyle(theme, { n }),
