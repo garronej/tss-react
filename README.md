@@ -34,7 +34,7 @@ $ yarn add tss-react
 -   [API documentation](#api-documentation)
     -   [Exposed APIs](#exposed-apis)
     -   [`makeStyles()`](#makestyles)
-    -   [`useStyle()`](#usestyle)
+    -   [`useStyles()`](#usestyles)
     -   [`<GlobalStyles />`](#globalstyles-)
     -   [`keyframe`](#keyframe)
 -   [Composition](#composition)
@@ -172,7 +172,7 @@ const { useStyles } = makeStyles()({
 const { classes } = useStyles();
 ```
 
-## `useStyle()`
+## `useStyles()`
 
 Beside the `classes`, `useStyles` also returns `cx`, `css` and your `theme`.
 
