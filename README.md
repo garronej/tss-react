@@ -27,7 +27,7 @@ $ yarn add tss-react
 ```
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/6702424/126055269-7d70465a-bd13-4365-a3f9-b3694e23c1c8.gif">
+    <img src="https://user-images.githubusercontent.com/6702424/126204447-6f14ef75-63c2-4480-beb6-18d6fb94b50b.gif">
 </p>
 
 -   [Quick start](#quick-start)
