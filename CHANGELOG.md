@@ -1,3 +1,8 @@
+## **0.4.0** (2021-07-19)  
+  
+- Update GIFs  
+- #5 Do not return useStyles as a wrapped value    
+  
 ### **0.3.3** (2021-07-16)  
   
 - Document keyframe  
