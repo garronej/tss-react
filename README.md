@@ -12,7 +12,7 @@
 </p>
 
 `'tss-react'` is intended to be a replacement for `'react-jss'` and for
-[@material-ui v4 `makeStyle`](https://material-ui.com/styles/basics/#hook-api).
+[@material-ui v4 `makeStyle`](https://material-ui.com/styles/basics/#hook-api).  
 It's API is focused on providing maximum type safety and minimum verbosity.  
 This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/@emotion/react).
 
