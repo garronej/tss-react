@@ -364,18 +364,6 @@ import { createMakeStyles } from "tss-react";
 const { extractCriticalToChunks, constructStyleTagsFromChunks } =
     createEmotionServer(cache);
 
-function useTheme() {
-    return {
-        "primaryColor": "#32CD32",
-    };
-}
-
-const { TssProviderForSsr, makeStyles, useStyleTools } = createMakeStyles({
-    useTheme,
-});
-
-export { makeStyles, useStyleTools };
-
 const element = <App />;
 
 const { html, styles } = extractCriticalToChunks(renderToString(element));
