@@ -56,11 +56,11 @@ $ yarn add tss-react
 `./makeStyles.ts`
 
 ```typescript
-import { createMakeStyless } from "tss-react";
+import { createMakeStyles } from "tss-react";
 
-function useTheme(){
+function useTheme() {
     return {
-        "primaryColor": "#32CD32";
+        "primaryColor": "#32CD32"
     };
 }
 
@@ -73,8 +73,8 @@ export const { makeStyles } = createMakeStyles({ useTheme });
 ```tsx
 import { makeStyles } from "./makeStyles";
 
-const useStyles= makeStyles<{ color: "red" | "blue" }>()({
-   (theme, { color })=> ({
+const useStyles = makeStyles<{ color: "red" | "blue" }>()(
+   (theme, { color }) => ({
        "root": {
            color,
            "&:hover": {
@@ -82,15 +82,14 @@ const useStyles= makeStyles<{ color: "red" | "blue" }>()({
            }
         }
    })
-});
+);
 
 function MyComponent(props: Props){
-
     const { className } = props;
 
-    const [ color, setColor ]= useState<"red" | "blue">("red");
+    const [ color, setColor ] = useState<"red" | "blue">("red");
 
-    const { classes, cx }=useStyles({ color });
+    const { classes, cx } = useStyles({ color });
 
     return (
         <span className={cx(classes.root, className)}>
@@ -142,13 +141,13 @@ Your component style may depend on the props
 and state of the components:
 
 ```typescript
-const useStyles= makeStyles<{ color: string; }>()({
-    (_theme, { color })=> ({
+const useStyles = makeStyles<{ color: string }>()(
+    (_theme, { color }) => ({
         "root": {
             "backgroundColor": color
         }
     })
-});
+);
 
 //...
 
@@ -278,7 +277,7 @@ const useStyles = makeStyles<{ n: number; color: string }>()(
 
 ```typescript
 import { makeStyles } from "./makeStyles";
-//You can always define the Theme type as: "export type Theme = ReturnType<typeof useTheme>;"
+// You can always define the Theme type as: "export type Theme = ReturnType<typeof useTheme>;"
 import type { Theme } from "./makeStyles";
 import type { CSSObject } from "tss-react";
 
@@ -295,7 +294,7 @@ const useStyles = makeStyles<
     Parameters<typeof getRootStyle>[1] & { color: string }
 >()((theme, { n, color }) => ({
     "root": getRootStyle(theme, { n }),
-    //Other style...
+    // Other styles...
 }));
 ```
 
@@ -440,11 +439,11 @@ type Props = {
 };
 
 const useStyles = makeStyles(
-  theme => createStyles<"root" | "label">, { color: "red" | "blue"; }>({
+  theme => createStyles<"root" | "label", { color: "red" | "blue" }>({
     "root": {
         "backgroundColor": theme.palette.primary.main
     },
-    "label": ({ color })=>({
+    "label": ({ color }) => ({
         color
     })
   })
