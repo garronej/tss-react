@@ -16,8 +16,8 @@
 It's API is focused on providing maximum type safety and minimum verbosity.  
 This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/@emotion/react).
 
--   ✅ As fast as `emotion` (which is [much faster](https://github.com/mui-org/material-ui/issues/22342#issue-684407575)
-    than mui's `makeStyles`)
+-   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
+    with mui's `makeStyles`)
 -   ✅ As lightweight as `emotion/react`.
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5. Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
