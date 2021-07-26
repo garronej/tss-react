@@ -56,47 +56,42 @@ $ yarn add tss-react
 `./makeStyles.ts`
 
 ```typescript
-import { createMakeStyles } from "tss-react";
+import { createMakeStyles } from "tss-react";
 
 function useTheme() {
     return {
-        "primaryColor": "#32CD32"
+        "primaryColor": "#32CD32",
     };
 }
 
 // material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles";
-export const { makeStyles } = createMakeStyles({ useTheme });
+export const { makeStyles } = createMakeStyles({ useTheme });
 ```
 
 `./MyComponent.tsx`
 
 ```tsx
-import { makeStyles } from "./makeStyles";
+import { makeStyles } from "./makeStyles";
 
 const useStyles = makeStyles<{ color: "red" | "blue" }>()(
-   (theme, { color }) => ({
-       "root": {
-           color,
-           "&:hover": {
-               "backgroundColor": theme.primaryColor
-           }
-        }
-   })
+    (theme, { color }) => ({
+        "root": {
+            color,
+            "&:hover": {
+                "backgroundColor": theme.primaryColor,
+            },
+        },
+    }),
 );
 
-function MyComponent(props: Props){
-    const { className } = props;
+function MyComponent(props: Props) {
+    const { className } = props;
 
-    const [ color, setColor ] = useState<"red" | "blue">("red");
+    const [color, setColor] = useState<"red" | "blue">("red");
 
     const { classes, cx } = useStyles({ color });
 
-    return (
-        <span className={cx(classes.root, className)}>
-            hello world
-        </span>
-    );
-
+    return <span className={cx(classes.root, className)}>hello world</span>;
 }
 ```
 
@@ -141,17 +136,15 @@ Your component style may depend on the props
 and state of the components:
 
 ```typescript
-const useStyles = makeStyles<{ color: string }>()(
-    (_theme, { color }) => ({
-        "root": {
-            "backgroundColor": color
-        }
-    })
-);
+const useStyles = makeStyles<{ color: string }>()((_theme, { color }) => ({
+    "root": {
+        "backgroundColor": color,
+    },
+}));
 
 //...
 
-const { classes } = useStyles({ "color": "grey" });
+const { classes } = useStyles({ "color": "grey" });
 ```
 
 ...Or it may not:
@@ -438,29 +431,25 @@ type Props = {
     color: "red" | "blue";
 };
 
-const useStyles = makeStyles(
-  theme => createStyles<"root" | "label", { color: "red" | "blue" }>({
-    "root": {
-        "backgroundColor": theme.palette.primary.main
-    },
-    "label": ({ color }) => ({
-        color
-    })
-  })
+const useStyles = makeStyles(theme =>
+    createStyles<"root" | "label", { color: "red" | "blue" }>({
+        "root": {
+            "backgroundColor": theme.palette.primary.main,
+        },
+        "label": ({ color }) => ({
+            color,
+        }),
+    }),
 );
 
-function MyComponent(props: Props){
-
+function MyComponent(props: Props) {
     const classes = useStyles(props);
 
     return (
         <div className={classes.root}>
-            <span className={classes.label}>
-                Hello World
-            </span>
+            <span className={classes.label}>Hello World</span>
         </div>
     );
-
 }
 ```
 
