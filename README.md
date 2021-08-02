@@ -98,6 +98,7 @@ function MyComponent(props: Props) {
 
 **Material-UI users only**, don't forget to enable [injectFirst](https://material-ui.com/styles/advanced/#injectfirst)
 
+v4
 ```tsx
 import { render } from "react-dom";
 import { StylesProvider } from "@material-ui/core/styles";
@@ -106,6 +107,19 @@ render(
     <StylesProvider injectFirst>
         <Root />,
     </StylesProvider>,
+    document.getElementById("root"),
+);
+```
+
+v5
+```tsx
+import { render } from "react-dom";
+import { StyledEngineProvider } from "@material-ui/core/styles";
+
+render(
+    <StyledEngineProvider injectFirst>
+        <Root />,
+    </StyledEngineProvider>,
     document.getElementById("root"),
 );
 ```
