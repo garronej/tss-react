@@ -1,3 +1,21 @@
+## **0.5.0** (2021-08-08)  
+  
+- #6 Support custom @emotion/cache  
+- Merge pull request #9 from howlettt/material-ui-5  
+- Adding Material UI 5 injectFirst example  
+- Merge pull request #8 from burtek/patch-1
+
+Fix typos and syntax errors in code snippets in README.md  
+- Update README.md
+
+Fix typos and syntax errors in code snippets  
+- Merge pull request #7 from oliviertassinari/patch-1
+
+emotion is slower and faster  
+- emotion is slower and faster
+
+It depends    
+  
 ### **0.4.1** (2021-07-19)  
   
   
