@@ -443,7 +443,7 @@ export default class AppDocument extends Document {
 ### **Or**, if you want to use a custom custom emotion cache.
 
 At this level of customization you should be able to figure out what you need
-to do just by looking at [this template]().
+to do just by looking at [this template](https://github.com/garronej/tss-react/blob/main/src/nextJs.tsx).
 
 ## With any other framework
 
