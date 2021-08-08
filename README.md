@@ -128,7 +128,7 @@ render(
 );
 ```
 
-**Important note**
+**Important note:**  
 If you don't want to end up writing things like:  
 `import { makeStyles } from "../../../../../../makeStyles";`
 You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in
