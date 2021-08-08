@@ -136,7 +136,7 @@ import { makeStyles } from "../../../../../../makeStyles";
 ```
 
 You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in
-your `tsconfig.json` and import things relative yo your `src/` directory. [Example]().
+your `tsconfig.json` and import things [relative yo your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
 
 <p align="center">
     <i>Try it now:</i><br>
