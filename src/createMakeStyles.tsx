@@ -8,10 +8,9 @@ import { Css, Cx } from "./types";
  */
 export function createMakeStyles<Theme>(params: {
     useTheme(): Theme;
-    css: Css;
-    cx: Cx;
+    useCssAndCx(): { css: Css; cx: Cx };
 }) {
-    const { useTheme, css, cx } = params;
+    const { useTheme, useCssAndCx } = params;
 
     /** returns useStyle. */
     function makeStyles<Params = void>() {
@@ -27,6 +26,8 @@ export function createMakeStyles<Theme>(params: {
 
             function useStyles(params: Params) {
                 const theme = useTheme();
+
+                const { css, cx } = useCssAndCx();
 
                 const cssObject = getCssObject(theme, params);
 

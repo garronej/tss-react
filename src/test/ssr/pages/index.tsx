@@ -1,10 +1,13 @@
 import Head from "next/head";
-import { createMakeStyles, css, GlobalStyles } from "tss-react";
+import { createMakeStyles, GlobalStyles } from "tss-react";
 import { useTheme } from "../shared/theme";
 
-const { makeStyles } = createMakeStyles({ useTheme });
+const { makeStyles, useStyles: useStylesBase } = createMakeStyles({ useTheme });
 
 export default function Home() {
+
+    const { css } = useStylesBase();
+
     return (
         <>
             <Head>

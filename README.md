@@ -21,7 +21,7 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ As lightweight as `emotion/react`.
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5. Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
--   🕑 Transparent support for custom cache [hopefully coming very soon](https://github.com/garronej/tss-react/issues/6)
+-   ✅ Transparent support for `@emotion` custom cache.
 
 ```bash
 $ yarn add tss-react
@@ -38,6 +38,7 @@ $ yarn add tss-react
     -   [`useStyles()`](#usestyles)
     -   [`<GlobalStyles />`](#globalstyles-)
     -   [`keyframe`](#keyframe)
+-   [Cache](#cache)
 -   [Composition](#composition)
     -   [Internal composition](#internal-composition)
     -   [Export rules](#export-rules)
@@ -46,6 +47,7 @@ $ yarn add tss-react
         -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
         -   [**Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
         -   [**Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
+        -   [**Or**, if you want to use a custom custom emotion cache.](#or-if-you-want-to-use-a-custom-custom-emotion-cache)
     -   [With any other framework](#with-any-other-framework)
 -   [Development](#development)
 -   [FAQ](#faq)
@@ -85,7 +87,7 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     }),
 );
 
-function MyComponent(props: Props) {
+export function MyComponent(props: Props) {
     const { className } = props;
 
     const [color, setColor] = useState<"red" | "blue">("red");
@@ -98,7 +100,8 @@ function MyComponent(props: Props) {
 
 **Material-UI users only**, don't forget to enable [injectFirst](https://material-ui.com/styles/advanced/#injectfirst)
 
-v4
+`v4`
+
 ```tsx
 import { render } from "react-dom";
 import { StylesProvider } from "@material-ui/core/styles";
@@ -111,7 +114,8 @@ render(
 );
 ```
 
-v5
+`v5`
+
 ```tsx
 import { render } from "react-dom";
 import { StyledEngineProvider } from "@material-ui/core/styles";
@@ -123,6 +127,12 @@ render(
     document.getElementById("root"),
 );
 ```
+
+**Important note**
+If you don't want to end up writing things like:
+`import { makeStyles } from "../../../../../../makeStyles";`
+You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in
+your `tsconfig.json` and import things relative yo your `src/` directory. [Example]().
 
 <p align="center">
     <i>Try it now:</i><br>
@@ -138,8 +148,6 @@ render(
 ```typescript
 import {
     createMakeStyles, //<- Create an instance of makeStyle() for your theme.
-    css, //<- The function as defined in @emotion/css https://emotion.sh
-    cx, //<- The function as defined in @emotion/css
     keyframe, //<- The function as defined in @emotion/react and @emotion/css
     GlobalStyles, //<- A component to define global styles.
 } from "tss-react";
@@ -182,13 +190,53 @@ const { classes } = useStyles();
 ## `useStyles()`
 
 Beside the `classes`, `useStyles` also returns `cx`, `css` and your `theme`.
+`css` is the function as defined in [@emotion/css](https://emotion.sh)
+`cx` is the function as defined in [@emotion/css](https://emotion.sh/docs/@emotion/css#cx)
 
 ```typescript
 const { classes, cx, css, theme } = useStyles(/*...*/);
 ```
 
-`cx` and `css` cans be imported directly from `tss-react` but it's convenient to
-be able to access them here.
+In some components you may need `cx`, `css` or `theme` without defining
+custom `classes`. For that purpose you can use the `useStyles` hook returned
+by `createMakeStyles`.
+
+`makeStyles.ts`
+
+```typescript
+import { createMakeStyles } from "tss-react";
+
+function useTheme() {
+    return {
+        "primaryColor": "#32CD32",
+    };
+}
+
+export const {
+    makeStyles,
+    useStyles, //<- This useStyles is like the useStyles you get when you
+    //   call makeStyles but it doesn't return a classes object.
+} = createMakeStyles({ useTheme });
+```
+
+`./MyComponent.tsx`
+
+```tsx
+//Here we ca import useStyles directly instead of generating it from makeStyles.
+import { useStyles } from "./makeStyles";
+
+export function MyComponent(props: Props) {
+    const { className } = props;
+
+    const { classes, cx, css } = useStyles();
+
+    return (
+        <span className={cx(css({ "color": "red" }), className)}>
+            hello world
+        </span>
+    );
+}
+```
 
 ## `<GlobalStyles />`
 
@@ -245,6 +293,31 @@ export const useStyles = makeStyles()({
         },
     },
 });
+```
+
+# Cache
+
+If you are using [custom emotion cache](https://emotion.sh/docs/@emotion/cache) `tss-react` will transparently
+pick up the cache you have provided using [`<CacheProvider />` from `@emotion/react`](https://emotion.sh/docs/cache-provider).  
+If you have manually installed `@emotion/react` make sure the package is not duplicated or import `<CacheProvider />`
+from `tss-react/@emotion/react`. (It is duplicated if `node_modules/tss-react/node_modules/@emotion/react` exists in your project).
+
+```tsx
+import { CacheProvider } from "@emotion/react";
+/* OR:
+import { CacheProvider } from "tss-react/@emotion/react"; 
+*/
+import createCache from "@emotion/cache";
+/* OR:
+import createCache from "tss-react/@emotion/cache";
+*/
+
+const myCache = createCache({
+    "key": "my-prefix-key",
+    //...
+});
+
+render(<CacheProvider value={myCache}>{/* ... */}</CacheProvider>);
 ```
 
 # Composition
@@ -366,6 +439,11 @@ export default class AppDocument extends Document {
     //...Rest of your class...
 }
 ```
+
+### **Or**, if you want to use a custom custom emotion cache.
+
+At this level of customization you should be able to figure out what you need
+to do just by looking at [this template]().
 
 ## With any other framework
 

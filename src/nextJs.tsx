@@ -3,10 +3,10 @@ import type { DocumentContext } from "next/document";
 
 import createEmotionServer from "@emotion/server/create-instance";
 import htmlReactParserParse from "html-react-parser";
-import { cache } from "./cache";
+import { defaultEmotionCache } from "./defaultEmotionCache";
 
 const { extractCriticalToChunks, constructStyleTagsFromChunks } =
-    createEmotionServer(cache);
+    createEmotionServer(defaultEmotionCache);
 
 export function pageHtmlToStyleTags(params: { pageHtml: string }) {
     const { pageHtml } = params;

@@ -1,13 +1,7 @@
 import { render } from "react-dom";
-import { createMakeStyles, css, GlobalStyles } from "tss-react";
-
-export function useTheme() {
-    return {
-        "limeGreen": "#32CD32",
-    };
-}
-
-const { makeStyles } = createMakeStyles({ useTheme });
+//NOTE: If makeStyles was located in src/app we would write: import { makeStyles } from "app/makeStyles";
+import { makeStyles } from "makeStyles";
+import { GlobalStyles } from "tss-react";
 
 const useStyles = makeStyles()(theme => ({
     "root": {
