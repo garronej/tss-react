@@ -129,8 +129,12 @@ render(
 ```
 
 **Important note:**  
-If you don't want to end up writing things like:  
-`import { makeStyles } from "../../../../../../makeStyles";`
+If you don't want to end up writing things like:
+
+```typescript
+import { makeStyles } from "../../../../../../makeStyles";
+```
+
 You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in
 your `tsconfig.json` and import things relative yo your `src/` directory. [Example]().
 
