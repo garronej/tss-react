@@ -198,7 +198,8 @@ const { classes, cx, css, theme } = useStyles(/*...*/);
 ```
 
 In some components you may need `cx`, `css` or `theme` without defining
-custom `classes`. For that purpose you can use the `useStyles` hook returned
+custom `classes`.  
+For that purpose you can use the `useStyles` hook returned
 by `createMakeStyles`.
 
 `makeStyles.ts`
