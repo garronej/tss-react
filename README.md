@@ -24,7 +24,7 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ Transparent support for `@emotion` custom cache.
 
 ```bash
-$ yarn add tss-react
+$ yarn add tss-react @emotion/cache @emotion/react @emotion/serialize @emotion/utils
 ```
 
 <p align="center">

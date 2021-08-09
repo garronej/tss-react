@@ -1,6 +1,6 @@
 {
     "name": "tss-react",
-    "version": "0.5.2",
+    "version": "0.6.0-beta.1",
     "description": "Like JSS but for optimized for TypeScript",
     "repository": {
         "type": "git",
@@ -53,12 +53,14 @@
     ],
     "homepage": "https://github.com/garronej/tss-react",
     "dependencies": {
+        "html-react-parser": "^1.2.7",
+        "@emotion/server": "^11.4.0"
+    },
+    "peerDependencies": {
         "@emotion/cache": "^11.4.0",
         "@emotion/react": "^11.4.1",
         "@emotion/serialize": "^1.0.2",
-        "@emotion/server": "^11.4.0",
-        "@emotion/utils": "^1.0.0",
-        "html-react-parser": "^1.2.7"
+        "@emotion/utils": "^1.0.0"
     },
     "devDependencies": {
         "@types/node": "^15.3.1",
@@ -82,6 +84,10 @@
         "remove-trailing-separator": "^1.1.0",
         "to-regex": "^3.0.2",
         "tsafe": "^0.4.1",
-        "typescript": "^4.3.5"
+        "typescript": "^4.3.5",
+        "@emotion/cache": "^11.4.0",
+        "@emotion/react": "^11.4.1",
+        "@emotion/serialize": "^1.0.2",
+        "@emotion/utils": "^1.0.0"
     }
 }
