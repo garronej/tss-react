@@ -114,7 +114,7 @@ jobs:
   publish_on_npm:
     runs-on: ubuntu-latest
     needs: 
-      - test_lint
+      - test
     steps:
     - uses: actions/checkout@v2.3.4
       with:
