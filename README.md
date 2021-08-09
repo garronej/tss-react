@@ -21,7 +21,7 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ As lightweight as `emotion/react`.
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5. Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
--   ✅ Full `@emotion` custom cache.
+-   ✅ Complete `@emotion` custom cache integration.
 
 ```bash
 $ yarn add tss-react
@@ -31,27 +31,27 @@ $ yarn add tss-react
     <img src="https://user-images.githubusercontent.com/6702424/126204447-6f14ef75-63c2-4480-beb6-18d6fb94b50b.gif">
 </p>
 
-- [Quick start](#quick-start)
-- [API documentation](#api-documentation)
-  - [Exposed APIs](#exposed-apis)
-  - [`makeStyles()`](#makestyles)
-  - [`useStyles()`](#usestyles)
-  - [`<GlobalStyles />`](#globalstyles-)
-  - [`keyframe`](#keyframe)
-- [Cache](#cache)
-- [Composition](#composition)
-  - [Internal composition](#internal-composition)
-  - [Export rules](#export-rules)
-- [Server Side Rendering (SSR)](#server-side-rendering-ssr)
-  - [With Next.js](#with-nextjs)
-    - [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
-    - [**Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
-    - [**Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
-  - [With any other framework](#with-any-other-framework)
-- [Development](#development)
-- [FAQ](#faq)
-  - [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
-  - [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
+-   [Quick start](#quick-start)
+-   [API documentation](#api-documentation)
+    -   [Exposed APIs](#exposed-apis)
+    -   [`makeStyles()`](#makestyles)
+    -   [`useStyles()`](#usestyles)
+    -   [`<GlobalStyles />`](#globalstyles-)
+    -   [`keyframe`](#keyframe)
+-   [Cache](#cache)
+-   [Composition](#composition)
+    -   [Internal composition](#internal-composition)
+    -   [Export rules](#export-rules)
+-   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
+    -   [With Next.js](#with-nextjs)
+        -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
+        -   [**Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
+        -   [**Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
+    -   [With any other framework](#with-any-other-framework)
+-   [Development](#development)
+-   [FAQ](#faq)
+    -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
+    -   [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
 
 # Quick start
 
@@ -397,7 +397,7 @@ Just create a file `page/_document.tsx` as follow:
 ```tsx
 import { createDocument } from "tss-react/nextJs";
 
-const { Document } = createDocument();
+const { Document } = createDocument();
 
 /*
 If you use custom cache you should provide it here:
@@ -422,7 +422,6 @@ If you use custom cache you should provide it here:
 
 const { getInitialProps } = createGetInitialProps({ "caches": [ cache1, cache2, ... ] });
 */
-
 
 export default class AppDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
@@ -467,6 +466,7 @@ export default class AppDocument extends Document {
     //...Rest of your class...
 }
 ```
+
 ## With any other framework
 
 ```tsx
@@ -476,8 +476,7 @@ import createEmotionServer from "@emotion/server/create-instance";
 import { getDefaultEmotionCache } from "tss-react/defaultEmotionCache";
 import { createMakeStyles } from "tss-react";
 
-
-const emotionServers = [ getDefaultEmotionCache() ].map(createEmotionServer);
+const emotionServers = [getDefaultEmotionCache()].map(createEmotionServer);
 
 const element = <App />;
 
@@ -490,10 +489,11 @@ res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My site</title>
-    ${emotionServers.map(
-        ({ extractCriticalToChunks, constructStyleTagsFromChunks })=> 
-            constructStyleTagsFromChunks(extractCriticalToChunks(html))
-    ).join("\n")}
+    ${emotionServers
+        .map(({ extractCriticalToChunks, constructStyleTagsFromChunks }) =>
+            constructStyleTagsFromChunks(extractCriticalToChunks(html)),
+        )
+        .join("\n")}
 </head>
 <body>
     <div id="root">${html}</div>
