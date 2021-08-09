@@ -18,9 +18,10 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
--   ✅ As lightweight as `emotion/react`.
+-   ✅ As lightweight as [`@emotion/react`](https://emotion.sh/docs/@emotion/react).
 -   ✅ Server side rendering support (e.g: Next.js).
--   ✅ Seamless integration with [material-ui](https://material-ui.com) v5. Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
+-   ✅ Seamless integration with [material-ui](https://material-ui.com) v5.  
+    Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
 -   ✅ Complete `@emotion` custom cache integration.
 
 ```bash
