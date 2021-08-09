@@ -1,3 +1,12 @@
-import createCache from "./@emotion/cache";
+import createCache from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 
-export const defaultEmotionCache = createCache({ "key": "tss-react" });
+let defaultEmotionCache: EmotionCache | undefined = undefined;
+
+export function getDefaultEmotionCache(): EmotionCache {
+    if (defaultEmotionCache === undefined) {
+        defaultEmotionCache = createCache({ "key": "tss-react" });
+    }
+
+    return defaultEmotionCache;
+}

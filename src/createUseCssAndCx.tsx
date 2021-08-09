@@ -1,24 +1,22 @@
 import "./tools/Object.fromEntries";
 import { classnames } from "./tools/classnames";
 import type { Cx, Css } from "./types";
-import type * as emotionReact from "./@emotion/react";
 import type * as emotionSerialize from "@emotion/serialize";
 import type * as emotionUtils from "@emotion/utils";
 import { useSemanticGuaranteeMemo } from "./tools/useSemanticGuaranteeMemo";
+import type { EmotionCache } from "@emotion/cache";
 
 export function createUseCssAndCx(params: {
     serializeStyles: typeof emotionSerialize.serializeStyles;
     insertStyles: typeof emotionUtils.insertStyles;
     getRegisteredStyles: typeof emotionUtils.getRegisteredStyles;
-    useEmotionCache: typeof emotionReact.useEmotionCache;
-    defaultEmotionCache: emotionReact.EmotionCache;
+    useEmotionCache(): EmotionCache;
 }) {
     const {
         serializeStyles,
         insertStyles,
         getRegisteredStyles,
         useEmotionCache,
-        defaultEmotionCache,
     } = params;
 
     function merge(
@@ -42,7 +40,7 @@ export function createUseCssAndCx(params: {
     }
 
     function useCssAndCx() {
-        const cache = useEmotionCache() ?? defaultEmotionCache;
+        const cache = useEmotionCache();
 
         const css = useSemanticGuaranteeMemo<Css>(
             () =>
