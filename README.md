@@ -21,38 +21,37 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ As lightweight as `emotion/react`.
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5. Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
--   ✅ Transparent support for `@emotion` custom cache.
+-   ✅ Full `@emotion` custom cache.
 
 ```bash
-$ yarn add tss-react @emotion/cache @emotion/react @emotion/serialize @emotion/utils
+$ yarn add tss-react
 ```
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/126204447-6f14ef75-63c2-4480-beb6-18d6fb94b50b.gif">
 </p>
 
--   [Quick start](#quick-start)
--   [API documentation](#api-documentation)
-    -   [Exposed APIs](#exposed-apis)
-    -   [`makeStyles()`](#makestyles)
-    -   [`useStyles()`](#usestyles)
-    -   [`<GlobalStyles />`](#globalstyles-)
-    -   [`keyframe`](#keyframe)
--   [Cache](#cache)
--   [Composition](#composition)
-    -   [Internal composition](#internal-composition)
-    -   [Export rules](#export-rules)
--   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
-    -   [With Next.js](#with-nextjs)
-        -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
-        -   [**Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
-        -   [**Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
-        -   [**Or**, if you want to use a custom custom emotion cache.](#or-if-you-want-to-use-a-custom-custom-emotion-cache)
-    -   [With any other framework](#with-any-other-framework)
--   [Development](#development)
--   [FAQ](#faq)
-    -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
-    -   [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
+- [Quick start](#quick-start)
+- [API documentation](#api-documentation)
+  - [Exposed APIs](#exposed-apis)
+  - [`makeStyles()`](#makestyles)
+  - [`useStyles()`](#usestyles)
+  - [`<GlobalStyles />`](#globalstyles-)
+  - [`keyframe`](#keyframe)
+- [Cache](#cache)
+- [Composition](#composition)
+  - [Internal composition](#internal-composition)
+  - [Export rules](#export-rules)
+- [Server Side Rendering (SSR)](#server-side-rendering-ssr)
+  - [With Next.js](#with-nextjs)
+    - [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
+    - [**Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
+    - [**Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
+  - [With any other framework](#with-any-other-framework)
+- [Development](#development)
+- [FAQ](#faq)
+  - [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
+  - [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
 
 # Quick start
 
@@ -108,7 +107,7 @@ import { StylesProvider } from "@material-ui/core/styles";
 
 render(
     <StylesProvider injectFirst>
-        <Root />,
+        <Root />
     </StylesProvider>,
     document.getElementById("root"),
 );
@@ -122,13 +121,13 @@ import { StyledEngineProvider } from "@material-ui/core/styles";
 
 render(
     <StyledEngineProvider injectFirst>
-        <Root />,
+        <Root />
     </StyledEngineProvider>,
     document.getElementById("root"),
 );
 ```
 
-**Important note:**  
+**NOTE:**  
 If you don't want to end up writing things like:
 
 ```typescript
@@ -396,7 +395,15 @@ work with SSR.
 Just create a file `page/_document.tsx` as follow:
 
 ```tsx
-import { Document } from "tss-react/nextJs";
+import { createDocument } from "tss-react/nextJs";
+
+const { Document } = createDocument();
+
+/*
+If you use custom cache you should provide it here:
+
+const { Document } = createDocument({ "caches": [ cache1, cache2, ... ] });
+*/
 
 export default Document;
 ```
@@ -406,7 +413,16 @@ export default Document;
 ```tsx
 import Document from "next/document";
 import type { DocumentContext } from "next/document";
-import { getInitialProps } from "tss-react/nextJs";
+import { createGetInitialProps } from "tss-react/nextJs";
+
+const { getInitialProps } = createGetInitialProps();
+
+/*
+If you use custom cache you should provide it here:
+
+const { getInitialProps } = createGetInitialProps({ "caches": [ cache1, cache2, ... ] });
+*/
+
 
 export default class AppDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
@@ -422,7 +438,14 @@ export default class AppDocument extends Document {
 ```tsx
 import Document from "next/document";
 import type { DocumentContext } from "next/document";
-import { pageHtmlToStyleTags } from "tss-react/nextJs";
+import { createPageHtmlToStyleTags } from "tss-react/nextJs";
+
+const { pageHtmlToStyleTags } = createPageHtmlToStyleTags();
+/*
+If you use custom cache you should provide it here:
+
+const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ cache1, cache2, ... ] });
+*/
 
 export default class AppDocument extends Document {
     static async getInitialProps(ctx: DocumentContext) {
@@ -444,27 +467,21 @@ export default class AppDocument extends Document {
     //...Rest of your class...
 }
 ```
-
-### **Or**, if you want to use a custom custom emotion cache.
-
-At this level of customization you should be able to figure out what you need
-to do just by looking at [this template](https://github.com/garronej/tss-react/blob/main/src/nextJs.tsx).
-
 ## With any other framework
 
 ```tsx
 import { renderToString } from "react-dom/server";
 import createEmotionServer from "@emotion/server/create-instance";
 
-import { cache } from "tss-react/cache";
+import { getDefaultEmotionCache } from "tss-react/defaultEmotionCache";
 import { createMakeStyles } from "tss-react";
 
-const { extractCriticalToChunks, constructStyleTagsFromChunks } =
-    createEmotionServer(cache);
+
+const emotionServers = [ getDefaultEmotionCache() ].map(createEmotionServer);
 
 const element = <App />;
 
-const { html, styles } = extractCriticalToChunks(renderToString(element));
+const html = renderToString(element);
 
 res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
 <html lang="en">
@@ -473,11 +490,13 @@ res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My site</title>
-    ${constructStyleTagsFromChunks({ html, styles })}
+    ${emotionServers.map(
+        ({ extractCriticalToChunks, constructStyleTagsFromChunks })=> 
+            constructStyleTagsFromChunks(extractCriticalToChunks(html))
+    ).join("\n")}
 </head>
 <body>
     <div id="root">${html}</div>
-
     <script src="./bundle.js"></script>
 </body>
 </html>`);

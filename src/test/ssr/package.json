@@ -9,6 +9,11 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@emotion/react": "^11.4.1",
+        "@emotion/server": "^11.4.0",
+        "@emotion/styled": "^11.3.0",
+        "@material-ui/core": "^5.0.0-beta.3",
+        "@material-ui/styled-engine": "^5.0.0-alpha.11",
         "next": "11.0.1",
         "react": "17.0.2",
         "react-dom": "^17.0.2",

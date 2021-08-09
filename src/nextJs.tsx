@@ -27,7 +27,7 @@ export function createPageHtmlToStyleTags(params?: { caches: EmotionCache[] }) {
                 .map(
                     ({
                         extractCriticalToChunks,
-                        constructStyleTagsFromChunks,
+                        constructStyleTagsFromChunks
                     }) => {
                         const { html, styles } =
                             extractCriticalToChunks(pageHtml);
