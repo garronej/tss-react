@@ -250,10 +250,10 @@ import { useStyles } from "./makeStyles";
 export function MyComponent(props: Props) {
     const { className } = props;
 
-    const { classes, cx, css } = useStyles();
+    const { cx, css, theme } = useStyles();
 
     return (
-        <span className={cx(css({ "color": "red" }), className)}>
+        <span className={cx(css({ "color": theme.primaryColor }), className)}>
             hello world
         </span>
     );
