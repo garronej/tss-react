@@ -1,9 +1,8 @@
-//Customization level: 0
 import { createDocument } from "tss-react/nextJs";
-import { cache } from "@material-ui/styled-engine";
+import { getDefaultEmotionCache } from "tss-react/defaultEmotionCache";
 
 const { Document } = createDocument({
-	"caches": [ cache ]
+	"caches": [getDefaultEmotionCache()]
 });
 
 export default Document;
