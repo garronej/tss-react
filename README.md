@@ -115,6 +115,9 @@ render(
 );
 ```
 
+If you need SSR You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/muiV4ssr)
+a Next.js setup to use as reference.
+
 </details>  
 </br>
 
@@ -414,6 +417,10 @@ const useStyles = makeStyles<
 There are some minimal configuration required to make `tss-react`
 work with SSR.
 
+The following instructions are assuming you are using `tss-react` standalone
+or alongside `@material-ui` v5. You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/muiV4ssr)
+a Next.js setup with `@material-ui` v4.
+
 ## With [Next.js](https://nextjs.org)
 
 ### If you don't have a `_document.tsx`
@@ -495,6 +502,10 @@ export default class AppDocument extends Document {
 
 ## With any other framework
 
+```bash
+yarn add @emotion/server
+```
+
 ```tsx
 import { renderToString } from "react-dom/server";
 import createEmotionServer from "@emotion/server/create-instance";
@@ -521,7 +532,7 @@ res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
         .map(({ extractCriticalToChunks, constructStyleTagsFromChunks }) =>
             constructStyleTagsFromChunks(extractCriticalToChunks(html)),
         )
-        .join("\n")}
+        .join("")}
 </head>
 <body>
     <div id="root">${html}</div>
@@ -543,6 +554,9 @@ yarn start_spa
 
 # To start the Server Side Rendering app (next.js)
 yarn start_ssr
+
+# To start the Server Side Rendering app that test the mui v4 integration.
+yarn start_muiV4
 ```
 
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)

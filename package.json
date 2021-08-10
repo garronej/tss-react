@@ -13,6 +13,7 @@
         "link_test_projects_dependencies": "node dist/bin/link_test_projects_dependencies",
         "start_spa": "yarn yarn_link && cd src/test/spa && yarn start",
         "start_ssr": "yarn yarn_link && cd src/test/ssr && yarn dev",
+        "start_muiV4": "yarn yarn_link && cd src/test/muiV4ssr && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "yarn lint:check --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",

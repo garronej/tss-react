@@ -10,17 +10,17 @@ import { getCache } from "./cache";
 /** https://github.com/garronej/tss-react */
 export function createMakeStyles<Theme>(params: {
     useTheme(): Theme;
-    emotionCache?: EmotionCache;
+    cache?: EmotionCache;
 }) {
-    const { useTheme, emotionCache } = params;
+    const { useTheme, cache } = params;
 
     const { useCssAndCx } = createUseCssAndCx({
         getRegisteredStyles,
         insertStyles,
         serializeStyles,
         "useEmotionCache":
-            emotionCache !== undefined
-                ? () => emotionCache
+            cache !== undefined
+                ? () => cache
                 : () => useEmotionCache() ?? getCache(),
     });
 
