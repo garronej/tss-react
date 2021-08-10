@@ -2,3 +2,5 @@ src/test/spa/**/* linguist-documentation
 src/test/ssr/**/* linguist-documentation
 src/test/muiV4ssr/**/* linguist-documentation
 src/tools/types/**/* linguist-documentation
+.eslintrc.js linguist-documentation
+next.config.js linguist-documentation
