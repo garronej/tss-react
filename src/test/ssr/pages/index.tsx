@@ -4,6 +4,7 @@ import { makeStyles, useStyles } from "../shared/makeStyles";
 import { CacheProvider } from "@emotion/react";
 import { styled } from "@material-ui/core";
 import { getCache } from "tss-react/cache";
+import Button from "@material-ui/core/Button"
 
 export default function Home() {
     return (
@@ -40,8 +41,11 @@ const { App } = (() => {
                 "color": theme.limeGreen,
             },
         },
-        "last": {
+        "ovStyled": {
             "color": "darkred"
+        },
+        "ovInternal": {
+            "backgroundColor": "darkblue"
         }
     }));
 
@@ -78,7 +82,15 @@ const { App } = (() => {
                     </h1>
                     <h1 className="foo">Should be cyan</h1>
                     <H1>Should be yellow</H1>
-                    <H1 className={classes.last}>Should be dark red</H1>
+                    <H1 className={classes.ovStyled}>Should be dark red</H1>
+                    <Button variant="contained" color="secondary"> Background should be purple </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.ovInternal}
+                    >
+                        Background should be dark blue
+                    </Button>
                 </div>
             </>
         );

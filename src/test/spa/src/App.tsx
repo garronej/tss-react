@@ -2,6 +2,7 @@
 import { makeStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@material-ui/core";
+import Button from "@material-ui/core/Button"
 
 export type Props = {
 	className?: string;
@@ -13,8 +14,11 @@ const useStyles = makeStyles()(theme => ({
 			"color": theme.limeGreen,
 		},
 	},
-	"last": {
+	"ovStyled": {
 		"color": "darkred"
+	},
+	"ovInternal": {
+		"backgroundColor": "darkblue"
 	}
 }));
 
@@ -51,7 +55,15 @@ export function App(props: Props) {
 				</h1>
 				<h1 className="foo">Should be cyan</h1>
 				<H1>Should be yellow</H1>
-				<H1 className={classes.last}>Should be dark red</H1>
+				<H1 className={classes.ovStyled}>Should be dark red</H1>
+				<Button variant="contained" color="secondary"> Background should be purple </Button>
+				<Button
+					variant="contained"
+					color="secondary"
+					className={classes.ovInternal}
+				>
+					Background should be dark blue
+				</Button>
 			</div>
 		</>
 	);
