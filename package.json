@@ -13,7 +13,6 @@
         "link_test_projects_dependencies": "node dist/bin/link_test_projects_dependencies",
         "start_spa": "yarn yarn_link && cd src/test/spa && yarn start",
         "start_ssr": "yarn yarn_link && cd src/test/ssr && yarn dev",
-        "prepare": "yarn build",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "yarn lint:check --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
@@ -53,9 +52,11 @@
         "@material-ui"
     ],
     "homepage": "https://github.com/garronej/tss-react",
+    "peerDependencies": {
+        "@emotion/react": "^11.4.1"
+    },
     "dependencies": {
         "@emotion/cache": "^11.4.0",
-        "@emotion/react": "^11.4.1",
         "@emotion/serialize": "^1.0.2",
         "@emotion/server": "^11.4.0",
         "@emotion/utils": "^1.0.0",

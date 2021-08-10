@@ -1,8 +1,11 @@
 import { createDocument } from "tss-react/nextJs";
-import { getDefaultEmotionCache } from "tss-react/defaultEmotionCache";
 
-const { Document } = createDocument({
-	"caches": [getDefaultEmotionCache()]
-});
+const { Document } = createDocument();
 
 export default Document;
+
+/*
+import { Document } from "tss-react/nextJs";
+
+export default Document;
+*/

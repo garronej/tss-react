@@ -6,8 +6,32 @@ import * as fs from "fs";
 
 const tssReactDirPath = pathJoin(__dirname, "..", "..");
 
+fs.writeFileSync(
+    pathJoin(tssReactDirPath, "dist", "package.json"),
+    Buffer.from(
+        JSON.stringify(
+            (() => {
+                const packageJsonParsed = JSON.parse(
+                    fs
+                        .readFileSync(pathJoin(tssReactDirPath, "package.json"))
+                        .toString("utf8"),
+                );
+
+                return {
+                    ...packageJsonParsed,
+                    "main": packageJsonParsed["main"].replace(/^dist\//, ""),
+                    "types": packageJsonParsed["types"].replace(/^dist\//, ""),
+                };
+            })(),
+            null,
+            2,
+        ),
+        "utf8",
+    ),
+);
+
 const commonThirdPartyDeps = (() => {
-    const namespaceModuleNames = ["@emotion", "@material-ui"];
+    const namespaceModuleNames = ["@emotion"];
     const standaloneModuleNames = ["react", "@types/react"];
 
     return [
@@ -21,7 +45,10 @@ const commonThirdPartyDeps = (() => {
                             namespaceModuleName,
                         ),
                     )
-                    .map(submoduleName => `${namespaceModuleName}/${submoduleName}`),
+                    .map(
+                        submoduleName =>
+                            `${namespaceModuleName}/${submoduleName}`,
+                    ),
             )
             .reduce((prev, curr) => [...prev, ...curr], []),
         ...standaloneModuleNames,
@@ -30,7 +57,9 @@ const commonThirdPartyDeps = (() => {
 
 const yarnHomeDirPath = pathJoin(tssReactDirPath, ".yarn_home");
 
-execSync(["rm -rf", "mkdir"].map(cmd => `${cmd} ${yarnHomeDirPath}`).join(" && "));
+execSync(
+    ["rm -rf", "mkdir"].map(cmd => `${cmd} ${yarnHomeDirPath}`).join(" && "),
+);
 
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
@@ -52,16 +81,13 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     });
 };
 
-
 const testAppNames = ["spa", "ssr"] as const;
 
-const getTestAppPath = (testAppName: typeof testAppNames[number]) => pathJoin(tssReactDirPath, "src", "test", testAppName);
+const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
+    pathJoin(tssReactDirPath, "src", "test", testAppName);
 
-testAppNames.forEach(testAppName => 
-    execSync(
-        "yarn install",
-        { "cwd": getTestAppPath(testAppName) }
-    )
+testAppNames.forEach(testAppName =>
+    execSync("yarn install", { "cwd": getTestAppPath(testAppName) }),
 );
 
 console.log("=== Linking common dependencies ===");
@@ -89,10 +115,9 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
     testAppNames.forEach(testAppName =>
         execYarnLink({
             "cwd": getTestAppPath(testAppName),
-            "targetModuleName": commonThirdPartyDep
-        })
+            "targetModuleName": commonThirdPartyDep,
+        }),
     );
-
 });
 
 console.log("=== Linking in house dependencies ===");
@@ -102,7 +127,6 @@ execYarnLink({ "cwd": pathJoin(tssReactDirPath, "dist") });
 testAppNames.forEach(testAppName =>
     execYarnLink({
         "cwd": getTestAppPath(testAppName),
-        "targetModuleName": "tss-react"
-    })
+        "targetModuleName": "tss-react",
+    }),
 );
-

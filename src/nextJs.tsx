@@ -4,16 +4,16 @@ import type { DocumentContext } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import htmlReactParserParse from "html-react-parser";
 import type { EmotionCache } from "@emotion/cache";
-import { getDefaultEmotionCache } from "./defaultEmotionCache";
+import { getCache } from "./cache";
 
 export function createPageHtmlToStyleTags(params?: { caches: EmotionCache[] }) {
     let { caches = [] } = params ?? {};
 
     {
-        const defaultEmotionCache = getDefaultEmotionCache();
+        const cache = getCache();
 
-        if (!caches.includes(defaultEmotionCache)) {
-            caches = [...caches, defaultEmotionCache];
+        if (!caches.includes(cache)) {
+            caches = [...caches, cache];
         }
     }
 
@@ -27,18 +27,18 @@ export function createPageHtmlToStyleTags(params?: { caches: EmotionCache[] }) {
                 .map(
                     ({
                         extractCriticalToChunks,
-                        constructStyleTagsFromChunks
+                        constructStyleTagsFromChunks,
                     }) => {
                         const { html, styles } =
                             extractCriticalToChunks(pageHtml);
 
-                        constructStyleTagsFromChunks({
+                        return constructStyleTagsFromChunks({
                             html,
                             styles,
                         });
                     },
                 )
-                .join("\n"),
+                .join(""),
         );
     }
 

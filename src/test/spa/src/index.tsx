@@ -4,15 +4,6 @@ import { useStyles } from "makeStyles";
 import { StyledEngineProvider } from "@material-ui/core/styles";
 import { App } from "./App";
 
-const useStyles = makeStyles()(theme => ({
-    "root": {
-        "& > h1:nth-child(2)": {
-            "color": theme.limeGreen,
-        },
-    },
-}));
-
-
 function Root(){
 
     const { css } = useStyles();

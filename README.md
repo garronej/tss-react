@@ -25,7 +25,7 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ Complete `@emotion` custom cache integration.
 
 ```bash
-$ yarn add tss-react
+$ yarn add tss-react @emotion/react
 ```
 
 <p align="center">
@@ -98,9 +98,10 @@ export function MyComponent(props: Props) {
 }
 ```
 
-**Material-UI users only**, don't forget to enable [injectFirst](https://material-ui.com/styles/advanced/#injectfirst)
+**Material-UI users only**: Setup injection priority.
 
-`v4`
+<details>
+  <summary>Click to expand instructions for material-ui v4.</summary></br>
 
 ```tsx
 import { render } from "react-dom";
@@ -114,19 +115,32 @@ render(
 );
 ```
 
-`v5`
+</details>  
+</br>
+
+<details>
+  <summary>Click to expand instructions for material-ui v5</summary></br>
+
+**Don't** use `<StyledEngineProvider injectFirst/>` but do this instead:
 
 ```tsx
 import { render } from "react-dom";
-import { StyledEngineProvider } from "@material-ui/core/styles";
+import { CacheProvider } from "@emotion/react";
+import { getCache } from "tss-react/cache";
 
 render(
-    <StyledEngineProvider injectFirst>
+    <CacheProvider value={getCache()}>
         <Root />
     </StyledEngineProvider>,
     document.getElementById("root"),
 );
 ```
+
+Feel free to use [any emotion cache you want](https://emotion.sh/docs/cache-provider).
+You don't have to use the default one provided in `tss-react/cache`.
+
+</details>  
+</br>
 
 **NOTE:**  
 If you don't want to end up writing things like:
@@ -303,15 +317,10 @@ export const useStyles = makeStyles()({
 # Cache
 
 If you are using [custom emotion cache](https://emotion.sh/docs/@emotion/cache) `tss-react` will transparently
-pick up the cache you have provided using [`<CacheProvider />` from `@emotion/react`](https://emotion.sh/docs/cache-provider).  
-If you have manually installed `@emotion/react` make sure the package is not duplicated or import `<CacheProvider />`
-from `tss-react/@emotion/react`. (It is duplicated if `node_modules/tss-react/node_modules/@emotion/react` exists in your project).
+pick up the cache you have provided using [`<CacheProvider />` from `@emotion/react`](https://emotion.sh/docs/cache-provider).
 
 ```tsx
 import { CacheProvider } from "@emotion/react";
-/* OR:
-import { CacheProvider } from "tss-react/@emotion/react"; 
-*/
 import createCache from "@emotion/cache";
 /* OR:
 import createCache from "tss-react/@emotion/cache";
@@ -324,6 +333,22 @@ const myCache = createCache({
 
 render(<CacheProvider value={myCache}>{/* ... */}</CacheProvider>);
 ```
+
+You can also opt for telling `tss-react` to use a specific cache and ignore
+the cache provided by the `<CacheProvider />`.
+
+```typescript
+import { createMakeStyles } from "tss-react";
+import createCache from "@emotion/cache";
+
+const { makeStyles } = createMakeStyles({
+    useTheme,
+    "cache": createCache({ "key": "my-prefix-key" }),
+});
+```
+
+If there is no cache provided by `<CacheProvider />` nor any cache specified
+when calling `createMakeStyles()` then the cache used is `import { getCache } from "tss-react/cache"`.
 
 # Composition
 
@@ -474,10 +499,12 @@ export default class AppDocument extends Document {
 import { renderToString } from "react-dom/server";
 import createEmotionServer from "@emotion/server/create-instance";
 
-import { getDefaultEmotionCache } from "tss-react/defaultEmotionCache";
+import { getCache } from "tss-react/cache";
 import { createMakeStyles } from "tss-react";
 
-const emotionServers = [getDefaultEmotionCache()].map(createEmotionServer);
+const emotionServers = [
+    getCache(), //If you use custom cache(s) provide it/them here instead of the default.
+].map(createEmotionServer);
 
 const element = <App />;
 

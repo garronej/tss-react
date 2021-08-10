@@ -5,7 +5,7 @@ import { serializeStyles } from "@emotion/serialize";
 import { insertStyles, getRegisteredStyles } from "@emotion/utils";
 import type { EmotionCache } from "@emotion/cache";
 import { useEmotionCache } from "./@emotion/react";
-import { getDefaultEmotionCache } from "./defaultEmotionCache";
+import { getCache } from "./cache";
 
 /** https://github.com/garronej/tss-react */
 export function createMakeStyles<Theme>(params: {
@@ -21,7 +21,7 @@ export function createMakeStyles<Theme>(params: {
         "useEmotionCache":
             emotionCache !== undefined
                 ? () => emotionCache
-                : () => useEmotionCache() ?? getDefaultEmotionCache(),
+                : () => useEmotionCache() ?? getCache(),
     });
 
     const { makeStyles } = createMakeStylesBase({
