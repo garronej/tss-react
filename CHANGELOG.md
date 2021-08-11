@@ -1,3 +1,18 @@
+## **0.6.0** (2021-08-11)  
+  
+- Merge pull request #10 from howlettt/readme-typos
+
+Small readme typo fixes  
+- Small typo fixes  
+- Add SSR support for mui v4  
+- Improve muiv5 integration testing  
+- Improve cache support  
+- Switching to a sollution that works today  
+- Custom cache integration with mui and SSR  
+- Ability to provide cache explicitely  
+- Fix workflow  
+- Publish beta version with emotion as peer dep    
+  
 ### **0.5.2** (2021-08-08)  
   
   
