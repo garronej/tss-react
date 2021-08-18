@@ -34,19 +34,35 @@ function Root() {
 
 const { App } = (() => {
 
-    const useStyles = makeStyles()(theme => ({
-        "root": {
-            "& > h1:nth-child(2)": {
-                "color": theme.limeGreen,
+    const useStyles = makeStyles()((theme, _params, css) => {
+
+        const child = {
+            "background": "blue",
+            "border": "1px solid black"
+        };
+
+        return {
+            "root": {
+                "& > h1:nth-child(2)": {
+                    "color": theme.limeGreen,
+                },
             },
-        },
-        "ovStyled": {
-            "color": "darkred"
-        },
-        "ovInternal": {
-            "backgroundColor": "darkblue"
-        }
-    }));
+            "ovStyled": {
+                "color": "darkred"
+            },
+            "ovInternal": {
+                "backgroundColor": "darkblue"
+            },
+            "parent": {
+                "border": "1px solid black",
+                "padding": 30,
+                [`&:hover .${css(child)}`]: {
+                    "background": "red",
+                }
+            },
+            child
+        };
+    });
 
     function App(props: { className?: string; }) {
         const { className } = props;
@@ -84,6 +100,11 @@ const { App } = (() => {
                     >
                         Background should be dark blue
                     </Button>
+                    <div className={classes.parent}>
+                        <div className={classes.child}>
+                            Background should turn red when mouse is hover the parent.
+                        </div>
+                    </div>
                 </div>
             </>
         );

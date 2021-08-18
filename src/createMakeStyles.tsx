@@ -19,7 +19,7 @@ export function createMakeStyles<Theme>(params: {
                 | ((
                       theme: Theme,
                       params: Params,
-                      classes: Record<string, string>,
+                      css: Css,
                   ) => Record<Key, CSSObject>)
                 | Record<Key, CSSObject>,
         ) {
@@ -33,23 +33,8 @@ export function createMakeStyles<Theme>(params: {
 
                 const { css, cx } = useCssAndCx();
 
-                const cssObjectTemp = getCssObject(
-                    theme,
-                    params,
-                    {} as Record<Key, string>,
-                );
+                const cssObject = getCssObject(theme, params, css);
 
-                const classMap = objectKeys(cssObjectTemp).reduce(
-                    (acc, key) => {
-                        return {
-                            ...acc,
-                            [key]: css(cssObjectTemp[key]),
-                        };
-                    },
-                    {} as Record<Key, string>,
-                );
-
-                const cssObject = getCssObject(theme, params, classMap);
                 const classes = Object.fromEntries(
                     objectKeys(cssObject).map(key => [
                         key,

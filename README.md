@@ -22,7 +22,8 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5 and v4.  
     Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
--   ✅ Complete `@emotion` custom cache integration.
+-   ✅ `@emotion` cache support.
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition).
 
 ```bash
 $ yarn add tss-react @emotion/react
@@ -41,6 +42,7 @@ $ yarn add tss-react @emotion/react
     -   [`keyframe`](#keyframe)
 -   [Cache](#cache)
 -   [Composition](#composition)
+-   [Selecting children by class name](#selecting-children-by-class-name)
     -   [Internal composition](#internal-composition)
     -   [Export rules](#export-rules)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
@@ -143,7 +145,7 @@ Feel free to use [any emotion cache you want](https://emotion.sh/docs/cache-prov
 You don't have to use the default one provided in `tss-react/cache`.
 
 WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitely,
-it's a peer dependency of `@material-ui/core` v5. 
+it's a peer dependency of `@material-ui/core` v5.
 
 </details>  
 </br>
@@ -358,9 +360,68 @@ when calling `createMakeStyles()` then the cache used is `import { getCache } fr
 
 # Composition
 
-`tss-react` unlike `jss-react` doesn't support the `$` syntax,
-<del> but you'll see. It isn't needed</del> .  
-Yes it is! [see issue](https://github.com/garronej/tss-react/issues/12#issue-973711957).
+`tss-react` unlike `jss-react` doesn't support the `$` syntax but there's type safe alternatives that
+achieve the same results.
+
+# Selecting children by class name
+
+In **JSS** you can do:
+
+```tsx
+{
+  "parent": {
+      "padding": 30,
+      "&:hover $child": {
+          "backgroundColor": "red"
+      },
+  },
+  "child": {
+      "backgroundColor": "blue"
+  }
+}
+//...
+<div className={classes.parent}>
+    <div className={classes.children}>
+        Background turns red when the mouse is hover the parent
+    </div>
+</div>
+```
+
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/6702424/129976981-0637235a-570e-427e-9e77-72d100df0c36.gif">
+</p>
+
+This is how you would acheive the same result with `tss-react`
+
+```tsx
+const useStyles = makeStyles()((_theme, _params, css) => {
+    const child = {
+        "background": "blue",
+    };
+
+    return {
+        "parent": {
+            "padding": 30,
+            [`&:hover .${css(child)}`]: {
+                "background": "red",
+            },
+        },
+        child,
+    };
+});
+
+export function App() {
+    const { classes } = useStyles();
+
+    return (
+        <div className={classes.parent}>
+            <div className={classes.child}>
+                Background turns red when mouse is hover the parent.
+            </div>
+        </div>
+    );
+}
+```
 
 ## Internal composition
 

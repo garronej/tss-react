@@ -9,29 +9,35 @@ export type Props = {
 };
 
 
-const useStyles = makeStyles()((theme, params, classes) => ({
-	"root": {
-		"& > h1:nth-child(2)": {
-			"color": theme.palette.primary.main,
+const useStyles = makeStyles()((theme, _params, css) => {
+
+	const child = {
+		"background": "blue",
+		"border": "1px solid black"
+	};
+
+	return {
+		"root": {
+			"& > h1:nth-child(2)": {
+				"color": theme.palette.primary.main,
+			},
 		},
-	},
-	"ovStyled": {
-		"color": "darkred"
-	},
-	"ovInternal": {
-		"backgroundColor": "darkblue"
-	},
-	"parent": {
-		margin: '20px 0',
-		[`&:hover .${classes.child}`]: {
-			background: 'red',
-		}
-	},
-	"child": {
-		padding: 20,
-		background: 'blue',
-	}
-}));
+		"ovStyled": {
+			"color": "darkred"
+		},
+		"ovInternal": {
+			"backgroundColor": "darkblue"
+		},
+		"parent": {
+			"border": "1px solid black",
+			"padding": 30,
+			[`&:hover .${css(child)}`]: {
+				"background": "red",
+			}
+		},
+		child
+	};
+});
 
 const H1 = styled('h1')({
 	"color": "yellow"
@@ -76,7 +82,9 @@ export function App(props: Props) {
 					Background should be dark blue
 				</Button>
 				<div className={classes.parent}>
-					<div className={classes.child}>Hover border</div>
+					<div className={classes.child}>
+						Background should turn red when mouse is hover the parent.
+					</div>
 				</div>
 			</div>
 		</>
