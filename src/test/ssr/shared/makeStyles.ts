@@ -1,9 +1,4 @@
 import { createMakeStyles } from "tss-react";
-
-export function useTheme() {
-    return {
-        "limeGreen": "#32CD32",
-    };
-}
+import { useTheme } from "@material-ui/core/styles";
 
 export const { makeStyles, useStyles } = createMakeStyles({ useTheme });

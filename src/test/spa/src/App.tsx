@@ -59,7 +59,7 @@ export function App(props: Props) {
 				<Button variant="contained" color="primary"> Background should be lime green</Button>
 				<Button
 					variant="contained"
-					color="secondary"
+					color="primary"
 					className={classes.ovInternal}
 				>
 					Background should be dark blue

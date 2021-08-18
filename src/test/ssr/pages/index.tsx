@@ -5,6 +5,17 @@ import { CacheProvider } from "@emotion/react";
 import { styled } from "@material-ui/core";
 import { getCache } from "tss-react/cache";
 import Button from "@material-ui/core/Button"
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+const theme = createTheme({
+    "palette": {
+        "primary": {
+            "main": "#32CD32"
+        }
+    }
+});
 
 export default function Home() {
     return (
@@ -15,8 +26,11 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <CacheProvider value={getCache()}>
-                <Root />
-            </CacheProvider>
+                <MuiThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Root />
+                </MuiThemeProvider>
+            </CacheProvider>,
         </>
     );
 }
@@ -38,7 +52,7 @@ const { App } = (() => {
     const useStyles = makeStyles()(theme => ({
         "root": {
             "& > h1:nth-child(2)": {
-                "color": theme.limeGreen,
+                "color": theme.palette.primary.main,
             },
         },
         "ovStyled": {
@@ -83,10 +97,10 @@ const { App } = (() => {
                     <h1 className="foo">Should be cyan</h1>
                     <H1>Should be yellow</H1>
                     <H1 className={classes.ovStyled}>Should be dark red</H1>
-                    <Button variant="contained" color="secondary"> Background should be purple </Button>
+                    <Button variant="contained" color="primary"> Background should be lime green </Button>
                     <Button
                         variant="contained"
-                        color="secondary"
+                        color="primary"
                         className={classes.ovInternal}
                     >
                         Background should be dark blue

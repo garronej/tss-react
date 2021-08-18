@@ -6,6 +6,7 @@ import { CacheProvider } from "@emotion/react";
 import { getCache } from "tss-react/cache";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const theme = createTheme({
     "palette": {
@@ -27,6 +28,7 @@ function Root() {
 render(
     <CacheProvider value={getCache()}>
         <MuiThemeProvider theme={theme}>
+            <CssBaseline />
             <Root />
         </MuiThemeProvider>
     </CacheProvider>,
