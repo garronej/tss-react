@@ -3,6 +3,7 @@ import { makeStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@material-ui/core";
 import Button from "@material-ui/core/Button"
+import { css } from "tss-react/@emotion/css";
 
 export type Props = {
 	className?: string;
@@ -45,7 +46,7 @@ const H1 = styled('h1')({
 
 export function App(props: Props) {
 	const { className } = props;
-	const { classes, css, cx } = useStyles();
+	const { classes, cx } = useStyles();
 
 	return (
 		<>

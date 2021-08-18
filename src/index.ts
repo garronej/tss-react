@@ -1,6 +1,6 @@
 import { createMakeStyles as createMakeStylesBase } from "./createMakeStyles";
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
-import { createUseCssAndCx } from "./createUseCssAndCx";
+import { createUseCssAndCx } from "./cssAndCx";
 import { serializeStyles } from "@emotion/serialize";
 import { insertStyles, getRegisteredStyles } from "@emotion/utils";
 import type { EmotionCache } from "@emotion/cache";
