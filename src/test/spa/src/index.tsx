@@ -1,20 +1,34 @@
 import { render } from "react-dom";
 //NOTE: If makeStyles was located in src/app we would write: import { makeStyles } from "app/makeStyles";
 import { useStyles } from "makeStyles";
-import { StyledEngineProvider } from "@material-ui/core/styles";
-import { App } from "./App";
+import { App } from "./App";
+import { CacheProvider } from "@emotion/react";
+import { getCache } from "tss-react/cache";
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
-function Root(){
+const theme = createTheme({
+    "palette": {
+        "primary": {
+            "main": "#32CD32"
+        }
+    }
+});
 
-    const { css } = useStyles();
+
+function Root() {
+
+    const { css } = useStyles();
 
     return <App className={css({ "boxShadow": "10px 5px 5px teal" })} />;
 
 }
 
 render(
-    <StyledEngineProvider injectFirst>
-        <Root />
-    </StyledEngineProvider>,
+    <CacheProvider value={getCache()}>
+        <MuiThemeProvider theme={theme}>
+            <Root />
+        </MuiThemeProvider>
+    </CacheProvider>,
     document.getElementById("root")
 );

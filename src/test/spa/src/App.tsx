@@ -11,7 +11,7 @@ export type Props = {
 const useStyles = makeStyles()(theme => ({
 	"root": {
 		"& > h1:nth-child(2)": {
-			"color": theme.limeGreen,
+			"color": theme.palette.primary.main,
 		},
 	},
 	"ovStyled": {
@@ -56,7 +56,7 @@ export function App(props: Props) {
 				<h1 className="foo">Should be cyan</h1>
 				<H1>Should be yellow</H1>
 				<H1 className={classes.ovStyled}>Should be dark red</H1>
-				<Button variant="contained" color="secondary"> Background should be purple </Button>
+				<Button variant="contained" color="primary"> Background should be lime green</Button>
 				<Button
 					variant="contained"
 					color="secondary"
