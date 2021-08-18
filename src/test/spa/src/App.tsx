@@ -8,7 +8,8 @@ export type Props = {
 	className?: string;
 };
 
-const useStyles = makeStyles()(theme => ({
+
+const useStyles = makeStyles()((theme, params, classes) => ({
 	"root": {
 		"& > h1:nth-child(2)": {
 			"color": theme.palette.primary.main,
@@ -19,6 +20,16 @@ const useStyles = makeStyles()(theme => ({
 	},
 	"ovInternal": {
 		"backgroundColor": "darkblue"
+	},
+	"parent": {
+		margin: '20px 0',
+		[`&:hover .${classes.child}`]: {
+			background: 'red',
+		}
+	},
+	"child": {
+		padding: 20,
+		background: 'blue',
 	}
 }));
 
@@ -64,6 +75,9 @@ export function App(props: Props) {
 				>
 					Background should be dark blue
 				</Button>
+				<div className={classes.parent}>
+					<div className={classes.child}>Hover border</div>
+				</div>
 			</div>
 		</>
 	);
