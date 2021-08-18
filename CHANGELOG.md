@@ -1,3 +1,15 @@
+## **0.7.0** (2021-08-18)  
+  
+- typeself way of selecting children by class name  
+- Merge pull request #13 from jsakas/nested-selectors
+
+Allow nested selectors  
+- feat: allow nested selectors  
+- @emotion/styled is a peer dep of @material-ui/core v5  
+- Bar bold claim #12  
+- test/ssr: Test integration with mui theme  
+- test/spa: Test integration with mui theme    
+  
 ## **0.6.0** (2021-08-11)  
   
 - Merge pull request #10 from howlettt/readme-typos
