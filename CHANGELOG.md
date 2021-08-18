@@ -1,3 +1,7 @@
+### **0.7.2** (2021-08-18)  
+  
+- Export @emotion/css polyfill: tss-react/@emotion/css    
+  
 ### **0.7.1** (2021-08-18)  
   
 - Add storybook warning    
