@@ -1,3 +1,7 @@
+### **0.7.1** (2021-08-18)  
+  
+- Add storybook warning    
+  
 ## **0.7.0** (2021-08-18)  
   
 - typeself way of selecting children by class name  
