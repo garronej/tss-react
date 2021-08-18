@@ -144,8 +144,12 @@ render(
 Feel free to use [any emotion cache you want](https://emotion.sh/docs/cache-provider).
 You don't have to use the default one provided in `tss-react/cache`.
 
-WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitely,
+WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitly,
 it's a peer dependency of `@material-ui/core` v5.
+
+WARNING for [Storybook](https://storybook.js.org): As of writing this lines storybook still uses by default emotion 10.  
+Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32)
+to be made to your `.storybook/main.js` to make it uses emotion 11.
 
 </details>  
 </br>
