@@ -142,6 +142,9 @@ render(
 Feel free to use [any emotion cache you want](https://emotion.sh/docs/cache-provider).
 You don't have to use the default one provided in `tss-react/cache`.
 
+WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitely,
+it's a peer dependency of `@material-ui/core` v5. 
+
 </details>  
 </br>
 
