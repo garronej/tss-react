@@ -356,7 +356,8 @@ when calling `createMakeStyles()` then the cache used is `import { getCache } fr
 # Composition
 
 `tss-react` unlike `jss-react` doesn't support the `$` syntax,
-but you'll see. It isn't needed.
+<del> but you'll see. It isn't needed</del> .  
+Yes it is! [see issue](https://github.com/garronej/tss-react/issues/12#issue-973711957).
 
 ## Internal composition
 
