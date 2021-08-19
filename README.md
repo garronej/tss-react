@@ -385,7 +385,7 @@ In **JSS** you can do:
 }
 //...
 <div className={classes.parent}>
-    <div className={classes.children}>
+    <div className={classes.child}>
         Background turns red when the mouse is hover the parent
     </div>
 </div>
