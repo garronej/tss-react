@@ -1,3 +1,10 @@
+### **0.7.3** (2021-08-20)  
+  
+- Expose useCssAndCx for project with no theme  
+- Update table of content  
+- #14: Add hint to help users get rid of types errors  
+- Update README.md    
+  
 ### **0.7.2** (2021-08-18)  
   
 - Export @emotion/css polyfill: tss-react/@emotion/css    
