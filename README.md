@@ -180,6 +180,9 @@ import {
     createMakeStyles, //<- Create an instance of makeStyle() for your theme.
     keyframe, //<- The function as defined in @emotion/react and @emotion/css
     GlobalStyles, //<- A component to define global styles.
+    useCssAndCx, //<- Access css and cx directly.
+    //   (Usually you'll use useStyles returned by makeStyles or createMakeStyles for that purpose
+    //    but if you have no theme in your project, it can come in handy.)
 } from "tss-react";
 ```
 
