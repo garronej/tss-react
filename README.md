@@ -385,7 +385,7 @@ In **JSS** you can do:
 }
 //...
 <div className={classes.parent}>
-    <div className={classes.child}>
+    <div className={classes.children}>
         Background turns red when the mouse is hover the parent
     </div>
 </div>
@@ -395,7 +395,7 @@ In **JSS** you can do:
     <img src="https://user-images.githubusercontent.com/6702424/129976981-0637235a-570e-427e-9e77-72d100df0c36.gif">
 </p>
 
-This is how you would acheive the same result with `tss-react`
+This is how you would achieve the same result with `tss-react`
 
 ```tsx
 const useStyles = makeStyles()((_theme, _params, css) => {
