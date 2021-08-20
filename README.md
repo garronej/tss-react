@@ -401,7 +401,7 @@ This is how you would acheive the same result with `tss-react`
 const useStyles = makeStyles()((_theme, _params, css) => {
     const child = {
         "background": "blue",
-    };
+    } as const; //<- In many case 'as const' must be used so that it can be inferred as CSSObject
 
     return {
         "parent": {
