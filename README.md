@@ -41,8 +41,8 @@ $ yarn add tss-react @emotion/react
     -   [`<GlobalStyles />`](#globalstyles-)
     -   [`keyframe`](#keyframe)
 -   [Cache](#cache)
--   [Composition](#composition)
--   [Selecting children by class name](#selecting-children-by-class-name)
+-   [Composition and nested selectors ( `$` syntax )](#composition-and-nested-selectors--syntax-)
+    -   [Selecting children by class name](#selecting-children-by-class-name)
     -   [Internal composition](#internal-composition)
     -   [Export rules](#export-rules)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
@@ -365,12 +365,12 @@ const { makeStyles } = createMakeStyles({
 If there is no cache provided by `<CacheProvider />` nor any cache specified
 when calling `createMakeStyles()` then the cache used is `import { getCache } from "tss-react/cache"`.
 
-# Composition
+# Composition and nested selectors ( `$` syntax )
 
 `tss-react` unlike `jss-react` doesn't support the `$` syntax but there's type safe alternatives that
 achieve the same results.
 
-# Selecting children by class name
+## Selecting children by class name
 
 In **JSS** you can do:
 
