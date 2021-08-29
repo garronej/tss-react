@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button"
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 
 const theme = createTheme({
     "palette": {
@@ -76,9 +77,32 @@ const { App } = (() => {
                     "background": "red",
                 }
             },
-            child
+            child,
+            "breadcrumbs_className": {
+                "backgroundColor": "lightblue",
+                "& .MuiBreadcrumbs-separator": {
+                    "color": "red"
+                }
+            },
+
+            "breadcrumbs2_root": {
+                "backgroundColor": "lightblue",
+            },
+            "breadcrumbs2_separator": {
+                "color": "red"
+            },
+
+            "button2_className": {
+                "backgroundColor": "red"
+            },
+
+            "button2_root": {
+                "backgroundColor": "red"
+            }
+
         };
     });
+
 
     const H1 = styled('h1')({
         "color": "yellow"
@@ -127,6 +151,44 @@ const { App } = (() => {
                             Background should turn red when mouse is hover the parent.
                         </div>
                     </div>
+
+                    <Breadcrumbs
+                        className={classes.breadcrumbs_className}
+                        color="primary"
+                    >
+                        <span>background should be lightblue</span>
+                        <span>and the separator (/) should be red</span>
+                    </Breadcrumbs>
+                    <div style={{ "height": 10 }} />
+                    <Breadcrumbs
+                        classes={{
+                            "root": classes.breadcrumbs2_root,
+                            "separator": classes.breadcrumbs2_separator
+                        }}
+                        color="primary"
+                    >
+                        <span>background should be lightblue</span>
+                        <span>and the separator (/) should be red</span>
+                    </Breadcrumbs>
+
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button2_className}
+                    >
+                        <span>The background should be red</span>
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        classes={{ "root": classes.button2_root, }}
+                    >
+                        <span>The background should be red</span>
+                    </Button>
+
+
                 </div>
             </>
         );
