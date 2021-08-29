@@ -23,7 +23,7 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5 and v4.  
     Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
 -   ✅ `@emotion` cache support.
--   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition).
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition) and it works with mui's `classes` props.
 
 ```bash
 $ yarn add tss-react @emotion/react
