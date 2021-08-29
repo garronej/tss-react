@@ -70,6 +70,7 @@ function useTheme() {
 }
 
 // material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles";
+// material-ui v5 users will also need to pass a custom emotion cache, read later.
 export const { makeStyles } = createMakeStyles({ useTheme });
 ```
 
@@ -131,18 +132,40 @@ a Next.js setup to use as reference.
 ```tsx
 import { render } from "react-dom";
 import { CacheProvider } from "@emotion/react";
-import { getCache } from "tss-react/cache";
+import createCache from "tss-react/@emotion/cache"; //Or "@emotion/cache"
+
+export const muiCache = createCache({
+    "key": "mui",
+    "prepend": true,
+});
 
 render(
-    <CacheProvider value={getCache()}>
+    <CacheProvider value={muiCache}>
         <Root />
     </CacheProvider>,
     document.getElementById("root"),
 );
 ```
 
-Feel free to use [any emotion cache you want](https://emotion.sh/docs/cache-provider).
-You don't have to use the default one provided in `tss-react/cache`.
+`makeStyles.ts`
+
+```typescript
+import { useTheme } from "@material-ui/core/styles";
+import { createMakeStyles } from "tss-react";
+import createCache from "tss-react/@emotion/cache"; //Or "@emotion/cache"
+
+export const tssCache = createCache({
+    "key": "tss",
+});
+
+export const { makeStyles } = createMakeStyles({
+    useTheme,
+    "cache": tssCache,
+});
+```
+
+If you use SSR (server side rendering) you'll have to provide `muiCache` and `tssCache`, in this order
+to the functions that enable SSR to work. [See doc](#server-side-rendering-ssr)
 
 WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitly,
 it's a peer dependency of `@material-ui/core` v5.
@@ -506,8 +529,11 @@ const { Document } = createDocument();
 
 /*
 If you use custom cache you should provide it here:
+Example for mui v5 users:
+import { muiCache } from "...";
+import { tssCache } from "...";
 
-const { Document } = createDocument({ "caches": [ cache1, cache2, ... ] });
+const { Document } = createDocument({ "caches": [ muiCache, tssCache ] });
 */
 
 export default Document;
@@ -524,8 +550,11 @@ const { getInitialProps } = createGetInitialProps();
 
 /*
 If you use custom cache you should provide it here:
+Example for mui v5 users:
+import { muiCache } from "...";
+import { tssCache } from "...";
 
-const { getInitialProps } = createGetInitialProps({ "caches": [ cache1, cache2, ... ] });
+const { Document } = createDocument({ "caches": [ muiCache, tssCache ] });
 */
 
 export default class AppDocument extends Document {
@@ -547,8 +576,11 @@ import { createPageHtmlToStyleTags } from "tss-react/nextJs";
 const { pageHtmlToStyleTags } = createPageHtmlToStyleTags();
 /*
 If you use custom cache you should provide it here:
+Example for mui v5 users:
+import { muiCache } from "...";
+import { tssCache } from "...";
 
-const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ cache1, cache2, ... ] });
+const { Document } = createDocument({ "caches": [ muiCache, tssCache ] });
 */
 
 export default class AppDocument extends Document {
@@ -586,8 +618,18 @@ import { getCache } from "tss-react/cache";
 import { createMakeStyles } from "tss-react";
 
 const emotionServers = [
-    getCache(), //If you use custom cache(s) provide it/them here instead of the default.
+    getCache(), //If you use custom cache(s) provide it/them here instead of the default, see example below.
 ].map(createEmotionServer);
+
+/*
+import { muiCache } from "...";
+import { tssCache } from "...";
+
+const emotionServers = [
+    muiCache,
+    tssCache
+].map(createEmotionServer);
+*/
 
 const element = <App />;
 

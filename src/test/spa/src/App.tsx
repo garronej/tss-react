@@ -3,18 +3,17 @@ import { makeStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@material-ui/core";
 import Button from "@material-ui/core/Button"
-import { css } from "tss-react/@emotion/css";
-
-export type Props = {
-	className?: string;
-};
-
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 
 const useStyles = makeStyles()((theme, _params, css) => {
 
 	const child = {
 		"background": "blue",
 		"border": "1px solid black"
+	};
+
+	const breadcrumbs2_separator = {
+		"color": "red"
 	};
 
 	return {
@@ -36,17 +35,44 @@ const useStyles = makeStyles()((theme, _params, css) => {
 				"background": "red",
 			}
 		},
-		child
+		child,
+		"breadcrumbs_className": {
+			"backgroundColor": "lightblue",
+			"& .MuiBreadcrumbs-separator": {
+				"color": "red"
+			},
+			"&:hover .MuiBreadcrumbs-separator": {
+				"color": "blue"
+			}
+		},
+
+		"breadcrumbs2_root": {
+			"backgroundColor": "lightblue",
+			[`&:hover .${css(breadcrumbs2_separator)}`]: {
+				"color": "blue"
+			}
+		},
+		breadcrumbs2_separator,
+
+		"button2_className": {
+			"backgroundColor": "red"
+		},
+
+		"button2_root": {
+			"backgroundColor": "red"
+		}
+
 	};
 });
+
 
 const H1 = styled('h1')({
 	"color": "yellow"
 });
 
-export function App(props: Props) {
+export function App(props: { className?: string; }) {
 	const { className } = props;
-	const { classes, cx } = useStyles();
+	const { classes, css, cx } = useStyles();
 
 	return (
 		<>
@@ -74,7 +100,7 @@ export function App(props: Props) {
 				<h1 className="foo">Should be cyan</h1>
 				<H1>Should be yellow</H1>
 				<H1 className={classes.ovStyled}>Should be dark red</H1>
-				<Button variant="contained" color="primary"> Background should be lime green</Button>
+				<Button variant="contained" color="primary"> Background should be lime green </Button>
 				<Button
 					variant="contained"
 					color="primary"
@@ -87,6 +113,44 @@ export function App(props: Props) {
 						Background should turn red when mouse is hover the parent.
 					</div>
 				</div>
+
+				<Breadcrumbs
+					className={classes.breadcrumbs_className}
+					color="primary"
+				>
+					<span>background should be lightblue</span>
+					<span>and the separator (/) should be red except when hover, then it is blue</span>
+				</Breadcrumbs>
+				<div style={{ "height": 10 }} />
+				<Breadcrumbs
+					classes={{
+						"root": classes.breadcrumbs2_root,
+						"separator": classes.breadcrumbs2_separator
+					}}
+					color="primary"
+				>
+					<span>background should be lightblue</span>
+					<span>and the separator (/) should be red except when hover, then it is blue</span>
+				</Breadcrumbs>
+
+
+				<Button
+					variant="contained"
+					color="primary"
+					className={classes.button2_className}
+				>
+					<span>The background should be red</span>
+				</Button>
+
+				<Button
+					variant="contained"
+					color="primary"
+					classes={{ "root": classes.button2_root, }}
+				>
+					<span>The background should be red</span>
+				</Button>
+
+
 			</div>
 		</>
 	);

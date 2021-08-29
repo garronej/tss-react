@@ -1,11 +1,23 @@
 import Head from "next/head";
 import { GlobalStyles } from "tss-react";
 import { makeStyles, useStyles } from "../shared/makeStyles";
-import Button from "@material-ui/core/Button"
 import { StylesProvider } from "@material-ui/core/styles";
+import { styled } from "@material-ui/core";
+import Button from "@material-ui/core/Button"
+import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+
+const theme = createTheme({
+    "palette": {
+        "primary": {
+            "main": "#32CD32"
+        }
+    }
+});
 
 export default function Home() {
-
     return (
         <>
             <Head>
@@ -14,7 +26,10 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <StylesProvider injectFirst>
-                <Root />
+                <MuiThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Root />
+                </MuiThemeProvider>
             </StylesProvider>
         </>
     );
@@ -34,6 +49,7 @@ function Root() {
 
 const { App } = (() => {
 
+
     const useStyles = makeStyles()((theme, _params, css) => {
 
         const child = {
@@ -41,10 +57,14 @@ const { App } = (() => {
             "border": "1px solid black"
         };
 
+        const breadcrumbs2_separator= {
+                "color": "red"
+        };
+
         return {
             "root": {
                 "& > h1:nth-child(2)": {
-                    "color": theme.limeGreen,
+                    "color": theme.palette.primary.main,
                 },
             },
             "ovStyled": {
@@ -60,8 +80,39 @@ const { App } = (() => {
                     "background": "red",
                 }
             },
-            child
+            child,
+            "breadcrumbs_className": {
+                "backgroundColor": "lightblue",
+                "& .MuiBreadcrumbs-separator": {
+                    "color": "red"
+                },
+                "&:hover .MuiBreadcrumbs-separator": {
+                    "color": "blue"
+                }
+            },
+
+            "breadcrumbs2_root": {
+                "backgroundColor": "lightblue",
+                [`&:hover .${css(breadcrumbs2_separator)}`]: {
+                    "color": "blue"
+                }
+            },
+            breadcrumbs2_separator,
+
+            "button2_className": {
+                "backgroundColor": "red"
+            },
+
+            "button2_root": {
+                "backgroundColor": "red"
+            }
+
         };
+    });
+
+
+    const H1 = styled('h1')({
+        "color": "yellow"
     });
 
     function App(props: { className?: string; }) {
@@ -92,10 +143,12 @@ const { App } = (() => {
                         Black, should have border and shadow
                     </h1>
                     <h1 className="foo">Should be cyan</h1>
-                    <Button variant="contained" color="secondary"> Background should be deep pink </Button>
+                    <H1>Should be yellow</H1>
+                    <H1 className={classes.ovStyled}>Should be dark red</H1>
+                    <Button variant="contained" color="primary"> Background should be lime green </Button>
                     <Button
                         variant="contained"
-                        color="secondary"
+                        color="primary"
                         className={classes.ovInternal}
                     >
                         Background should be dark blue
@@ -105,6 +158,44 @@ const { App } = (() => {
                             Background should turn red when mouse is hover the parent.
                         </div>
                     </div>
+
+                    <Breadcrumbs
+                        className={classes.breadcrumbs_className}
+                        color="primary"
+                    >
+                        <span>background should be lightblue</span>
+                        <span>and the separator (/) should be red except when hover, then it is blue</span>
+                    </Breadcrumbs>
+                    <div style={{ "height": 10 }} />
+                    <Breadcrumbs
+                        classes={{
+                            "root": classes.breadcrumbs2_root,
+                            "separator": classes.breadcrumbs2_separator
+                        }}
+                        color="primary"
+                    >
+                        <span>background should be lightblue</span>
+                        <span>and the separator (/) should be red except when hover, then it is blue</span>
+                    </Breadcrumbs>
+
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button2_className}
+                    >
+                        <span>The background should be red</span>
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        classes={{ "root": classes.button2_root, }}
+                    >
+                        <span>The background should be red</span>
+                    </Button>
+
+
                 </div>
             </>
         );

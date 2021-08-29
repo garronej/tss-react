@@ -1,9 +1,8 @@
 import { render } from "react-dom";
 //NOTE: If makeStyles was located in src/app we would write: import { makeStyles } from "app/makeStyles";
-import { useStyles } from "makeStyles";
+import { useStyles, muiCache } from "makeStyles";
 import { App } from "./App";
 import { CacheProvider } from "@emotion/react";
-import { getCache } from "tss-react/cache";
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -26,7 +25,7 @@ function Root() {
 }
 
 render(
-    <CacheProvider value={getCache()}>
+    <CacheProvider value={muiCache}>
         <MuiThemeProvider theme={theme}>
             <CssBaseline />
             <Root />
