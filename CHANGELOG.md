@@ -1,3 +1,8 @@
+### **0.7.4** (2021-08-29)  
+  
+- Enable classes prop to work in mui v5 #20 #19 #18 #17 #15  
+- Repoduce the error #17    
+  
 ### **0.7.3** (2021-08-20)  
   
 - Expose useCssAndCx for project with no theme  
