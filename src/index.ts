@@ -4,8 +4,4 @@ export { createMakeStyles } from "./createMakeStyles";
 /** Reexport from @emotion/react */
 export { keyframes } from "@emotion/react";
 export { GlobalStyles } from "./GlobalStyles";
-export {
-    getTssDefaultEmotionCache,
-    useTssEmotionCache,
-    TssCacheProvider,
-} from "./cache";
+export { getTssDefaultEmotionCache, TssCacheProvider } from "./cache";
