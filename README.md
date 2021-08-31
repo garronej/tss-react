@@ -29,6 +29,8 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 $ yarn add tss-react @emotion/react
 ```
 
+WARNING: Version prior to `v0.7` had problems with mui's `classes` props. It have been addressed in the current version.
+
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/126204447-6f14ef75-63c2-4480-beb6-18d6fb94b50b.gif">
 </p>
