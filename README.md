@@ -36,6 +36,8 @@ $ yarn add tss-react @emotion/react
 -   [Quick start](#quick-start)
     -   [With material-ui v4](#with-material-ui-v4)
     -   [With material-ui v5](#with-material-ui-v5)
+    -   [Avoiding `import { makeStyles } from "../../../../makeStyles"`](#avoiding-import--makestyles--from-makestyles)
+    -   [Playground](#playground)
 -   [API documentation](#api-documentation)
     -   [Exposed APIs](#exposed-apis)
     -   [`makeStyles()`](#makestyles)
@@ -123,8 +125,7 @@ render(
 If you need SSR You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/muiV4ssr)
 a Next.js setup to use as reference.
 
-</details>  
-</br>
+</details>
 
 ## With material-ui v5
 
@@ -161,10 +162,10 @@ WARNING for [Storybook](https://storybook.js.org): As of writing this lines stor
 Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32)
 to be made to your `.storybook/main.js` to make it uses emotion 11.
 
-</details>  
-</br>
+</details>
 
-**NOTE:**  
+## Avoiding `import { makeStyles } from "../../../../makeStyles"`
+
 If you don't want to end up writing things like:
 
 ```typescript
@@ -173,6 +174,8 @@ import { makeStyles } from "../../../../../../makeStyles";
 
 You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in
 your `tsconfig.json` and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
+
+## Playground
 
 <p align="center">
     <i>Try it now:</i><br>
