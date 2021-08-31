@@ -6,13 +6,10 @@ import type { RegisteredCache } from "@emotion/serialize";
 import { insertStyles, getRegisteredStyles } from "@emotion/utils";
 import { useSemanticGuaranteeMemo } from "./tools/useSemanticGuaranteeMemo";
 import type { EmotionCache } from "@emotion/cache";
+import { useTssEmotionCache } from "./cache";
 
 export const { cssAndCxFactory } = (() => {
-    function merge(
-        registered: RegisteredCache,
-        css: Css,
-        className: string,
-    ) {
+    function merge(registered: RegisteredCache, css: Css, className: string) {
         const registeredStyles: string[] = [];
 
         const rawClassName = getRegisteredStyles(
@@ -32,10 +29,7 @@ export const { cssAndCxFactory } = (() => {
         const { cache } = params;
 
         const css: Css = (...args) => {
-            const serialized = serializeStyles(
-                args,
-                cache.registered,
-            );
+            const serialized = serializeStyles(args, cache.registered);
             insertStyles(cache, serialized, false);
             return `${cache.key}-${serialized.name}`;
         };
@@ -49,19 +43,14 @@ export const { cssAndCxFactory } = (() => {
     return { cssAndCxFactory };
 })();
 
-export function createUseCssAndCx(params: { useEmotionCache(): EmotionCache }) {
-    const { useEmotionCache } = params;
+/** Will pickup the contextual cache if any */
+export function useCssAndCx() {
+    const cache = useTssEmotionCache();
 
-    function useCssAndCx() {
-        const cache = useEmotionCache();
+    const { css, cx } = useSemanticGuaranteeMemo(
+        () => cssAndCxFactory({ cache }),
+        [cache],
+    );
 
-        const { css, cx } = useSemanticGuaranteeMemo(
-            () => cssAndCxFactory({ cache }),
-            [cache],
-        );
-
-        return { css, cx };
-    }
-
-    return { useCssAndCx };
+    return { css, cx };
 }

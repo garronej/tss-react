@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { GlobalStyles } from "tss-react";
-import { makeStyles, useStyles, muiCache } from "../shared/makeStyles";
+import { makeStyles, useStyles } from "../shared/makeStyles";
+import { muiCache } from "../shared/muiCache";
 import { CacheProvider } from "@emotion/react";
 import { styled } from "@material-ui/core";
 import Button from "@material-ui/core/Button"
@@ -12,7 +13,7 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 const theme = createTheme({
     "palette": {
         "primary": {
-            "main": "#32CD32"
+            "main": "#32CD32" //Limegreen
         }
     }
 });
@@ -57,8 +58,8 @@ const { App } = (() => {
             "border": "1px solid black"
         };
 
-        const breadcrumbs2_separator= {
-                "color": "red"
+        const breadcrumbs2_separator = {
+            "color": "red"
         };
 
         return {

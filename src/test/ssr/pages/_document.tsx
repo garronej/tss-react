@@ -1,6 +1,6 @@
 import { createDocument } from "tss-react/nextJs";
-import { muiCache, tssCache } from "../shared/makeStyles";
+import { muiCache } from "../shared/muiCache";
 
-const { Document } = createDocument({ "caches": [muiCache, tssCache] });
+const { Document } = createDocument({ "caches": [muiCache] });
 
 export default Document;

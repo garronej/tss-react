@@ -22,8 +22,8 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Seamless integration with [material-ui](https://material-ui.com) v5 and v4.  
     Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
--   ✅ `@emotion` cache support.
 -   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition) and it works with mui's `classes` props.
+-   ✅ `@emotion` cache support.
 
 ```bash
 $ yarn add tss-react @emotion/react
@@ -147,24 +147,7 @@ render(
 );
 ```
 
-`makeStyles.ts`
-
-```typescript
-import { useTheme } from "@material-ui/core/styles";
-import { createMakeStyles } from "tss-react";
-import createCache from "tss-react/@emotion/cache"; //Or "@emotion/cache"
-
-export const tssCache = createCache({
-    "key": "tss",
-});
-
-export const { makeStyles } = createMakeStyles({
-    useTheme,
-    "cache": tssCache,
-});
-```
-
-If you use SSR (server side rendering) you'll have to provide `muiCache` and `tssCache`, in this order
+If you use SSR (server side rendering) you'll have to provide `muiCache`
 to the functions that enable SSR to work. [See doc](#server-side-rendering-ssr)
 
 WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitly,
@@ -354,39 +337,14 @@ export const useStyles = makeStyles()({
 
 # Cache
 
-If you are using [custom emotion cache](https://emotion.sh/docs/@emotion/cache) `tss-react` will transparently
-pick up the cache you have provided using [`<CacheProvider />` from `@emotion/react`](https://emotion.sh/docs/cache-provider).
+By default, `tss-react` uses an emotion cache that you can access with
+`import { getTssDefaultEmotionCache } from "tss-react"`.  
+Now if you want `tss-react` to use a specific emotion cache you can provide it using
+`import { TssCacheProvider } from "tss-react"`.
 
-```tsx
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-/* OR:
-import createCache from "tss-react/@emotion/cache";
-*/
-
-const myCache = createCache({
-    "key": "my-prefix-key",
-    //...
-});
-
-render(<CacheProvider value={myCache}>{/* ... */}</CacheProvider>);
-```
-
-You can also opt for telling `tss-react` to use a specific cache and ignore
-the cache provided by the `<CacheProvider />`.
-
-```typescript
-import { createMakeStyles } from "tss-react";
-import createCache from "@emotion/cache";
-
-const { makeStyles } = createMakeStyles({
-    useTheme,
-    "cache": createCache({ "key": "my-prefix-key" }),
-});
-```
-
-If there is no cache provided by `<CacheProvider />` nor any cache specified
-when calling `createMakeStyles()` then the cache used is `import { getCache } from "tss-react/cache"`.
+If you are using `tss-react` with mui v5, be aware that mui and tss can't share
+the same cache. On top of that the cache used by mui should have `"prepend": true` and
+the cache used by tss should have `"prepend": false`.
 
 # Composition and nested selectors ( `$` syntax )
 
@@ -528,16 +486,27 @@ import { createDocument } from "tss-react/nextJs";
 const { Document } = createDocument();
 
 /*
-If you use custom cache you should provide it here:
-Example for mui v5 users:
+With mui v5 (or if you are using custom caches):
+
 import { muiCache } from "...";
-import { tssCache } from "...";
+
+const { Document } = createDocument({ "caches": [ muiCache ] });
+
+If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
+you should pass it as well.
 
 const { Document } = createDocument({ "caches": [ muiCache, tssCache ] });
+
+Generally speaking all the emotion caches used in your app should be provided.
+Just remember to first provide the caches used by mui then the caches used by tss. Example:
+
+const { Document } = createDocument({ "caches": [ muiCache1, muiCache2, tssCache1, tssCache2 ] });
 */
 
 export default Document;
 ```
+
+You can find a working example [here](https://github.com/garronej/tss-react/tree/main/src/test/ssr).
 
 ### **Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`
 
@@ -549,12 +518,21 @@ import { createGetInitialProps } from "tss-react/nextJs";
 const { getInitialProps } = createGetInitialProps();
 
 /*
-If you use custom cache you should provide it here:
-Example for mui v5 users:
-import { muiCache } from "...";
-import { tssCache } from "...";
+With mui v5 (or if you are using custom caches):
 
-const { Document } = createDocument({ "caches": [ muiCache, tssCache ] });
+import { muiCache } from "...";
+
+const { getInitialProps } = createGetInitialProps({ "caches": [ muiCache ] });
+
+If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
+you should pass it as well.
+
+const { getInitialProps } = createGetInitialProps({ "caches": [ muiCache, tssCache ] });
+
+Generally speaking all the emotion caches used in your app should be provided.
+Just remember to first provide the caches used by mui then the caches used by tss. Example:
+
+const { getInitialProps } = createGetInitialProps({ "caches": [ muiCache1, muiCache2, tssCache1, tssCache2 ] });
 */
 
 export default class AppDocument extends Document {
@@ -575,12 +553,21 @@ import { createPageHtmlToStyleTags } from "tss-react/nextJs";
 
 const { pageHtmlToStyleTags } = createPageHtmlToStyleTags();
 /*
-If you use custom cache you should provide it here:
-Example for mui v5 users:
-import { muiCache } from "...";
-import { tssCache } from "...";
+With mui v5 (or if you are using custom caches):
 
-const { Document } = createDocument({ "caches": [ muiCache, tssCache ] });
+import { muiCache } from "...";
+
+const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ muiCache ] });
+
+If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
+you should pass it as well.
+
+const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ muiCache, tssCache ] });
+
+Generally speaking all the emotion caches used in your app should be provided.
+Just remember to first provide the caches used by mui then the caches used by tss. Example:
+
+const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ muiCache1, muiCache2, tssCache1, tssCache2 ] });
 */
 
 export default class AppDocument extends Document {
@@ -614,20 +601,39 @@ yarn add @emotion/server
 import { renderToString } from "react-dom/server";
 import createEmotionServer from "@emotion/server/create-instance";
 
-import { getCache } from "tss-react/cache";
+import { getTssDefaultEmotionCache } from "tss-react/cache";
 import { createMakeStyles } from "tss-react";
 
 const emotionServers = [
-    getCache(), //If you use custom cache(s) provide it/them here instead of the default, see example below.
+    getTssDefaultEmotionCache(), //If you use custom cache(s) provide it/them here instead of the default, see example below.
 ].map(createEmotionServer);
 
 /*
+With mui v5 (or if you are using custom caches):
+
 import { muiCache } from "...";
-import { tssCache } from "...";
+
+const emotionServers = [
+    muiCache,
+    getTssDefaultEmotionCache()
+].map(createEmotionServer);
+
+If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
+you should pass it as well.
 
 const emotionServers = [
     muiCache,
     tssCache
+].map(createEmotionServer);
+
+Generally speaking all the emotion caches used in your app should be provided.
+Just remember to first provide the caches used by mui then the caches used by tss. Example:
+
+const emotionServers = [
+    muiCache1,
+    muiCache2,
+    tssCache1,
+    tssCache2
 ].map(createEmotionServer);
 */
 

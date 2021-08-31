@@ -1,16 +1,14 @@
 import "./tools/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
-import { Css, Cx } from "./types";
+import { Css } from "./types";
+import { useCssAndCx } from "./cssAndCx";
 
 /**
  * @see {@link https://github.com/garronej/tss-react}
  */
-export function createMakeStyles<Theme>(params: {
-    useTheme(): Theme;
-    useCssAndCx(): { css: Css; cx: Cx };
-}) {
-    const { useTheme, useCssAndCx } = params;
+export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
+    const { useTheme } = params;
 
     /** returns useStyle. */
     function makeStyles<Params = void>() {
@@ -54,5 +52,11 @@ export function createMakeStyles<Theme>(params: {
         };
     }
 
-    return { makeStyles };
+    function useStyles() {
+        const theme = useTheme();
+        const { css, cx } = useCssAndCx();
+        return { theme, css, cx };
+    }
+
+    return { makeStyles, useStyles };
 }

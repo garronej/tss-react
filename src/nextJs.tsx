@@ -4,16 +4,16 @@ import type { DocumentContext } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import htmlReactParserParse from "html-react-parser";
 import type { EmotionCache } from "@emotion/cache";
-import { getCache } from "./cache";
+import { getTssDefaultEmotionCache } from "./cache";
 
 export function createPageHtmlToStyleTags(params?: { caches: EmotionCache[] }) {
     let { caches = [] } = params ?? {};
 
     {
-        const cache = getCache();
+        const tssCache = getTssDefaultEmotionCache();
 
-        if (!caches.includes(cache)) {
-            caches = [...caches, cache];
+        if (!caches.includes(tssCache)) {
+            caches = [...caches, tssCache];
         }
     }
 
