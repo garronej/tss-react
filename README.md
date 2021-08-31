@@ -36,7 +36,7 @@ $ yarn add tss-react @emotion/react
 -   [Quick start](#quick-start)
     -   [With material-ui v4](#with-material-ui-v4)
     -   [With material-ui v5](#with-material-ui-v5)
-    -   [Avoiding `import { makeStyles } from "../../../../makeStyles"`](#avoiding-import--makestyles--from-makestyles)
+    -   [Avoiding `import { makeStyles } from "../../../makeStyles"`](#avoiding-import--makestyles--from-makestyles)
     -   [Playground](#playground)
 -   [API documentation](#api-documentation)
     -   [Exposed APIs](#exposed-apis)
@@ -164,7 +164,7 @@ to be made to your `.storybook/main.js` to make it uses emotion 11.
 
 </details>
 
-## Avoiding `import { makeStyles } from "../../../../makeStyles"`
+## Avoiding `import { makeStyles } from "../../../makeStyles"`
 
 If you don't want to end up writing things like:
 
