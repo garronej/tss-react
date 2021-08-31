@@ -1,3 +1,13 @@
+## **0.8.0** (2021-08-31)  
+  
+- Feature <TssCacheProvider>  #16  
+- Mitigate 'maze of factories' effect #26571  
+- Enable classes prop to work in mui v5 #20 #19 #18 #17 #15  
+- Repoduce the error #17  
+- Expose useCssAndCx for project with no theme  
+- Update table of content  
+- Update README.md    
+  
 ### **0.7.3** (2021-08-20)  
   
 - Expose useCssAndCx for project with no theme  
