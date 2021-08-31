@@ -34,6 +34,8 @@ $ yarn add tss-react @emotion/react
 </p>
 
 -   [Quick start](#quick-start)
+    -   [With material-ui v4](#with-material-ui-v4)
+    -   [With material-ui v5](#with-material-ui-v5)
 -   [API documentation](#api-documentation)
     -   [Exposed APIs](#exposed-apis)
     -   [`makeStyles()`](#makestyles)
@@ -101,10 +103,10 @@ export function MyComponent(props: Props) {
 }
 ```
 
-**Material-UI users only**: Setup injection priority.
+## With material-ui v4
 
 <details>
-  <summary>Click to expand instructions for material-ui v4.</summary></br>
+  <summary>Click to expand</summary></br>
 
 ```tsx
 import { render } from "react-dom";
@@ -124,8 +126,10 @@ a Next.js setup to use as reference.
 </details>  
 </br>
 
+## With material-ui v5
+
 <details>
-  <summary>Click to expand instructions for material-ui v5</summary></br>
+  <summary>Click to expand</summary></br>
 
 **Don't** use `<StyledEngineProvider injectFirst/>` but do this instead:
 
