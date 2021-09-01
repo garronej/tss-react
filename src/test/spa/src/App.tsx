@@ -60,6 +60,13 @@ const useStyles = makeStyles()((theme, _params, css) => {
 
 		"button2_root": {
 			"backgroundColor": "red"
+		},
+
+		"testCx_bgYellow": {
+			"backgroundColor": "yellow"
+		},
+		"testCx_bgCyan": {
+			"backgroundColor": "cyan"
 		}
 
 	};
@@ -149,6 +156,12 @@ export function App(props: { className?: string; }) {
 				>
 					<span>The background should be red</span>
 				</Button>
+				<div className={cx(classes.testCx_bgYellow, classes.testCx_bgCyan)}>
+					Background should be cyan
+				</div>
+				<div className={cx(classes.testCx_bgCyan, classes.testCx_bgYellow)}>
+					Background should be yellow
+				</div>
 
 
 			</div>

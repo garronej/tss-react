@@ -57,8 +57,8 @@ const { App } = (() => {
             "border": "1px solid black"
         };
 
-        const breadcrumbs2_separator= {
-                "color": "red"
+        const breadcrumbs2_separator = {
+            "color": "red"
         };
 
         return {
@@ -105,6 +105,13 @@ const { App } = (() => {
 
             "button2_root": {
                 "backgroundColor": "red"
+            },
+
+            "testCx_bgYellow": {
+                "backgroundColor": "yellow"
+            },
+            "testCx_bgCyan": {
+                "backgroundColor": "cyan"
             }
 
         };
@@ -194,6 +201,13 @@ const { App } = (() => {
                     >
                         <span>The background should be red</span>
                     </Button>
+
+                    <div className={cx(classes.testCx_bgYellow, classes.testCx_bgCyan)}>
+                        Background should be cyan
+                    </div>
+                    <div className={cx(classes.testCx_bgCyan, classes.testCx_bgYellow)}>
+                        Background should be yellow
+                    </div>
 
 
                 </div>
