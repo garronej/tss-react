@@ -1,3 +1,8 @@
+### **0.9.1** (2021-09-14)  
+  
+- Remove ie11 polyfills  
+- Setup github pages    
+  
 ## **0.9.0** (2021-09-14)  
   
 - New implementation for composition and nested selectors ($ syntax)    
