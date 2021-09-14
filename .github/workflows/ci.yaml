@@ -147,3 +147,23 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
         VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
+
+  github_pages:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2.1.3
+      with:
+        node-version: '15'
+    - uses: bahmutov/npm-install@v1
+    - run: |
+        yarn build
+        yarn yarn_link
+        cd src/test/spa
+        yarn build
+    - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: npx -y -p gh-pages@3.1.0 gh-pages -d src/test/spa/build -u "github-actions-bot <actions@github.com>"
