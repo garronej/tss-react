@@ -679,6 +679,7 @@ yarn build
 #npx tsc -w
 
 # To start the Single Page Application test app (create react app)
+# This app is live here: https://garronej.github.io/tss-react/
 yarn start_spa
 
 # To start the Server Side Rendering app (next.js)
