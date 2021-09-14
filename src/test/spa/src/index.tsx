@@ -1,3 +1,5 @@
+import "react-app-polyfill/ie11";
+import "react-app-polyfill/stable";
 import { render } from "react-dom";
 //NOTE: If makeStyles was located in src/app we would write: import { makeStyles } from "app/makeStyles";
 import { useStyles } from "makeStyles";
