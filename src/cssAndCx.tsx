@@ -1,4 +1,3 @@
-import "./tools/Object.fromEntries";
 import { classnames } from "./tools/classnames";
 import type { Cx, Css } from "./types";
 import { serializeStyles } from "@emotion/serialize";

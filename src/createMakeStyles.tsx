@@ -1,4 +1,4 @@
-import "./tools/Object.fromEntries";
+import { fromEntries } from "./tools/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
 import { useCssAndCx } from "./cssAndCx";
@@ -38,7 +38,7 @@ export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
 
                 const cssObject = getCssObject(theme, params, createRef);
 
-                const classes = Object.fromEntries(
+                const classes = fromEntries(
                     objectKeys(cssObject).map(key => [
                         key,
                         css(cssObject[key]),
