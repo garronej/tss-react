@@ -1,3 +1,7 @@
+## **0.9.0** (2021-09-14)  
+  
+- New implementation for composition and nested selectors ($ syntax)    
+  
 ### **0.8.1** (2021-08-31)  
   
 - fmt    
