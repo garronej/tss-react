@@ -1,6 +1,8 @@
 import { useRef } from "react";
 
-export function useSemanticGuaranteeMemo<T>(
+/** Like react's useMemo but with guarantee that the fn
+ * won't be invoked again if deps hasn't change */
+export function useGuaranteedMemo<T>(
     fn: () => T,
     deps: React.DependencyList,
 ): T {

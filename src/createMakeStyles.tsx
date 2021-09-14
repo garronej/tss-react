@@ -1,7 +1,6 @@
 import "./tools/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
-import { Css } from "./types";
 import { useCssAndCx } from "./cssAndCx";
 
 /**
@@ -17,7 +16,7 @@ export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
                 | ((
                       theme: Theme,
                       params: Params,
-                      css: Css,
+                      createRef: () => string,
                   ) => Record<Key, CSSObject>)
                 | Record<Key, CSSObject>,
         ) {
@@ -29,9 +28,15 @@ export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
             function useStyles(params: Params) {
                 const theme = useTheme();
 
-                const { css, cx } = useCssAndCx();
+                const { cx, css } = useCssAndCx();
 
-                const cssObject = getCssObject(theme, params, css);
+                let count = 0;
+
+                function createRef() {
+                    return `tss-react-ref_${count++}`;
+                }
+
+                const cssObject = getCssObject(theme, params, createRef);
 
                 const classes = Object.fromEntries(
                     objectKeys(cssObject).map(key => [

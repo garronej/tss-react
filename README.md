@@ -29,8 +29,6 @@ This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/
 $ yarn add tss-react @emotion/react
 ```
 
-WARNING: Version prior to `v0.7` had problems with mui's `classes` props. It have been addressed in the current version.
-
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/126204447-6f14ef75-63c2-4480-beb6-18d6fb94b50b.gif">
 </p>
@@ -392,15 +390,16 @@ In **JSS** you can do:
 This is how you would achieve the same result with `tss-react`
 
 ```tsx
-const useStyles = makeStyles()((_theme, _params, css) => {
+const useStyles = makeStyles()((_theme, _params, createRef) => {
     const child = {
+        "ref": createRef(),
         "background": "blue",
     } as const; //<- In many case 'as const' must be used so that it can be inferred as CSSObject
 
     return {
         "parent": {
             "padding": 30,
-            [`&:hover .${css(child)}`]: {
+            [`&:hover .${child.ref}`]: {
                 "background": "red",
             },
         },

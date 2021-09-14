@@ -51,22 +51,36 @@ function Root() {
 const { App } = (() => {
 
 
-    const useStyles = makeStyles()((theme, _params, css) => {
+    const useStyles = makeStyles()((theme, _params, createRef) => {
 
         const child = {
+            "ref": createRef(),
             "background": "blue",
             "border": "1px solid black"
         };
 
         const breadcrumbs2_separator = {
+            "ref": createRef(),
             "color": "red"
         };
+
+        const childRefTest_wrapper2 = {
+            "border": "1px solid black",
+            "margin": 30,
+            "height": 100,
+            "color": "black"
+        } as const;
+
+        const childRefTest_wrapper1 = {
+            "ref": createRef(),
+            ...childRefTest_wrapper2
+        } as const;
 
         return {
             "root": {
                 "& > h1:nth-child(2)": {
                     "color": theme.palette.primary.main,
-                },
+                }
             },
             "ovStyled": {
                 "color": "darkred"
@@ -77,7 +91,7 @@ const { App } = (() => {
             "parent": {
                 "border": "1px solid black",
                 "padding": 30,
-                [`&:hover .${css(child)}`]: {
+                [`&:hover .${child.ref}`]: {
                     "background": "red",
                 }
             },
@@ -94,7 +108,7 @@ const { App } = (() => {
 
             "breadcrumbs2_root": {
                 "backgroundColor": "lightblue",
-                [`&:hover .${css(breadcrumbs2_separator)}`]: {
+                [`&:hover .${breadcrumbs2_separator.ref}`]: {
                     "color": "blue"
                 }
             },
@@ -107,13 +121,25 @@ const { App } = (() => {
             "button2_root": {
                 "backgroundColor": "red"
             },
+
             "testCx_bgYellow": {
                 "backgroundColor": "yellow"
             },
             "testCx_bgCyan": {
                 "backgroundColor": "cyan"
-            }
+            },
 
+            "childRefTest_wrapper": {
+                "border": "1px solid black",
+                [`&:hover .${childRefTest_wrapper1.ref}`]: {
+                    "backgroundColor": "cyan"
+                }
+            },
+            childRefTest_wrapper1,
+            childRefTest_wrapper2,
+            "childRefTest_textColorPink": {
+                "color": "pink"
+            }
         };
     });
 
@@ -207,6 +233,26 @@ const { App } = (() => {
                     <div className={cx(classes.testCx_bgCyan, classes.testCx_bgYellow)}>
                         Background should be yellow
                     </div>
+
+
+
+                    <div className={classes.childRefTest_wrapper}>
+
+                        <div className={cx(
+                            classes.childRefTest_textColorPink,
+                            classes.childRefTest_wrapper1
+                        )}>
+                            Background should turn cyan when mouse hover the parent.
+                            Also the text should NOT be pink
+                        </div>
+                        <div className={cx(classes.childRefTest_wrapper2)}>
+                            Background should NOT turn cyan when mouse hover the parent.
+                        </div>
+
+
+                    </div>
+
+
                 </div>
             </>
         );
