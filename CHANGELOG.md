@@ -1,12 +1,10 @@
 ### **0.9.1** (2021-09-14)  
-  
-- Remove ie11 polyfills  
-- Setup github pages    
-  
 ## **0.9.0** (2021-09-14)  
   
 - New implementation for composition and nested selectors ($ syntax)    
-  
+- **BREAKING CHANGE**: New implementation for composition and nested selectors ($ syntax)
+  [Doc](https://github.com/garronej/tss-react#selecting-children-by-class-name)
+  [Migration example](https://github.com/garronej/tss-react/commit/1257fbce9be0f21161aa70ead9ac6f48c95704c5#diff-b39151de90b15a9663bdcd105f57336a6278613b38fb846f2a7c61b4068d7047)
 ### **0.8.1** (2021-08-31)  
   
 - fmt    
