@@ -1,3 +1,7 @@
+### **0.9.3** (2021-09-21)  
+  
+- #22 Do not include ts sources in the npm bundle because of jest (and rollback to targeting es6)    
+  
 ### **0.9.2** (2021-09-21)  
   
 - Target ES5 instead of ES6    
