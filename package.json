@@ -36,9 +36,6 @@
     "author": "u/garronej",
     "license": "MIT",
     "files": [
-        "src/",
-        "!src/test/",
-        "!src/bin/",
         "dist/",
         "!dist/test/",
         "!dist/bin/",

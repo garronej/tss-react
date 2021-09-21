@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
         "module": "CommonJS",
-        "target": "ES5",
+        "target": "ES6",
         "lib": ["es2015", "ES2019.Object", "DOM"],
         "esModuleInterop": true,
         "declaration": true,
         "outDir": "./dist",
-        "sourceMap": true,
+        "sourceMap": false,
         "newLine": "LF",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
