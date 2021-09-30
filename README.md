@@ -43,7 +43,7 @@ $ yarn add tss-react @emotion/react
     -   [`makeStyles()`](#makestyles)
     -   [`useStyles()`](#usestyles)
     -   [`<GlobalStyles />`](#globalstyles-)
-    -   [`keyframe`](#keyframe)
+    -   [`keyframes`](#keyframes)
 -   [Cache](#cache)
 -   [Composition and nested selectors ( `$` syntax )](#composition-and-nested-selectors--syntax-)
     -   [Selecting children by class name](#selecting-children-by-class-name)
@@ -191,7 +191,7 @@ your `tsconfig.json` and import things [relative to your `src/` directory](https
 ```typescript
 import {
     createMakeStyles, //<- Create an instance of makeStyle() for your theme.
-    keyframe, //<- The function as defined in @emotion/react and @emotion/css
+    keyframes, //<- The function as defined in @emotion/react and @emotion/css
     GlobalStyles, //<- A component to define global styles.
     TssCacheProvider, //<- Provider to specify the emotion cache tss should use.
     useCssAndCx, //<- Access css and cx directly.
@@ -316,11 +316,11 @@ function MyComponent() {
 }
 ```
 
-## `keyframe`
+## `keyframes`
 
 ```typescript
 // Reexport from @emotion/react
-import { keyframe } from "tss-react";
+import { keyframes } from "tss-react";
 import { makeStyles } from "./makeStyles";
 
 export const useStyles = makeStyles()({
