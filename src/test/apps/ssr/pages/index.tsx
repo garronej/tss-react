@@ -139,6 +139,13 @@ const { App } = (() => {
             childRefTest_wrapper2,
             "childRefTest_textColorPink": {
                 "color": "pink"
+            },
+            "mq": {
+                "height": 100,
+                "backgroundColor": "lightgreen",
+                "@media (max-width: 960px)": {
+                    "backgroundColor": "cyan"
+                }
             }
         };
     });
@@ -251,7 +258,10 @@ const { App } = (() => {
 
 
                     </div>
-
+                    <div className={classes.mq}>
+                        The background color should turn from lightgreen to cyan when the window
+                        inner with goes is below 960px
+                    </div>
 
                 </div>
             </>

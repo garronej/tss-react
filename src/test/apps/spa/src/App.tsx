@@ -93,6 +93,13 @@ const useStyles = makeStyles()((theme, _params, createRef) => {
 		childRefTest_wrapper2,
 		"childRefTest_textColorPink": {
 			"color": "pink"
+		},
+		"mq": {
+			"height": 100,
+			"backgroundColor": "lightgreen",
+			"@media (max-width: 960px)": {
+				"backgroundColor": "cyan"
+			}
 		}
 	};
 });
@@ -188,12 +195,12 @@ export function App(props: { className?: string; }) {
 					Background should be yellow
 				</div>
 
-				
+
 
 				<div className={classes.childRefTest_wrapper}>
 
 					<div className={cx(
-						classes.childRefTest_textColorPink, 
+						classes.childRefTest_textColorPink,
 						classes.childRefTest_wrapper1
 					)}>
 						Background should turn cyan when mouse hover the parent.
@@ -203,7 +210,11 @@ export function App(props: { className?: string; }) {
 						Background should NOT turn cyan when mouse hover the parent.
 					</div>
 
+				</div>
 
+				<div className={classes.mq}>
+					The background color should turn from lightgreen to cyan when the window
+					inner with goes is below 960px
 				</div>
 
 
