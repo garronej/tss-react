@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { forwardRef } from "react";
 import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
@@ -38,55 +37,26 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
                   createRef: () => string,
               ) => CssObjectByRuleName),
     ): C {
-        /*
-    function withStyles<
-        C extends ReactComponent<any>,
-        Props extends C extends ReactComponent<infer P> ? P : never,
-        CssObjectByRuleName extends Props extends { classes?: Partial<infer ClassNameByRuleName>; } ?
-            { [Key in keyof ClassNameByRuleName]?: CSSObject; }  :
-            never
-    >(
-        Component: C,
-        cssObjectByRuleNameOrGetCssObjectByRuleName:
-            CssObjectByRuleName & { [mediaQuery: `@media${string}`]: { [Key in keyof CssObjectByRuleName]?: CSSObject; }; }
-            | ((
-                theme: Theme,
-                props: Props,
-                createRef: () => string,
-            ) => CssObjectByRuleName),
-    ): C {
-        */
+        const cssObjectByRuleNameOrGetCssObjectByRuleName_ =
+            cssObjectByRuleNameOrGetCssObjectByRuleName as
+                | Record<string, CSSObject>
+                | ((
+                      theme: Theme,
+                      props: Props,
+                      createRef: () => string,
+                  ) => Record<string, CSSObject>);
 
-        /*
-    function withStyles<
-        C extends ReactComponent<any>,
-        Props extends C extends ReactComponent<infer P> ? P : never,
-        CssObjectByRuleName extends Props extends { classes?: Partial<infer ClassNameByRuleName>; } ?
-            { [Key in keyof ClassNameByRuleName]?: CSSObject; } & 
-                { [mediaQuery: `@media${string}`]: { [Key in keyof ClassNameByRuleName]?: CSSObject; }  } :
-            never
-    >(
-        Component: C,
-        cssObjectByRuleNameOrGetCssObjectByRuleName:
-            CssObjectByRuleName 
-            | ((
-                theme: Theme,
-                props: Props,
-                createRef: () => string,
-            ) => CssObjectByRuleName),
-    ): C {
-        /*
+        const Component_: ReactComponent<any> = Component;
 
-        return null as any;
-
-
-        /*
         const useStyles = makeStyles<Props>()(
-            typeof cssObjectOrGetCssObject === "function"
-                ? (theme: Theme, props: Props, createRef: () => string) => ({
-                      "root": cssObjectOrGetCssObject(theme, props, createRef),
-                  })
-                : { "root": cssObjectOrGetCssObject },
+            typeof cssObjectByRuleNameOrGetCssObjectByRuleName_ === "function"
+                ? (theme: Theme, props: Props, createRef: () => string) =>
+                      cssObjectByRuleNameOrGetCssObjectByRuleName_(
+                          theme,
+                          props,
+                          createRef,
+                      )
+                : cssObjectByRuleNameOrGetCssObjectByRuleName_,
         );
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -95,13 +65,11 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
 
             const { className, ...rest } = props;
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const Component_: ReactComponent<any> = Component;
-
             return (
                 <Component_
                     ref={ref}
                     className={cx(classes.root, className)}
+                    classes={classes}
                     {...rest}
                 />
             );
@@ -117,9 +85,6 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return Out as any;
-        */
-
-        return null as any;
     }
 
     return { withStyles };
