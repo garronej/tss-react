@@ -11,19 +11,19 @@ export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
 
     /** returns useStyle. */
     function makeStyles<Params = void>() {
-        return function <Key extends string>(
-            getCssObjectOrCssObject:
+        return function <RuleName extends string>(
+            cssObjectByRuleNameOrGetCssObjectByRuleName:
                 | ((
                       theme: Theme,
                       params: Params,
                       createRef: () => string,
-                  ) => Record<Key, CSSObject>)
-                | Record<Key, CSSObject>,
+                  ) => Record<RuleName, CSSObject>)
+                | Record<RuleName, CSSObject>,
         ) {
-            const getCssObject =
-                typeof getCssObjectOrCssObject === "function"
-                    ? getCssObjectOrCssObject
-                    : () => getCssObjectOrCssObject;
+            const getCssObjectByRuleName =
+                typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
+                    ? cssObjectByRuleNameOrGetCssObjectByRuleName
+                    : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
             function useStyles(params: Params) {
                 const theme = useTheme();
@@ -36,14 +36,14 @@ export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
                     return `tss-react-ref_${count++}`;
                 }
 
-                const cssObject = getCssObject(theme, params, createRef);
+                const cssObjectByRuleName = getCssObjectByRuleName(theme, params, createRef);
 
                 const classes = fromEntries(
-                    objectKeys(cssObject).map(key => [
-                        key,
-                        css(cssObject[key]),
+                    objectKeys(cssObjectByRuleName).map(ruleName => [
+                        ruleName,
+                        css(cssObjectByRuleName[ruleName]),
                     ]),
-                ) as Record<Key, string>;
+                ) as Record<RuleName, string>;
 
                 return {
                     classes,
