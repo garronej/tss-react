@@ -17,5 +17,10 @@
         "noFallthroughCasesInSwitch": true
     },
     "include": ["src"],
-    "exclude": ["src/test/spa", "src/test/ssr", "src/test/muiV4ssr", "src/bin"]
+    "exclude": [
+        "src/test/spa",
+        "src/test/ssr",
+        "src/test/apps/muiV4ssr",
+        "src/bin"
+    ]
 }

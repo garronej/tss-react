@@ -21,7 +21,8 @@ export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
                 | Record<RuleName, CSSObject>,
         ) {
             const getCssObjectByRuleName =
-                typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
+                typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                "function"
                     ? cssObjectByRuleNameOrGetCssObjectByRuleName
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
@@ -36,7 +37,11 @@ export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
                     return `tss-react-ref_${count++}`;
                 }
 
-                const cssObjectByRuleName = getCssObjectByRuleName(theme, params, createRef);
+                const cssObjectByRuleName = getCssObjectByRuleName(
+                    theme,
+                    params,
+                    createRef,
+                );
 
                 const classes = fromEntries(
                     objectKeys(cssObjectByRuleName).map(ruleName => [

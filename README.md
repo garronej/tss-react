@@ -122,7 +122,7 @@ render(
 );
 ```
 
-If you need SSR You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/muiV4ssr)
+If you need SSR You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr)
 a Next.js setup to use as reference.
 
 </details>
@@ -480,7 +480,7 @@ There are some minimal configuration required to make `tss-react`
 work with SSR.
 
 The following instructions are assuming you are using `tss-react` standalone
-or alongside `@material-ui` v5. You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/muiV4ssr)
+or alongside `@material-ui` v5. You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr)
 a Next.js setup with `@material-ui` v4.
 
 ## With [Next.js](https://nextjs.org)
@@ -515,7 +515,7 @@ const { Document } = createDocument({ "caches": [ muiCache1, muiCache2, tssCach
 export default Document;
 ```
 
-You can find a working example [here](https://github.com/garronej/tss-react/tree/main/src/test/ssr).
+You can find a working example [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/ssr).
 
 ### **Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`
 
