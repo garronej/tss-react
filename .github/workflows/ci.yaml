@@ -161,9 +161,9 @@ jobs:
     - run: |
         yarn build
         yarn yarn_link
-        cd src/test/spa
+        cd src/test/apps/spa
         yarn build
     - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npx -y -p gh-pages@3.1.0 gh-pages -d src/test/spa/build -u "github-actions-bot <actions@github.com>"
+    - run: npx -y -p gh-pages@3.1.0 gh-pages -d src/test/apps/spa/build -u "github-actions-bot <actions@github.com>"
