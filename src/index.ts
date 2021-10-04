@@ -1,6 +1,6 @@
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 export { useCssAndCx } from "./cssAndCx";
-export { createMakeStyles } from "./createMakeStyles";
+export { createMakeStyles } from "./makeStyles";
 /** Reexport from @emotion/react */
 export { keyframes } from "@emotion/react";
 export { GlobalStyles } from "./GlobalStyles";

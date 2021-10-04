@@ -10,7 +10,7 @@ import type { CSSTssSpecials } from "./tools/types/CSSObject";
 
 const refPropertyName: keyof CSSTssSpecials = "ref";
 
-export const { cssAndCxFactory } = (() => {
+export const { createCssAndCx } = (() => {
     function merge(registered: RegisteredCache, css: Css, className: string) {
         const registeredStyles: string[] = [];
 
@@ -27,7 +27,7 @@ export const { cssAndCxFactory } = (() => {
         return rawClassName + css(registeredStyles);
     }
 
-    function cssAndCxFactory(params: { cache: EmotionCache }) {
+    function createCssAndCx(params: { cache: EmotionCache }) {
         const { cache } = params;
 
         const css: Css = (...args) => {
@@ -69,7 +69,7 @@ export const { cssAndCxFactory } = (() => {
         return { css, cx };
     }
 
-    return { cssAndCxFactory };
+    return { createCssAndCx };
 })();
 
 /** Will pickup the contextual cache if any */
@@ -77,7 +77,7 @@ export function useCssAndCx() {
     const cache = useTssEmotionCache();
 
     const { css, cx } = useGuaranteedMemo(
-        () => cssAndCxFactory({ cache }),
+        () => createCssAndCx({ cache }),
         [cache],
     );
 

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { forwardRef } from "react";
 import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
-import { createMakeStyles } from "./createMakeStyles";
+import { createMakeStyles } from "./makeStyles";
 
 export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
     const { useTheme } = params;
@@ -15,9 +16,9 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
         CssObjectByRuleName extends Props extends {
             classes?: Partial<infer ClassNameByRuleName>;
         }
-            ? { [Key in keyof ClassNameByRuleName]?: CSSObject } & {
+            ? { [RuleName in keyof ClassNameByRuleName]?: CSSObject } & {
                   [mediaQuery: `@media${string}`]: {
-                      [Key in keyof ClassNameByRuleName]?: CSSObject;
+                      [RuleName in keyof ClassNameByRuleName]?: CSSObject;
                   };
               }
             : { root: CSSObject } & {
@@ -37,26 +38,21 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
                   createRef: () => string,
               ) => CssObjectByRuleName),
     ): C {
-        const cssObjectByRuleNameOrGetCssObjectByRuleName_ =
-            cssObjectByRuleNameOrGetCssObjectByRuleName as
-                | Record<string, CSSObject>
-                | ((
-                      theme: Theme,
-                      props: Props,
-                      createRef: () => string,
-                  ) => Record<string, CSSObject>);
-
         const Component_: ReactComponent<any> = Component;
 
         const useStyles = makeStyles<Props>()(
-            typeof cssObjectByRuleNameOrGetCssObjectByRuleName_ === "function"
+            typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
                 ? (theme: Theme, props: Props, createRef: () => string) =>
-                      cssObjectByRuleNameOrGetCssObjectByRuleName_(
-                          theme,
-                          props,
-                          createRef,
+                      incorporateMediaQueries(
+                          cssObjectByRuleNameOrGetCssObjectByRuleName(
+                              theme,
+                              props,
+                              createRef,
+                          ),
                       )
-                : cssObjectByRuleNameOrGetCssObjectByRuleName_,
+                : incorporateMediaQueries(
+                      cssObjectByRuleNameOrGetCssObjectByRuleName,
+                  ),
         );
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,4 +84,45 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
     }
 
     return { withStyles };
+}
+
+function incorporateMediaQueries(
+    cssObjectByRuleNameWithMediaQueries: {
+        [RuleName_ in string]?: CSSObject;
+    } & {
+        [mediaQuery: `@media${string}`]: { [RuleName_ in string]?: CSSObject };
+    },
+): { [RuleName_ in string]: CSSObject } {
+    const cssObjectByRuleName: { [RuleName_ in string]: CSSObject } = {};
+
+    const cssObjectByRuleNameWithMediaQueriesByMediaQuery: {
+        [mediaQuery: `@media${string}`]: { [RuleName_ in string]?: CSSObject };
+    } = {};
+
+    Object.keys(cssObjectByRuleNameWithMediaQueries).forEach(
+        ruleNameOrMediaQuery =>
+            ((ruleNameOrMediaQuery.startsWith("@media")
+                ? (cssObjectByRuleNameWithMediaQueriesByMediaQuery as any)
+                : (cssObjectByRuleName as any))[ruleNameOrMediaQuery] =
+                cssObjectByRuleNameWithMediaQueries[ruleNameOrMediaQuery]),
+    );
+
+    Object.keys(cssObjectByRuleNameWithMediaQueriesByMediaQuery).forEach(
+        mediaQuery => {
+            const cssObjectByRuleNameBis =
+                cssObjectByRuleNameWithMediaQueriesByMediaQuery[
+                    mediaQuery as any
+                ];
+
+            Object.keys(cssObjectByRuleNameBis).forEach(
+                ruleName =>
+                    (cssObjectByRuleName[ruleName] = {
+                        ...(cssObjectByRuleName[ruleName] ?? {}),
+                        [mediaQuery]: cssObjectByRuleNameBis[ruleName],
+                    }),
+            );
+        },
+    );
+
+    return cssObjectByRuleName;
 }
