@@ -1,5 +1,5 @@
 
-import { makeStyles } from "makeStyles";
+import { makeStyles, withStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@material-ui/core";
 import Button from "@material-ui/core/Button"
@@ -217,8 +217,57 @@ export function App(props: { className?: string; }) {
 					inner with goes is below 960px
 				</div>
 
+				<MyComponentStyled
+					className={css({ "color": "red" })}
+					colorSmall="cyan"
+				/>
+				<MyStyledButton>
+					The text should turn from red to blue when the
+					window inner width goes below 960px
+				</MyStyledButton>
+
 
 			</div>
 		</>
 	);
 }
+
+function MyComponent(props: { className?: string; colorSmall: string; }) {
+	return (
+		<div className={props.className}>
+			The background color should turn from limegreen to cyan when the window
+			inner with goes below 960px.
+			Font should be red
+		</div>
+	);
+}
+
+const MyComponentStyled = withStyles(
+	MyComponent,
+	(theme, props) => ({
+		"root": {
+			"backgroundColor": theme.palette.primary.main,
+			"height": 100,
+			"marginTop": 20
+		},
+		"@media (max-width: 960px)": {
+			"root": {
+				"backgroundColor": props.colorSmall
+			},
+		}
+	})
+);
+
+const MyStyledButton = withStyles(
+	Button,
+	{
+		"text": {
+			"color": "red"
+		},
+		"@media (max-width: 960px)": {
+			"text": {
+				"color": "blue"
+			},
+		}
+	}
+);
