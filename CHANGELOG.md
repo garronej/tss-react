@@ -1,3 +1,18 @@
+### **0.9.4** (2021-10-04)  
+  
+- Test withStyles (superficially)  
+- Implement withStyles  
+- Test media queries (chagelog ignore)  
+- Implement withStyle (runtime)  
+- Move all test apps in test/apps  
+- Successfully type withStyles  
+- Merge pull request #24 from wald-tq/keyframes
+
+Fix `keyframe` -> `keyframes` in README.md  
+- Fix `keyframe` -> `keyframes` in README.md
+
+`keyframe` should be `keyframes`.    
+  
 ### **0.9.3** (2021-09-21)  
   
 - #22 Do not include ts sources in the npm bundle because of jest (and rollback to targeting es6)    
