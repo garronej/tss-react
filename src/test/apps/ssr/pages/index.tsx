@@ -3,12 +3,12 @@ import { GlobalStyles } from "tss-react";
 import { makeStyles, useStyles, withStyles } from "../shared/makeStyles";
 import { muiCache } from "../shared/muiCache";
 import { CacheProvider } from "@emotion/react";
-import { styled } from "@material-ui/core";
-import Button from "@material-ui/core/Button"
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import { createTheme } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import { styled } from "@mui/material";
+import Button from "@mui/material/Button"
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 const theme = createTheme({
     "palette": {
