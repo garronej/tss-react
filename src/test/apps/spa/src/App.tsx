@@ -1,9 +1,9 @@
 
 import { makeStyles, withStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
-import { styled } from "@material-ui/core";
-import Button from "@material-ui/core/Button"
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import { styled } from "@mui/material";
+import Button from "@mui/material/Button"
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 const useStyles = makeStyles()((theme, _params, createRef) => {
 

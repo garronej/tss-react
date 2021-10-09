@@ -5,9 +5,9 @@ import { render } from "react-dom";
 import { useStyles } from "makeStyles";
 import { App } from "./App";
 import { CacheProvider } from "@emotion/react";
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import { createTheme } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import createCache from "tss-react/@emotion/cache"; //or "@emotion/cache"
 
