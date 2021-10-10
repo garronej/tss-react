@@ -40,6 +40,7 @@ $ yarn add tss-react @emotion/react
     -   [Exposed APIs](#exposed-apis)
     -   [`makeStyles()`](#makestyles)
     -   [`useStyles()`](#usestyles)
+    -   [`withStyles()`](#withstyles)
     -   [`<GlobalStyles />`](#globalstyles-)
     -   [`keyframes`](#keyframes)
 -   [Cache](#cache)
@@ -131,10 +132,10 @@ render(
 `./makeStyles.ts`
 
 ```typescript
-import { createMakeStyles } from "tss-react";
+import { createMakeAndWidthStyles } from "tss-react";
 import { useTheme } from "@mui/material/styles";
 
-export const { makeStyles } = createMakeStyles({
+export const { makeStyles, withStyles } = createMakeAndWithStyles({
     useTheme,
     /*
     OR, if you have extended the default mui theme adding your own custom properties: 
@@ -178,7 +179,7 @@ your `tsconfig.json` and import things [relative to your `src/` directory](https
 
 ```typescript
 import {
-    createMakeStyles, //<- Create an instance of makeStyle() for your theme.
+    createMakeAndWidthStyles, //<- Create an instance of makeStyles() and withStyles() for your theme.
     keyframes, //<- The function as defined in @emotion/react and @emotion/css
     GlobalStyles, //<- A component to define global styles.
     TssCacheProvider, //<- Provider to specify the emotion cache tss should use.
@@ -240,7 +241,7 @@ by `createMakeStyles`.
 `makeStyles.ts`
 
 ```typescript
-import { createMakeStyles } from "tss-react";
+import { createMakeAndWithStyles } from "tss-react";
 
 function useTheme() {
     return {
@@ -252,7 +253,7 @@ export const {
     makeStyles,
     useStyles, //<- This useStyles is like the useStyles you get when you
     //   call makeStyles but it doesn't return a classes object.
-} = createMakeStyles({ useTheme });
+} = createMakeAndWithStyles({ useTheme });
 ```
 
 `./MyComponent.tsx`
@@ -273,6 +274,73 @@ export function MyComponent(props: Props) {
     );
 }
 ```
+
+## `withStyles()`
+
+It's like [the material-ui v4 higher-order component API](https://mui.com/styles/basics/#higher-order-component-api)
+but type safe by design.
+
+You can pass as first argument any component that accept a `className` props:
+
+```tsx
+function MyComponent(props: { className?: string; colorSmall: string }) {
+    return (
+        <div className={props.className}>
+            The background color should be different when the screen is small.
+        </div>
+    );
+}
+
+const MyComponentStyled = withStyles(MyComponent, (theme, props) => ({
+    "root": {
+        "backgroundColor": theme.palette.primary.main,
+        "height": 100,
+    },
+    "@media (max-width: 960px)": {
+        "root": {
+            "backgroundColor": props.colorSmall,
+        },
+    },
+}));
+```
+
+You can also pass a mui component like for example `<Button />` and you'll be able
+to overwrite [every rule name of the component](https://mui.com/api/button/#css) (it uses the
+`classes` prop).
+
+```tsx
+import Button from "@mui/material/Button";
+
+const MyStyledButton = withStyles(Button, {
+    "root": {
+        "backgroundColor": "grey",
+    },
+    "text": {
+        "color": "red",
+    },
+    "@media (max-width: 960px)": {
+        "text": {
+            "color": "blue",
+        },
+    },
+});
+```
+
+It's also possible to start from builtin HTML component:
+
+```tsx
+const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
+    "root": {
+        "border": "1px solid black",
+        "backgroundColor": href?.startsWith("https")
+            ? theme.palette.primary.main
+            : "red",
+    },
+}));
+```
+
+You can experiment with those examples [here](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/apps/spa/src/App.tsx#L240-L291)
+live [here](https://garronej.github.io/tss-react/), you can also run it locally with [`yarn start_spa`](https://github.com/garronej/tss-react#development).
 
 ## `<GlobalStyles />`
 

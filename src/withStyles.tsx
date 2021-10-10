@@ -6,7 +6,7 @@ import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
 import { capitalize } from "./tools/capitalize";
 
-export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
+export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
 
     const { makeStyles } = createMakeStyles({ useTheme });

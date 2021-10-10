@@ -6,7 +6,7 @@ import { useCssAndCx } from "./cssAndCx";
 /**
  * @see {@link https://github.com/garronej/tss-react}
  */
-export function createMakeStyles<Theme>(params: { useTheme(): Theme }) {
+export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
 
     /** returns useStyle. */
