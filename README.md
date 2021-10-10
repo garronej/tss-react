@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/6702424/109334865-8f85bf00-7861-11eb-90ab-da36f9afe1b6.png">  
 </p>
 <p align="center">
-    <i>✨ Like JSS but optimized for TypeScript. Powered by emotion ✨</i>
+    <i>✨ makeStyles is dead, long live makeStyles! ✨</i>
     <br>
     <br>
     <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=develop">
@@ -11,18 +11,16 @@
     <img src="https://img.shields.io/npm/l/tss-react">
 </p>
 
-`'tss-react'` is intended to be a replacement for `'react-jss'` and for
-[@material-ui v4 `makeStyle`](https://material-ui.com/styles/basics/#hook-api).  
-It's API is focused on providing maximum type safety and minimum verbosity.  
-This module is a tinny extension for [`@emotion/react`](https://emotion.sh/docs/@emotion/react).
+`'tss-react'` is intended to be the replacement for `'react-jss'` and for
+[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api).
 
+-   ✅ Seamless integration with [mui](https://mui.com) v5 and v4.
+-   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has virtually no impact on the bundle size alongside mui.
+-   ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition).
+-   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
--   ✅ As lightweight as [`@emotion/react`](https://emotion.sh/docs/@emotion/react).
--   ✅ Server side rendering support (e.g: Next.js).
--   ✅ Seamless integration with [material-ui](https://material-ui.com) v5 and v4.  
-    Perfect for those who don't like [the switch from the Hook API to the Styled API](https://github.com/mui-org/material-ui/issues/24513#issuecomment-763921350) in v5.
--   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition) and it works with mui's `classes` props.
 -   ✅ `@emotion` cache support.
 
 ```bash
@@ -34,8 +32,8 @@ $ yarn add tss-react @emotion/react
 </p>
 
 -   [Quick start](#quick-start)
-    -   [With material-ui v4](#with-material-ui-v4)
-    -   [With material-ui v5](#with-material-ui-v5)
+    -   [Minimal setup](#minimal-setup)
+    -   [Mui integration](#mui-integration)
     -   [Avoiding `import { makeStyles } from "../../../makeStyles"`](#avoiding-import--makestyles--from-makestyles)
     -   [Playground](#playground)
 -   [API documentation](#api-documentation)
@@ -62,6 +60,8 @@ $ yarn add tss-react @emotion/react
 
 # Quick start
 
+## Minimal setup
+
 `./makeStyles.ts`
 
 ```typescript
@@ -73,8 +73,6 @@ function useTheme() {
     };
 }
 
-// material-ui users can pass in useTheme imported like: import { useTheme } from "@material-ui/core/styles";
-// material-ui v5 users will also need to pass a custom emotion cache, read later.
 export const { makeStyles } = createMakeStyles({ useTheme });
 ```
 
@@ -105,32 +103,7 @@ export function MyComponent(props: Props) {
 }
 ```
 
-## With material-ui v4
-
-<details>
-  <summary>Click to expand</summary></br>
-
-```tsx
-import { render } from "react-dom";
-import { StylesProvider } from "@material-ui/core/styles";
-
-render(
-    <StylesProvider injectFirst>
-        <Root />
-    </StylesProvider>,
-    document.getElementById("root"),
-);
-```
-
-If you need SSR You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr)
-a Next.js setup to use as reference.
-
-</details>
-
-## With material-ui v5
-
-<details>
-  <summary>Click to expand</summary></br>
+## Mui integration
 
 **Don't** use `<StyledEngineProvider injectFirst/>` but do this instead:
 
@@ -138,6 +111,7 @@ a Next.js setup to use as reference.
 import { render } from "react-dom";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import { ThemeProvider } from "@mui/material/styles";
 
 export const muiCache = createCache({
     "key": "mui",
@@ -146,14 +120,30 @@ export const muiCache = createCache({
 
 render(
     <CacheProvider value={muiCache}>
-        <Root />
+        <ThemeProvider theme={myTheme}>
+            <Root />
+        </ThemeProvider>
     </CacheProvider>,
     document.getElementById("root"),
 );
 ```
 
-If you use SSR (server side rendering) you'll have to provide `muiCache`
-to the functions that enable SSR to work. [See doc](#server-side-rendering-ssr)
+`./makeStyles.ts`
+
+```typescript
+import { createMakeStyles } from "tss-react";
+import { useTheme } from "@mui/material/styles";
+
+export const { makeStyles } = createMakeStyles({
+    useTheme,
+    /*
+    OR, if you have extended the default mui theme adding your own custom properties: 
+    Let's assume the myTheme object that you provide to the <ThemeProvider /> is of 
+    type MyTheme then you'll write:
+    */
+    //"useTheme": useTheme as (()=> MyTheme)
+});
+```
 
 WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitly,
 it's a peer dependency of `@material-ui/core` v5.
@@ -161,8 +151,6 @@ it's a peer dependency of `@material-ui/core` v5.
 WARNING for [Storybook](https://storybook.js.org): As of writing this lines storybook still uses by default emotion 10.  
 Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32)
 to be made to your `.storybook/main.js` to make it uses emotion 11.
-
-</details>
 
 ## Avoiding `import { makeStyles } from "../../../makeStyles"`
 
@@ -519,6 +507,9 @@ You can find a working example [here](https://github.com/garronej/tss-react/tree
 
 ### **Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`
 
+<details>
+  <summary>Click to expand</summary></br>
+
 ```tsx
 import Document from "next/document";
 import type { DocumentContext } from "next/document";
@@ -553,7 +544,12 @@ export default class AppDocument extends Document {
 }
 ```
 
+</details>
+
 ### **Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`
+
+<details>
+  <summary>Click to expand</summary></br>
 
 ```tsx
 import Document from "next/document";
@@ -599,6 +595,8 @@ export default class AppDocument extends Document {
     //...Rest of your class...
 }
 ```
+
+</details>
 
 ## With any other framework
 

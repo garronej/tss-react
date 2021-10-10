@@ -1,7 +1,7 @@
 {
     "name": "tss-react",
     "version": "0.9.5",
-    "description": "Like JSS but for optimized for TypeScript",
+    "description": "makeStyles is dead, long live makeStyles!",
     "repository": {
         "type": "git",
         "url": "git://github.com/garronej/tss-react.git"
