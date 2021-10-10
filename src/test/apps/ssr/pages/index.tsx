@@ -270,6 +270,13 @@ const { App } = (() => {
                         The text should turn from red to blue when the 
                         window inner width goes below 960px
                     </MyStyledButton>
+                    <br />
+                    <MyAnchorStyled href="http://exampe.com">
+                        Background should be red
+                    </MyAnchorStyled>
+                    <MyAnchorStyled href="https://exampe.com">
+                        Background should be limegreen
+                    </MyAnchorStyled>
                 </div>
             </>
         );
@@ -317,5 +324,18 @@ const MyStyledButton = withStyles(
             },
         }
     }
+);
+
+const MyAnchorStyled = withStyles(
+    "a",
+    (theme, { href }) => ({
+        "root": {
+            "border": "1px solid black",
+            "backgroundColor": 
+                href?.startsWith("https") ? 
+                    theme.palette.primary.main : 
+                    "red"
+        }
+    })
 );
 

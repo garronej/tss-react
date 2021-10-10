@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { forwardRef } from "react";
+import { forwardRef, createElement } from "react";
+import type { ReactHTML } from "react";
 import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
+import { capitalize } from "./tools/capitalize";
 
 export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
     const { useTheme } = params;
@@ -11,8 +12,14 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
     const { makeStyles } = createMakeStyles({ useTheme });
 
     function withStyles<
-        C extends ReactComponent<any>,
-        Props extends C extends ReactComponent<infer P> ? P : never,
+        C extends ReactComponent<any> | keyof ReactHTML,
+        Props extends C extends ReactComponent<infer P>
+            ? P
+            : C extends keyof ReactHTML
+            ? ReactHTML[C] extends ReactComponent<infer P>
+                ? NonNullable<P>
+                : never
+            : never,
         CssObjectByRuleName extends Props extends {
             classes?: Partial<infer ClassNameByRuleName>;
         }
@@ -37,8 +44,23 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
                   props: Props,
                   createRef: () => string,
               ) => CssObjectByRuleName),
-    ): C {
-        const Component_: ReactComponent<any> = Component;
+    ): C extends keyof ReactHTML ? ReactHTML[C] : C {
+        const Component_: ReactComponent<any> =
+            typeof Component === "string"
+                ? (() => {
+                      const tag = Component as keyof ReactHTML;
+
+                      const Out = function ({ children, ...props }: any) {
+                          return createElement(tag, props, children);
+                      };
+
+                      Object.defineProperty(Out, "name", {
+                          "value": capitalize(tag),
+                      });
+
+                      return Out;
+                  })()
+                : Component;
 
         const useStyles = makeStyles<Props>()(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
@@ -71,7 +93,7 @@ export function createWithStyles<Theme>(params: { useTheme(): Theme }) {
             );
         });
 
-        const { name } = Component;
+        const { name } = Component_;
 
         if (typeof name === "string") {
             Object.defineProperty(Out, "name", {

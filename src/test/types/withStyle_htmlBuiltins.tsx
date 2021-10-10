@@ -1,6 +1,11 @@
 import { createWithStyles } from "../../withStyles";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
+import type {
+    ClassAttributes,
+    HTMLAttributes,
+    DetailedHTMLFactory,
+} from "react";
 
 const theme = {
     "primaryColor": "blue",
@@ -12,16 +17,10 @@ const { withStyles } = createWithStyles({
     "useTheme": () => theme,
 });
 
-type Props = {
-    className?: string;
-};
-
-function MyComponent(_props: Props) {
-    return <div />;
-}
+type Props = ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>;
 
 {
-    const MyComponentStyled = withStyles(MyComponent, (theme, props) => {
+    const DivStyled = withStyles("div", (theme, props) => {
         assert<Equals<typeof theme, Theme>>();
         assert<Equals<typeof props, Props>>();
 
@@ -32,16 +31,21 @@ function MyComponent(_props: Props) {
         };
     });
 
-    assert<Equals<typeof MyComponent, typeof MyComponentStyled>>();
+    assert<
+        Equals<
+            typeof DivStyled,
+            DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+        >
+    >();
 }
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "position": "absolute",
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         //@ts-expect-error
         "position": "absoluteXXX",
@@ -49,21 +53,21 @@ withStyles(MyComponent, {
 });
 
 //We wish it wouldn't pass
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "position": "absolute",
     },
     "not_root": {},
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         //@ts-expect-error
         "color": 33,
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "position": "absolute",
     },
@@ -74,7 +78,7 @@ withStyles(MyComponent, {
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "position": "absolute",
     },
@@ -86,7 +90,7 @@ withStyles(MyComponent, {
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "position": "absolute",
     },
@@ -98,7 +102,7 @@ withStyles(MyComponent, {
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         //@ts-expect-error: very strange that error appears here if
         //we dont use as const for the media query
@@ -111,7 +115,7 @@ withStyles(MyComponent, {
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "color": "red",
     },
@@ -122,7 +126,7 @@ withStyles(MyComponent, {
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "color": "red",
     },
@@ -134,7 +138,7 @@ withStyles(MyComponent, {
     },
 });
 
-withStyles(MyComponent, {
+withStyles("div", {
     "root": {
         "position": "absolute",
     },
@@ -146,14 +150,14 @@ withStyles(MyComponent, {
     },
 });
 
-withStyles(MyComponent, () => ({
+withStyles("div", () => ({
     "root": {
         "position": "absolute",
     },
 }));
 
 withStyles(
-    MyComponent,
+    "div",
     //@ts-expect-error
     () => ({
         "root": {
@@ -163,7 +167,7 @@ withStyles(
 );
 
 withStyles(
-    MyComponent,
+    "div",
     //@ts-expect-error
     () => ({
         "root": {
@@ -172,7 +176,7 @@ withStyles(
     }),
 );
 
-withStyles(MyComponent, () => ({
+withStyles("div", () => ({
     "root": {
         "position": "absolute",
     },
@@ -180,7 +184,7 @@ withStyles(MyComponent, () => ({
     "not_root": {},
 }));
 
-withStyles(MyComponent, () => ({
+withStyles("div", () => ({
     "root": {
         "position": "absolute",
     },
@@ -192,7 +196,7 @@ withStyles(MyComponent, () => ({
 }));
 
 withStyles(
-    MyComponent,
+    "div",
     //@ts-expect-error
     () => ({
         "root": {
@@ -207,7 +211,7 @@ withStyles(
 );
 
 withStyles(
-    MyComponent,
+    "div",
     //@ts-expect-error
     () => ({
         "root": {
@@ -222,7 +226,7 @@ withStyles(
 );
 
 withStyles(
-    MyComponent,
+    "div",
     //@ts-expect-error: need const
     () => ({
         "root": {
@@ -236,7 +240,7 @@ withStyles(
     }),
 );
 
-withStyles(MyComponent, () => ({
+withStyles("div", () => ({
     "root": {
         "position": "absolute",
     },
