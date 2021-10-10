@@ -1,8 +1,8 @@
 import { Component } from "react";
 import type { ReactComponent } from "../../tools/ReactComponent";
 import { memo } from "react";
-import Button from "@material-ui/core/Button";
-import type { ButtonProps } from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
+import type { ButtonProps } from "@mui/material/Button";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 

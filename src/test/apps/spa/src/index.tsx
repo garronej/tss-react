@@ -9,7 +9,7 @@ import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import createCache from "tss-react/@emotion/cache"; //or "@emotion/cache"
+import createCache from "@emotion/cache";
 
 const muiCache = createCache({
     "key": "mui",

@@ -1,8 +1,8 @@
 import { createWithStyles } from "../../withStyles";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import MuiButton from "@material-ui/core/Button";
-import type { ButtonProps } from "@material-ui/core/Button";
+import MuiButton from "@mui/material/Button";
+import type { ButtonProps } from "@mui/material/Button";
 
 const theme = {
     "primaryColor": "blue",

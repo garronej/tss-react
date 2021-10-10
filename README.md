@@ -137,7 +137,7 @@ a Next.js setup to use as reference.
 ```tsx
 import { render } from "react-dom";
 import { CacheProvider } from "@emotion/react";
-import createCache from "tss-react/@emotion/cache"; //Or "@emotion/cache"
+import createCache from "@emotion/cache";
 
 export const muiCache = createCache({
     "key": "mui",
