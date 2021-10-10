@@ -4,7 +4,7 @@ object-assign
 @license MIT
 */
 
-/** @license Material-UI v5.0.0-beta.4
+/** @license MUI v5.0.1
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
