@@ -179,7 +179,7 @@ your `tsconfig.json` and import things [relative to your `src/` directory](https
 
 ```typescript
 import {
-    createMakeAndWidthStyles, //<- Create an instance of makeStyles() and withStyles() for your theme.
+    createMakeAndWithStyles, //<- Create an instance of makeStyles() and withStyles() for your theme.
     keyframes, //<- The function as defined in @emotion/react and @emotion/css
     GlobalStyles, //<- A component to define global styles.
     TssCacheProvider, //<- Provider to specify the emotion cache tss should use.
