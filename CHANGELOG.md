@@ -1,3 +1,10 @@
+### **0.9.5** (2021-10-10)  
+  
+- Implicitely peer depend on csstype  
+- Implicit peer dep on @emotion/cache, BREAKING CHANGE: no longer expose tss-react/@emotion/cache, use @emotion/cache instead  
+- Test SPA with latest mui version  
+- Test SSR with latest mui version    
+  
 ### **0.9.4** (2021-10-04)  
   
 - Test withStyles (superficially)  
