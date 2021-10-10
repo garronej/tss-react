@@ -280,6 +280,13 @@ export function MyComponent(props: Props) {
 It's like [the material-ui v4 higher-order component API](https://mui.com/styles/basics/#higher-order-component-api)
 but type safe by design.
 
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/6702424/136705025-dadfff08-7d9a-49f7-8696-533ca38ec38f.gif">
+</p>
+
+**IMPORTANT NOTICE**: [Don't be afraid to use `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles_classes.tsx#L112-L142)
+when you get red squiggly lines.
+
 You can pass as first argument any component that accept a `className` props:
 
 ```tsx
