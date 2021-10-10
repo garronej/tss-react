@@ -6,9 +6,9 @@ import { insertStyles, getRegisteredStyles } from "@emotion/utils";
 import { useGuaranteedMemo } from "./tools/useGuaranteedMemo";
 import type { EmotionCache } from "@emotion/cache";
 import { useTssEmotionCache } from "./cache";
-import type { CSSTssSpecials } from "./tools/types/CSSObject";
+import type { CSSObjectTssSpecials } from "./types";
 
-const refPropertyName: keyof CSSTssSpecials = "ref";
+const refPropertyName: keyof CSSObjectTssSpecials = "ref";
 
 export const { createCssAndCx } = (() => {
     function merge(registered: RegisteredCache, css: Css, className: string) {
@@ -47,7 +47,16 @@ export const { createCssAndCx } = (() => {
                     break scope;
                 }
 
-                ref = arg[refPropertyName];
+                const mostLikelyRef = arg[refPropertyName];
+
+                if (
+                    typeof mostLikelyRef !== "string" &&
+                    mostLikelyRef !== undefined
+                ) {
+                    break scope;
+                }
+
+                ref = mostLikelyRef;
 
                 const argCopy = { ...arg };
 

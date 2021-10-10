@@ -1,21 +1,18 @@
 
 /** 
- * Copy of { CSSObject } from "@emotion/react" except 
- * for the ref property that is specific to tss-react
- */
+ * Copy of { CSSObject } from "@emotion/react" 
+ * We copy it instead of importing it directly because 
+ * CSSInterpolation is not exposed in "@emotion/react"
+ * */
 export interface CSSObject
   extends CSSPropertiesWithMultiValues,
   CSSPseudos,
-  CSSOthersObject,
-  CSSTssSpecials { }
-
-export type CSSTssSpecials = {
-  /** Property for tss-react that enable to select children by class name */
-  ref?: string;
-}
+  CSSOthersObject
+   { }
 
 
-import * as CSS from "./csstype";
+//NOTE: Implicit peer dependency. @emotion/react depends on it. 
+import * as CSS from "csstype";
 
 export type CSSProperties = CSS.PropertiesFallback<number | string>
 export type CSSPropertiesWithMultiValues = {
