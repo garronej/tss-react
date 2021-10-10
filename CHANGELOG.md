@@ -1,3 +1,10 @@
+# **1.0.0** (2021-10-10)  
+  
+- Add gif to illustrate withStyles()  
+- Document withStyles  
+- Update exsiting documentation to help integrate with muiv5  
+- Feat withStyles with 'a', 'div', 'li' ect...    
+  
 ### **0.9.5** (2021-10-10)  
   
 - Implicitely peer depend on csstype  
