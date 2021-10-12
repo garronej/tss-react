@@ -1,3 +1,7 @@
+### **1.0.2** (2021-10-12)  
+  
+- Add compatibility version for older typescript versions    
+  
 ### **1.0.1** (2021-10-12)  
   
 - Remove explicit dependency on @emotion/cache, @emotion/utils and @emotion/serialize that are all dependencies of @emotion/react  
