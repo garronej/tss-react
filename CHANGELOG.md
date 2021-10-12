@@ -1,3 +1,8 @@
+### **1.0.1** (2021-10-12)  
+  
+- Remove explicit dependency on @emotion/cache, @emotion/utils and @emotion/serialize that are all dependencies of @emotion/react  
+- withStyles(): Don't apply classes prop to the HTML components    
+  
 # **1.0.0** (2021-10-10)  
   
 - Add gif to illustrate withStyles()  
