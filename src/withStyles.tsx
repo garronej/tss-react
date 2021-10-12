@@ -87,7 +87,7 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
                 <Component_
                     ref={ref}
                     className={cx(classes.root, className)}
-                    classes={classes}
+                    {...(typeof Component === "string" ? {} : { classes })}
                     {...rest}
                 />
             );
