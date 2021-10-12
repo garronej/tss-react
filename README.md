@@ -58,6 +58,7 @@ $ yarn add tss-react @emotion/react
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
     -   [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
+    -   [Compile error `TS1023`](#compile-error-ts1023)
 
 # Quick start
 
@@ -132,8 +133,10 @@ render(
 `./makeStyles.ts`
 
 ```typescript
-import { createMakeAndWidthStyles } from "tss-react";
 import { useTheme } from "@mui/material/styles";
+//WARNING: tss-react require TypeScript v4.4 or newer. If you can't update use:
+//import { createMakeAndWidthStyles } from "tss-react/compat";
+import { createMakeAndWidthStyles } from "tss-react";
 
 export const { makeStyles, withStyles } = createMakeAndWithStyles({
     useTheme,
@@ -851,5 +854,20 @@ Besides, the hook api of `material-ui`, have other problems:
 ## Why this instead of Styled component ?
 
 See [this issue](https://github.com/mui-org/material-ui/issues/22342#issuecomment-764495033)
+
+## Compile error `TS1023`
+
+If you get this error:
+
+```log
+node_modules/tss-react/index.d.ts:18:10 - error TS1023: An index signature parameter type must be either 'string' or 'number'.
+
+18         [mediaQuery: `@media${string}`]: { [RuleName_1 in keyof ClassNameByRuleName]?: import("./types").CSSObject | undefined; };
+            ~~~~~~~~~~
+```
+
+it means that you need to update TypeScript to a version >= 4.4.  
+If you can't use `import { } from "tss-react/compat";` instead of `import { } from "tss-react"`.  
+Only `withStyles()` will have slightly inferior type inference.
 
 </details>
