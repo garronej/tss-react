@@ -9,6 +9,12 @@ import { useCssAndCx } from "./cssAndCx";
 export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
 
+    const getCounter = (() => {
+        let counter = 0;
+
+        return () => counter++;
+    })();
+
     /** returns useStyle. */
     function makeStyles<Params = void>() {
         return function <RuleName extends string>(
@@ -26,6 +32,8 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                     ? cssObjectByRuleNameOrGetCssObjectByRuleName
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
+            const outerCounter = getCounter();
+
             function useStyles(params: Params) {
                 const theme = useTheme();
 
@@ -34,7 +42,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 let count = 0;
 
                 function createRef() {
-                    return `tss-react-ref_${count++}`;
+                    return `tss-react-ref_${outerCounter}_${count++}`;
                 }
 
                 const cssObjectByRuleName = getCssObjectByRuleName(

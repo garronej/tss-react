@@ -486,8 +486,6 @@ export function App() {
 }
 ```
 
-WARNING: Refs are only for selecting children otherwise you could end up with [this](https://codesandbox.io/s/tss-react-issues-26-40vpq?file=/src/index.tsx). An alternative approach that would enable to select parent is [in discussion](https://github.com/garronej/tss-react/issues/26#issuecomment-941560496).
-
 ## Internal composition
 
 When you want to reuse style within the same component.
