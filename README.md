@@ -150,7 +150,7 @@ export const { makeStyles, withStyles } = createMakeAndWithStyles({
 ```
 
 WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitly,
-it's a peer dependency of `@material-ui/core` v5.
+it's a peer dependency of `@mui/material`.
 
 WARNING for [Storybook](https://storybook.js.org): As of writing this lines storybook still uses by default emotion 10.  
 Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32)
