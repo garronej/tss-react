@@ -1,3 +1,8 @@
+### **1.0.3** (2021-10-13)  
+  
+- #26: Enable to select parent  
+- #26: Add warning about parent selection    
+  
 ### **1.0.2** (2021-10-12)  
   
 - Add compatibility version for older typescript versions    
