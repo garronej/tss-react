@@ -277,6 +277,34 @@ const { App } = (() => {
                     <MyAnchorStyled href="https://exampe.com">
                         Background should be limegreen
                     </MyAnchorStyled>
+                    <div className={cx(
+                        css({
+                            "@media screen and (min-width: 1px)": {
+                                "backgroundColor": "red"
+                            },
+                            "height": 50
+                        }),
+                        css({
+                            "&&": {
+                                "backgroundColor": "lightgreen"
+                            }
+                        })
+                    )}>
+                        background should be lightgreen
+                    </div>
+                    <div className={cx(
+                        css({
+                            "@media screen and (min-width: 1px)": {
+                                "backgroundColor": "red"
+                            },
+                            "height": 50
+                        }),
+                        css({
+                            "backgroundColor": "lightgreen"
+                        })
+                    )}>
+                        background should be lightgreen
+                    </div>
                 </div>
             </>
         );
@@ -331,9 +359,9 @@ const MyAnchorStyled = withStyles(
     (theme, { href }) => ({
         "root": {
             "border": "1px solid black",
-            "backgroundColor": 
-                href?.startsWith("https") ? 
-                    theme.palette.primary.main : 
+            "backgroundColor":
+                href?.startsWith("https") ?
+                    theme.palette.primary.main :
                     "red"
         }
     })
