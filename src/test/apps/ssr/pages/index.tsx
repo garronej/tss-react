@@ -285,21 +285,6 @@ const { App } = (() => {
                             "height": 50
                         }),
                         css({
-                            "&&": {
-                                "backgroundColor": "lightgreen"
-                            }
-                        })
-                    )}>
-                        background should be lightgreen
-                    </div>
-                    <div className={cx(
-                        css({
-                            "@media screen and (min-width: 1px)": {
-                                "backgroundColor": "red"
-                            },
-                            "height": 50
-                        }),
-                        css({
                             "backgroundColor": "lightgreen"
                         })
                     )}>

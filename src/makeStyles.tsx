@@ -1,4 +1,4 @@
-import { fromEntries } from "./tools/Object.fromEntries";
+import { fromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
 import { useCssAndCx } from "./cssAndCx";

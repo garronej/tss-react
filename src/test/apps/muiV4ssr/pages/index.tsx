@@ -278,6 +278,19 @@ const { App } = (() => {
                     <MyAnchorStyled href="https://exampe.com">
                         Background should be limegreen
                     </MyAnchorStyled>
+                    <div className={cx(
+                        css({
+                            "@media screen and (min-width: 1px)": {
+                                "backgroundColor": "red"
+                            },
+                            "height": 50
+                        }),
+                        css({
+                            "backgroundColor": "lightgreen"
+                        })
+                    )}>
+                        background should be lightgreen
+                    </div>
                 </div>
             </>
         );
