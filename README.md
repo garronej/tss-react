@@ -22,6 +22,7 @@
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
 -   ✅ `@emotion` cache support.
+-
 
 ```bash
 $ yarn add tss-react @emotion/react
@@ -30,6 +31,9 @@ $ yarn add tss-react @emotion/react
 <p align="center">
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
+
+**JavaScript support**: Although `tss-react` have been designed with TypeScript in mind
+it can of course [be used in vanilla JS projects](https://github.com/garronej/tss-react/issues/28).
 
 -   [Quick start](#quick-start)
     -   [Minimal setup](#minimal-setup)
