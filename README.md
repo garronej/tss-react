@@ -645,7 +645,7 @@ function functionInChargeOfRenderingTheHtml(res) {
          * Every emotion cache used in the app should be provided.
          * Caches for MUI should use "prepend": true.
          * */
-        getTssDefaultEmotionCache({ "reset": true }),
+        getTssDefaultEmotionCache({ "doReset": true }),
         createMuiCache(),
     ].map(createEmotionServer);
 
