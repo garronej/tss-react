@@ -54,9 +54,6 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
     -   [Export rules](#export-rules)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
-        -   [If you don't have a `_document.tsx`](#if-you-dont-have-a-_documenttsx)
-        -   [**Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-but-you-havent-overloaded-getinitialprops)
-        -   [**Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`](#or-if-you-have-have-a-_documenttsx-and-an-overloaded-getinitialprops)
     -   [With any other framework](#with-any-other-framework)
 -   [Development](#development)
 -   [FAQ](#faq)
@@ -417,12 +414,30 @@ export const useStyles = makeStyles()({
 
 By default, `tss-react` uses an emotion cache that you can access with
 `import { getTssDefaultEmotionCache } from "tss-react"`.  
-Now if you want `tss-react` to use a specific emotion cache you can provide it using
+If you want `tss-react` to use a specific emotion cache you can provide it using
 `import { TssCacheProvider } from "tss-react"`.
 
 If you are using `tss-react` with mui v5, be aware that mui and tss can't share
-the same cache. On top of that the cache used by mui should have `"prepend": true` and
-the cache used by tss should have `"prepend": false`.
+the same cache. The caches used by mui should have be instancies with `"prepend": true`.
+
+```tsx
+import createCache from "@emotion/cache";
+import { TssCacheProvider } from "tss-react";
+import { CacheProvider } from "@emotion/react";
+
+const muiCache = createMuiCache({
+    "key": "my-custom-prefix-for-mui",
+    "prepend": true,
+});
+
+const tssCache = createMuiCache({
+    "key": "my-custom-prefix-for-tss",
+});
+
+<CacheProvider value={muiCache}>
+    <TssCacheProvider value={tssCache}>{/* ... */}</TssCacheProvider>
+</CacheProvider>;
+```
 
 # Composition and nested selectors ( `$` syntax )
 
@@ -555,130 +570,55 @@ a Next.js setup with `@material-ui` v4.
 
 ## With [Next.js](https://nextjs.org)
 
-### If you don't have a `_document.tsx`
+```bash
+yarn add @emotion/server
+```
 
-Just create a file `page/_document.tsx` as follow:
+`pages/_document.tsx`
 
 ```tsx
-import { createDocument } from "tss-react/nextJs";
+import BaseDocument from "next/document";
+import { withEmotionCache } from "tss-react/nextJs";
+import { createMuiCache  } from "./index";
 
-const { Document } = createDocument();
+export default withEmotionCache({
+    /** If you have a custom document pass it instead */,
+    "Document": BaseDocument,
+    /**
+     * Every emotion cache used in the app should be provided.
+     * Caches for MUI should use "prepend": true.
+     * */
+    "getCaches": ()=> [ createMuiCache() ]
+});
+```
 
-/*
-With mui v5 (or if you are using custom caches):
+`page/index.tsx`
 
-import { muiCache } from "...";
+```tsx
+import type { EmotionCache } from "@emotion/cache";
+import createCache from "@emotion/cache";
 
-const { Document } = createDocument({ "caches": [ muiCache ] });
+let muiCache: EmotionCache | undefined = undefined;
 
-If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
-you should pass it as well.
+export const createMuiCache = () =>
+    (muiCache = createCache({
+        "key": "mui",
+        "prepend": true,
+    }));
 
-const { Document } = createDocument({ "caches": [ muiCache, tssCache ] });
-
-Generally speaking all the emotion caches used in your app should be provided.
-Just remember to first provide the caches used by mui then the caches used by tss. Example:
-
-const { Document } = createDocument({ "caches": [ muiCache1, muiCache2, tssCache1, tssCache2 ] });
-*/
-
-export default Document;
+export default function Index() {
+    return (
+        <CacheProvider value={muiCache ?? createMuiCache()}>
+            {/* Your app  */}
+        </CacheProvider>
+    );
+}
 ```
 
 You can find a working example [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/ssr).
 
-### **Or**, if you have have a `_document.tsx` but you haven't overloaded `getInitialProps`
-
-<details>
-  <summary>Click to expand</summary></br>
-
-```tsx
-import Document from "next/document";
-import type { DocumentContext } from "next/document";
-import { createGetInitialProps } from "tss-react/nextJs";
-
-const { getInitialProps } = createGetInitialProps();
-
-/*
-With mui v5 (or if you are using custom caches):
-
-import { muiCache } from "...";
-
-const { getInitialProps } = createGetInitialProps({ "caches": [ muiCache ] });
-
-If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
-you should pass it as well.
-
-const { getInitialProps } = createGetInitialProps({ "caches": [ muiCache, tssCache ] });
-
-Generally speaking all the emotion caches used in your app should be provided.
-Just remember to first provide the caches used by mui then the caches used by tss. Example:
-
-const { getInitialProps } = createGetInitialProps({ "caches": [ muiCache1, muiCache2, tssCache1, tssCache2 ] });
-*/
-
-export default class AppDocument extends Document {
-    static async getInitialProps(ctx: DocumentContext) {
-        return getInitialProps(ctx);
-    }
-
-    //...Rest of your class...
-}
-```
-
-</details>
-
-### **Or**, if you have have a `_document.tsx` and an overloaded `getInitialProps`
-
-<details>
-  <summary>Click to expand</summary></br>
-
-```tsx
-import Document from "next/document";
-import type { DocumentContext } from "next/document";
-import { createPageHtmlToStyleTags } from "tss-react/nextJs";
-
-const { pageHtmlToStyleTags } = createPageHtmlToStyleTags();
-/*
-With mui v5 (or if you are using custom caches):
-
-import { muiCache } from "...";
-
-const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ muiCache ] });
-
-If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
-you should pass it as well.
-
-const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ muiCache, tssCache ] });
-
-Generally speaking all the emotion caches used in your app should be provided.
-Just remember to first provide the caches used by mui then the caches used by tss. Example:
-
-const { pageHtmlToStyleTags } = createPageHtmlToStyleTags({ "caches": [ muiCache1, muiCache2, tssCache1, tssCache2 ] });
-*/
-
-export default class AppDocument extends Document {
-    static async getInitialProps(ctx: DocumentContext) {
-        const page = await ctx.renderPage();
-
-        const initialProps = await Document.getInitialProps(ctx);
-
-        return {
-            ...initialProps,
-            "styles": (
-                <>
-                    {initialProps.styles}
-                    {pageHtmlToStyleTags({ "pageHtml": page.html })}
-                </>
-            ),
-        };
-    }
-
-    //...Rest of your class...
-}
-```
-
-</details>
+NOTE: This setup is merely a suggestion. Feel free, for example, to move the `<CacheProvider />` into `pages/_app.tsx`.
+What's important to remember however is that new instances of the caches should be created for each render.
 
 ## With any other framework
 
@@ -689,65 +629,48 @@ yarn add @emotion/server
 ```tsx
 import { renderToString } from "react-dom/server";
 import createEmotionServer from "@emotion/server/create-instance";
+import { getTssDefaultEmotionCache } from "tss-react";
 
-import { getTssDefaultEmotionCache } from "tss-react/cache";
-import { createMakeStyles } from "tss-react";
+let muiCache: EmotionCache | undefined = undefined;
 
-const emotionServers = [
-    getTssDefaultEmotionCache(), //If you use custom cache(s) provide it/them here instead of the default, see example below.
-].map(createEmotionServer);
+export const createMuiCache = () =>
+    (muiCache = createCache({ "key": "mui", "prepend": true }));
 
-/*
-With mui v5 (or if you are using custom caches):
+function functionInChargeOfRenderingTheHtml(res) {
+    const emotionServers = [
+        /**
+         * Every emotion cache used in the app should be provided.
+         * Caches for MUI should use "prepend": true.
+         * */
+        getTssDefaultEmotionCache({ "reset": true }),
+        createMuiCache(),
+    ].map(createEmotionServer);
 
-import { muiCache } from "...";
+    const html = renderToString(
+        <CacheProvider value={muiCache ?? createMuiCache()}>
+            <App />
+        </CacheProvider>,
+    );
 
-const emotionServers = [
-    muiCache,
-    getTssDefaultEmotionCache()
-].map(createEmotionServer);
-
-If you are providing custom caches to tss-react using <TssCacheProvider value={tssCache} >
-you should pass it as well.
-
-const emotionServers = [
-    muiCache,
-    tssCache
-].map(createEmotionServer);
-
-Generally speaking all the emotion caches used in your app should be provided.
-Just remember to first provide the caches used by mui then the caches used by tss. Example:
-
-const emotionServers = [
-    muiCache1,
-    muiCache2,
-    tssCache1,
-    tssCache2
-].map(createEmotionServer);
-*/
-
-const element = <App />;
-
-const html = renderToString(element);
-
-res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My site</title>
-    ${emotionServers
-        .map(({ extractCriticalToChunks, constructStyleTagsFromChunks }) =>
-            constructStyleTagsFromChunks(extractCriticalToChunks(html)),
-        )
-        .join("")}
-</head>
-<body>
-    <div id="root">${html}</div>
-    <script src="./bundle.js"></script>
-</body>
-</html>`);
+    res.status(200).header("Content-Type", "text/html").send(`<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My site</title>
+        ${emotionServers
+            .map(({ extractCriticalToChunks, constructStyleTagsFromChunks }) =>
+                constructStyleTagsFromChunks(extractCriticalToChunks(html)),
+            )
+            .join("")}
+    </head>
+    <body>
+        <div id="root">${html}</div>
+        <script src="./bundle.js"></script>
+    </body>
+    </html>`);
+}
 ```
 
 # Development

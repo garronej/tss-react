@@ -1,6 +1,9 @@
-import { createDocument } from "tss-react/nextJs";
-import { muiCache } from "../shared/muiCache";
+import BaseDocument from "next/document";
+import { withEmotionCache } from "tss-react/nextJs";
+import { createMuiCache } from "./index";
 
-const { Document } = createDocument({ "caches": [muiCache] });
+export default withEmotionCache({
+    "Document": BaseDocument,
+    "getCaches": () => [createMuiCache()]
+});
 
-export default Document;

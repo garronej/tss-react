@@ -52,11 +52,8 @@
     "peerDependencies": {
         "@emotion/react": "^11.4.1"
     },
-    "dependencies": {
-        "@emotion/server": "^11.4.0",
-        "html-react-parser": "^1.2.7"
-    },
     "devDependencies": {
+        "@emotion/server": "^11.4.0",
         "@emotion/react": "^11.4.1",
         "@mui/material": "^5.0.3",
         "@emotion/styled": "^11.3.0",
