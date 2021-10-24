@@ -32,7 +32,8 @@ $ yarn add tss-react @emotion/react
 </p>
 
 **What's new in v2**: Better SSR support. See [#30](https://github.com/garronej/tss-react/issues/30).  
-Breaking changes: [updated instructions](#server-side-rendering-ssr) for setting up SSR.
+Breaking changes: [updated instructions](#server-side-rendering-ssr) for setting up SSR. ( `@emotion/server` must
+now be installed manually in SSR projects.)
 
 **JavaScript support**: Although `tss-react` have been designed with TypeScript in mind
 it can of course [be used in vanilla JS projects](https://github.com/garronej/tss-react/issues/28).
