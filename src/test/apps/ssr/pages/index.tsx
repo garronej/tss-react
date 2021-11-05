@@ -191,7 +191,7 @@ const { App } = (() => {
                 <div className={classes.root}>
 
 
-                    <h1>Black</h1>
+                    <h1>Black (in light mode)</h1>
                     <h1>Should be lime green</h1>
                     <h1
                         className={cx(
@@ -199,7 +199,7 @@ const { App } = (() => {
                             className
                         )}
                     >
-                        Black, should have border and shadow
+                        Black (in light mode), should have border and shadow
                     </h1>
                     <h1 className="foo">Should be cyan</h1>
                     <H1>Should be yellow</H1>
