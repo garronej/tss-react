@@ -198,7 +198,7 @@ const increaseSpecificityToTakePrecedenceOverMediaQuerries = (() => {
                             ]),
                     ).map(classNameOrCSSObject =>
                         typeof classNameOrCSSObject === "string"
-                            ? className
+                            ? classNameOrCSSObject
                             : css(classNameOrCSSObject),
                     ),
                 );
