@@ -18,10 +18,10 @@ const { withStyles } = createWithStyles({
     {
         const MyComponentStyled = withStyles(
             MuiButton,
-            (theme, props, createRef) => {
+            (theme, props, refs) => {
                 assert<Equals<typeof theme, Theme>>();
                 assert<Equals<typeof props, ButtonProps>>();
-                assert<Equals<typeof createRef, () => string>>();
+                assert<Equals<typeof refs, Record<string, string>>>();
 
                 return {
                     "colorInherit": {

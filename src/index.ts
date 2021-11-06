@@ -1,9 +1,10 @@
+import { createMakeStyles } from "./makeStyles";
+import { createWithStyles } from "./withStyles";
+
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 export { useCssAndCx } from "./cssAndCx";
-import { createMakeStyles } from "./makeStyles";
-export { createMakeStyles };
-import { createWithStyles } from "./withStyles";
-export { createWithStyles };
+export { createMakeStyles, MakeStylesOptions } from "./makeStyles";
+export { createWithStyles } from "./withStyles";
 /** Reexport from @emotion/react */
 export { keyframes } from "@emotion/react";
 export { GlobalStyles } from "./GlobalStyles";

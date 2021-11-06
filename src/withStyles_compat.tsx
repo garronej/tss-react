@@ -25,6 +25,7 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
         }
             ? { [RuleName in keyof ClassNameByRuleName]?: CSSObject }
             : { root: CSSObject },
+        RefName extends string,
     >(
         Component: C,
         cssObjectByRuleNameOrGetCssObjectByRuleName:
@@ -32,8 +33,12 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
             | ((
                   theme: Theme,
                   props: Props,
-                  createRef: () => string,
+                  refs: Record<RefName, string>,
               ) => CssObjectByRuleName),
+        options?: {
+            name?: string;
+            refs?: RefName[];
+        },
     ): C extends keyof ReactHTML ? ReactHTML[C] : C {
         const Component_: ReactComponent<any> =
             typeof Component === "string"
@@ -52,19 +57,19 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
                   })()
                 : Component;
 
-        const useStyles = makeStyles<Props>()(
+        const useStyles = makeStyles<Props, RefName>(options)(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
-                ? (theme: Theme, props: Props, createRef: () => string) =>
+                ? (theme: Theme, props: Props, refs: Record<RefName, string>) =>
                       incorporateMediaQueries(
                           cssObjectByRuleNameOrGetCssObjectByRuleName(
                               theme,
                               props,
-                              createRef,
+                              refs,
                           ),
                       )
-                : incorporateMediaQueries(
+                : (incorporateMediaQueries(
                       cssObjectByRuleNameOrGetCssObjectByRuleName,
-                  ),
+                  ) as any),
         );
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

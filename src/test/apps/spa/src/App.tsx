@@ -5,18 +5,7 @@ import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 
-const useStyles = makeStyles()((theme, _params, createRef) => {
-
-	const child = {
-		"ref": createRef(),
-		"background": "blue",
-		"border": "1px solid black"
-	};
-
-	const breadcrumbs2_separator = {
-		"ref": createRef(),
-		"color": "red"
-	};
+const useStyles = makeStyles({ refs: ['child', 'breadcrumbs2_separator', 'childRefTest_wrapper1'] })((theme, _params, refs) => {
 
 	const childRefTest_wrapper2 = {
 		"border": "1px solid black",
@@ -26,7 +15,6 @@ const useStyles = makeStyles()((theme, _params, createRef) => {
 	} as const;
 
 	const childRefTest_wrapper1 = {
-		"ref": createRef(),
 		...childRefTest_wrapper2
 	} as const;
 
@@ -45,11 +33,14 @@ const useStyles = makeStyles()((theme, _params, createRef) => {
 		"parent": {
 			"border": "1px solid black",
 			"padding": 30,
-			[`&:hover .${child.ref}`]: {
+			[`&:hover .${refs.child}`]: {
 				"background": "red",
 			}
 		},
-		child,
+		"child": {
+			"background": "blue",
+			"border": "1px solid black"
+		},
 		"breadcrumbs_className": {
 			"backgroundColor": "lightblue",
 			"& .MuiBreadcrumbs-separator": {
@@ -62,11 +53,13 @@ const useStyles = makeStyles()((theme, _params, createRef) => {
 
 		"breadcrumbs2_root": {
 			"backgroundColor": "lightblue",
-			[`&:hover .${breadcrumbs2_separator.ref}`]: {
+			[`&:hover .${refs.breadcrumbs2_separator}`]: {
 				"color": "blue"
 			}
 		},
-		breadcrumbs2_separator,
+		"breadcrumbs2_separator": {
+			"color": "red"
+		},
 
 		"button2_className": {
 			"backgroundColor": "red"
@@ -85,7 +78,7 @@ const useStyles = makeStyles()((theme, _params, createRef) => {
 
 		"childRefTest_wrapper": {
 			"border": "1px solid black",
-			[`&:hover .${childRefTest_wrapper1.ref}`]: {
+			[`&:hover .${refs.childRefTest_wrapper1}`]: {
 				"backgroundColor": "cyan"
 			}
 		},

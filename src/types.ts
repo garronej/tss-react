@@ -1,6 +1,9 @@
-import type { CSSObject as CSSObjectStandard } from "./tools/types/CSSObject";
-import type { CSSInterpolation } from "./tools/types/CSSObject";
-export { CSSInterpolation };
+import type {
+    CSSObject as CSSObjectStandard,
+    CSSInterpolation,
+} from "@emotion/serialize";
+
+export type { CSSInterpolation } from "@emotion/serialize";
 
 export type CSSObjectTssSpecials = {
     /** Property for tss-react that enable to select children by class name */
@@ -15,7 +18,7 @@ export interface Css {
 }
 
 import { CxArg } from "./tools/classnames";
-export { CxArg };
+export { CxArg } from "./tools/classnames";
 
 //SEE: https://github.com/emotion-js/emotion/pull/2276
 export type Cx = (...classNames: CxArg[]) => string;
