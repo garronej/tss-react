@@ -52,6 +52,10 @@
     "peerDependencies": {
         "@emotion/react": "^11.4.1"
     },
+    "dependencies": {
+        "@emotion/serialize": "*",
+        "@emotion/utils": "*"
+    },
     "devDependencies": {
         "@emotion/server": "^11.4.0",
         "@emotion/react": "^11.4.1",
