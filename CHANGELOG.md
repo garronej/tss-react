@@ -1,3 +1,8 @@
+### **2.0.2** (2021-11-05)  
+  
+- #34  
+- Update README.md    
+  
 ### **2.0.1** (2021-10-24)  
   
 - @emotion/server have been removed from dependencies, in SSR project it must be installed manually    
