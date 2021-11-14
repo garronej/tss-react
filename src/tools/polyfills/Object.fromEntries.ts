@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export const fromEntries: typeof Object.fromEntries = !(Object as any)
+export const objectFromEntries: typeof Object.fromEntries = !(Object as any)
     .fromEntries
     ? (entries: any) => {
           if (!entries || !entries[Symbol.iterator]) {

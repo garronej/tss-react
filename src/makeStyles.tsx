@@ -1,4 +1,4 @@
-import { fromEntries } from "./tools/polyfills/Object.fromEntries";
+import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
 import { useCssAndCx } from "./cssAndCx";
@@ -34,24 +34,24 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
 
             const outerCounter = getCounter();
 
-            function useStyles(params: Params) {
+            return function useStyles(params: Params) {
                 const theme = useTheme();
 
                 const { cx, css } = useCssAndCx();
 
-                let count = 0;
-
-                function createRef() {
-                    return `tss-react-ref_${outerCounter}_${count++}`;
-                }
-
                 const cssObjectByRuleName = getCssObjectByRuleName(
                     theme,
                     params,
-                    createRef,
+                    (() => {
+                        let count = 0;
+
+                        return function createRef() {
+                            return `tss-react-ref_${outerCounter}_${count++}`;
+                        };
+                    })(),
                 );
 
-                const classes = fromEntries(
+                const classes = objectFromEntries(
                     objectKeys(cssObjectByRuleName).map(ruleName => [
                         ruleName,
                         css(cssObjectByRuleName[ruleName]),
@@ -64,9 +64,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                     css,
                     cx,
                 };
-            }
-
-            return useStyles;
+            };
         };
     }
 
