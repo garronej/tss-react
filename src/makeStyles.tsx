@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
 import { useCssAndCx } from "./cssAndCx";
+import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 
 /**
  * @see {@link https://github.com/garronej/tss-react}
@@ -39,31 +41,33 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
 
                 const { cx, css } = useCssAndCx();
 
-                const cssObjectByRuleName = getCssObjectByRuleName(
-                    theme,
-                    params,
-                    (() => {
-                        let count = 0;
+                return useMemo(() => {
+                    const cssObjectByRuleName = getCssObjectByRuleName(
+                        theme,
+                        params,
+                        (() => {
+                            let count = 0;
 
-                        return function createRef() {
-                            return `tss-react-ref_${outerCounter}_${count++}`;
-                        };
-                    })(),
-                );
+                            return function createRef() {
+                                return `tss-react-ref_${outerCounter}_${count++}`;
+                            };
+                        })(),
+                    );
 
-                const classes = objectFromEntries(
-                    objectKeys(cssObjectByRuleName).map(ruleName => [
-                        ruleName,
-                        css(cssObjectByRuleName[ruleName]),
-                    ]),
-                ) as Record<RuleName, string>;
+                    const classes = objectFromEntries(
+                        objectKeys(cssObjectByRuleName).map(ruleName => [
+                            ruleName,
+                            css(cssObjectByRuleName[ruleName]),
+                        ]),
+                    ) as Record<RuleName, string>;
 
-                return {
-                    classes,
-                    theme,
-                    css,
-                    cx,
-                };
+                    return {
+                        classes,
+                        theme,
+                        css,
+                        cx,
+                    };
+                }, [cx, css, theme, getDependencyArrayRef(params)]);
             };
         };
     }
