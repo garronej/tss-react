@@ -31,6 +31,8 @@ $ yarn add tss-react @emotion/react
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
 
+**What's new in v2.1**: Better debugging experience thanks to the [custom label support](#labeling).
+
 **What's new in v2**: Better SSR support. See [#30](https://github.com/garronej/tss-react/issues/30).  
 Breaking changes: [updated instructions](#server-side-rendering-ssr) for setting up SSR. ( `@emotion/server` must
 now be installed manually in SSR projects.)
