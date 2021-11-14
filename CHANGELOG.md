@@ -1,3 +1,7 @@
+### **2.0.4** (2021-11-14)  
+  
+- Optimization: Prevent computing re computing classes every render #35    
+  
 ### **2.0.3** (2021-11-09)  
   
 - #36    
