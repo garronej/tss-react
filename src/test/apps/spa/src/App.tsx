@@ -5,106 +5,6 @@ import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 
-const useStyles = makeStyles()((theme, _params, createRef) => {
-
-	const child = {
-		"ref": createRef(),
-		"background": "blue",
-		"border": "1px solid black"
-	};
-
-	const breadcrumbs2_separator = {
-		"ref": createRef(),
-		"color": "red"
-	};
-
-	const childRefTest_wrapper2 = {
-		"border": "1px solid black",
-		"margin": 30,
-		"height": 100,
-		"color": "black"
-	} as const;
-
-	const childRefTest_wrapper1 = {
-		"ref": createRef(),
-		...childRefTest_wrapper2
-	} as const;
-
-	return {
-		"root": {
-			"& > h1:nth-child(2)": {
-				"color": theme.palette.primary.main,
-			}
-		},
-		"ovStyled": {
-			"color": "darkred"
-		},
-		"ovInternal": {
-			"backgroundColor": "darkblue"
-		},
-		"parent": {
-			"border": "1px solid black",
-			"padding": 30,
-			[`&:hover .${child.ref}`]: {
-				"background": "red",
-			}
-		},
-		child,
-		"breadcrumbs_className": {
-			"backgroundColor": "lightblue",
-			"& .MuiBreadcrumbs-separator": {
-				"color": "red"
-			},
-			"&:hover .MuiBreadcrumbs-separator": {
-				"color": "blue"
-			}
-		},
-
-		"breadcrumbs2_root": {
-			"backgroundColor": "lightblue",
-			[`&:hover .${breadcrumbs2_separator.ref}`]: {
-				"color": "blue"
-			}
-		},
-		breadcrumbs2_separator,
-
-		"button2_className": {
-			"backgroundColor": "red"
-		},
-
-		"button2_root": {
-			"backgroundColor": "red"
-		},
-
-		"testCx_bgYellow": {
-			"backgroundColor": "yellow"
-		},
-		"testCx_bgCyan": {
-			"backgroundColor": "cyan"
-		},
-
-		"childRefTest_wrapper": {
-			"border": "1px solid black",
-			[`&:hover .${childRefTest_wrapper1.ref}`]: {
-				"backgroundColor": "cyan"
-			}
-		},
-		childRefTest_wrapper1,
-		childRefTest_wrapper2,
-		"childRefTest_textColorPink": {
-			"color": "pink"
-		},
-		"mq": {
-			"height": 100,
-			"backgroundColor": "lightgreen",
-			"@media (max-width: 960px)": {
-				"backgroundColor": "cyan"
-			}
-		}
-	};
-});
-
-
 const H1 = styled('h1')({
 	"color": "yellow"
 });
@@ -249,6 +149,105 @@ export function App(props: { className?: string; }) {
 		</>
 	);
 }
+
+const useStyles = makeStyles({ "label": { App } })((theme, _params, createRef) => {
+
+	const child = {
+		"ref": createRef(),
+		"background": "blue",
+		"border": "1px solid black"
+	};
+
+	const breadcrumbs2_separator = {
+		"ref": createRef(),
+		"color": "red"
+	};
+
+	const childRefTest_wrapper2 = {
+		"border": "1px solid black",
+		"margin": 30,
+		"height": 100,
+		"color": "black"
+	} as const;
+
+	const childRefTest_wrapper1 = {
+		"ref": createRef(),
+		...childRefTest_wrapper2
+	} as const;
+
+	return {
+		"root": {
+			"& > h1:nth-child(2)": {
+				"color": theme.palette.primary.main,
+			}
+		},
+		"ovStyled": {
+			"color": "darkred"
+		},
+		"ovInternal": {
+			"backgroundColor": "darkblue"
+		},
+		"parent": {
+			"border": "1px solid black",
+			"padding": 30,
+			[`&:hover .${child.ref}`]: {
+				"background": "red",
+			}
+		},
+		child,
+		"breadcrumbs_className": {
+			"backgroundColor": "lightblue",
+			"& .MuiBreadcrumbs-separator": {
+				"color": "red"
+			},
+			"&:hover .MuiBreadcrumbs-separator": {
+				"color": "blue"
+			}
+		},
+
+		"breadcrumbs2_root": {
+			"backgroundColor": "lightblue",
+			[`&:hover .${breadcrumbs2_separator.ref}`]: {
+				"color": "blue"
+			}
+		},
+		breadcrumbs2_separator,
+
+		"button2_className": {
+			"backgroundColor": "red"
+		},
+
+		"button2_root": {
+			"backgroundColor": "red"
+		},
+
+		"testCx_bgYellow": {
+			"backgroundColor": "yellow"
+		},
+		"testCx_bgCyan": {
+			"backgroundColor": "cyan"
+		},
+
+		"childRefTest_wrapper": {
+			"border": "1px solid black",
+			[`&:hover .${childRefTest_wrapper1.ref}`]: {
+				"backgroundColor": "cyan"
+			}
+		},
+		childRefTest_wrapper1,
+		childRefTest_wrapper2,
+		"childRefTest_textColorPink": {
+			"color": "pink"
+		},
+		"mq": {
+			"height": 100,
+			"backgroundColor": "lightgreen",
+			"@media (max-width: 960px)": {
+				"backgroundColor": "cyan"
+			}
+		}
+	};
+});
 
 function MyComponent(props: { className?: string; colorSmall: string; }) {
 	return (

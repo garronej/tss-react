@@ -8,7 +8,10 @@ export interface CSSObject
   extends CSSPropertiesWithMultiValues,
   CSSPseudos,
   CSSOthersObject
-   { }
+   { 
+     /** https://emotion.sh/docs/labels */
+     label?: string;
+   }
 
 
 //NOTE: Implicit peer dependency. @emotion/react depends on it. 
