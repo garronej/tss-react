@@ -1,3 +1,7 @@
+## **2.1.0** (2021-11-14)  
+  
+- Better debugging experience with labels #35    
+  
 ### **2.0.4** (2021-11-14)  
   
 - Optimization: Prevent computing re computing classes every render #35    
