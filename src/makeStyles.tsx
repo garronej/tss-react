@@ -4,6 +4,9 @@ import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
 import { useCssAndCx } from "./cssAndCx";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
+import { typeGuard } from "tsafe/typeGuard";
+
+let refCount = 0;
 
 /**
  * @see {@link https://github.com/garronej/tss-react}
@@ -11,39 +14,44 @@ import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
 
-    const getCounter = (() => {
-        let counter = 0;
-
-        return () => counter++;
-    })();
-
     /** returns useStyle. */
-    function makeStyles<Params = void>(params?: {
-        label: string | Record<string, unknown>;
+    function makeStyles<Params = void, Ref extends string = never>(params?: {
+        label?: string | Record<string, unknown>;
+        refs?: Ref[];
     }) {
-        const { label: labelOrWrappedLabel } = params ?? {};
+        const { label: labelOrWrappedLabel, refs = [] } = params ?? {};
 
         const label =
             typeof labelOrWrappedLabel !== "object"
                 ? labelOrWrappedLabel
                 : Object.keys(labelOrWrappedLabel)[0];
 
+        const refMap = objectFromEntries(
+            refs.map(ref => {
+                if (/[\s!#()+,.:<>]/.test(ref)) {
+                    throw new Error(`Illegal characters in ref name "${ref}"`);
+                }
+                return [
+                    ref,
+                    `tss-ref${refCount++}${
+                        label !== undefined ? `-${label}` : ""
+                    }`,
+                ];
+            }),
+        ) as Record<Ref, string>;
+
         return function <RuleName extends string>(
-            cssObjectByRuleNameOrGetCssObjectByRuleName:
-                | ((
-                      theme: Theme,
-                      params: Params,
-                      createRef: () => string,
-                  ) => Record<RuleName, CSSObject>)
-                | Record<RuleName, CSSObject>,
+            cssObjectByRuleNameOrGetCssObjectByRuleName: (
+                theme: Theme,
+                params: Params,
+                refMap: Record<Ref, string>,
+            ) => Record<RuleName | Ref, CSSObject>,
         ) {
             const getCssObjectByRuleName =
                 typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
                 "function"
                     ? cssObjectByRuleNameOrGetCssObjectByRuleName
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
-
-            const outerCounter = getCounter();
 
             return function useStyles(params: Params) {
                 const theme = useTheme();
@@ -54,15 +62,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                     const cssObjectByRuleName = getCssObjectByRuleName(
                         theme,
                         params,
-                        (() => {
-                            let count = 0;
-
-                            return function createRef() {
-                                return `tss-ref${outerCounter}x${count++}${
-                                    label !== undefined ? `-${label}` : ""
-                                }`;
-                            };
-                        })(),
+                        refMap,
                     );
 
                     const classes = objectFromEntries(
@@ -75,7 +75,14 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                                 }${ruleName}`;
                             }
 
-                            return [ruleName, css(cssObject)];
+                            return [
+                                ruleName,
+                                `${css(cssObject)}${
+                                    typeGuard<Ref>(ruleName, ruleName in refMap)
+                                        ? ` ${refMap[ruleName]}`
+                                        : ""
+                                }`,
+                            ];
                         }),
                     ) as Record<RuleName, string>;
 

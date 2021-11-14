@@ -236,30 +236,22 @@ const { App } = (() => {
         );
     }
 
-    const useStyles = makeStyles({ "label": { App } })((theme, _params, createRef) => {
-
-        const child = {
-            "ref": createRef(),
-            "background": "blue",
-            "border": "1px solid black"
-        };
-
-        const breadcrumbs2_separator = {
-            "ref": createRef(),
-            "color": "red"
-        };
+    const useStyles = makeStyles({
+        "label": { App },
+        "refs": [
+            "child",
+            "breadcrumbs2_separator",
+            "childRefTest_wrapper2",
+            "childRefTest_wrapper1"
+        ]
+    })((theme, _params, refMap) => {
 
         const childRefTest_wrapper2 = {
             "border": "1px solid black",
             "margin": 30,
             "height": 100,
             "color": "black"
-        } as const;
-
-        const childRefTest_wrapper1 = {
-            "ref": createRef(),
-            ...childRefTest_wrapper2
-        } as const;
+        };
 
         return {
             "root": {
@@ -276,11 +268,14 @@ const { App } = (() => {
             "parent": {
                 "border": "1px solid black",
                 "padding": 30,
-                [`&:hover .${child.ref}`]: {
+                [`&:hover .${refMap.child}`]: {
                     "background": "red",
                 }
             },
-            child,
+            "child": {
+                "background": "blue",
+                "border": "1px solid black"
+            },
             "breadcrumbs_className": {
                 "backgroundColor": "lightblue",
                 "& .MuiBreadcrumbs-separator": {
@@ -293,11 +288,13 @@ const { App } = (() => {
 
             "breadcrumbs2_root": {
                 "backgroundColor": "lightblue",
-                [`&:hover .${breadcrumbs2_separator.ref}`]: {
+                [`&:hover .${refMap.breadcrumbs2_separator}`]: {
                     "color": "blue"
                 }
             },
-            breadcrumbs2_separator,
+            "breadcrumbs2_separator": {
+                "color": "red"
+            },
 
             "button2_className": {
                 "backgroundColor": "red"
@@ -316,11 +313,13 @@ const { App } = (() => {
 
             "childRefTest_wrapper": {
                 "border": "1px solid black",
-                [`&:hover .${childRefTest_wrapper1.ref}`]: {
+                [`&:hover .${refMap.childRefTest_wrapper1}`]: {
                     "backgroundColor": "cyan"
                 }
             },
-            childRefTest_wrapper1,
+            "childRefTest_wrapper1": {
+                ...childRefTest_wrapper2
+            },
             childRefTest_wrapper2,
             "childRefTest_textColorPink": {
                 "color": "pink"
