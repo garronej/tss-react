@@ -28,11 +28,13 @@ export function getDependencyArrayRef(obj: any): any {
     for (const key in obj) {
         const value = obj[key];
 
+        const typeofValue = typeof value;
+
         if (
             !(
-                typeof value === "string" ||
-                (typeof value === "number" && !isNaN(value)) ||
-                typeof value === "boolean" ||
+                typeofValue === "string" ||
+                (typeofValue === "number" && !isNaN(value)) ||
+                typeofValue === "boolean" ||
                 value === undefined ||
                 value === null
             )
@@ -40,7 +42,7 @@ export function getDependencyArrayRef(obj: any): any {
             return obj;
         }
 
-        arr.push(`${key}:${JSON.stringify(value)}`);
+        arr.push(`${key}:${typeofValue}_${value}`);
     }
 
     return "xSqLiJdLMd9s" + arr.join("|");
