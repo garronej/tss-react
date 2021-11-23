@@ -19,7 +19,7 @@
  * overwise the object is returned (the function is the identity function).
  */
 export function getDependencyArrayRef(obj: any): any {
-    if (!(obj instanceof Object)) {
+    if (!(obj instanceof Object) || typeof obj === "function") {
         return obj;
     }
 
