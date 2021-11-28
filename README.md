@@ -57,8 +57,6 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
 -   [Composition and nested selectors ( `$` syntax )](#composition-and-nested-selectors--syntax-)
     -   [Selecting children by class name](#selecting-children-by-class-name)
         -   [Nested selector with the `withStyles` API](#nested-selector-with-the-withstyles-api)
-    -   [Internal composition](#internal-composition)
-    -   [Export rules](#export-rules)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
     -   [With any other framework](#with-any-other-framework)
@@ -555,60 +553,6 @@ const useStyles = makeStyles<void, "child">()((_theme, _params, classes) => ({
 ### Nested selector with the `withStyles` API
 
 https://user-images.githubusercontent.com/6702424/143791304-7705816a-4d25-4df7-9d45-470c5c9ec1bf.mp4
-
-## Internal composition
-
-When you want to reuse style within the same component.
-
-```typescript
-import { makeStyles } from "./makeStyles";
-import type { CSSObject } from "tss-react";
-
-const useStyles = makeStyles<{ n: number; color: string }>()(
-    (theme, { n, color }) => {
-        const root: CSSObject = {
-            "color": theme.primaryColor,
-            "border": `${n}px solid black`,
-        };
-
-        return {
-            root,
-            "foo": {
-                ...root,
-                //Style specific to foo
-                color,
-            },
-        };
-    },
-);
-```
-
-## Export rules
-
-`MyComponent.tsx`
-
-```typescript
-import { makeStyles } from "./makeStyles";
-// You can always define the Theme type as: "export type Theme = ReturnType<typeof useTheme>;"
-import type { Theme } from "./makeStyles";
-import type { CSSObject } from "tss-react";
-
-//Can be used in another component
-export const getRootStyle = (
-    theme: Theme,
-    params: { n: number },
-): CSSObject => ({
-    "color": theme.primaryColor,
-    "border": `${params.n}px solid black`,
-});
-
-const useStyles = makeStyles<
-    Parameters<typeof getRootStyle>[1] & { color: string }
->()((theme, { n, color }) => ({
-    "root": getRootStyle(theme, { n }),
-    // Other styles...
-}));
-```
 
 # Server Side Rendering (SSR)
 
