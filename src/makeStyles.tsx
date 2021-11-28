@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo } from "react";
 import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
@@ -5,8 +6,7 @@ import type { CSSObject } from "./types";
 import { useCssAndCx } from "./cssAndCx";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "tsafe/typeGuard";
-
-let refCount = 0;
+import { useTssEmotionCache } from "./cache";
 
 /**
  * @see {@link https://github.com/garronej/tss-react}
@@ -14,38 +14,36 @@ let refCount = 0;
 export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
 
+    const getCounter = (() => {
+        let counter = 0;
+
+        return () => counter++;
+    })();
+
     /** returns useStyle. */
-    function makeStyles<Params = void, Ref extends string = never>(params?: {
-        label?: string | Record<string, unknown>;
-        refs?: Ref[];
-    }) {
-        const { label: labelOrWrappedLabel, refs = [] } = params ?? {};
+    function makeStyles<
+        Params = void,
+        RuleNameSubsetReferencableInNestedSelectors extends string = never,
+    >(params?: { label?: string | Record<string, unknown> }) {
+        const { label: labelOrWrappedLabel } = params ?? {};
 
         const label =
             typeof labelOrWrappedLabel !== "object"
                 ? labelOrWrappedLabel
                 : Object.keys(labelOrWrappedLabel)[0];
 
-        const refMap = objectFromEntries(
-            refs.map(ref => {
-                if (/[\s!#()+,.:<>]/.test(ref)) {
-                    throw new Error(`Illegal characters in ref name "${ref}"`);
-                }
-                return [
-                    ref,
-                    `tss-ref${refCount++}${
-                        label !== undefined ? `-${label}` : ""
-                    }`,
-                ];
-            }),
-        ) as Record<Ref, string>;
-
         return function <RuleName extends string>(
             cssObjectByRuleNameOrGetCssObjectByRuleName: (
                 theme: Theme,
                 params: Params,
-                refMap: Record<Ref, string>,
-            ) => Record<RuleName | Ref, CSSObject>,
+                classes: Record<
+                    RuleNameSubsetReferencableInNestedSelectors,
+                    string
+                >,
+            ) => Record<
+                RuleName | RuleNameSubsetReferencableInNestedSelectors,
+                CSSObject
+            >,
         ) {
             const getCssObjectByRuleName =
                 typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
@@ -53,16 +51,43 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                     ? cssObjectByRuleNameOrGetCssObjectByRuleName
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
+            const outerCounter = getCounter();
+
             return function useStyles(params: Params) {
                 const theme = useTheme();
 
-                const { cx, css } = useCssAndCx();
+                const { css, cx } = useCssAndCx();
+
+                const cache = useTssEmotionCache();
 
                 return useMemo(() => {
+                    const refClassesCache: Record<string, string> = {};
+
+                    const refClasses = new Proxy<
+                        Record<
+                            RuleNameSubsetReferencableInNestedSelectors,
+                            string
+                        >
+                    >({} as any, {
+                        "get": (...args) => {
+                            const [, propertyKey] = args;
+
+                            if (typeof propertyKey === "symbol") {
+                                return Reflect.get(...args);
+                            }
+
+                            return (refClassesCache[propertyKey] = `${
+                                cache.key
+                            }-${outerCounter}${
+                                label !== undefined ? `-${label}` : ""
+                            }-${propertyKey}-ref`);
+                        },
+                    });
+
                     const cssObjectByRuleName = getCssObjectByRuleName(
                         theme,
                         params,
-                        refMap,
+                        refClasses,
                     );
 
                     const classes = objectFromEntries(
@@ -78,13 +103,25 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                             return [
                                 ruleName,
                                 `${css(cssObject)}${
-                                    typeGuard<Ref>(ruleName, ruleName in refMap)
-                                        ? ` ${refMap[ruleName]}`
+                                    typeGuard<RuleNameSubsetReferencableInNestedSelectors>(
+                                        ruleName,
+                                        ruleName in refClassesCache,
+                                    )
+                                        ? ` ${refClassesCache[ruleName]}`
                                         : ""
                                 }`,
                             ];
                         }),
                     ) as Record<RuleName, string>;
+
+                    objectKeys(refClassesCache).forEach(ruleName => {
+                        if (ruleName in classes) {
+                            return;
+                        }
+
+                        classes[ruleName as RuleName] =
+                            refClassesCache[ruleName];
+                    });
 
                     return {
                         classes,
@@ -92,7 +129,8 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                         css,
                         cx,
                     };
-                }, [cx, css, theme, getDependencyArrayRef(params)]);
+                    //NOTE: css and cx only depends on cache
+                }, [cache, theme, getDependencyArrayRef(params)]);
             };
         };
     }

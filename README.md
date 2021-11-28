@@ -56,6 +56,7 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
 -   [Cache](#cache)
 -   [Composition and nested selectors ( `$` syntax )](#composition-and-nested-selectors--syntax-)
     -   [Selecting children by class name](#selecting-children-by-class-name)
+        -   [Nested selector with the `withStyles` API](#nested-selector-with-the-withstyles-api)
     -   [Internal composition](#internal-composition)
     -   [Export rules](#export-rules)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
@@ -388,7 +389,7 @@ const MyStyledButton = withStyles(Button, {
 });
 ```
 
-It's also possible to start from builtin HTML component:
+It's also possible to start from a builtin HTML component:
 
 ```tsx
 const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
@@ -538,23 +539,22 @@ export function App() {
     );
 }
 
-const useStyles = makeStyles()((_theme, _params, createRef) => {
-    const child = {
-        "ref": createRef(),
-        "background": "blue",
-    } as const; //<- In many case 'as const' must be used so that it can be inferred as CSSObject
-
-    return {
-        "parent": {
-            "padding": 30,
-            [`&:hover .${child.ref}`]: {
-                "background": "red",
-            },
+const useStyles = makeStyles<void, "child">()((_theme, _params, classes) => ({
+    "parent": {
+        "padding": 30,
+        [`&:hover .${classes.child}`]: {
+            "background": "red",
         },
-        child,
-    };
-});
+    },
+    "child": {
+        "background": "blue",
+    },
+}));
 ```
+
+### Nested selector with the `withStyles` API
+
+https://user-images.githubusercontent.com/6702424/143791304-7705816a-4d25-4df7-9d45-470c5c9ec1bf.mp4
 
 ## Internal composition
 

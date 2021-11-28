@@ -137,6 +137,10 @@ const { App } = (() => {
                         <span>and the separator (/) should be red except when hover, then it is blue</span>
                     </Breadcrumbs>
 
+                    <MyBreadcrumbs>
+                        <span>The separator</span>
+                        <span>should be lightgreen</span>
+                    </MyBreadcrumbs>
 
                     <Button
                         variant="contained"
@@ -236,15 +240,9 @@ const { App } = (() => {
         );
     }
 
-    const useStyles = makeStyles({
+    const useStyles = makeStyles<void, "child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">({
         "label": { App },
-        "refs": [
-            "child",
-            "breadcrumbs2_separator",
-            "childRefTest_wrapper2",
-            "childRefTest_wrapper1"
-        ]
-    })((theme, _params, refMap) => {
+    })((theme, _params, classes) => {
 
         const childRefTest_wrapper2 = {
             "border": "1px solid black",
@@ -268,7 +266,7 @@ const { App } = (() => {
             "parent": {
                 "border": "1px solid black",
                 "padding": 30,
-                [`&:hover .${refMap.child}`]: {
+                [`&:hover .${classes.child}`]: {
                     "background": "red",
                 }
             },
@@ -288,7 +286,7 @@ const { App } = (() => {
 
             "breadcrumbs2_root": {
                 "backgroundColor": "lightblue",
-                [`&:hover .${refMap.breadcrumbs2_separator}`]: {
+                [`&:hover .${classes.breadcrumbs2_separator}`]: {
                     "color": "blue"
                 }
             },
@@ -313,7 +311,7 @@ const { App } = (() => {
 
             "childRefTest_wrapper": {
                 "border": "1px solid black",
-                [`&:hover .${refMap.childRefTest_wrapper1}`]: {
+                [`&:hover .${classes.childRefTest_wrapper1}`]: {
                     "backgroundColor": "cyan"
                 }
             },
@@ -333,9 +331,6 @@ const { App } = (() => {
             }
         };
     });
-
-
-
 
     return { App };
 
@@ -394,3 +389,14 @@ const MyAnchorStyled = withStyles(
     })
 );
 
+
+const MyBreadcrumbs = withStyles(
+    Breadcrumbs,
+    (theme, _props, classes)=>({
+        "ol": {
+            [`& .${classes.separator}`]: {
+                "color": theme.palette.primary.main
+            }
+        }
+    })
+);

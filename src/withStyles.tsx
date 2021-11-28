@@ -42,7 +42,10 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
             | ((
                   theme: Theme,
                   props: Props,
-                  createRef: () => string,
+                  classes: Record<
+                      Exclude<keyof CssObjectByRuleName, `@media${string}`>,
+                      string
+                  >,
               ) => CssObjectByRuleName),
     ): C extends keyof ReactHTML ? ReactHTML[C] : C {
         const Component_: ReactComponent<any> =
@@ -62,19 +65,19 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
                   })()
                 : Component;
 
-        const useStyles = makeStyles<Props>()(
+        const useStyles = makeStyles<Props, any>()(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
-                ? (theme: Theme, props: Props, createRef: () => string) =>
+                ? (theme: Theme, props: Props, classes: Record<any, string>) =>
                       incorporateMediaQueries(
                           cssObjectByRuleNameOrGetCssObjectByRuleName(
                               theme,
                               props,
-                              createRef,
+                              classes,
                           ),
-                      )
-                : incorporateMediaQueries(
+                      ) as any
+                : (incorporateMediaQueries(
                       cssObjectByRuleNameOrGetCssObjectByRuleName,
-                  ),
+                  ) as any),
         );
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

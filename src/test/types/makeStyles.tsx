@@ -10,15 +10,15 @@ const { makeStyles } = createMakeStyles({
     "useTheme": () => null as unknown as Theme,
 });
 
-const useStyles = makeStyles({ "refs": ["xxx"] })((theme, props, refMap) => {
-    assert<Equals<typeof refMap, Record<"xxx", string>>>();
+const useStyles = makeStyles<void, "xxx">()((theme, props, classes) => {
+    assert<Equals<typeof classes, Record<"xxx", string>>>();
     assert<Equals<typeof props, void>>();
     assert<Equals<typeof theme, Theme>>();
 
     return {
         "root": {
             "backgroundColor": "red",
-            [`& .${refMap.xxx}`]: {
+            [`& .${classes.xxx}`]: {
                 "color": "white",
             },
         },
@@ -31,8 +31,8 @@ const { classes } = useStyles();
 assert<Equals<typeof classes, Record<"root" | "xxx", string>>>();
 
 {
-    const useStyles = makeStyles()((_theme, _props, refMap) => {
-        assert<Equals<typeof refMap, Record<never, string>>>();
+    const useStyles = makeStyles()((_theme, _props, classes) => {
+        assert<Equals<typeof classes, Record<never, string>>>();
 
         return {
             "root": {
@@ -46,7 +46,7 @@ assert<Equals<typeof classes, Record<"root" | "xxx", string>>>();
     assert<Equals<typeof classes, Record<"root", string>>>();
 }
 
-makeStyles({ "refs": ["xxx"] })(
+makeStyles<void, "xxx">()(
     //@ts-expect-error: "xxx" should be added to the record of CSSObject
     (theme, props, refs) => ({
         "root": {
