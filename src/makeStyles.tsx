@@ -24,13 +24,13 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     function makeStyles<
         Params = void,
         RuleNameSubsetReferencableInNestedSelectors extends string = never,
-    >(params?: { label?: string | Record<string, unknown> }) {
-        const { label: labelOrWrappedLabel } = params ?? {};
+    >(params?: { name?: string | Record<string, unknown> }) {
+        const { name: nameOrWrappedName } = params ?? {};
 
-        const label =
-            typeof labelOrWrappedLabel !== "object"
-                ? labelOrWrappedLabel
-                : Object.keys(labelOrWrappedLabel)[0];
+        const name =
+            typeof nameOrWrappedName !== "object"
+                ? nameOrWrappedName
+                : Object.keys(nameOrWrappedName)[0];
 
         return function <RuleName extends string>(
             cssObjectByRuleNameOrGetCssObjectByRuleName: (
@@ -79,7 +79,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                             return (refClassesCache[propertyKey] = `${
                                 cache.key
                             }-${outerCounter}${
-                                label !== undefined ? `-${label}` : ""
+                                name !== undefined ? `-${name}` : ""
                             }-${propertyKey}-ref`);
                         },
                     });
@@ -94,9 +94,9 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                         objectKeys(cssObjectByRuleName).map(ruleName => {
                             const cssObject = cssObjectByRuleName[ruleName];
 
-                            if (!cssObject.label) {
+                            if (!cssObject.name) {
                                 cssObject.label = `${
-                                    label !== undefined ? `${label}-` : ""
+                                    name !== undefined ? `${name}-` : ""
                                 }${ruleName}`;
                             }
 

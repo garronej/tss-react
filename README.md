@@ -48,7 +48,7 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
 -   [API documentation](#api-documentation)
     -   [Exposed APIs](#exposed-apis)
     -   [`makeStyles()`](#makestyles)
-        -   [Labeling](#labeling)
+        -   [Naming the stylesheets (useful for debugging)](#naming-the-stylesheets-useful-for-debugging)
     -   [`useStyles()`](#usestyles)
     -   [`withStyles()`](#withstyles)
     -   [`<GlobalStyles />`](#globalstyles-)
@@ -232,12 +232,13 @@ const useStyles = makeStyles()({
 const { classes } = useStyles();
 ```
 
-### Labeling
+### Naming the stylesheets (useful for debugging)
 
 To ease debugging you can specify a label that will appear in every class names.
+It is like the [`option.name` in material-ui v4's `makeStyles`](https://mui.com/styles/api/#makestyles-styles-options-hook)
 
 ```typescript
-const useStyles = makeStyles({ "label": "MyComponent" })({
+const useStyles = makeStyles({ "name": "MyComponent" })({
     "root": {
         /*...*/
     },

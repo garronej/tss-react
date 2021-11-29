@@ -155,7 +155,7 @@ export function App(props: { className?: string; }) {
 }
 
 const useStyles = makeStyles<void, "child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">({
-	"label": { App },
+	"name": { App },
 })((theme, _params, classes) => {
 
 	const childRefTest_wrapper2 = {
