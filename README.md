@@ -60,6 +60,7 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
     -   [With any other framework](#with-any-other-framework)
+-   [IE Support](#ie-support)
 -   [Development](#development)
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
@@ -668,6 +669,13 @@ function functionInChargeOfRenderingTheHtml(res) {
     </html>`);
 }
 ```
+
+# IE Support
+
+Polyfill required:
+
+-   [`Array.prototype.find`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+-   [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), find a polyfill [here](https://github.com/GoogleChrome/proxy-polyfill)
 
 # Development
 

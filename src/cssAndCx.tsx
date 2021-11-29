@@ -1,5 +1,3 @@
-import "./tools/polyfills/Array.prototype.find";
-import { Polyfill as WeakMap } from "./tools/polyfills/WeakMap";
 import { classnames } from "./tools/classnames";
 import type { Cx, Css, CSSObject } from "./types";
 import { serializeStyles } from "@emotion/serialize";
