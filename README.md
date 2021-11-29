@@ -31,11 +31,11 @@ $ yarn add tss-react @emotion/react
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
 
-**What's new in v2.1**: Better debugging experience thanks to the [custom label support](#labeling).
+**Breaking changes in v3**:
 
-**What's new in v2**: Better SSR support. See [#30](https://github.com/garronej/tss-react/issues/30).  
-Breaking changes: [updated instructions](#server-side-rendering-ssr) for setting up SSR. ( `@emotion/server` must
-now be installed manually in SSR projects.)
+-   New API for [nested selectors](#nested-selectors--syntax-). We no longer use `createRef()`.
+-   [`label` have been renamed `name`](#naming-the-stylesheets-useful-for-debugging) for helping the migration from [the old mui API](https://mui.com/styles/api/#makestyles-styles-options-hook).
+-   [It is now required to provide some polyfills to support IE](#ie-support). (for the sake of the bundle size)
 
 **JavaScript support**: Although `tss-react` have been designed with TypeScript in mind
 it can of course [be used in vanilla JS projects](https://github.com/garronej/tss-react/issues/28).
@@ -54,9 +54,8 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
     -   [`<GlobalStyles />`](#globalstyles-)
     -   [`keyframes`](#keyframes)
 -   [Cache](#cache)
--   [Composition and nested selectors ( `$` syntax )](#composition-and-nested-selectors--syntax-)
-    -   [Selecting children by class name](#selecting-children-by-class-name)
-        -   [Nested selector with the `withStyles` API](#nested-selector-with-the-withstyles-api)
+-   [Nested selectors ( `$` syntax )](#nested-selectors--syntax-)
+    -   [Nested selector with the `withStyles` API](#nested-selector-with-the-withstyles-api)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
     -   [With any other framework](#with-any-other-framework)
@@ -491,12 +490,10 @@ const tssCache = createMuiCache({
 </CacheProvider>;
 ```
 
-# Composition and nested selectors ( `$` syntax )
+# Nested selectors ( `$` syntax )
 
 `tss-react` unlike `jss-react` doesn't support the `$` syntax but there's type safe alternatives that
 achieve the same results.
-
-## Selecting children by class name
 
 In **JSS** you can do:
 
@@ -552,7 +549,7 @@ const useStyles = makeStyles<void, "child">()((_theme, _params, classes) => ({
 }));
 ```
 
-### Nested selector with the `withStyles` API
+## Nested selector with the `withStyles` API
 
 https://user-images.githubusercontent.com/6702424/143791304-7705816a-4d25-4df7-9d45-470c5c9ec1bf.mp4
 
