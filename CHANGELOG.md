@@ -1,3 +1,8 @@
+### **2.1.1** (2021-11-23)  
+  
+- Do not serialize function  
+- Avoid using JSON.stringify in getDependencyArrayRef #39    
+  
 ## **2.1.0** (2021-11-14)  
   
 - Better debugging experience with labels #35    
