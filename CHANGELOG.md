@@ -1,3 +1,16 @@
+### **2.1.1** (2021-11-23)  
+  
+- Do not serialize function  
+- Avoid using JSON.stringify in getDependencyArrayRef #39    
+  
+## **2.1.0** (2021-11-14)  
+  
+- Better debugging experience with labels #35    
+  
+### **2.0.4** (2021-11-14)  
+  
+- Optimization: Prevent computing re computing classes every render #35    
+  
 ### **2.0.3** (2021-11-09)  
   
 - #36    
