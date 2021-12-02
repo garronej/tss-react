@@ -54,3 +54,20 @@ makeStyles<void, "xxx">()(
         },
     }),
 );
+
+{
+    const { makeStyles } = createMakeStyles({
+        "useTheme": () => null as unknown as Theme,
+    });
+
+    const useStyles = makeStyles<void, "xxx">()({
+        "root": {
+            "backgroundColor": "red",
+        },
+        "xxx": {},
+    });
+
+    const { classes } = useStyles();
+
+    assert<Equals<typeof classes, Record<"root" | "xxx", string>>>();
+}

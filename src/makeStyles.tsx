@@ -33,17 +33,19 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 : Object.keys(nameOrWrappedName)[0];
 
         return function <RuleName extends string>(
-            cssObjectByRuleNameOrGetCssObjectByRuleName: (
-                theme: Theme,
-                params: Params,
-                classes: Record<
-                    RuleNameSubsetReferencableInNestedSelectors,
-                    string
-                >,
-            ) => Record<
-                RuleName | RuleNameSubsetReferencableInNestedSelectors,
-                CSSObject
-            >,
+            cssObjectByRuleNameOrGetCssObjectByRuleName:
+                | ((
+                      theme: Theme,
+                      params: Params,
+                      classes: Record<
+                          RuleNameSubsetReferencableInNestedSelectors,
+                          string
+                      >,
+                  ) => Record<
+                      RuleName | RuleNameSubsetReferencableInNestedSelectors,
+                      CSSObject
+                  >)
+                | Record<RuleName, CSSObject>,
         ) {
             const getCssObjectByRuleName =
                 typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
