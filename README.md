@@ -17,7 +17,7 @@
 -   ✅ Seamless integration with [mui](https://mui.com) v5 and v4.
 -   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has virtually no impact on the bundle size alongside mui.
 -   ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
--   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition-and-nested-selectors--syntax-).
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
