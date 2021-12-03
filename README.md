@@ -540,14 +540,57 @@ const useStyles = makeStyles<void, "child">()((_theme, _params, classes) => ({
     "parent": {
         "padding": 30,
         [`&:hover .${classes.child}`]: {
-            "background": "red",
+            "backgroundColor": "red",
         },
     },
     "child": {
-        "background": "blue",
+        "backgroundColor": "blue",
     },
 }));
 ```
+
+An other example:
+
+```tsx
+export function App() {
+    const { classes, cx } = useStyles({ "color": "primary" });
+
+    return (
+        <div className={classes.root}>
+            <div className={classes.child}>
+                The Background take the primary theme color when the mouse is
+                hover the parent.
+            </div>
+            <div className={cx(classes.child, classes.small)}>
+                The Background take the primary theme color when the mouse is
+                hover the parent. I am smaller than the other child.
+            </div>
+        </div>
+    );
+}
+
+const useStyles = makeStyles<
+    { color: "primary" | "secondary" },
+    "child" | "small"
+>()((theme, { color }, classes) => ({
+    "root": {
+        "padding": 30,
+        [`&:hover .${classes.child}`]: {
+            "backgroundColor": theme.palette[color].main,
+        },
+    },
+    "small": {},
+    "child": {
+        "border": "1px solid black",
+        "height": 50,
+        [`&.${classes.small}`]: {
+            "height": 30,
+        },
+    },
+}));
+```
+
+https://user-images.githubusercontent.com/6702424/144655154-51d0d294-e392-4af5-8802-f3df9aa1b905.mov
 
 ## Nested selector with the `withStyles` API
 

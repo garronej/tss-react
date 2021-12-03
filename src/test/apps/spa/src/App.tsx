@@ -1,4 +1,5 @@
 
+import { memo } from "react";
 import { makeStyles, withStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@mui/material";
@@ -149,6 +150,7 @@ export function App(props: { className?: string; }) {
 				)}>
 					background should be lightgreen
 				</div>
+				<SecondNestedSelectorExample />
 			</div>
 		</>
 	);
@@ -309,3 +311,48 @@ const MyBreadcrumbs = withStyles(
 		}
 	})
 );
+
+const { SecondNestedSelectorExample } = (() => {
+
+    const SecondNestedSelectorExample = memo(() => {
+
+        const { classes, cx } = useStyles({ "color": "primary" });
+
+        return (
+            <div className={classes.root}>
+                <div className={classes.child}>
+                    The Background take the primary theme color when the mouse is hover the parent.
+                </div>
+                <div className={cx(classes.child, classes.small)}>
+                    The Background take the primary theme color when the mouse is hover the parent.
+                    I am smaller than the other child.
+                </div>
+            </div>
+        );
+
+    });
+
+    const useStyles = makeStyles<{ color: "primary" | "secondary" }, "child" | "small">({
+        "name": { SecondNestedSelectorExample }
+    })(
+        (theme, { color }, classes) => ({
+            "root": {
+                "padding": 30,
+                [`&:hover .${classes.child}`]: {
+                    "backgroundColor": theme.palette[color].main,
+                },
+            },
+            "small": {},
+            "child": {
+                "border": "1px solid black",
+                "height": 50,
+                [`&.${classes.small}`]: {
+                    "height": 30,
+                }
+            },
+        })
+    );
+
+    return { SecondNestedSelectorExample };
+
+})()
