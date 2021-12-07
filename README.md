@@ -17,7 +17,7 @@
 -   ✅ Seamless integration with [mui](https://mui.com) v5 and v4.
 -   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has virtually no impact on the bundle size alongside mui.
 -   ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
--   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#composition-and-nested-selectors--syntax-) (V3 is soon to be released, it features [a much better API](https://github.com/garronej/tss-react/tree/new_api_for_nested_selector#nested-selectors--syntax-), closer to the one of JSS).
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
@@ -31,11 +31,11 @@ $ yarn add tss-react @emotion/react
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
 
-**What's new in v2.1**: Better debugging experience thanks to the [custom label support](#labeling).
+**Breaking changes in v3**:
 
-**What's new in v2**: Better SSR support. See [#30](https://github.com/garronej/tss-react/issues/30).  
-Breaking changes: [updated instructions](#server-side-rendering-ssr) for setting up SSR. ( `@emotion/server` must
-now be installed manually in SSR projects.)
+-   New API for [nested selectors](#nested-selectors--syntax-). We no longer use `createRef()`.
+-   [`label` have been renamed `name`](#naming-the-stylesheets-useful-for-debugging) for helping the migration from [the old mui API](https://mui.com/styles/api/#makestyles-styles-options-hook).
+-   [It is now required to provide some polyfills to support IE](#ie-support). (for the sake of the bundle size)
 
 **JavaScript support**: Although `tss-react` have been designed with TypeScript in mind
 it can of course [be used in vanilla JS projects](https://github.com/garronej/tss-react/issues/28).
@@ -48,19 +48,18 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
 -   [API documentation](#api-documentation)
     -   [Exposed APIs](#exposed-apis)
     -   [`makeStyles()`](#makestyles)
-        -   [Labeling](#labeling)
+        -   [Naming the stylesheets (useful for debugging)](#naming-the-stylesheets-useful-for-debugging)
     -   [`useStyles()`](#usestyles)
     -   [`withStyles()`](#withstyles)
     -   [`<GlobalStyles />`](#globalstyles-)
     -   [`keyframes`](#keyframes)
 -   [Cache](#cache)
--   [Composition and nested selectors ( `$` syntax )](#composition-and-nested-selectors--syntax-)
-    -   [Selecting children by class name](#selecting-children-by-class-name)
-    -   [Internal composition](#internal-composition)
-    -   [Export rules](#export-rules)
+-   [Nested selectors ( `$` syntax )](#nested-selectors--syntax-)
+    -   [Nested selector with the `withStyles` API](#nested-selector-with-the-withstyles-api)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
     -   [With any other framework](#with-any-other-framework)
+-   [IE Support](#ie-support)
 -   [Development](#development)
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
@@ -233,12 +232,13 @@ const useStyles = makeStyles()({
 const { classes } = useStyles();
 ```
 
-### Labeling
+### Naming the stylesheets (useful for debugging)
 
 To ease debugging you can specify a label that will appear in every class names.
+It is like the [`option.name` in material-ui v4's `makeStyles`](https://mui.com/styles/api/#makestyles-styles-options-hook)
 
 ```typescript
-const useStyles = makeStyles({ "label": "MyComponent" })({
+const useStyles = makeStyles({ "name": "MyComponent" })({
     "root": {
         /*...*/
     },
@@ -388,7 +388,7 @@ const MyStyledButton = withStyles(Button, {
 });
 ```
 
-It's also possible to start from builtin HTML component:
+It's also possible to start from a builtin HTML component:
 
 ```tsx
 const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
@@ -490,12 +490,10 @@ const tssCache = createMuiCache({
 </CacheProvider>;
 ```
 
-# Composition and nested selectors ( `$` syntax )
+# Nested selectors ( `$` syntax )
 
 `tss-react` unlike `jss-react` doesn't support the `$` syntax but there's type safe alternatives that
 achieve the same results.
-
-## Selecting children by class name
 
 In **JSS** you can do:
 
@@ -538,77 +536,65 @@ export function App() {
     );
 }
 
-const useStyles = makeStyles()((_theme, _params, createRef) => {
-    const child = {
-        "ref": createRef(),
-        "background": "blue",
-    } as const; //<- In many case 'as const' must be used so that it can be inferred as CSSObject
-
-    return {
-        "parent": {
-            "padding": 30,
-            [`&:hover .${child.ref}`]: {
-                "background": "red",
-            },
+const useStyles = makeStyles<void, "child">()((_theme, _params, classes) => ({
+    "parent": {
+        "padding": 30,
+        [`&:hover .${classes.child}`]: {
+            "backgroundColor": "red",
         },
-        child,
-    };
-});
-```
-
-## Internal composition
-
-When you want to reuse style within the same component.
-
-```typescript
-import { makeStyles } from "./makeStyles";
-import type { CSSObject } from "tss-react";
-
-const useStyles = makeStyles<{ n: number; color: string }>()(
-    (theme, { n, color }) => {
-        const root: CSSObject = {
-            "color": theme.primaryColor,
-            "border": `${n}px solid black`,
-        };
-
-        return {
-            root,
-            "foo": {
-                ...root,
-                //Style specific to foo
-                color,
-            },
-        };
     },
-);
-```
-
-## Export rules
-
-`MyComponent.tsx`
-
-```typescript
-import { makeStyles } from "./makeStyles";
-// You can always define the Theme type as: "export type Theme = ReturnType<typeof useTheme>;"
-import type { Theme } from "./makeStyles";
-import type { CSSObject } from "tss-react";
-
-//Can be used in another component
-export const getRootStyle = (
-    theme: Theme,
-    params: { n: number },
-): CSSObject => ({
-    "color": theme.primaryColor,
-    "border": `${params.n}px solid black`,
-});
-
-const useStyles = makeStyles<
-    Parameters<typeof getRootStyle>[1] & { color: string }
->()((theme, { n, color }) => ({
-    "root": getRootStyle(theme, { n }),
-    // Other styles...
+    "child": {
+        "backgroundColor": "blue",
+    },
 }));
 ```
+
+An other example:
+
+```tsx
+export function App() {
+    const { classes, cx } = useStyles({ "color": "primary" });
+
+    return (
+        <div className={classes.root}>
+            <div className={classes.child}>
+                The Background take the primary theme color when the mouse is
+                hover the parent.
+            </div>
+            <div className={cx(classes.child, classes.small)}>
+                The Background take the primary theme color when the mouse is
+                hover the parent. I am smaller than the other child.
+            </div>
+        </div>
+    );
+}
+
+const useStyles = makeStyles<
+    { color: "primary" | "secondary" },
+    "child" | "small"
+>()((theme, { color }, classes) => ({
+    "root": {
+        "padding": 30,
+        [`&:hover .${classes.child}`]: {
+            "backgroundColor": theme.palette[color].main,
+        },
+    },
+    "small": {},
+    "child": {
+        "border": "1px solid black",
+        "height": 50,
+        [`&.${classes.small}`]: {
+            "height": 30,
+        },
+    },
+}));
+```
+
+https://user-images.githubusercontent.com/6702424/144655154-51d0d294-e392-4af5-8802-f3df9aa1b905.mov
+
+## Nested selector with the `withStyles` API
+
+https://user-images.githubusercontent.com/6702424/143791304-7705816a-4d25-4df7-9d45-470c5c9ec1bf.mp4
 
 # Server Side Rendering (SSR)
 
@@ -723,6 +709,13 @@ function functionInChargeOfRenderingTheHtml(res) {
     </html>`);
 }
 ```
+
+# IE Support
+
+Polyfill required:
+
+-   [`Array.prototype.find`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+-   [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), find a polyfill [here](https://github.com/GoogleChrome/proxy-polyfill)
 
 # Development
 

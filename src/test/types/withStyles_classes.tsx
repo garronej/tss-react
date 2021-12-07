@@ -2,7 +2,7 @@ import { createWithStyles } from "../../withStyles";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import MuiButton from "@mui/material/Button";
-import type { ButtonProps } from "@mui/material/Button";
+import type { ButtonProps, ButtonClassKey } from "@mui/material/Button";
 
 const theme = {
     "primaryColor": "blue",
@@ -18,10 +18,12 @@ const { withStyles } = createWithStyles({
     {
         const MyComponentStyled = withStyles(
             MuiButton,
-            (theme, props, createRef) => {
+            (theme, props, classes) => {
                 assert<Equals<typeof theme, Theme>>();
                 assert<Equals<typeof props, ButtonProps>>();
-                assert<Equals<typeof createRef, () => string>>();
+                assert<
+                    Equals<typeof classes, Record<ButtonClassKey, string>>
+                >();
 
                 return {
                     "colorInherit": {

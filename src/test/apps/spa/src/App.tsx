@@ -1,4 +1,5 @@
 
+import { memo } from "react";
 import { makeStyles, withStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@mui/material";
@@ -72,6 +73,10 @@ export function App(props: { className?: string; }) {
 					<span>and the separator (/) should be red except when hover, then it is blue</span>
 				</Breadcrumbs>
 
+				<MyBreadcrumbs>
+					<span>The separator</span>
+					<span>should be lightgreen</span>
+				</MyBreadcrumbs>
 
 				<Button
 					variant="contained"
@@ -145,35 +150,22 @@ export function App(props: { className?: string; }) {
 				)}>
 					background should be lightgreen
 				</div>
+				<SecondNestedSelectorExample />
 			</div>
 		</>
 	);
 }
 
-const useStyles = makeStyles({ "label": { App } })((theme, _params, createRef) => {
-
-	const child = {
-		"ref": createRef(),
-		"background": "blue",
-		"border": "1px solid black"
-	};
-
-	const breadcrumbs2_separator = {
-		"ref": createRef(),
-		"color": "red"
-	};
+const useStyles = makeStyles<void, "child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">({
+	"name": { App },
+})((theme, _params, classes) => {
 
 	const childRefTest_wrapper2 = {
 		"border": "1px solid black",
 		"margin": 30,
 		"height": 100,
 		"color": "black"
-	} as const;
-
-	const childRefTest_wrapper1 = {
-		"ref": createRef(),
-		...childRefTest_wrapper2
-	} as const;
+	};
 
 	return {
 		"root": {
@@ -190,11 +182,14 @@ const useStyles = makeStyles({ "label": { App } })((theme, _params, createRef) =
 		"parent": {
 			"border": "1px solid black",
 			"padding": 30,
-			[`&:hover .${child.ref}`]: {
+			[`&:hover .${classes.child}`]: {
 				"background": "red",
 			}
 		},
-		child,
+		"child": {
+			"background": "blue",
+			"border": "1px solid black"
+		},
 		"breadcrumbs_className": {
 			"backgroundColor": "lightblue",
 			"& .MuiBreadcrumbs-separator": {
@@ -207,11 +202,13 @@ const useStyles = makeStyles({ "label": { App } })((theme, _params, createRef) =
 
 		"breadcrumbs2_root": {
 			"backgroundColor": "lightblue",
-			[`&:hover .${breadcrumbs2_separator.ref}`]: {
+			[`&:hover .${classes.breadcrumbs2_separator}`]: {
 				"color": "blue"
 			}
 		},
-		breadcrumbs2_separator,
+		"breadcrumbs2_separator": {
+			"color": "red"
+		},
 
 		"button2_className": {
 			"backgroundColor": "red"
@@ -230,11 +227,13 @@ const useStyles = makeStyles({ "label": { App } })((theme, _params, createRef) =
 
 		"childRefTest_wrapper": {
 			"border": "1px solid black",
-			[`&:hover .${childRefTest_wrapper1.ref}`]: {
+			[`&:hover .${classes.childRefTest_wrapper1}`]: {
 				"backgroundColor": "cyan"
 			}
 		},
-		childRefTest_wrapper1,
+		"childRefTest_wrapper1": {
+			...childRefTest_wrapper2
+		},
 		childRefTest_wrapper2,
 		"childRefTest_textColorPink": {
 			"color": "pink"
@@ -301,3 +300,59 @@ const MyAnchorStyled = withStyles(
 		}
 	})
 );
+
+const MyBreadcrumbs = withStyles(
+	Breadcrumbs,
+	(theme, _props, classes) => ({
+		"ol": {
+			[`& .${classes.separator}`]: {
+				"color": theme.palette.primary.main
+			}
+		}
+	})
+);
+
+const { SecondNestedSelectorExample } = (() => {
+
+    const SecondNestedSelectorExample = memo(() => {
+
+        const { classes, cx } = useStyles({ "color": "primary" });
+
+        return (
+            <div className={classes.root}>
+                <div className={classes.child}>
+                    The Background take the primary theme color when the mouse is hover the parent.
+                </div>
+                <div className={cx(classes.child, classes.small)}>
+                    The Background take the primary theme color when the mouse is hover the parent.
+                    I am smaller than the other child.
+                </div>
+            </div>
+        );
+
+    });
+
+    const useStyles = makeStyles<{ color: "primary" | "secondary" }, "child" | "small">({
+        "name": { SecondNestedSelectorExample }
+    })(
+        (theme, { color }, classes) => ({
+            "root": {
+                "padding": 30,
+                [`&:hover .${classes.child}`]: {
+                    "backgroundColor": theme.palette[color].main,
+                },
+            },
+            "small": {},
+            "child": {
+                "border": "1px solid black",
+                "height": 50,
+                [`&.${classes.small}`]: {
+                    "height": 30,
+                }
+            },
+        })
+    );
+
+    return { SecondNestedSelectorExample };
+
+})()
