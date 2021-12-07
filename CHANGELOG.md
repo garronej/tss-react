@@ -1,3 +1,20 @@
+# **3.0.0** (2021-12-07)  
+  
+- Merge pull request #40 from garronej/new_api_for_nested_selector
+
+v3  
+- Merge remote-tracking branch 'origin/main' into new_api_for_nested_selector  
+- Make counter global: https://github.com/garronej/tss-react/pull/40#issuecomment-988056052  
+- Improve documentation on nested selectors  
+- Restore ability to provide style without callback  
+- Merge remote-tracking branch 'origin/main' into new_api_for_nested_selector  
+- Merge remote-tracking branch 'origin/main' into new_api_for_nested_selector  
+- Breaking change: Polyfills for very old browsers should be added manually to prevent impacting the bundle size  
+- Breaking change: Renaming label -> name #35  
+- ssr: make getCaches optional  
+- Remove noise in readme  
+- New API for nested selectors    
+  
 ### **2.1.1** (2021-11-23)  
   
 - Do not serialize function  
