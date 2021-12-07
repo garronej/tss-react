@@ -8,17 +8,17 @@ import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "tsafe/typeGuard";
 import { useTssEmotionCache } from "./cache";
 
+const getCounter = (() => {
+    let counter = 0;
+
+    return () => counter++;
+})();
+
 /**
  * @see {@link https://github.com/garronej/tss-react}
  */
 export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
-
-    const getCounter = (() => {
-        let counter = 0;
-
-        return () => counter++;
-    })();
 
     /** returns useStyle. */
     function makeStyles<
