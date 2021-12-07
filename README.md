@@ -252,7 +252,7 @@ const { classes } = useStyles();
 ```
 
 Usually, you want the label to match the name of the component you are styling.
-You can pass the label as the first key of a wrapped object like so:
+You can pass the label as the first key of a wrapper object like so:
 
 ```tsx
 export function MyComponent() {
