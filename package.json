@@ -54,8 +54,7 @@
     },
     "dependencies": {
         "@emotion/serialize": "*",
-        "@emotion/utils": "*",
-        "tsafe": "^0.8.1"
+        "@emotion/utils": "*"
     },
     "devDependencies": {
         "@emotion/server": "^11.4.0",

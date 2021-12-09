@@ -5,7 +5,7 @@ import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject } from "./types";
 import { useCssAndCx } from "./cssAndCx";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
-import { typeGuard } from "tsafe/typeGuard";
+import { typeGuard } from "./tools/typeGuard";
 import { useTssEmotionCache } from "./cache";
 
 const getCounter = (() => {

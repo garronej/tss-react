@@ -3402,10 +3402,10 @@ ts-pnp@^1.1.6:
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
 
-tsafe@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.8.1.tgz#9af7e1540bc04313a82d60c98056a5017c8b086b"
-  integrity sha512-EfPjxQHzndQAV/uh0SMGP26Wg3dCuaw8dRv2VPEuGHen5qzg2oqsMvZw2wkQFkiMisZq2fm95m5lheimW2Fpvg==
+tsafe@^0.7.1:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.7.3.tgz#9ac731b88ff938d09559421fbfd1aa076bfa7533"
+  integrity sha512-W5hRuyimjQSl05mk7YWlZNR2dHILb2E7jdehPTSheS+ROjHAFTfWnnVTBX/SccEgYISB3xLNvp6rWRlEKPKh7A==
 
 tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
