@@ -1,3 +1,7 @@
+### **3.0.2** (2021-12-09)  
+  
+- Remove tsafe from dependencies #42    
+  
 ### **3.0.1** (2021-12-08)  
   
 - Add tsafe as dev dep #42    
