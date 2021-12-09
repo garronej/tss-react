@@ -1,3 +1,7 @@
+### **3.0.1** (2021-12-08)  
+  
+- Add tsafe as dev dep #42    
+  
 # **3.0.0** (2021-12-07)  
   
 - Merge pull request #40 from garronej/new_api_for_nested_selector
