@@ -96,7 +96,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                         objectKeys(cssObjectByRuleName).map(ruleName => {
                             const cssObject = cssObjectByRuleName[ruleName];
 
-                            if (!cssObject.name) {
+                            if (!cssObject.label) {
                                 cssObject.label = `${
                                     name !== undefined ? `${name}-` : ""
                                 }${ruleName}`;
