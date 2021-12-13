@@ -52,7 +52,13 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
                   })()
                 : Component;
 
-        const useStyles = makeStyles<Props, any>()(
+        const name = (() => {
+            const { name } = Component_;
+
+            return typeof name === "string" ? name : undefined;
+        })();
+
+        const useStyles = makeStyles<Props, any>({ name })(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
                 ? (theme: Theme, props: Props, classes: Record<any, string>) =>
                       incorporateMediaQueries(
@@ -83,9 +89,7 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
             );
         });
 
-        const { name } = Component_;
-
-        if (typeof name === "string") {
+        if (name !== undefined) {
             Object.defineProperty(Out, "name", {
                 "value": `${name}WithStyles`,
             });
