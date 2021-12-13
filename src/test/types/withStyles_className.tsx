@@ -1,11 +1,6 @@
 import { createWithStyles } from "../../withStyles";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type {
-    DetailedHTMLFactory,
-    AnchorHTMLAttributes,
-    ClassAttributes,
-} from "react";
 import React from "react";
 
 const theme = {
@@ -43,36 +38,6 @@ function MyComponent(_props: Props) {
     );
 
     assert<Equals<typeof MyComponent, typeof MyComponentStyled>>();
-}
-
-{
-    const MyAnchor = withStyles("a", (theme, props, classes) => {
-        assert<Equals<typeof theme, Theme>>();
-        assert<
-            Equals<
-                typeof props,
-                ClassAttributes<HTMLAnchorElement> &
-                    AnchorHTMLAttributes<HTMLAnchorElement>
-            >
-        >();
-        assert<Equals<typeof classes, Record<"root", string>>>();
-
-        return {
-            "root": {
-                "backgroundColor": "red",
-            },
-        };
-    });
-
-    assert<
-        Equals<
-            DetailedHTMLFactory<
-                AnchorHTMLAttributes<HTMLAnchorElement>,
-                HTMLAnchorElement
-            >,
-            typeof MyAnchor
-        >
-    >();
 }
 
 {
