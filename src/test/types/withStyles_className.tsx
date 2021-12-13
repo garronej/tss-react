@@ -6,6 +6,7 @@ import type {
     AnchorHTMLAttributes,
     ClassAttributes,
 } from "react";
+import React from "react";
 
 const theme = {
     "primaryColor": "blue",
@@ -71,6 +72,46 @@ function MyComponent(_props: Props) {
             >,
             typeof MyAnchor
         >
+    >();
+}
+
+{
+    type Props = {
+        className?: string;
+        message: string;
+    };
+
+    class MyClassBasedComponent extends React.Component<
+        Props,
+        { count: number }
+    > {
+        render() {
+            return (
+                <div>
+                    {" "}
+                    {this.props.message} {this.state.count}{" "}
+                </div>
+            );
+        }
+    }
+
+    const MyClassBasedComponentStyled = withStyles(
+        MyClassBasedComponent,
+        (theme, props, classes) => {
+            assert<Equals<typeof theme, Theme>>();
+            assert<Equals<typeof props, Props>>();
+            assert<Equals<typeof classes, Record<"root", string>>>();
+
+            return {
+                "root": {
+                    "backgroundColor": "red",
+                },
+            };
+        },
+    );
+
+    assert<
+        Equals<typeof MyClassBasedComponent, typeof MyClassBasedComponentStyled>
     >();
 }
 

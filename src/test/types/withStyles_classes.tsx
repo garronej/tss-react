@@ -3,6 +3,7 @@ import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 import MuiButton from "@mui/material/Button";
 import type { ButtonProps, ButtonClassKey } from "@mui/material/Button";
+import React from "react";
 
 const theme = {
     "primaryColor": "blue",
@@ -34,6 +35,59 @@ const { withStyles } = createWithStyles({
         );
 
         assert<Equals<typeof MuiButton, typeof MyComponentStyled>>();
+    }
+
+    {
+        type Props = {
+            className?: string;
+            classes?: {
+                foo: string;
+                bar: string;
+                baz: string;
+            };
+            message: string;
+        };
+
+        class MyClassBasedComponent extends React.Component<
+            Props,
+            { count: number }
+        > {
+            render() {
+                return (
+                    <div>
+                        {" "}
+                        {this.props.message} {this.state.count}{" "}
+                    </div>
+                );
+            }
+        }
+
+        const MyClassBasedComponentStyled = withStyles(
+            MyClassBasedComponent,
+            (theme, props, classes) => {
+                assert<Equals<typeof theme, Theme>>();
+                assert<Equals<typeof props, Props>>();
+                assert<
+                    Equals<
+                        typeof classes,
+                        Record<keyof NonNullable<Props["classes"]>, string>
+                    >
+                >();
+
+                return {
+                    "root": {
+                        "backgroundColor": "red",
+                    },
+                };
+            },
+        );
+
+        assert<
+            Equals<
+                typeof MyClassBasedComponent,
+                typeof MyClassBasedComponentStyled
+            >
+        >();
     }
 
     withStyles(MuiButton, {});
