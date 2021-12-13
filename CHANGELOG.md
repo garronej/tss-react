@@ -1,3 +1,8 @@
+## **3.2.0** (2021-12-13)  
+  
+- Allow to provide name to withStyles  
+- Use fonction name if any in withStyle    
+  
 ## **3.1.0** (2021-12-12)  
   
 - Feat: tss-react/mui    
