@@ -1,3 +1,7 @@
+## **3.1.0** (2021-12-12)  
+  
+- Feat: tss-react/mui    
+  
 ### **3.0.2** (2021-12-09)  
   
 - Remove tsafe from dependencies #42    
