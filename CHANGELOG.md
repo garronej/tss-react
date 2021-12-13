@@ -1,3 +1,8 @@
+### **3.2.1** (2021-12-13)  
+  
+- README: Fix label is now name  
+- Fix search/replace error #40    
+  
 ## **3.2.0** (2021-12-13)  
   
 - Allow to provide name to withStyles  
