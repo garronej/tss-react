@@ -234,7 +234,7 @@ const { classes } = useStyles();
 
 ### Naming the stylesheets (useful for debugging)
 
-To ease debugging you can specify a label that will appear in every class names.
+To ease debugging you can specify a name that will appear in every class names.
 It is like the [`option.name` in material-ui v4's `makeStyles`](https://mui.com/styles/api/#makestyles-styles-options-hook)
 
 ```typescript
@@ -251,8 +251,8 @@ const { classes } = useStyles();
 //classes.root will be a string like: "tss-xxxxxx-MyComponent-root"
 ```
 
-Usually, you want the label to match the name of the component you are styling.
-You can pass the label as the first key of a wrapper object like so:
+Usually, you want the name to match the name of the component you are styling.
+You can pass the name as the first key of a wrapper object like so:
 
 ```tsx
 export function MyComponent() {
@@ -260,7 +260,7 @@ export function MyComponent() {
     return <h1 className={classes.root}>Hello World</h1>;
 }
 
-const useStyles = makeStyles({ "label": { MyComponent } })({
+const useStyles = makeStyles({ "name": { MyComponent } })({
     "root": {
         /*...*/
     },
