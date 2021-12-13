@@ -47,6 +47,7 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
                       string
                   >,
               ) => CssObjectByRuleName),
+        params?: { name?: string | Record<string, unknown> },
     ): C extends keyof ReactHTML ? ReactHTML[C] : C {
         const Component_: ReactComponent<any> =
             typeof Component === "string"
@@ -71,7 +72,9 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
             return typeof name === "string" ? name : undefined;
         })();
 
-        const useStyles = makeStyles<Props, any>({ name })(
+        const useStyles = makeStyles<Props, any>(
+            params?.name !== undefined ? params : { name },
+        )(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
                 ? (theme: Theme, props: Props, classes: Record<any, string>) =>
                       incorporateMediaQueries(

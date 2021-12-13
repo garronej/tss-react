@@ -1,5 +1,5 @@
 
-import { memo } from "react";
+import { memo } from "react";
 import { makeStyles, withStyles } from "makeStyles";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@mui/material";
@@ -129,6 +129,7 @@ export function App(props: { className?: string; }) {
 				<MyStyledButton>
 					The text should turn from red to blue when the
 					window inner width goes below 960px
+					And I should have a class like tss-xxxxxx-MyStyledButton-text
 				</MyStyledButton>
 				<br />
 				<MyAnchorStyled href="http://exampe.com">
@@ -278,14 +279,16 @@ const MyStyledButton = withStyles(
 	Button,
 	{
 		"text": {
-			"color": "red"
+			"color": "red",
+            "textTransform": "unset"
 		},
 		"@media (max-width: 960px)": {
 			"text": {
 				"color": "blue"
 			},
 		}
-	}
+	},
+    { "name": "MyStyledButton" }
 );
 
 const MyAnchorStyled = withStyles(
