@@ -7,6 +7,7 @@ import { useCssAndCx } from "./cssAndCx";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "./tools/typeGuard";
 import { useTssEmotionCache } from "./cache";
+import { assert } from "./tools/assert";
 
 const getCounter = (() => {
     let counter = 0;
@@ -71,11 +72,9 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                             string
                         >
                     >({} as any, {
-                        "get": (...args) => {
-                            const [, propertyKey] = args;
-
+                        "get": (...[, propertyKey]) => {
                             if (typeof propertyKey === "symbol") {
-                                return Reflect.get(...args);
+                                assert(false);
                             }
 
                             return (refClassesCache[propertyKey] = `${
@@ -131,8 +130,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                         css,
                         cx,
                     };
-                    //NOTE: css and cx only depends on cache
-                }, [cache, theme, getDependencyArrayRef(params)]);
+                }, [cache, css, cx, theme, getDependencyArrayRef(params)]);
             };
         };
     }
