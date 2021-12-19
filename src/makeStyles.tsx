@@ -72,7 +72,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                             string
                         >
                     >({} as any, {
-                        "get": (...[, propertyKey]) => {
+                        "get": (_target, propertyKey) => {
                             if (typeof propertyKey === "symbol") {
                                 assert(false);
                             }
