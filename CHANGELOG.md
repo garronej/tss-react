@@ -1,3 +1,8 @@
+### **3.2.4** (2021-12-19)  
+  
+- Do not crash if if Proxy is not defined #43  
+- Do not destructure parameters #40    
+  
 ### **3.2.3** (2021-12-19)  
   
 - Remove need for an Array.prototype.find polyfill #43    
