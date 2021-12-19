@@ -714,7 +714,6 @@ function functionInChargeOfRenderingTheHtml(res) {
 
 Polyfill required:
 
--   [`Array.prototype.find`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
 -   [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), find a polyfill [here](https://github.com/GoogleChrome/proxy-polyfill)
 
 # Development

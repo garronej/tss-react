@@ -162,12 +162,11 @@ const increaseSpecificityToTakePrecedenceOverMediaQuerries = (() => {
                     if (!isThereAnyMediaQueriesInPreviousClasses) {
                         out = className;
 
-                        if (
-                            Object.keys(cssObject).find(key =>
-                                key.startsWith("@media"),
-                            ) !== undefined
-                        ) {
-                            isThereAnyMediaQueriesInPreviousClasses = true;
+                        for (const key in cssObject) {
+                            if (key.startsWith("@media")) {
+                                isThereAnyMediaQueriesInPreviousClasses = true;
+                                break;
+                            }
                         }
                     } else {
                         out = {
