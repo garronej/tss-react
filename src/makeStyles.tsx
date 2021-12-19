@@ -66,29 +66,31 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 return useMemo(() => {
                     const refClassesCache: Record<string, string> = {};
 
-                    const refClasses = new Proxy<
-                        Record<
-                            RuleNameSubsetReferencableInNestedSelectors,
-                            string
-                        >
-                    >({} as any, {
-                        "get": (_target, propertyKey) => {
-                            if (typeof propertyKey === "symbol") {
-                                assert(false);
-                            }
+                    const refClasses =
+                        typeof Proxy !== "undefined" &&
+                        new Proxy<
+                            Record<
+                                RuleNameSubsetReferencableInNestedSelectors,
+                                string
+                            >
+                        >({} as any, {
+                            "get": (_target, propertyKey) => {
+                                if (typeof propertyKey === "symbol") {
+                                    assert(false);
+                                }
 
-                            return (refClassesCache[propertyKey] = `${
-                                cache.key
-                            }-${outerCounter}${
-                                name !== undefined ? `-${name}` : ""
-                            }-${propertyKey}-ref`);
-                        },
-                    });
+                                return (refClassesCache[propertyKey] = `${
+                                    cache.key
+                                }-${outerCounter}${
+                                    name !== undefined ? `-${name}` : ""
+                                }-${propertyKey}-ref`);
+                            },
+                        });
 
                     const cssObjectByRuleName = getCssObjectByRuleName(
                         theme,
                         params,
-                        refClasses,
+                        refClasses || ({} as Exclude<typeof refClasses, false>),
                     );
 
                     const classes = objectFromEntries(

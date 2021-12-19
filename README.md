@@ -716,6 +716,9 @@ Polyfill required:
 
 -   [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), find a polyfill [here](https://github.com/GoogleChrome/proxy-polyfill)
 
+If `Proxy` is not available, the [nested selectors API](#nested-selectors--syntax-) won't work but everything else
+will and no exception will be thrown.
+
 # Development
 
 ```bash
