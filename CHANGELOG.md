@@ -1,3 +1,7 @@
+### **3.2.3** (2021-12-19)  
+  
+- Remove need for an Array.prototype.find polyfill #43    
+  
 ### **3.2.2** (2021-12-15)  
   
   
