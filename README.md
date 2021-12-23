@@ -5,10 +5,18 @@
     <i>✨ makeStyles is dead, long live makeStyles! ✨</i>
     <br>
     <br>
-    <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=develop">
-    <img src="https://img.shields.io/bundlephobia/minzip/tss-react">
-    <img src="https://img.shields.io/npm/dw/tss-react">
-    <img src="https://img.shields.io/npm/l/tss-react">
+    <a href="https://github.com/garronej/tss-react/actions">
+      <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=main">
+    </a>
+    <a href="https://bundlephobia.com/package/tss-react">
+      <img src="https://img.shields.io/bundlephobia/minzip/tss-react">
+    </a>
+    <a href="https://www.npmjs.com/package/tss-react">
+      <img src="https://img.shields.io/npm/dw/tss-react">
+    </a>
+    <a href="https://github.com/garronej/tss-react/blob/main/LICENSE">
+      <img src="https://img.shields.io/npm/l/tss-react">
+    </a>
 </p>
 
 `'tss-react'` is intended to be the replacement for `'react-jss'` and for
