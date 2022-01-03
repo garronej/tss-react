@@ -37,7 +37,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
             cssObjectByRuleNameOrGetCssObjectByRuleName:
                 | ((
                       theme: Theme,
-                      params: Params,
+                      params?: Params,
                       classes: Record<
                           RuleNameSubsetReferencableInNestedSelectors,
                           string
@@ -56,7 +56,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
 
             const outerCounter = getCounter();
 
-            return function useStyles(params: Params) {
+            return function useStyles(params?: Params) {
                 const theme = useTheme();
 
                 const { css, cx } = useCssAndCx();
