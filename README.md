@@ -63,7 +63,7 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
     -   [`keyframes`](#keyframes)
     -   [`useMergedClasses()`](#usemergedclasses)
 -   [Cache](#cache)
--   [Nested selectors ( `$` syntax )](#nested-selectors--syntax-)
+-   [Nested selectors ( `$` syntax )](#nested-selectors---syntax-)
     -   [Nested selector with the `withStyles` API](#nested-selector-with-the-withstyles-api)
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
@@ -476,6 +476,8 @@ export const useStyles = makeStyles()({
 Merge the internal classes an the one that might have been provided as props into a single classes object.
 
 ```tsx
+import { useMergedClasses } from "tss-react";
+
 const useStyles = makeStyles()({
     "foo": {
         "border": "3px dotted black",
@@ -544,7 +546,7 @@ const tssCache = createMuiCache({
 </CacheProvider>;
 ```
 
-# Nested selectors ( `$` syntax )
+# Nested selectors ( `$` syntax )
 
 `tss-react` unlike `jss-react` doesn't support the `$` syntax but there's type safe alternatives that
 achieve the same results.
@@ -670,7 +672,7 @@ yarn add @emotion/server
 ```tsx
 import BaseDocument from "next/document";
 import { withEmotionCache } from "tss-react/nextJs";
-import { createMuiCache  } from "./index";
+import { createMuiCache } from "./index";
 
 export default withEmotionCache({
     /** If you have a custom document pass it instead */,
