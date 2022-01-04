@@ -1,3 +1,12 @@
+## **3.3.0** (2022-01-04)  
+  
+- Document useMergedClasses() #49
+
+Signed-off-by: garronej <joseph.garrone.gj@gmail.com>  
+- Feature useMergedClasses #49
+
+Signed-off-by: garronej <joseph.garrone.gj@gmail.com>    
+  
 ### **3.2.4** (2021-12-19)  
   
 - Do not crash if if Proxy is not defined #43  
