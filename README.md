@@ -61,6 +61,7 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
     -   [`withStyles()`](#withstyles)
     -   [`<GlobalStyles />`](#globalstyles-)
     -   [`keyframes`](#keyframes)
+    -   [`useMergedClasses()`](#usemergedclasses)
 -   [Cache](#cache)
 -   [Nested selectors ( `$` syntax )](#nested-selectors--syntax-)
     -   [Nested selector with the `withStyles` API](#nested-selector-with-the-withstyles-api)
@@ -203,6 +204,7 @@ import {
     useCssAndCx, //<- Access css and cx directly.
     //   (Usually you'll use useStyles returned by makeStyles or createMakeStyles for that purpose
     //    but if you have no theme in your project, it can come in handy.)
+    useMergedClasses, //<- Merge the internal classes an the one provided as props into a single classes object.
 } from "tss-react";
 ```
 
@@ -468,6 +470,50 @@ export const useStyles = makeStyles()({
     },
 });
 ```
+
+## `useMergedClasses()`
+
+Merge the internal classes an the one that might have been provided as props into a single classes object.
+
+```tsx
+const useStyles = makeStyles()({
+    "foo": {
+        "border": "3px dotted black",
+        "backgroundColor": "red",
+    },
+    "bar": {
+        "color": "pink",
+    },
+});
+
+type Props = {
+    //classes?: { foo?: string; bar?: string; };
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+};
+
+const MyTestComponentForMergedClassesInternal = (props: Props) => {
+    let { classes } = useStyles();
+
+    classes = useMergedClasses(classes, props.classes);
+
+    return (
+        <div className={classes.foo}>
+            <span className={classes.bar}>
+                The background should be green, the box should have a dotted
+                border and the text should be pink
+            </span>
+        </div>
+    );
+};
+
+render(
+    <MyTestComponentForMergedClassesInternal
+        classes={{ "foo": css({ "backgroundColor": "green" }) }}
+    />,
+);
+```
+
+[Result](https://user-images.githubusercontent.com/6702424/148137845-9e27e75c-2f3b-489f-a9b2-73e84ea0bafa.png)
 
 # Cache
 
