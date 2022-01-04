@@ -1,7 +1,7 @@
 
 import { memo } from "react";
 import { makeStyles, withStyles } from "makeStyles";
-import { GlobalStyles } from "tss-react";
+import { GlobalStyles, useMergedClasses } from "tss-react";
 import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -152,6 +152,7 @@ export function App(props: { className?: string; }) {
 					background should be lightgreen
 				</div>
 				<SecondNestedSelectorExample />
+				<MyTestComponentForMergedClasses />
 			</div>
 		</>
 	);
@@ -359,3 +360,46 @@ const { SecondNestedSelectorExample } = (() => {
     return { SecondNestedSelectorExample };
 
 })()
+
+const { MyTestComponentForMergedClasses } = (() => {
+
+    const useStyles = makeStyles()({
+        "foo": {
+            "border": "3px dotted black",
+            "backgroundColor": "red"
+        },
+        "bar": {
+            "color": "pink"
+        }
+    });
+
+    type Props = {
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    };
+
+    const MyTestComponentForMergedClassesInternal = (props: Props) => {
+
+        let { classes } = useStyles();
+
+        classes = useMergedClasses(classes, props.classes);
+
+        return (
+            <div className={classes.foo}>
+                <span className={classes.bar}>The background should be green, the box should have a dotted border and the text should be pink</span>
+            </div>
+        );
+
+    };
+
+
+    const MyTestComponentForMergedClasses = () => {
+
+        const { css } = useStyles();
+
+        return <MyTestComponentForMergedClassesInternal classes={{ "foo": css({ "backgroundColor": "green" }) }} />;
+
+    };
+
+    return { MyTestComponentForMergedClasses };
+
+})();

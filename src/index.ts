@@ -1,5 +1,6 @@
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 export { useCssAndCx } from "./cssAndCx";
+export { useMergedClasses } from "./mergeClasses";
 import { createMakeStyles } from "./makeStyles";
 export { createMakeStyles };
 import { createWithStyles } from "./withStyles";
