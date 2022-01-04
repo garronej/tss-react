@@ -23,7 +23,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
 
     /** returns useStyle. */
     function makeStyles<
-        Params = void,
+        ParamsType = void,
         RuleNameSubsetReferencableInNestedSelectors extends string = never,
     >(params?: { name?: string | Record<string, unknown> }) {
         const { name: nameOrWrappedName } = params ?? {};
@@ -33,7 +33,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 ? nameOrWrappedName
                 : Object.keys(nameOrWrappedName)[0];
 
-        return function <RuleName extends string>(
+        return function <Params = ParamsType, RuleName extends string = string>(
             cssObjectByRuleNameOrGetCssObjectByRuleName:
                 | ((
                       theme: Theme,
