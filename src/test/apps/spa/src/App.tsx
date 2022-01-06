@@ -5,6 +5,8 @@ import { GlobalStyles, useMergedClasses } from "tss-react";
 import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs";
+import type { CSSObject } from "tss-react";
+import Typography from "@mui/material/Typography";
 
 const H1 = styled('h1')({
 	"color": "yellow"
@@ -153,6 +155,7 @@ export function App(props: { className?: string; }) {
 				</div>
 				<SecondNestedSelectorExample />
 				<MyTestComponentForMergedClasses />
+				<TestCastingMuiTypographyStyleToCSSObject />
 			</div>
 		</>
 	);
@@ -401,5 +404,31 @@ const { MyTestComponentForMergedClasses } = (() => {
     };
 
     return { MyTestComponentForMergedClasses };
+
+})();
+
+const { TestCastingMuiTypographyStyleToCSSObject } = (() => {
+
+    const useStyles = makeStyles()(theme => ({
+        "root": {
+            ...(theme.typography.subtitle2 as CSSObject),
+            "color": "red"
+        }
+    }));
+
+    const TestCastingMuiTypographyStyleToCSSObject = () => {
+
+        const { classes } = useStyles();
+
+        return (
+            <>
+                <Typography variant="subtitle2">This text should be italic</Typography>
+                <span className={classes.root}>This text should be italic and red</span>
+            </>
+        );
+
+    };
+
+    return { TestCastingMuiTypographyStyleToCSSObject };
 
 })();
