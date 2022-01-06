@@ -21,6 +21,11 @@ const theme = createTheme({
         "primary": {
             "main": "#32CD32" //Limegreen
         }
+    },
+    "typography": {
+        "subtitle2": {
+            "fontStyle": "italic"
+        }
     }
 });
 
