@@ -1,3 +1,10 @@
+### **3.3.1** (2022-01-06)  
+  
+- #50  
+- Remove legacy code  
+- Officially states that IE is not fully supported.  
+- Add missing import in documentation    
+  
 ## **3.3.0** (2022-01-04)  
   
 - Document useMergedClasses() #49
