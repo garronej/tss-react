@@ -68,7 +68,6 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
 -   [Server Side Rendering (SSR)](#server-side-rendering-ssr)
     -   [With Next.js](#with-nextjs)
     -   [With any other framework](#with-any-other-framework)
--   [IE Support](#ie-support)
 -   [Development](#development)
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
@@ -648,6 +647,12 @@ const useStyles = makeStyles<
 
 https://user-images.githubusercontent.com/6702424/144655154-51d0d294-e392-4af5-8802-f3df9aa1b905.mov
 
+> WARNING: Nested selectors requires [ES6 Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) support
+> which [IE doesn't support](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy#browser_compatibility).  
+> It can't be polyfilled ([this](https://github.com/GoogleChrome/proxy-polyfill) will not work) but don't worry, if `Proxy` is not available
+> on a particular browser, no error will be thrown and TSS will still do its work.  
+> Only nested selectors won't work.
+
 ## Nested selector with the `withStyles` API
 
 https://user-images.githubusercontent.com/6702424/143791304-7705816a-4d25-4df7-9d45-470c5c9ec1bf.mp4
@@ -765,15 +770,6 @@ function functionInChargeOfRenderingTheHtml(res) {
     </html>`);
 }
 ```
-
-# IE Support
-
-Polyfill required:
-
--   [`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), find a polyfill [here](https://github.com/GoogleChrome/proxy-polyfill)
-
-If `Proxy` is not available, the [nested selectors API](#nested-selectors--syntax-) won't work but everything else
-will and no exception will be thrown.
 
 # Development
 

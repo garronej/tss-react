@@ -66,14 +66,14 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 return useMemo(() => {
                     const refClassesCache: Record<string, string> = {};
 
+                    type RefClasses = Record<
+                        RuleNameSubsetReferencableInNestedSelectors,
+                        string
+                    >;
+
                     const refClasses =
                         typeof Proxy !== "undefined" &&
-                        new Proxy<
-                            Record<
-                                RuleNameSubsetReferencableInNestedSelectors,
-                                string
-                            >
-                        >({} as any, {
+                        new Proxy<RefClasses>({} as any, {
                             "get": (_target, propertyKey) => {
                                 if (typeof propertyKey === "symbol") {
                                     assert(false);
@@ -90,7 +90,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                     const cssObjectByRuleName = getCssObjectByRuleName(
                         theme,
                         params,
-                        refClasses || ({} as Exclude<typeof refClasses, false>),
+                        refClasses || ({} as RefClasses),
                     );
 
                     const classes = objectFromEntries(
