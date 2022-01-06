@@ -163,12 +163,14 @@ export const { makeStyles, withStyles } = createMakeAndWithStyles({
 });
 ```
 
-WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitly,
-it's a peer dependency of `@mui/material`.
+> WARNING: **Keep `@emotion/styled` as a dependency of your project**. Even if you never use it explicitly,
+> it's a peer dependency of `@mui/material`.
 
-WARNING for [Storybook](https://storybook.js.org): As of writing this lines storybook still uses by default emotion 10.  
-Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32)
-to be made to your `.storybook/main.js` to make it uses emotion 11.
+> WARNING for [Storybook](https://storybook.js.org): As of writing this lines storybook still uses by default emotion 10.  
+> Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32)
+> to be made to your `.storybook/main.js` to make it uses emotion 11.
+
+> NOTE: [Here](https://mui.com/guides/migration-v4/#2-use-tss-react) is the official documentation for migrating from the old mui's makeStyles to TSS.
 
 ## Avoiding `import { makeStyles } from "../../../makeStyles"`
 
