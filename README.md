@@ -518,6 +518,11 @@ render(
 
 [Result](https://user-images.githubusercontent.com/6702424/148137845-9e27e75c-2f3b-489f-a9b2-73e84ea0bafa.png)
 
+> NOTE: You may end up with eslint warnings [like this one](https://user-images.githubusercontent.com/6702424/148657837-eae48942-fb86-4516-abe4-5dc10f44f0be.png)
+> if you deconstruct more that one item.  
+> Don't hesitate to disable this this eslint rule, [like this](https://github.com/thieryw/gitlanding/blob/b2b0c71d95cfd353979c86dfcfa1646ef1665043/.eslintrc.js#L17)
+> in a regular project, or [like this](https://github.com/InseeFrLab/onyxia-web/blob/a264ec6a6a7110cb1a17b2e22cc0605901db6793/package.json#L133) in a CRA.
+
 # Cache
 
 By default, `tss-react` uses an emotion cache that you can access with
