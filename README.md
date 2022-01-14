@@ -19,17 +19,18 @@
     </a>
 </p>
 
-`'tss-react'` is intended to be the replacement for `'react-jss'` and for
-[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api).
+`'tss-react'` is intended to be the replacement for
+[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
--   ✅ Seamless integration with [mui](https://mui.com) v5 and v4.
+-   ✅ Seamless integration with [mui](https://mui.com).
+-   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
+-   ✅ Server side rendering support (e.g: Next.js).
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
+-   ✅ Custom `@emotion` cache support.
 -   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has virtually no impact on the bundle size alongside mui.
 -   ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
--   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
--   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
--   ✅ `@emotion` cache support.
 
 ```bash
 $ yarn add tss-react @emotion/react
