@@ -20,6 +20,12 @@ export function mergeClasses<T extends string>(
         ruleName =>
             (out[ruleName] = cx(classes[ruleName], classesOv[ruleName])),
     );
+    objectKeys(classesOv).forEach(ruleName => {
+        const value = classesOv[ruleName] as string | undefined;
+        if (!(ruleName in out) && value !== undefined) {
+            out[ruleName] = value;
+        }
+    });
 
     return out;
 }

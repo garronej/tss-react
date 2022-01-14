@@ -5,6 +5,7 @@ import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
 import { capitalize } from "./tools/capitalize";
+import { mergeClasses } from "./mergeClasses";
 
 export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
@@ -93,13 +94,17 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
         const Out = forwardRef<any, Props>(function (props, ref) {
             const { classes, cx } = useStyles(props);
 
-            const { className, ...rest } = props;
+            const { className, classes: propsClasses, ...rest } = props;
 
             return (
                 <Component_
                     ref={ref}
                     className={cx(classes.root, className)}
-                    {...(typeof Component === "string" ? {} : { classes })}
+                    {...(typeof Component === "string"
+                        ? {}
+                        : {
+                              classes: mergeClasses(classes, propsClasses, cx),
+                          })}
                     {...rest}
                 />
             );
