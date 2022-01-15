@@ -14,6 +14,7 @@ import type { EmotionCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import Typography from "@mui/material/Typography";
 import type { CSSObject } from "tss-react";
+import InputBase from "@mui/material/InputBase";
 
 let muiCache: EmotionCache | undefined = undefined;
 
@@ -245,6 +246,7 @@ const { App } = (() => {
                     <SecondNestedSelectorExample />
                     <MyTestComponentForMergedClasses />
                     <TestCastingMuiTypographyStyleToCSSObject />
+                    <TestPr54 />
                 </div>
             </>
         );
@@ -525,5 +527,34 @@ const { TestCastingMuiTypographyStyleToCSSObject } = (() => {
     };
 
     return { TestCastingMuiTypographyStyleToCSSObject };
+
+})();
+
+const { TestPr54 } = (() => {
+
+    const CustomInputBase = withStyles(
+        InputBase,
+        {
+            "input": {
+                "backgroundColor": "red",
+                "color": "pink"
+            }
+        }
+    );
+
+    const StyledInput = withStyles(CustomInputBase, theme => ({
+        "input": {
+            "backgroundColor": theme.palette.primary.main
+        }
+    }));
+
+    const TestPr54 = () => (
+        <>
+            <span>The Input below should have a lime green background and when you type the text should be pink</span>
+            <StyledInput />
+        </>
+    );
+
+    return { TestPr54 };
 
 })();

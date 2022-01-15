@@ -8,11 +8,12 @@ import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import InputBase from "@material-ui/core/InputBase";
 
 const theme = createTheme({
     "palette": {
         "primary": {
-            "main": "#32CD32"
+            "main": "#32CD32" //Limegreen
         }
     }
 });
@@ -190,6 +191,7 @@ const { App } = (() => {
                     )}>
                         background should be lightgreen
                     </div>
+                    <TestPr54 />
                 </div>
             </>
         );
@@ -332,14 +334,43 @@ const MyStyledButton = withStyles(
 );
 
 const MyAnchorStyled = withStyles(
-	"a",
-	(theme, { href }) => ({
-		"root": {
-			"border": "1px solid black",
-			"backgroundColor":
-				href?.startsWith("https") ?
-					theme.palette.primary.main :
-					"red"
-		}
-	})
+    "a",
+    (theme, { href }) => ({
+        "root": {
+            "border": "1px solid black",
+            "backgroundColor":
+                href?.startsWith("https") ?
+                    theme.palette.primary.main :
+                    "red"
+        }
+    })
 );
+
+const { TestPr54 } = (() => {
+
+    const CustomInputBase = withStyles(
+        InputBase,
+        {
+            "input": {
+                "backgroundColor": "red",
+                "color": "pink"
+            }
+        }
+    );
+
+    const StyledInput = withStyles(CustomInputBase, theme => ({
+        "input": {
+            "backgroundColor": theme.palette.primary.main
+        }
+    }));
+
+    const TestPr54 = () => (
+        <>
+            <span>The Input below should have a lime green background and when you type the text should be pink</span>
+            <StyledInput />
+        </>
+    );
+
+    return { TestPr54 };
+
+})();

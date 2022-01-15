@@ -7,6 +7,7 @@ import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import type { CSSObject } from "tss-react";
 import Typography from "@mui/material/Typography";
+import InputBase from "@mui/material/InputBase";
 
 const H1 = styled('h1')({
 	"color": "yellow"
@@ -156,6 +157,7 @@ export function App(props: { className?: string; }) {
 				<SecondNestedSelectorExample />
 				<MyTestComponentForMergedClasses />
 				<TestCastingMuiTypographyStyleToCSSObject />
+				<TestPr54 />
 			</div>
 		</>
 	);
@@ -284,7 +286,7 @@ const MyStyledButton = withStyles(
 	{
 		"text": {
 			"color": "red",
-            "textTransform": "unset"
+			"textTransform": "unset"
 		},
 		"@media (max-width: 960px)": {
 			"text": {
@@ -292,7 +294,7 @@ const MyStyledButton = withStyles(
 			},
 		}
 	},
-    { "name": "MyStyledButton" }
+	{ "name": "MyStyledButton" }
 );
 
 const MyAnchorStyled = withStyles(
@@ -321,114 +323,136 @@ const MyBreadcrumbs = withStyles(
 
 const { SecondNestedSelectorExample } = (() => {
 
-    const SecondNestedSelectorExample = memo(() => {
+	const SecondNestedSelectorExample = memo(() => {
 
-        const { classes, cx } = useStyles({ "color": "primary" });
+		const { classes, cx } = useStyles({ "color": "primary" });
 
-        return (
-            <div className={classes.root}>
-                <div className={classes.child}>
-                    The Background take the primary theme color when the mouse is hover the parent.
-                </div>
-                <div className={cx(classes.child, classes.small)}>
-                    The Background take the primary theme color when the mouse is hover the parent.
-                    I am smaller than the other child.
-                </div>
-            </div>
-        );
+		return (
+			<div className={classes.root}>
+				<div className={classes.child}>
+					The Background take the primary theme color when the mouse is hover the parent.
+				</div>
+				<div className={cx(classes.child, classes.small)}>
+					The Background take the primary theme color when the mouse is hover the parent.
+					I am smaller than the other child.
+				</div>
+			</div>
+		);
 
-    });
+	});
 
-    const useStyles = makeStyles<{ color: "primary" | "secondary" }, "child" | "small">({
-        "name": { SecondNestedSelectorExample }
-    })(
-        (theme, { color }, classes) => ({
-            "root": {
-                "padding": 30,
-                [`&:hover .${classes.child}`]: {
-                    "backgroundColor": theme.palette[color].main,
-                },
-            },
-            "small": {},
-            "child": {
-                "border": "1px solid black",
-                "height": 50,
-                [`&.${classes.small}`]: {
-                    "height": 30,
-                }
-            },
-        })
-    );
+	const useStyles = makeStyles<{ color: "primary" | "secondary" }, "child" | "small">({
+		"name": { SecondNestedSelectorExample }
+	})(
+		(theme, { color }, classes) => ({
+			"root": {
+				"padding": 30,
+				[`&:hover .${classes.child}`]: {
+					"backgroundColor": theme.palette[color].main,
+				},
+			},
+			"small": {},
+			"child": {
+				"border": "1px solid black",
+				"height": 50,
+				[`&.${classes.small}`]: {
+					"height": 30,
+				}
+			},
+		})
+	);
 
-    return { SecondNestedSelectorExample };
+	return { SecondNestedSelectorExample };
 
 })()
 
 const { MyTestComponentForMergedClasses } = (() => {
 
-    const useStyles = makeStyles()({
-        "foo": {
-            "border": "3px dotted black",
-            "backgroundColor": "red"
-        },
-        "bar": {
-            "color": "pink"
-        }
-    });
+	const useStyles = makeStyles()({
+		"foo": {
+			"border": "3px dotted black",
+			"backgroundColor": "red"
+		},
+		"bar": {
+			"color": "pink"
+		}
+	});
 
-    type Props = {
-        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
-    };
+	type Props = {
+		classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+	};
 
-    const MyTestComponentForMergedClassesInternal = (props: Props) => {
+	const MyTestComponentForMergedClassesInternal = (props: Props) => {
 
-        let { classes } = useStyles();
+		let { classes } = useStyles();
 
-        classes = useMergedClasses(classes, props.classes);
+		classes = useMergedClasses(classes, props.classes);
 
-        return (
-            <div className={classes.foo}>
-                <span className={classes.bar}>The background should be green, the box should have a dotted border and the text should be pink</span>
-            </div>
-        );
+		return (
+			<div className={classes.foo}>
+				<span className={classes.bar}>The background should be green, the box should have a dotted border and the text should be pink</span>
+			</div>
+		);
 
-    };
+	};
 
 
-    const MyTestComponentForMergedClasses = () => {
+	const MyTestComponentForMergedClasses = () => {
 
-        const { css } = useStyles();
+		const { css } = useStyles();
 
-        return <MyTestComponentForMergedClassesInternal classes={{ "foo": css({ "backgroundColor": "green" }) }} />;
+		return <MyTestComponentForMergedClassesInternal classes={{ "foo": css({ "backgroundColor": "green" }) }} />;
 
-    };
+	};
 
-    return { MyTestComponentForMergedClasses };
+	return { MyTestComponentForMergedClasses };
 
 })();
 
 const { TestCastingMuiTypographyStyleToCSSObject } = (() => {
 
-    const useStyles = makeStyles()(theme => ({
-        "root": {
-            ...(theme.typography.subtitle2 as CSSObject),
-            "color": "red"
-        }
-    }));
+	const useStyles = makeStyles()(theme => ({
+		"root": {
+			...(theme.typography.subtitle2 as CSSObject),
+			"color": "red"
+		}
+	}));
 
-    const TestCastingMuiTypographyStyleToCSSObject = () => {
+	const TestCastingMuiTypographyStyleToCSSObject = () => {
 
-        const { classes } = useStyles();
+		const { classes } = useStyles();
 
-        return (
-            <>
-                <Typography variant="subtitle2">This text should be italic</Typography>
-                <span className={classes.root}>This text should be italic and red</span>
-            </>
-        );
+		return (
+			<>
+				<Typography variant="subtitle2">This text should be italic</Typography>
+				<span className={classes.root}>This text should be italic and red</span>
+			</>
+		);
 
-    };
+	};
 
-    return { TestCastingMuiTypographyStyleToCSSObject };
+	return { TestCastingMuiTypographyStyleToCSSObject };
+
+})();
+
+const { TestPr54 } = (() => {
+
+	const CustomInputBase = withStyles(
+		InputBase,
+		theme =>
+		({
+			"input": {
+				"backgroundColor": theme.palette.grey[50],
+			},
+		} as const)
+	);
+
+	const TestPr54 = withStyles(CustomInputBase, () => ({
+		"input": {
+			"backgroundColor": "red"
+		},
+	}));
+
+	return { TestPr54 };
 
 })();

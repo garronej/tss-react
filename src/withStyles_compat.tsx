@@ -5,7 +5,7 @@ import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
 import { capitalize } from "./tools/capitalize";
-import { mergeClasses } from "./mergeClasses";
+import { useMergedClasses } from "./mergeClasses";
 
 export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
@@ -79,19 +79,18 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const Out = forwardRef<any, Props>(function (props, ref) {
-            const { classes, cx } = useStyles(props);
+            const { className, classes: classesFromProps, ...rest } = props;
 
-            const { className, classes: propsClasses, ...rest } = props;
+            // eslint-disable-next-line prefer-const
+            let { classes, cx } = useStyles(props);
+
+            classes = useMergedClasses(classes, classesFromProps || undefined);
 
             return (
                 <Component_
                     ref={ref}
                     className={cx(classes.root, className)}
-                    {...(typeof Component === "string"
-                        ? {}
-                        : {
-                              classes: mergeClasses(classes, propsClasses, cx),
-                          })}
+                    {...(typeof Component === "string" ? {} : { classes })}
                     {...rest}
                 />
             );
