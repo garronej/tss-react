@@ -19,17 +19,18 @@
     </a>
 </p>
 
-`'tss-react'` is intended to be the replacement for `'react-jss'` and for
-[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api).
+`'tss-react'` is intended to be the replacement for
+[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
--   ✅ Seamless integration with [mui](https://mui.com) v5 and v4.
+-   ✅ Seamless integration with [mui](https://mui.com) and [material-ui v4](https://v4.mui.com/).
+-   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
+-   ✅ Server side rendering support (e.g: Next.js).
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
+-   ✅ Custom `@emotion` cache support.
 -   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has virtually no impact on the bundle size alongside mui.
 -   ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
--   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
--   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
--   ✅ `@emotion` cache support.
 
 ```bash
 $ yarn add tss-react @emotion/react
@@ -39,14 +40,10 @@ $ yarn add tss-react @emotion/react
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
 
-**Breaking changes in v3**:
+**JavaScript support**: [YES](https://github.com/garronej/tss-react/issues/28).
 
--   New API for [nested selectors](#nested-selectors--syntax-). We no longer use `createRef()`.
--   [`label` have been renamed `name`](#naming-the-stylesheets-useful-for-debugging) for helping the migration from [the old mui API](https://mui.com/styles/api/#makestyles-styles-options-hook).
--   [It is now required to provide some polyfills to support IE](#ie-support). (for the sake of the bundle size)
-
-**JavaScript support**: Although `tss-react` have been designed with TypeScript in mind
-it can of course [be used in vanilla JS projects](https://github.com/garronej/tss-react/issues/28).
+> If the API frustrate you in anyway feel free to [start a discussion ](https://github.com/garronej/tss-react/discussions) 💬  
+> If you like TSS consider giving the project a ⭐️
 
 -   [Quick start](#quick-start)
     -   [Minimal setup](#minimal-setup)
@@ -69,6 +66,9 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
     -   [With Next.js](#with-nextjs)
     -   [With any other framework](#with-any-other-framework)
 -   [Development](#development)
+-   [Changelog highlights](#changelog-highlights)
+    -   [v3.3.1](#v331)
+    -   [Breaking changes in v3](#breaking-changes-in-v3)
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
     -   [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
@@ -120,6 +120,8 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
 ```
 
 ## Mui integration
+
+> If you are still using material-ui v4 [here is a reference setup](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr).
 
 **Don't** use `<StyledEngineProvider injectFirst/>` but do this instead:
 
@@ -798,6 +800,21 @@ yarn start_muiV4
 ```
 
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
+
+# Changelog highlights
+
+<details>
+    <summary>Click to expand</summary>
+
+## v3.3.1
+
+-   I.E is **almost** supported out of the box (See note at the end of [this sections](#nested-selectors---syntax-))
+
+## Breaking changes in v3
+
+-   New API for [nested selectors](#nested-selectors--syntax-). We no longer use `createRef()`.
+-   [`label` have been renamed `name`](#naming-the-stylesheets-useful-for-debugging) for helping the migration from [the old mui API](https://mui.com/styles/api/#makestyles-styles-options-hook).
+</details>
 
 # FAQ
 

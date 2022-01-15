@@ -1,5 +1,7 @@
 import { createMakeAndWithStyles } from "../..";
 import { mergeClasses } from "../../mergeClasses";
+import type { Equals } from "tsafe";
+import { assert } from "tsafe";
 
 const { makeStyles } = createMakeAndWithStyles({
     "useTheme": () => ({}),
@@ -12,20 +14,74 @@ const useStyles = makeStyles()({
 
 const { classes } = useStyles();
 
-const classesFromProps = {
-    "foo": "xxx",
-    "bar": "yyy",
-    "somethingElse": "zzz",
-};
+const classesFromProps:
+    | {
+          foo?: string;
+          bar?: string;
+          onlyOnProp?: string;
+      }
+    | undefined = null as any;
 
-mergeClasses(classes, classesFromProps, null as any);
+{
+    const mergedClasses = mergeClasses(classes, classesFromProps, null as any);
 
-mergeClasses(classes, {}, null as any);
+    assert<
+        Equals<
+            typeof mergedClasses,
+            {
+                foo: string;
+                bar: string;
+                onlyOnProp?: string;
+            }
+        >
+    >();
+}
+
+{
+    const mergedClasses = mergeClasses(classes, {}, null as any);
+
+    assert<
+        Equals<
+            typeof mergedClasses,
+            {
+                foo: string;
+                bar: string;
+            }
+        >
+    >();
+}
 
 //@ts-expect-error
 mergeClasses(classes, { "foo": 33 }, null as any);
 
-//@ts-expect-error
-mergeClasses(classes, { "foo": "xxx", "somethingElse": "zzz" }, null as any);
+{
+    const mergedClasses = mergeClasses(
+        classes,
+        { "foo": "xxx", "somethingElse": "zzz" },
+        null as any,
+    );
 
-mergeClasses(classes, undefined, null as any);
+    assert<
+        Equals<
+            typeof mergedClasses,
+            {
+                foo: string;
+                bar: string;
+                somethingElse?: string;
+            }
+        >
+    >();
+}
+{
+    const mergedClasses = mergeClasses(classes, undefined, null as any);
+
+    assert<
+        Equals<
+            typeof mergedClasses,
+            {
+                foo: string;
+                bar: string;
+            }
+        >
+    >();
+}
