@@ -1,3 +1,15 @@
+### **3.3.2** (2022-01-15)  
+  
+- Merge pull request #55 from bayzat/with-styles-merging-classes
+
+Add support of merging classes in withStyles  
+- #54  
+- Gives instructions for material-ui v4  
+- Update README  
+- Add support of merging classes passed to the component which is constructed by withStyles  
+- README: Explain how to disable prefer-const for useMergedClasses  
+- Add official mui guide in the readme    
+  
 ### **3.3.1** (2022-01-06)  
   
 - #50  
