@@ -40,12 +40,6 @@ $ yarn add tss-react @emotion/react
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
 
-**Breaking changes in v3**:
-
--   New API for [nested selectors](#nested-selectors--syntax-). We no longer use `createRef()`.
--   [`label` have been renamed `name`](#naming-the-stylesheets-useful-for-debugging) for helping the migration from [the old mui API](https://mui.com/styles/api/#makestyles-styles-options-hook).
--   [It is now required to provide some polyfills to support IE](#ie-support). (for the sake of the bundle size)
-
 **JavaScript support**: Although `tss-react` have been designed with TypeScript in mind
 it can of course [be used in vanilla JS projects](https://github.com/garronej/tss-react/issues/28).
 
@@ -70,6 +64,9 @@ it can of course [be used in vanilla JS projects](https://github.com/garronej/ts
     -   [With Next.js](#with-nextjs)
     -   [With any other framework](#with-any-other-framework)
 -   [Development](#development)
+-   [Changelog highlights](#changelog-highlights)
+    -   [v3.3.1](#v331)
+    -   [Breaking changes in v3](#breaking-changes-in-v3)
 -   [FAQ](#faq)
     -   [Why this instead of the hook API of Material UI v4?](#why-this-instead-of-the-hook-api-of-material-ui-v4)
     -   [Why this instead of Styled component ?](#why-this-instead-of-styled-component-)
@@ -801,6 +798,21 @@ yarn start_muiV4
 ```
 
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
+
+# Changelog highlights
+
+<details>
+    <summary>Click to expand</summary>
+
+## v3.3.1
+
+-   I.E is **almost** supported out of the box (See note at the end of [this sections](#nested-selectors---syntax-))
+
+## Breaking changes in v3
+
+-   New API for [nested selectors](#nested-selectors--syntax-). We no longer use `createRef()`.
+-   [`label` have been renamed `name`](#naming-the-stylesheets-useful-for-debugging) for helping the migration from [the old mui API](https://mui.com/styles/api/#makestyles-styles-options-hook).
+</details>
 
 # FAQ
 
