@@ -40,8 +40,7 @@ $ yarn add tss-react @emotion/react
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
 
-**JavaScript support**: Although `tss-react` have been designed with TypeScript in mind
-it can of course [be used in vanilla JS projects](https://github.com/garronej/tss-react/issues/28).
+**JavaScript support**: [YES](https://github.com/garronej/tss-react/issues/28).
 
 -   [Quick start](#quick-start)
     -   [Minimal setup](#minimal-setup)
