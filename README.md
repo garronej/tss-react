@@ -42,6 +42,9 @@ $ yarn add tss-react @emotion/react
 
 **JavaScript support**: [YES](https://github.com/garronej/tss-react/issues/28).
 
+> If the API frustrate you in anyway feel free to [start a discussion ](https://github.com/garronej/tss-react/discussions) 💬  
+> If you like TSS consider giving the project a ⭐️
+
 -   [Quick start](#quick-start)
     -   [Minimal setup](#minimal-setup)
     -   [Mui integration](#mui-integration)
