@@ -22,7 +22,7 @@
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
--   ✅ Seamless integration with [mui](https://mui.com).
+-   ✅ Seamless integration with [mui](https://mui.com) and [material-ui v4](https://v4.mui.com/).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
@@ -121,6 +121,8 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
 ```
 
 ## Mui integration
+
+> If you are still using material-ui v4 [here is a reference setup](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr).
 
 **Don't** use `<StyledEngineProvider injectFirst/>` but do this instead:
 
