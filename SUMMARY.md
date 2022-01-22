@@ -2,5 +2,5 @@
 
 * [Cache](README.md)
 * [Nested selectors (ex $ syntax)](nested-selectors-ex-usd-syntax.md)
-* [SSR](ssr.md)
-* [Next.js](next.js.md)
+* [SSR](ssr/README.md)
+  * [Next.js](ssr/next.js.md)

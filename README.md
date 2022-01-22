@@ -11,7 +11,7 @@ If you are using `tss-react` with mui v5, be aware that mui and tss can't share 
 
 ```tsx
 import createCache from "@emotion/cache";
-import { TssCacheProvider } from "tss-react";
+import { TssCacheProvider } from "tss-react;
 import { CacheProvider } from "@emotion/react";
 
 const muiCache = createMuiCache({

@@ -13,53 +13,7 @@ The following instructions are assuming you are using `tss-react` standalone or 
 ### With [Next.js](https://nextjs.org)
 
 ```bash
-yarn add @emotion/server
 ```
-
-`pages/_document.tsx`
-
-```tsx
-import BaseDocument from "next/document";
-import { withEmotionCache } from "tss-react/nextJs";
-import { createMuiCache } from "./index";
-
-export default withEmotionCache({
-    /** If you have a custom document pass it instead */,
-    "Document": BaseDocument,
-    /**
-     * Every emotion cache used in the app should be provided.
-     * Caches for MUI should use "prepend": true.
-     * */
-    "getCaches": ()=> [ createMuiCache() ]
-});
-```
-
-`page/index.tsx`
-
-```tsx
-import type { EmotionCache } from "@emotion/cache";
-import createCache from "@emotion/cache";
-
-let muiCache: EmotionCache | undefined = undefined;
-
-export const createMuiCache = () =>
-    (muiCache = createCache({
-        "key": "mui",
-        "prepend": true,
-    }));
-
-export default function Index() {
-    return (
-        <CacheProvider value={muiCache ?? createMuiCache()}>
-            {/* Your app  */}
-        </CacheProvider>
-    );
-}
-```
-
-You can find a working example [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/ssr).
-
-NOTE: This setup is merely a suggestion. Feel free, for example, to move the `<CacheProvider />` into `pages/_app.tsx`. What's important to remember however is that new instances of the caches should be created for each render.
 
 ### With any other framework
 
