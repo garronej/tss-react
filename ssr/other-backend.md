@@ -1,3 +1,7 @@
+---
+description: Configure SSR in in frameworks other than Next.js like for example Express.js
+---
+
 # Other backend
 
 ```
@@ -6,7 +10,7 @@ yarn add @emotion/server
 
 ```tsx
 import createEmotionServer from "@emotion/server/create-instance";
-import { renderToString } from "react-dom/server"
+import { renderToString } from "react-dom/server";
 import { getTssDefaultEmotionCache } from "tss-react";
 
 let muiCache: EmotionCache | undefined = undefined;
@@ -29,7 +33,7 @@ function functionInChargeOfRenderingTheHtml(res) {
     const html = renderToString(
         <CacheProvider value={muiCache ?? createMuiCache()}>
             <App />
-        </CacheProvider>,
+        </CacheProvider>
     );
 
     res.status(200).header("Content-Type", "text/html").send([
