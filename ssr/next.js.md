@@ -16,12 +16,10 @@ import { withEmotionCache } from "tss-react/nextJs";
 import { createMuiCache } from "./index";
 
 export default withEmotionCache({
-    /** If you have a custom document pass it instead */,
+    //If you have a custom document pass it instead
     "Document": BaseDocument,
-    /**
-     * Every emotion cache used in the app should be provided.
-     * Caches for MUI should use "prepend": true.
-     * */
+    //Every emotion cache used in the app should be provided.
+    //Caches for MUI should use "prepend": true.
     "getCaches": ()=> [ createMuiCache() ]
 });
 ```
