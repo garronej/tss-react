@@ -8,9 +8,6 @@
     <a href="https://github.com/garronej/tss-react/actions">
       <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=main">
     </a>
-    <a href="https://bundlephobia.com/package/tss-react">
-      <img src="https://img.shields.io/bundlephobia/minzip/tss-react">
-    </a>
     <a href="https://www.npmjs.com/package/tss-react">
       <img src="https://img.shields.io/npm/dw/tss-react">
     </a>
@@ -27,7 +24,7 @@
 -   ✅ Server side rendering support (e.g: Next.js).
 -   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
 -   ✅ Custom `@emotion` cache support.
--   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has virtually no impact on the bundle size alongside mui.
+-   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has very little impact on the bundle size alongside mui (~5kB minziped).
 -   ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
