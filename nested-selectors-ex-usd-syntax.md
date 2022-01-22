@@ -1,6 +1,8 @@
 # Nested selectors (ex $ syntax)
 
-`tss-react` unlike `jss-react` doesn't support the `$` syntax but there's type safe alternatives that achieve the same results.
+`tss-react` unlike `jss-react` doesn't support the `$` syntax but a better alternative.
+
+## `makeStyles`
 
 In **JSS** you can do:
 
@@ -26,7 +28,7 @@ In **JSS** you can do:
 
 ![](https://user-images.githubusercontent.com/6702424/129976981-0637235a-570e-427e-9e77-72d100df0c36.gif)
 
-This is how you would achieve the same result with `` tss-react` ``
+This is how you would achieve the same result with `tss-react`
 
 ```jsx
 export function App() {
@@ -98,11 +100,13 @@ const useStyles = makeStyles<
 ```
 
 {% embed url="https://user-images.githubusercontent.com/6702424/150658036-89ad047b-1282-4892-a0b6-e8d555d5cad5.mp4" %}
+The render of the avove code
+{% endembed %}
 
 > WARNING: Nested selectors requires [ES6 Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Proxy) support which [IE doesn't support](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Proxy#browser\_compatibility).\
 > It can't be polyfilled ([this](https://github.com/GoogleChrome/proxy-polyfill) will not work) but don't worry, if `Proxy` is not available on a particular browser, no error will be thrown and TSS will still do its work.\
 > Only nested selectors won't work.
 
-### Nested selector with the `withStyles` API
+## `withStyles`
 
 {% embed url="https://user-images.githubusercontent.com/6702424/143791304-7705816a-4d25-4df7-9d45-470c5c9ec1bf.mp4" %}
