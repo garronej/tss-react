@@ -1,3 +1,7 @@
+### **3.3.4** (2022-01-22)  
+  
+- Mention early in the readme what cx is doing    
+  
 ### **3.3.3** (2022-01-22)  
   
 - Imporove MUI integration documentation  
