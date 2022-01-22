@@ -4,7 +4,7 @@
 
 In **JSS** you can do:
 
-```tsx
+```jsx
 {
   "parent": {
       "padding": 30,
@@ -26,9 +26,9 @@ In **JSS** you can do:
 
 ![](https://user-images.githubusercontent.com/6702424/129976981-0637235a-570e-427e-9e77-72d100df0c36.gif)
 
-This is how you would achieve the same result with `tss-react`
+This is how you would achieve the same result with `` tss-react` ``
 
-```tsx
+```jsx
 export function App() {
     const { classes } = useStyles();
 
@@ -41,17 +41,19 @@ export function App() {
     );
 }
 
-const useStyles = makeStyles<void, "child">()((_theme, _params, classes) => ({
-    "parent": {
-        "padding": 30,
-        [`&:hover .${classes.child}`]: {
-            "backgroundColor": "red",
+const useStyles = makeStyles<void, "child">()(
+    (_theme, _params, classes) => ({
+        "parent": {
+            "padding": 30,
+            [`&:hover .${classes.child}`]: {
+                "backgroundColor": "red",
+            }
         },
-    },
-    "child": {
-        "backgroundColor": "blue",
-    },
-}));
+        "child": {
+            "backgroundColor": "blue",
+        },
+    })
+);
 ```
 
 An other example:
@@ -82,7 +84,7 @@ const useStyles = makeStyles<
         "padding": 30,
         [`&:hover .${classes.child}`]: {
             "backgroundColor": theme.palette[color].main,
-        },
+        }
     },
     "small": {},
     "child": {
@@ -90,8 +92,8 @@ const useStyles = makeStyles<
         "height": 50,
         [`&.${classes.small}`]: {
             "height": 30,
-        },
-    },
+        }
+    }
 }));
 ```
 
