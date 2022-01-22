@@ -124,8 +124,6 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
 
 > If you are still using material-ui v4 [here is a reference setup](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr).
 
-**Don't** use `<StyledEngineProvider injectFirst/>` but do this instead:
-
 ```tsx
 import { render } from "react-dom";
 import { CacheProvider } from "@emotion/react";
@@ -137,6 +135,7 @@ export const muiCache = createCache({
     "prepend": true,
 });
 
+//NOTE: Don't use <StyledEngineProvider injectFirst/>
 render(
     <CacheProvider value={muiCache}>
         <ThemeProvider theme={myTheme}>
