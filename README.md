@@ -101,6 +101,7 @@ export function MyComponent(props: Props) {
 
     const { classes, cx } = useStyles({ color });
 
+    //Thanks to cx, className will take priority over classes.root 🤩
     return <span className={cx(classes.root, className)}>hello world</span>;
 }
 
