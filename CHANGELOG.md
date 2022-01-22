@@ -1,3 +1,8 @@
+### **3.3.3** (2022-01-22)  
+  
+- Imporove MUI integration documentation  
+- Remove bundle phobia link, the result are not actuate.    
+  
 ### **3.3.2** (2022-01-15)  
   
 - Merge pull request #55 from bayzat/with-styles-merging-classes
