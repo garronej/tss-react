@@ -118,6 +118,9 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
 
 ## Mui integration
 
+> If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration
+> guide from MUI's documentation website [here](https://mui.com/guides/migration-v4/#2-use-tss-react).
+
 > If you are still using material-ui v4 [here is a reference setup](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr).
 
 **Don't** use `<StyledEngineProvider injectFirst/>` but do this instead:
@@ -143,7 +146,14 @@ render(
 );
 ```
 
-`./makeStyles.ts`
+As a MUI user, you can simply  
+`import { makeStyles, withStyles } from "tss-react/mui"`.  
+The theme object that will be passed to your callbacks functions will be the one you
+get with  
+`import { useTheme } from "@mui/material/styles"`.
+
+If you want to take controls over what the `theme` object should be,
+you can re-export `makeStyles` and `withStyles` from a file called, for example, `makesStyles.ts`:
 
 ```typescript
 import { useTheme } from "@mui/material/styles";
@@ -168,8 +178,6 @@ export const { makeStyles, withStyles } = createMakeAndWithStyles({
 > WARNING for [Storybook](https://storybook.js.org): As of writing this lines storybook still uses by default emotion 10.  
 > Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32)
 > to be made to your `.storybook/main.js` to make it uses emotion 11.
-
-> NOTE: [Here](https://mui.com/guides/migration-v4/#2-use-tss-react) is the official documentation for migrating from the old mui's makeStyles to TSS.
 
 ## Avoiding `import { makeStyles } from "../../../makeStyles"`
 
