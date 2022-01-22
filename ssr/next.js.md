@@ -8,6 +8,12 @@ yarn add @emotion/server
 
 {% tabs %}
 {% tab title="With MUI" %}
+{% hint style="info" %}
+The following instructions are assuming you are using `@mui`v5.
+
+&#x20;You can find [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/muiV4ssr) a Next.js setup with `@material-ui` v4.
+{% endhint %}
+
 `pages/_document.tsx`
 
 ```tsx
@@ -80,4 +86,6 @@ What's important to remember however is that new instances of the caches should 
 {% endhint %}
 {% endtab %}
 {% endtabs %}
+
+
 
