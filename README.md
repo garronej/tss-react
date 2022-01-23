@@ -8,34 +8,6 @@ description: Start using TSS, with or without MUI
 yarn add tss-react @emotion/react
 ```
 
-`./MyComponent.tsx`
-
-```tsx
-import { makeStyles } from "./makeStyles";
-
-export function MyComponent(props: Props) {
-    const { className } = props;
-
-    const [color, setColor] = useState<"red" | "blue">("red");
-
-    const { classes, cx } = useStyles({ color });
-
-    //Thanks to cx, className will take priority over classes.root 🤩
-    return <span className={cx(classes.root, className)}>hello world</span>;
-}
-
-const useStyles = makeStyles<{ color: "red" | "blue" }>()(
-    (theme, { color }) => ({
-        "root": {
-            color,
-            "&:hover": {
-                "backgroundColor": theme.primaryColor
-            }
-        }
-    })
-);
-```
-
 {% tabs %}
 {% tab title="With MUI" %}
 {% hint style="info" %}
@@ -108,6 +80,7 @@ export function MyComponent(props: Props) {
     const { classes, cx } = useStyles({ color });
 
     //Thanks to cx, className will take priority over classes.root 🤩
+    //With TSS you must stop using clsx and use cx instead.
     return <span className={cx(classes.root, className)}>hello world</span>;
 }
 
