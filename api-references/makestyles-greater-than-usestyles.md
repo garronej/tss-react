@@ -7,8 +7,8 @@ Your component style may depend on the props and state of the components:
 ```typescript
 const useStyles = makeStyles<{ color: string }>()((_theme, { color }) => ({
     "root": {
-        "backgroundColor": color
-    }
+        "backgroundColor": color,
+    },
 }));
 
 //...
@@ -24,8 +24,8 @@ const useStyles = makeStyles()({
     //props to describe your component style you can pass-in
     //an object instead of a callback.
     "root": {
-        "backgroundColor": "pink"
-    }
+        "backgroundColor": "pink",
+    },
 });
 
 //...
@@ -41,7 +41,7 @@ To ease debugging you can specify a name that will appear in every class names. 
 const useStyles = makeStyles({ "name": "MyComponent" })({
     "root": {
         /*...*/
-    }
+    },
 });
 
 //...
@@ -62,7 +62,7 @@ export function MyComponent() {
 const useStyles = makeStyles({ "name": { MyComponent } })({
     "root": {
         /*...*/
-    }
+    },
 });
 
 //...
@@ -100,7 +100,7 @@ function useTheme() {
 
 export const {
     makeStyles,
-    useStyles //<- This useStyles is like the useStyles you get when you
+    useStyles, //<- This useStyles is like the useStyles you get when you
     //   call makeStyles but it doesn't return a classes object.
 } = createMakeAndWithStyles({ useTheme });
 ```

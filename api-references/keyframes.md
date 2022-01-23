@@ -1,8 +1,7 @@
 # keyframes
 
-`keyfames` is a direct re-export of [the `@emotion` function](https://emotion.sh/docs/keyframes).
-
 ```javascript
+// Reexport from @emotion/react
 import { keyframes } from "tss-react";
 import { makeStyles } from "./makeStyles";
 
@@ -20,8 +19,8 @@ export const useStyles = makeStyles()({
             40% {
                 opacity: 1;
             }
-            `} 3.5s infinite ease-in-out`
-        }
-    }
+            `} 3.5s infinite ease-in-out`,
+        },
+    },
 });
 ```

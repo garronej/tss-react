@@ -2,7 +2,7 @@
 
 Sometimes you might want to insert global css. You can use the `<GlobalStyles />` component to do this.
 
-It's `styles` (with an s) prop should be of same type as the [`css()`](makestyles-greater-than-usestyles.md#usestyles) function argument.
+It's `styles` (with an s) prop should be of same type as the `css()` function argument.
 
 ```tsx
 import { GlobalStyles } from "tss-react";

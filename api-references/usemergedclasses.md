@@ -27,10 +27,10 @@ function MyTestComponentForMergedClassesInternal(props: Props) {
 const useStyles = makeStyles()({
     "foo": {
         "border": "3px dotted black",
-        "backgroundColor": "red"
+        "backgroundColor": "red",
     }
     "bar": {
-        "color": "pink"
+        "color": "pink",
     }
 });
 
@@ -39,7 +39,7 @@ const useStyles = makeStyles()({
 render(
     <MyTestComponentForMergedClassesInternal
         classes={{ "foo": css({ "backgroundColor": "green" }) }}
-    />
+    />,
 );
 ```
 

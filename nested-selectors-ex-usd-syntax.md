@@ -48,11 +48,11 @@ const useStyles = makeStyles<void, "child">()(
         "parent": {
             "padding": 30,
             [`&:hover .${classes.child}`]: {
-                "backgroundColor": "red",
+                "backgroundColor": "red"
             }
         },
         "child": {
-            "backgroundColor": "blue",
+            "backgroundColor": "blue"
         },
     })
 );
@@ -85,7 +85,7 @@ const useStyles = makeStyles<
     "root": {
         "padding": 30,
         [`&:hover .${classes.child}`]: {
-            "backgroundColor": theme.palette[color].main,
+            "backgroundColor": theme.palette[color].main
         }
     },
     "small": {},
@@ -93,7 +93,7 @@ const useStyles = makeStyles<
         "border": "1px solid black",
         "height": 50,
         [`&.${classes.small}`]: {
-            "height": 30,
+            "height": 30
         }
     }
 }));
