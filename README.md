@@ -2,7 +2,7 @@
 description: ✨ makeStyles is dead, long live makeStyles! ✨
 ---
 
-# Why TSS
+# 🚀 Why TSS
 
 [![](https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=main) ](https://github.com/garronej/tss-react/actions)[![](https://img.shields.io/npm/dw/tss-react) ](https://www.npmjs.com/package/tss-react)[![](https://img.shields.io/npm/l/tss-react)](https://github.com/garronej/tss-react/blob/main/LICENSE)
 
