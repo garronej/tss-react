@@ -42,7 +42,7 @@ let muiCache: EmotionCache | undefined = undefined;
 export const createMuiCache = () =>
     muiCache = createCache({
         "key": "mui",
-        "prepend": true,
+        "prepend": true
     });
 
 export default function Index() {
