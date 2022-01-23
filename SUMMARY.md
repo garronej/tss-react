@@ -1,7 +1,7 @@
 # Table of contents
 
 * [🔧 Setup](README.md)
-* [🔍 API References](api-references/README.md)
+* [🔍 API References](page-1.md)
   * [makeStyles -> useStyles](api-references/makestyles-greater-than-usestyles.md)
   * [withStyles](api-references/withstyles.md)
   * [\<GlobalStyles />](api-references/less-than-globalstyles-greater-than.md)
