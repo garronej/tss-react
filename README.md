@@ -1,5 +1,43 @@
-# 🔩 MUI Integration
+---
+description: Start using TSS, with or without MUI
+---
 
+# 🔧 Setup
+
+```
+yarn add tss-react @emotion/react
+```
+
+`./MyComponent.tsx`
+
+```tsx
+import { makeStyles } from "./makeStyles";
+
+export function MyComponent(props: Props) {
+    const { className } = props;
+
+    const [color, setColor] = useState<"red" | "blue">("red");
+
+    const { classes, cx } = useStyles({ color });
+
+    //Thanks to cx, className will take priority over classes.root 🤩
+    return <span className={cx(classes.root, className)}>hello world</span>;
+}
+
+const useStyles = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            color,
+            "&:hover": {
+                "backgroundColor": theme.primaryColor
+            }
+        }
+    })
+);
+```
+
+{% tabs %}
+{% tab title="With MUI" %}
 {% hint style="info" %}
 If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/guides/migration-v4/#2-use-tss-react).
 {% endhint %}
@@ -55,6 +93,36 @@ export const { makeStyles, withStyles } = createMakeAndWithStyles({
 });
 ```
 
+`./MyComponent.tsx`
+
+```tsx
+import { makeStyles } from "tss-react/mui";
+//OR:
+//import { makeStyles } from "./makeStyles";
+
+export function MyComponent(props: Props) {
+    const { className } = props;
+
+    const [color, setColor] = useState<"red" | "blue">("red");
+
+    const { classes, cx } = useStyles({ color });
+
+    //Thanks to cx, className will take priority over classes.root 🤩
+    return <span className={cx(classes.root, className)}>hello world</span>;
+}
+
+const useStyles = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            color,
+            "&:hover": {
+                "backgroundColor": theme.primaryColor
+            }
+        }
+    })
+);
+```
+
 {% hint style="warning" %}
 **Keep `@emotion/styled` as a dependency of your project**.
 
@@ -65,3 +133,53 @@ Even if you never use it explicitly, it's a peer dependency of `@mui/material`.
 [Storybook](https://storybook.js.org): As of writing this lines storybook still uses by default emotion 10.\
 Material-ui and TSS runs emotion 11 so there is [some changes](https://github.com/garronej/onyxia-ui/blob/324de62248074582b227e584c53fb2e123f5325f/.storybook/main.js#L31-L32) to be made to your `.storybook/main.js` to make it uses emotion 11.
 {% endhint %}
+{% endtab %}
+
+{% tab title="Standalone" %}
+```
+yarn add tss-react @emotion/react
+```
+
+`./makeStyles.ts`
+
+```typescript
+import { createMakeStyles } from "tss-react";
+
+function useTheme() {
+    return {
+        "primaryColor": "#32CD32",
+    };
+}
+
+export const { makeStyles } = createMakeStyles({ useTheme });
+```
+
+`./MyComponent.tsx`
+
+```tsx
+import { makeStyles } from "./makeStyles";
+
+export function MyComponent(props: Props) {
+    const { className } = props;
+
+    const [color, setColor] = useState<"red" | "blue">("red");
+
+    const { classes, cx } = useStyles({ color });
+
+    //Thanks to cx, className will take priority over classes.root 🤩
+    return <span className={cx(classes.root, className)}>hello world</span>;
+}
+
+const useStyles = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            color,
+            "&:hover": {
+                "backgroundColor": theme.primaryColor
+            }
+        }
+    })
+);
+```
+{% endtab %}
+{% endtabs %}

@@ -1,7 +1,8 @@
 # Table of contents
 
-* [🔩 MUI Integration](README.md)
-* [💽 Cache](<README (1).md>)
+* [🔧 Setup](README.md)
+* [🫂 MUI Integration](<README (1).md>)
+* [💽 Cache](<README (1) (1).md>)
 * [💫 Nested selectors (ex $ syntax)](nested-selectors-ex-usd-syntax.md)
 * [⚡ SSR](ssr/README.md)
   * [Next.js](ssr/next.js.md)

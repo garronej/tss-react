@@ -1,4 +1,4 @@
-# 💲 Nested selectors (ex $ syntax)
+# 💫 Nested selectors (ex $ syntax)
 
 `tss-react` unlike `jss-react` doesn't support the `$` syntax but a better alternative.
 
