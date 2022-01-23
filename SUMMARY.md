@@ -1,7 +1,7 @@
 # Table of contents
 
 * [🚀 Why TSS](README.md)
-* [🔧 Setup](README.md)
+* [🔧 Setup](<README (1).md>)
 * [🔍 API References](page-1.md)
   * [makeStyles -> useStyles](api-references/makestyles-greater-than-usestyles.md)
   * [withStyles](api-references/withstyles.md)
