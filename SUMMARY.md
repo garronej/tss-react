@@ -1,7 +1,6 @@
 # Table of contents
 
 * [🔧 Setup](README.md)
-* [🫂 MUI Integration](<README (1).md>)
 * [💽 Cache](<README (1) (1).md>)
 * [💫 Nested selectors (ex $ syntax)](nested-selectors-ex-usd-syntax.md)
 * [⚡ SSR](ssr/README.md)
