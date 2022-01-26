@@ -12,7 +12,7 @@ description: ✨ makeStyles is dead, long live makeStyles! ✨
 * ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
 * ✅ [JavaScript support](https://github.com/garronej/tss-react/issues/28).
 * ✅ Server side rendering support (e.g: Next.js).
-* ✅ Offers [a type-safe equivalent of the JSS `$` syntax](nested-selectors-ex-usd-syntax.md).
+* ✅ Offers [a type-safe equivalent of the JSS `$` syntax](nested-selectors.md).
 * ✅ Custom `@emotion` cache support.
 * ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has very little impact on the bundle size alongside MUI (\~5kB minziped).
 * ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.

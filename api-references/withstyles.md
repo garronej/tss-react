@@ -17,17 +17,20 @@ function MyComponent(props: { className?: string; colorSmall: string }) {
     );
 }
 
-const MyComponentStyled = withStyles(MyComponent, (theme, props) => ({
-    "root": {
-        "backgroundColor": theme.palette.primary.main,
-        "height": 100,
-    },
-    "@media (max-width: 960px)": {
+const MyComponentStyled = withStyles(
+    MyComponent, 
+    (theme, props) => ({
         "root": {
-            "backgroundColor": props.colorSmall,
+            "backgroundColor": theme.palette.primary.main,
+            "height": 100
         },
-    },
-}));
+        "@media (max-width: 960px)": {
+            "root": {
+                "backgroundColor": props.colorSmall
+            }
+        }
+    })
+);
 ```
 
 You can also pass a mui component like for example `<Button />` and you'll be able to overwrite [every rule name of the component](https://mui.com/api/button/#css) (it uses the `classes` prop).
@@ -37,16 +40,16 @@ import Button from "@mui/material/Button";
 
 const MyStyledButton = withStyles(Button, {
     "root": {
-        "backgroundColor": "grey",
-    },
+        "backgroundColor": "grey"
+    }
     "text": {
-        "color": "red",
+        "color": "red"
     },
     "@media (max-width: 960px)": {
         "text": {
-            "color": "blue",
-        },
-    },
+            "color": "blue"
+        }
+    }
 });
 ```
 
@@ -58,8 +61,8 @@ const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
         "border": "1px solid black",
         "backgroundColor": href?.startsWith("https")
             ? theme.palette.primary.main
-            : "red",
-    },
+            : "red"
+    }
 }));
 ```
 

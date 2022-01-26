@@ -11,12 +11,12 @@ import {
     useCssAndCx, //<- Access css and cx directly.
     //   (Usually you'll use useStyles returned by makeStyles or createMakeStyles for that purpose
     //    but if you have no theme in your project, it can come in handy.)
-    useMergedClasses, //<- Merge the internal classes an the one provided as props into a single classes object.
+    useMergedClasses //<- Merge the internal classes an the one provided as props into a single classes object.
 } from "tss-react";
 ```
 
-{% content-ref url="api-references/makestyles-greater-than-usestyles.md" %}
-[makestyles-greater-than-usestyles.md](api-references/makestyles-greater-than-usestyles.md)
+{% content-ref url="api-references/makestyles-usestyles.md" %}
+[makestyles-usestyles.md](api-references/makestyles-usestyles.md)
 {% endcontent-ref %}
 
 {% content-ref url="api-references/withstyles.md" %}
