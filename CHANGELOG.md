@@ -1,3 +1,8 @@
+### **3.3.5** (2022-01-26)  
+  
+- Add JSDoc link to new documentation website  
+- Incremental update on MUI integration documentation    
+  
 ### **3.3.4** (2022-01-22)  
   
 - Mention early in the readme what cx is doing    
