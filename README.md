@@ -49,8 +49,15 @@ $ yarn add tss-react @emotion/react
 
 <p align="center">
     <br/>
+    <i>Playground:</i><br>
+    <a href='https://stackblitz.com/edit/tss-react?file=Hello.tsx'>
+        <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
+    </a>
+</p>
+
+<p align="center">
     <br/>
-    <a href="https://docs.tss-react.dev"><b>Get started 🚀</b></a>
+    <a href="https://docs.tss-react.dev/setup"><b>Get started 🚀</b></a>
 </p>
 
 # Development
