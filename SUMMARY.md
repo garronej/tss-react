@@ -5,7 +5,7 @@
 * [🔍 API References](page-1.md)
   * [makeStyles -> useStyles](api-references/makestyles-usestyles.md)
   * [withStyles](api-references/withstyles.md)
-  * [\<GlobalStyles />](api-references/less-than-globalstyles-greater-than.md)
+  * [\<GlobalStyles />](api-references/globalstyles.md)
   * [keyframes](api-references/keyframes.md)
   * [useMergedClasses](api-references/usemergedclasses.md)
 * [💽 Cache](<README (1) (1).md>)

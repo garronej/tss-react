@@ -23,8 +23,8 @@ import {
 [withstyles.md](api-references/withstyles.md)
 {% endcontent-ref %}
 
-{% content-ref url="api-references/less-than-globalstyles-greater-than.md" %}
-[less-than-globalstyles-greater-than.md](api-references/less-than-globalstyles-greater-than.md)
+{% content-ref url="api-references/globalstyles.md" %}
+[globalstyles.md](api-references/globalstyles.md)
 {% endcontent-ref %}
 
 {% content-ref url="api-references/keyframes.md" %}
