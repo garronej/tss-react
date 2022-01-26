@@ -5,13 +5,13 @@ import { GlHero } from "gitlanding/GlHero";
 import { GlFooter } from "gitlanding/GlFooter";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlLogo } from "gitlanding/utils/GlLogo";
-import { GlSectionDivider } from "gitlanding/GlSectionDivider";
+//import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { ThemeProvider } from "./theme";
-import { GlArticle } from "gitlanding/GlArticle";
-import { GlIllustration } from "gitlanding/GlIllustration";
+//import { GlArticle } from "gitlanding/GlArticle";
+//import { GlIllustration } from "gitlanding/GlIllustration";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
-import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
+//import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
 import { css } from "gitlanding";
 
 const repoUrl = "https://github.com/garronej/tss-react";
