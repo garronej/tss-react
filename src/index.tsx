@@ -5,9 +5,13 @@ import { GlHero } from "gitlanding/GlHero";
 import { GlFooter } from "gitlanding/GlFooter";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlLogo } from "gitlanding/utils/GlLogo";
+import { GlSectionDivider } from "gitlanding/GlSectionDivider";
+import { ThemeProvider } from "./theme";
+import { GlArticle } from "gitlanding/GlArticle";
+import { GlIllustration } from "gitlanding/GlIllustration";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
-import { ThemeProvider } from "./theme";
+import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
 import { css } from "gitlanding";
 
 const repoUrl = "https://github.com/garronej/tss-react";
@@ -47,11 +51,11 @@ function App() {
           links={[
             {
               "href": "https://www.npmjs.com/package/tss-react",
-              "label": <img src="https://img.shields.io/npm/dw/tss-react" alt=""/>
+              "label": <img src="https://img.shields.io/npm/dw/tss-react" alt="" />
             },
             {
               "href": "https://github.com/garronej/tss-react/blob/main/LICENSE",
-              "label": <img src="https://img.shields.io/npm/l/tss-react" alt=""/>
+              "label": <img src="https://img.shields.io/npm/l/tss-react" alt="" />
             }
           ]}
         />
@@ -70,6 +74,29 @@ function App() {
         linkToSectionBelowId="firstSection"
         hasImageShadow={true}
       />
+
+
+      <GlArticle
+        id="firstSection"
+        title="🔩 State of the art TypeScript support"
+        body={`Save yourself back and fourth between your code and the 
+        documentation and refactor with the confidence.  
+        **Even used in vanilla JavaScript** project, you will you will get some benefits from the good types definitions.
+        `}
+        buttonLabel="Get started 🚀"
+        buttonLink={{
+          "href": "https://docs.tss-react.dev",
+        }}
+        illustration={
+          <GlIllustration type="image" url={nestedSelectorsMp4Url} hasShadow={true} />
+        }
+        hasAnimation={true}
+        illustrationPosition="left"
+
+      />
+
+      <GlSectionDivider />
+
 
       <GlCheckList
         heading="Everything you expect and more"
