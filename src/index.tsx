@@ -8,8 +8,7 @@ import { GlLogo } from "gitlanding/utils/GlLogo";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
 import { ThemeProvider } from "./theme";
-import { css } from "tss-react/@emotion/css";
-
+import { css } from "gitlanding";
 
 const repoUrl = "https://github.com/garronej/tss-react";
 
@@ -44,14 +43,23 @@ function App() {
       }}
       footer={
         <GlFooter
-          bottomDivContent="[License MIT](https://github.com/garronej/tss-react/blob/main/LICENSE)"
-          email="joseph.garrone@data.gouv.fr"
+          bottomDivContent="[GitHub](https://github.com/garronej/tss-react) - [Documentation](https://github.com/garronej/tss-react)"
+          links={[
+            {
+              "href": "https://www.npmjs.com/package/tss-react",
+              "label": <img src="https://img.shields.io/npm/dw/tss-react" alt=""/>
+            },
+            {
+              "href": "https://github.com/garronej/tss-react/blob/main/LICENSE",
+              "label": <img src="https://img.shields.io/npm/l/tss-react" alt=""/>
+            }
+          ]}
         />
       }
     >
       <GlHero
         classes={{
-          "textWrapper": css({ 
+          "textWrapper": css({
             "maxWidth": 1030
           }),
           "imageWrapper": css({ "maxWidth": 460 })
@@ -64,56 +72,35 @@ function App() {
       />
 
       <GlCheckList
-        heading="Check List Heading"
+        heading="Everything you expect and more"
         hasAnimation={true}
         elements={[
           {
-            "title": "List element title",
-            "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
-              nisl nec hendrerit rutrum, 
-              mi enim semper arcu, ut imperdiet urna libero non metus. 
-              Donec imperdiet ac nulla sit amet lacinia.
-            `
+            "title": "Seamless integration with [`mui`](https://mui.com) and [`material-ui` v4](https://v4.mui.com/)",
+            "description": `[\`tss-react\`](https://github.com/tss-react) is a recommended by the core MUI team as a good option for updating from 
+            material-ui v4 to mui v5. Find the migration guide [here](https://mui.com/guides/migration-v4/#2-use-tss-react).`
           },
           {
-            "title": "List element title",
-            "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
-              nisl nec hendrerit rutrum, 
-              mi enim semper arcu, ut imperdiet urna libero non metus. 
-              Donec imperdiet ac nulla sit amet lacinia.
-            `
+            "title": "[`withStyles`](https://docs.tss-react.dev/api-references/withstyles) API support.",
+            "description": `Contains everything you need for advantageously getting rid of 
+            [\`@material-ui/core/styles\`](https://v4.mui.com/styles/basics/#material-ui-styles). It will feel like an upgrade.`
           },
           {
-            "title": "List element title",
-            "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
-              nisl nec hendrerit rutrum, 
-              mi enim semper arcu, ut imperdiet urna libero non metus. 
-              Donec imperdiet ac nulla sit amet lacinia.
-            `
+            "title": "**S**erver **S**ide **R**endering support (SSR)",
+            "description": `Quick and easy [integration with Next.js](https://docs.tss-react.dev/ssr/next.js).
+            detailed instructions for integrating [with any other backend framework](https://docs.tss-react.dev/ssr/other-backend).`
           },
           {
-            "title": "List element title",
-            "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
-              nisl nec hendrerit rutrum, 
-              mi enim semper arcu, ut imperdiet urna libero non metus. 
-              Donec imperdiet ac nulla sit amet lacinia.
-            `
+            "title": "Equivalent for `$` syntax",
+            "description": `JSS's [Pseudo and Nested Selectors](https://cssinjs.org/jss-plugin-nested/?v=v10.9.0) are featured in a type-safe way. [Check the doc](https://docs.tss-react.dev/nested-selectors-ex-usd-syntax).`
           },
           {
-            "title": "List element title",
-            "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
-              nisl nec hendrerit rutrum, 
-              mi enim semper arcu, ut imperdiet urna libero non metus. 
-              Donec imperdiet ac nulla sit amet lacinia.
-            `
+            "title": "Build on top of `@emotion/react`",
+            "description": `It has very little impact on the bundle size alongside mui (~5kB minziped, [\`@emotion/react\`](https://emotion.sh/docs/@emotion/react) is already included int mui). `
           },
           {
-            "title": "List element title",
-            "description": `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In cursus, 
-              nisl nec hendrerit rutrum, 
-              mi enim semper arcu, ut imperdiet urna libero non metus. 
-              Donec imperdiet ac nulla sit amet lacinia.
-            `
+            "title": "Control the cache",
+            "description": `You are able to tell \`tss-react\` to use a specific emotion cache if you need to. [See the documentation](https://docs.tss-react.dev/cache).`
           },
         ]}
       />
