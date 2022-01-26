@@ -76,6 +76,7 @@ function App() {
       />
 
 
+      {/*
       <GlArticle
         id="firstSection"
         title="🔩 State of the art TypeScript support"
@@ -96,10 +97,11 @@ function App() {
       />
 
       <GlSectionDivider />
+      */}
 
 
       <GlCheckList
-        heading="Everything you expect and more"
+        //heading="Everything you are expecting and more"
         hasAnimation={true}
         elements={[
           {
