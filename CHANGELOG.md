@@ -1,3 +1,7 @@
+### **3.3.6** (2022-01-26)  
+  
+- Improve new readme    
+  
 ### **3.3.5** (2022-01-26)  
   
 - Add JSDoc link to new documentation website  
