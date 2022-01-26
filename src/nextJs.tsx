@@ -8,6 +8,7 @@ import {
     getDoExistsTssDefaultEmotionCacheMemoizedValue,
 } from "./cache";
 
+/** @se <https://docs.tss-react.dev/ssr/next.js> */
 export function withEmotionCache(params: {
     Document: typeof NextDocument;
     getCaches?: () => EmotionCache[];
