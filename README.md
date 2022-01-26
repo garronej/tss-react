@@ -1,5 +1,5 @@
 ---
-description: ✨ makeStyles is dead, long live makeStyles! ✨
+description: makeStyles is dead. Long live makeStyles.
 ---
 
 # 🚀 Why TSS
