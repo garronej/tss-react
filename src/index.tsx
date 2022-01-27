@@ -5,13 +5,14 @@ import { GlHero } from "gitlanding/GlHero";
 import { GlFooter } from "gitlanding/GlFooter";
 import { GlCheckList } from "gitlanding/GlCheckList";
 import { GlLogo } from "gitlanding/utils/GlLogo";
-//import { GlSectionDivider } from "gitlanding/GlSectionDivider";
+import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { ThemeProvider } from "./theme";
-//import { GlArticle } from "gitlanding/GlArticle";
-//import { GlIllustration } from "gitlanding/GlIllustration";
+import { GlArticle } from "gitlanding/GlArticle";
+import { GlIllustration } from "gitlanding/GlIllustration";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
-//import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
+import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
+//import nestedSelectorsMp4Url from "./assets/nestedSelectors.mp4";
 import { css } from "gitlanding";
 
 const repoUrl = "https://github.com/garronej/tss-react";
@@ -76,7 +77,6 @@ function App() {
       />
 
 
-      {/*
       <GlArticle
         id="firstSection"
         title="🔩 State of the art TypeScript support"
@@ -97,20 +97,19 @@ function App() {
       />
 
       <GlSectionDivider />
-      */}
 
 
       <GlCheckList
-        //heading="Everything you are expecting and more"
+        heading="Everything you are expecting and more"
         hasAnimation={true}
         elements={[
           {
-            "title": "Seamless integration with [`mui`](https://mui.com) and [`material-ui` v4](https://v4.mui.com/)",
+            "title": "Seamless integration with [`mui`](https://mui.com)",
             "description": `[\`tss-react\`](https://github.com/tss-react) is a recommended by the core MUI team as a good option for updating from 
             material-ui v4 to mui v5. Find the migration guide [here](https://mui.com/guides/migration-v4/#2-use-tss-react).`
           },
           {
-            "title": "[`withStyles`](https://docs.tss-react.dev/api-references/withstyles) API support.",
+            "title": "[`withStyles`](https://docs.tss-react.dev/api-references/withstyles) API support",
             "description": `Contains everything you need for advantageously getting rid of 
             [\`@material-ui/core/styles\`](https://v4.mui.com/styles/basics/#material-ui-styles). It will feel like an upgrade.`
           },
