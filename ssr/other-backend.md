@@ -14,6 +14,7 @@ import { renderToString } from "react-dom/server";
 import { getTssDefaultEmotionCache } from "tss-react";
 import createCache from "@emotion/cache";
 import type { EmotionCache } from "@emotion/cache";
+import { CacheProvider } from "@emotion/react";
 
 let muiCache: EmotionCache | undefined = undefined;
 
