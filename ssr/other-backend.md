@@ -12,6 +12,8 @@ yarn add @emotion/server
 import createEmotionServer from "@emotion/server/create-instance";
 import { renderToString } from "react-dom/server";
 import { getTssDefaultEmotionCache } from "tss-react";
+import createCache from "@emotion/cache";
+import type { EmotionCache } from "@emotion/cache";
 
 let muiCache: EmotionCache | undefined = undefined;
 
