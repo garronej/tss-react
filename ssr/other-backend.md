@@ -59,7 +59,7 @@ function functionInChargeOfRenderingTheHtml(res) {
     //    		    dangerouslySetInnerHTML={{ "__html": style.css }}
     //    	        />
     //    	    ))
-    //    ).flat()
+    //    ).reduce((prev, curr) => [...prev, ...curr], [])
     //];
 
     res.status(200).header("Content-Type", "text/html").send([
