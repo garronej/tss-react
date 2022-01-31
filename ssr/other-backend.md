@@ -18,7 +18,7 @@ import { CacheProvider } from "@emotion/react";
 
 let muiCache: EmotionCache | undefined = undefined;
 
-export const createMuiCache = () =>
+const createMuiCache = () =>
     muiCache = createCache({ 
         "key": "mui", 
         "prepend": true 
@@ -38,6 +38,29 @@ function functionInChargeOfRenderingTheHtml(res) {
             <App />
         </CacheProvider>
     );
+    
+    const styleTagsAsStr = emotionServers
+        .map(({ extractCriticalToChunks, constructStyleTagsFromChunks }) =>
+            constructStyleTagsFromChunks(extractCriticalToChunks(html)),
+        )
+        .join("");
+    
+    //Some framworks, like Gatsby or Next.js, only enables you to
+    //provide your <style> tags as React.ReactNode[].
+    //const styleTagsAsReactNode = [
+    //    ...emotionServers
+    //        .map(({ extractCriticalToChunks }) =>
+    //            extractCriticalToChunks(html)
+    //            .styles.filter(({ css }) => css !== "")
+    //            .map(style => (
+    //    	        <style
+    //    	            data-emotion={`${style.key} ${style.ids.join(" ")}`}
+    //    		    key={style.key}
+    //    		    dangerouslySetInnerHTML={{ "__html": style.css }}
+    //    	        />
+    //    	    ))
+    //    ).flat()
+    //];
 
     res.status(200).header("Content-Type", "text/html").send([
         '<!DOCTYPE html>',
@@ -45,11 +68,7 @@ function functionInChargeOfRenderingTheHtml(res) {
         '<head>',
         '    <meta charset="UTF-8">'
         '    <title>My site</title>',
-        emotionServers
-            .map(({ extractCriticalToChunks, constructStyleTagsFromChunks }) =>
-                constructStyleTagsFromChunks(extractCriticalToChunks(html)),
-            )
-            .join(""),
+        styleTagsAsStr,
         '</head>',
         '<body>',
         '    <div id="root">${html}</div>',
