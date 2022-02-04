@@ -4,12 +4,12 @@ description: Start using TSS, with or without MUI
 
 # 🔧 Setup
 
-```
-yarn add tss-react @emotion/react
-```
-
 {% tabs %}
 {% tab title="With MUI" %}
+```bash
+yarn add tss-react @emotion/react @mui/material @emotion/styled
+```
+
 {% hint style="info" %}
 If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/guides/migration-v4/#2-use-tss-react).
 {% endhint %}
