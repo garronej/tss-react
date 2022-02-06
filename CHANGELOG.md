@@ -1,3 +1,8 @@
+### **3.4.1** (2022-02-06)  
+  
+- Bump version (changeleog ignore)  
+- Fix compat index    
+  
 ## **3.4.0** (2022-02-06)  
   
 - Add missing useMergeClasses to compat index    
