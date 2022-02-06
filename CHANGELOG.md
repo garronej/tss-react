@@ -1,3 +1,7 @@
+## **3.4.0** (2022-02-06)  
+  
+- Add missing useMergeClasses to compat index    
+  
 ### **3.3.6** (2022-01-26)  
   
 - Improve new readme    
