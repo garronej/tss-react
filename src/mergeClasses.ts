@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { Cx } from ".";
+import type { Cx } from "./types";
 import { objectKeys } from "./tools/objectKeys";
 import { useCssAndCx } from "./cssAndCx";
 import { useMemo } from "react";
