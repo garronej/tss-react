@@ -25,12 +25,12 @@ import createCache from "@emotion/cache";
 import { TssCacheProvider } from "tss-react;
 import { CacheProvider } from "@emotion/react";
 
-const muiCache = createMuiCache({
+const muiCache = createCache({
     "key": "my-custom-prefix-for-mui",
     "prepend": true
 });
 
-const tssCache = createMuiCache({
+const tssCache = createCache({
     "key": "my-custom-prefix-for-tss"
 });
 
