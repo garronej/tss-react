@@ -154,7 +154,6 @@ jobs:
         VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
         IS_BETA: ${{ needs.check_if_version_upgraded.outputs.is_release_beta }}
 
-
   github_pages:
     needs: test
     runs-on: ubuntu-latest
@@ -173,4 +172,4 @@ jobs:
     - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npx -y -p gh-pages@3.1.0 gh-pages -d src/test/apps/spa/build -u "github-actions-bot <actions@github.com>"
+    - run: npx -y -p gh-pages@3.1.0 gh-pages -d src/test/apps/spa/build --dest test --add -u "github-actions-bot <actions@github.com>" 
