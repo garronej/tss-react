@@ -66,4 +66,4 @@ const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
 }));
 ```
 
-You can experiment with those examples [here](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/apps/spa/src/App.tsx#L240-L291) live [here](https://garronej.github.io/tss-react/), you can also run it locally with [`yarn start_spa`](https://github.com/garronej/tss-react#development).
+You can experiment with those examples [here](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/apps/spa/src/App.tsx#L240-L291) live [here](https://www.tss-react.dev/test/), you can also run it locally with [`yarn start_spa`](https://github.com/garronej/tss-react#development).
