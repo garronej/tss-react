@@ -27,7 +27,7 @@
 -   ✅ Seamless integration with [mui](https://mui.com) and [material-ui v4](https://v4.mui.com/).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
 -   ✅ Server side rendering support (e.g: Next.js).
--   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](#nested-selectors--syntax-).
+-   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
 -   ✅ Custom `@emotion` cache support.
 -   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has very little impact on the bundle size alongside mui (~5kB minziped).
 -   ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
