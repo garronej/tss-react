@@ -71,7 +71,7 @@ function functionInChargeOfRenderingTheHtml(res) {
         styleTagsAsStr,
         '</head>',
         '<body>',
-        '    <div id="root">${html}</div>',
+            <div id="root">${html}</div>'
         '    <script src="./bundle.js"></script>',
         '</body>',
         '</html>'
