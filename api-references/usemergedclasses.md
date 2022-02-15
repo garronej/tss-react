@@ -2,6 +2,11 @@
 
 Merge the internal classes and the one that might have been provided as props into a single classes object.
 
+{% hint style="info" %}
+This is the new way for [Overriding styles - `classes` prop](https://v4.mui.com/styles/advanced/%23overriding-styles-classes-prop).  \
+See [this issue](https://github.com/garronej/tss-react/issues/49).
+{% endhint %}
+
 ```tsx
 import { useMergedClasses } from "tss-react";
 
