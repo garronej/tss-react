@@ -11,5 +11,6 @@
 * [💽 Cache](<README (1) (1).md>)
 * [💫 Nested selectors (ex $ syntax)](nested-selectors.md)
 * [⚡ SSR](ssr/README.md)
+  * [Gatsby](ssr/gatsby.md)
   * [Next.js](ssr/next.js.md)
   * [Other backend](ssr/other-backend.md)
