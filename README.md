@@ -11,7 +11,7 @@ description: makeStyles is dead. Long live makeStyles.
 * ✅ Seamless integration with [MUI](https://mui.com) and [material-ui v4](https://v4.mui.com).
 * ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
 * ✅ [JavaScript support](https://github.com/garronej/tss-react/issues/28).
-* ✅ Server side rendering support (e.g: Next.js).
+* ✅ Server side rendering support (e.g: Next.js, Gatsby).
 * ✅ Offers [a type-safe equivalent of the JSS `$` syntax](nested-selectors.md).
 * ✅ Custom `@emotion` cache support.
 * ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has very little impact on the bundle size alongside MUI (\~5kB minziped).
