@@ -7,6 +7,7 @@
 In **JSS** you can do:
 
 ```jsx
+//WARNIG: This is legacy JSS code!
 {
   "parent": {
       "padding": 30,
