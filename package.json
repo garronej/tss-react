@@ -1,6 +1,6 @@
 {
     "name": "tss-react",
-    "version": "3.4.1",
+    "version": "3.4.2",
     "description": "makeStyles is dead, long live makeStyles!",
     "repository": {
         "type": "git",
@@ -46,9 +46,13 @@
         "jss",
         "hooks",
         "react",
-        "@material-ui"
+        "@material-ui",
+        "mui",
+        "css",
+        "makeStyles",
+        "withStyles"
     ],
-    "homepage": "https://github.com/garronej/tss-react",
+    "homepage": "https://www.tss-react.dev",
     "peerDependencies": {
         "@emotion/react": "^11.4.1"
     },
