@@ -1,3 +1,15 @@
+### **3.4.2** (2022-02-23)  
+  
+- Update meta information  
+- Update README.md  
+- Update broken link  
+- Merge pull request #61 from garronej/patch-1
+
+Push demo SPA under www.tss-react.dev/test  
+- Push demo SPA under www.tss-react.dev/test
+
+It is now used for the GitLanding page    
+  
 ### **3.4.1** (2022-02-06)  
   
 - Bump version (changeleog ignore)  
