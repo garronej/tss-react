@@ -1,3 +1,7 @@
+### **3.5.1** (2022-03-06)  
+  
+- Declare react a peer dependency    
+  
 ## **3.5.0** (2022-03-06)  
   
 - Feat: tss-react dosen't need to be in peerDependencies  
