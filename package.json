@@ -54,6 +54,7 @@
     ],
     "homepage": "https://www.tss-react.dev",
     "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.2",
         "@emotion/react": "^11.4.1"
     },
     "dependencies": {
