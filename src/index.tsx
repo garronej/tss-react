@@ -81,8 +81,8 @@ function App() {
         id="firstSection"
         title="🔩 State of the art TypeScript support"
         body={`Save yourself back and fourth between your code and the 
-        documentation and refactor with the confidence.  
-        **Even used in vanilla JavaScript** project, you will you will get some benefits from the good types definitions.
+        documentation and refactor with confidence.  
+        **Even used in vanilla JavaScript** project, you will benefit from the type inference.
         `}
         buttonLabel="Get started 🚀"
         buttonLink={{
