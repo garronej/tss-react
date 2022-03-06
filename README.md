@@ -17,6 +17,7 @@ description: makeStyles is dead. Long live makeStyles.
 * ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has very little impact on the bundle size alongside MUI (\~5kB minziped).
 * ✅ [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
 * ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio) with MUI's `makeStyles`)
+* ✅ Library authors: Unlike `@emotion/react` and `@emotion/styled`, `tss-react` won’t be yet another entry in your `peerDependencies`.
 
 ![](https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif)
 
