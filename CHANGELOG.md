@@ -1,3 +1,8 @@
+## **3.5.0** (2022-03-06)  
+  
+- Feat: tss-react dosen't need to be in peerDependencies  
+- Yarn 2 (berry) compat    
+  
 ### **3.4.2** (2022-02-23)  
   
 - Update meta information  
