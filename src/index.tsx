@@ -124,11 +124,12 @@ function App() {
           },
           {
             "title": "Build on top of `@emotion/react`",
-            "description": `It has very little impact on the bundle size alongside mui (~5kB minziped, [\`@emotion/react\`](https://emotion.sh/docs/@emotion/react) is already included int mui). `
+            "description": `It has very little impact on the bundle size alongside mui (~5kB minziped, [\`@emotion/react\`](https://emotion.sh/docs/@emotion/react) is already included int mui). 
+            You can control the Emotion cache \`tss-react\` will use.`
           },
           {
-            "title": "Control the cache",
-            "description": `You are able to tell \`tss-react\` to use a specific emotion cache if you need to. [See the documentation](https://docs.tss-react.dev/cache).`
+            "title": "Not another peer dependency",
+            "description": `Library authors: Unlike \`@emotion/react\` and \`@emotion/styled\`, \`tss-react\` won't be yet another entry in your \`peerDependencies\`.`
           },
         ]}
       />
