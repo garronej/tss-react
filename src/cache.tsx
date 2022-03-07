@@ -3,25 +3,27 @@ import type { Context } from "react";
 import type { ReactNode } from "react";
 import createCache from "@emotion/cache";
 import type { EmotionCache } from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
-
-type SharedContext = {
-    reactContext: Context<EmotionCache | undefined>;
-    getTssDefaultEmotionCache: (params?: { doReset: boolean }) => EmotionCache;
-    getDoExistsTssDefaultEmotionCacheMemoizedValue: () => boolean;
-};
 
 const {
     getDoExistsTssDefaultEmotionCacheMemoizedValue,
     getTssDefaultEmotionCache,
     reactContext,
-} = ((): SharedContext => {
+} = (() => {
+    type SharedContext = {
+        reactContext: Context<EmotionCache | undefined>;
+        getTssDefaultEmotionCache: (params?: {
+            doReset: boolean;
+        }) => EmotionCache;
+        getDoExistsTssDefaultEmotionCacheMemoizedValue: () => boolean;
+    };
+
     const propertyKey = "__tss-react_context";
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let sharedContext = (CacheProvider as any)[propertyKey] as
-        | SharedContext
-        | undefined;
+    const peerDepObj: Record<typeof propertyKey, SharedContext | undefined> =
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        createContext as any;
+
+    let sharedContext = peerDepObj["__tss-react_context"];
 
     if (sharedContext === undefined) {
         const {
@@ -64,10 +66,10 @@ const {
             "reactContext": createContext<EmotionCache | undefined>(undefined),
         };
 
-        Object.defineProperty(CacheProvider, "__tss_context", {
+        Object.defineProperty(peerDepObj, propertyKey, {
             "configurable": false,
             "enumerable": false,
-            "writable": true,
+            "writable": false,
             "value": sharedContext,
         });
     }
