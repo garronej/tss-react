@@ -1,3 +1,7 @@
+### **3.5.2** (2022-03-07)  
+  
+- Use createContext as shared object for storing contex    
+  
 ### **3.5.1** (2022-03-06)  
   
 - Declare react a peer dependency    
