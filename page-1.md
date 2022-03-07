@@ -19,8 +19,8 @@ import {
 [makestyles-usestyles.md](api-references/makestyles-usestyles.md)
 {% endcontent-ref %}
 
-{% content-ref url="api-references/withstyles.md" %}
-[withstyles.md](api-references/withstyles.md)
+{% content-ref url="broken-reference" %}
+[Broken link](broken-reference)
 {% endcontent-ref %}
 
 {% content-ref url="api-references/globalstyles.md" %}

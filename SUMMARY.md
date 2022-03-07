@@ -14,4 +14,4 @@
   * [Gatsby](ssr/gatsby.md)
   * [Next.js](ssr/next.js.md)
   * [Other backend](ssr/other-backend.md)
-* [📦 Publish a module uses tss-react](publish-a-module-uses-tss-react.md)
+* [📦 Publish a module that uses TSS](publish-a-module-that-uses-tss.md)
