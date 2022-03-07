@@ -129,7 +129,7 @@ function App() {
           },
           {
             "title": "Not another peer dependency",
-            "description": `Library authors: Unlike \`@emotion/react\` and \`@emotion/styled\`, \`tss-react\` won't be yet another entry in your \`peerDependencies\`.`
+            "description": `Library authors: \`tss-react\` won't be yet another entry in your \`peerDependencies\`. [See documentation](https://docs.tss-react.dev/publish-a-module-that-uses-tss).`
           },
         ]}
       />
