@@ -57,7 +57,7 @@ export default function Index() {
 You can find a working example [here](https://github.com/garronej/tss-react/tree/main/src/test/apps/ssr).
 
 {% hint style="info" %}
-This setup is merely a suggestion. Feel free, for example, to move the `<CacheProvider/>` into `pages/_app.tsx`.&#x20;
+This setup is merely a suggestion. Feel free, for example, [to move the `<CacheProvider/>` into `pages/_app.tsx`](https://github.com/garronej/tss-react/blob/main/src/test/apps/ssr/pages/\_app.tsx).&#x20;
 
 What's important to remember however is that new instances of the caches should be created **for each render**`!`
 {% endhint %}
