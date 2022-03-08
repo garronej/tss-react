@@ -13,5 +13,5 @@
 * [⚡ SSR](ssr/README.md)
   * [Gatsby](ssr/gatsby.md)
   * [Next.js](ssr/next.js.md)
-  * [Other backend](ssr/other-backend.md)
+  * [Other backends](ssr/other-backend.md)
 * [📦 Publish a module that uses TSS](publish-a-module-that-uses-tss.md)
