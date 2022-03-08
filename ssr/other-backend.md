@@ -14,30 +14,19 @@ import { renderToString } from "react-dom/server";
 import { getTssDefaultEmotionCache } from "tss-react";
 import createCache from "@emotion/cache";
 import type { EmotionCache } from "@emotion/cache";
-import { CacheProvider } from "@emotion/react";
-
-let muiCache: EmotionCache | undefined = undefined;
-
-const createMuiCache = () =>
-    muiCache = createCache({ 
-        "key": "mui", 
-        "prepend": true 
-    });
+import { App, createMuiCache } from "<see_below>/App";
 
 function functionInChargeOfRenderingTheHtml(res) {
 
     const emotionServers = [
          // Every emotion cache used in the app should be provided.
          // Caches for MUI should use "prepend": true.
-        getTssDefaultEmotionCache({ "doReset": true }),
-        createMuiCache()
+         // MUI cache should come first.
+         createMuiCache(),
+         getTssDefaultEmotionCache({ "doReset": true })
     ].map(createEmotionServer);
 
-    const html = renderToString(
-        <CacheProvider value={muiCache ?? createMuiCache()}>
-            <App />
-        </CacheProvider>
-    );
+    const html = renderToString(<App />);
     
     const styleTagsAsStr = emotionServers
         .map(({ extractCriticalToChunks, constructStyleTagsFromChunks }) =>
@@ -77,5 +66,27 @@ function functionInChargeOfRenderingTheHtml(res) {
         '</html>'
     ].join("\n"));
     
+}
+```
+
+`App.tsx`
+
+```tsx
+import { CacheProvider } from "@emotion/react";
+
+let muiCache: EmotionCache | undefined = undefined;
+
+export const createMuiCache = () =>
+    muiCache = createCache({ 
+        "key": "mui", 
+        "prepend": true 
+    });
+
+export function App(){
+    return (
+        <CacheProvider value={muiCache ?? createMuiCache()}>
+            {/* ... */}
+        </CacheProvider>
+    );
 }
 ```
