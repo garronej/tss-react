@@ -10,6 +10,6 @@ There are some minimal configuration required to make `tss-react` work with SSR.
 [next.js.md](next.js.md)
 {% endcontent-ref %}
 
-{% content-ref url="other-backend.md" %}
-[other-backend.md](other-backend.md)
+{% content-ref url="other-backends.md" %}
+[other-backends.md](other-backends.md)
 {% endcontent-ref %}
