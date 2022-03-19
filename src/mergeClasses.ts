@@ -3,6 +3,7 @@
 
 import type { Cx } from "./types";
 import { objectKeys } from "./tools/objectKeys";
+import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { useCssAndCx } from "./cssAndCx";
 import { useMemo } from "react";
 
@@ -12,9 +13,8 @@ export function mergeClasses<T extends string, U extends string>(
     cx: Cx,
 ): Record<T, string> &
     (string extends U ? {} : Partial<Record<Exclude<U, T>, string>>) {
-    //NOTE: We use !(not) to be resilient for when it is used in withStyle
-    //where classes fromFromProps could diverge from the canonical type...
-    if (!classesFromProps) {
+    //NOTE: We use this test to be resilient in case classesFromProps is not of the expected type.
+    if (!(classesFromProps instanceof Object)) {
         return classesFromUseStyles as any;
     }
 
@@ -54,6 +54,6 @@ export function useMergedClasses<T extends string>(
 
     return useMemo(
         () => mergeClasses(classes, classesOv, cx),
-        [classes, classesOv, cx],
+        [classes, getDependencyArrayRef(classesOv), cx],
     );
 }

@@ -24,11 +24,26 @@ export function App({ Component, pageProps }: AppProps) {
 				"mode": darkModeActive ? "dark" : "light",
 				"primary": {
 					"main": "#32CD32" //Limegreen
+				},
+				"info": {
+					"main": "#ffff00" //Yellow
 				}
 			},
 			"typography": {
 				"subtitle2": {
 					"fontStyle": "italic"
+				}
+			},
+			"components": {
+				//@ts-ignore
+				"TestingStyleOverrides": {
+					"styleOverrides": {
+						"lightBulb": ({ theme, ownerState: { isOn }, lightBulbBorderColor }: any)=>({
+							"border": `1px solid ${lightBulbBorderColor}`,
+							"backgroundColor": isOn ? theme.palette.info.main : "grey"
+						})
+					}
+					
 				}
 			}
 		}),

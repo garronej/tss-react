@@ -1,5 +1,5 @@
-import Head from "next/head";
-import { memo } from "react";
+
+import { useReducer, memo } from "react";
 import { GlobalStyles, useMergedClasses } from "tss-react";
 import { makeStyles, useStyles, withStyles } from "../shared/makeStyles";
 import { styled } from "@mui/material";
@@ -199,6 +199,16 @@ const { App } = (() => {
                     <MyTestComponentForMergedClasses />
                     <TestCastingMuiTypographyStyleToCSSObject />
                     <TestPr54 />
+                    <TestingStyleOverrides 
+                        className={css({ "backgroundColor": "white" })}
+                        classes={{
+                            "root": css({
+                                "backgroundColor": "red",
+                                "border": "1px solid black"
+                            })
+                        }}
+                        lightBulbBorderColor="black"
+                    />
                 </div>
             </>
         );
@@ -508,5 +518,55 @@ const { TestPr54 } = (() => {
     );
 
     return { TestPr54 };
+
+})();
+
+
+const { TestingStyleOverrides } = (() => {
+
+    type Props = {
+        className?: string;
+        classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+        lightBulbBorderColor: string;
+    }
+
+    function TestingStyleOverrides(props: Props) {
+
+        const { className } = props;
+
+        const [isOn, toggleIsOn] = useReducer(isOn => !isOn, false);
+
+        const { classes, cx } = useStyles(undefined, { props, "ownerState": { isOn } });
+
+        return (
+            <div className={cx(classes.root, className)} >
+                <div className={classes.lightBulb}></div>
+                <button onClick={toggleIsOn}>{`Turn ${isOn?"off":"on"}`}</button>
+                <p>Div should have a border, background should be white</p>
+                <p>Light bulb should have black border, it should be yellow when turned on.</p>
+            </div>
+        );
+
+    }
+
+    const useStyles = makeStyles({ "name": { TestingStyleOverrides } })(theme => ({
+        "root": {
+            "border": "1px solid black",
+            "width": 500,
+            "height": 200,
+            "position": "relative",
+            "color": "black"
+        },
+        "lightBulb": {
+            "position": "absolute",
+            "width": 50,
+            "height": 50,
+            "top": 120,
+            "left": 500/2 - 50,
+            "borderRadius": "50%"
+        }
+    }));
+
+    return { TestingStyleOverrides };
 
 })();

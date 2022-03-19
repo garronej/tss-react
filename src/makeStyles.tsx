@@ -2,12 +2,13 @@
 import { useMemo } from "react";
 import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
-import type { CSSObject } from "./types";
+import type { CSSObject, CSSInterpolation } from "./types";
 import { useCssAndCx } from "./cssAndCx";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "./tools/typeGuard";
 import { useTssEmotionCache } from "./cache";
 import { assert } from "./tools/assert";
+import { mergeClasses } from "./mergeClasses";
 
 const getCounter = (() => {
     let counter = 0;
@@ -53,14 +54,23 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
 
             const outerCounter = getCounter();
 
-            return function useStyles(params: Params) {
+            return function useStyles(
+                params: Params,
+                styleOverrides?: {
+                    props: { classes?: Record<string, string> } & Record<
+                        string,
+                        unknown
+                    >;
+                    ownerState?: Record<string, unknown>;
+                },
+            ) {
                 const theme = useTheme();
 
                 const { css, cx } = useCssAndCx();
 
                 const cache = useTssEmotionCache();
 
-                return useMemo(() => {
+                let classes = useMemo(() => {
                     const refClassesCache: Record<string, string> = {};
 
                     type RefClasses = Record<
@@ -123,13 +133,93 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                             refClassesCache[ruleName];
                     });
 
-                    return {
-                        classes,
-                        theme,
-                        css,
-                        cx,
-                    };
+                    return classes;
                 }, [cache, css, cx, theme, getDependencyArrayRef(params)]);
+
+                const propsClasses = styleOverrides?.props.classes;
+                {
+                    classes = useMemo(
+                        () => mergeClasses(classes, propsClasses, cx),
+                        [classes, getDependencyArrayRef(propsClasses), cx],
+                    );
+                }
+
+                {
+                    let cssObjectByRuleNameOrGetCssObjectByRuleName:
+                        | Record<
+                              string,
+                              | CSSInterpolation
+                              | ((params: {
+                                    ownerState: any;
+                                    theme: Theme;
+                                }) => CSSInterpolation)
+                          >
+                        | undefined = undefined;
+
+                    try {
+                        cssObjectByRuleNameOrGetCssObjectByRuleName =
+                            name !== undefined
+                                ? (theme as any).components?.[name]
+                                      ?.styleOverrides
+                                : undefined;
+
+                        // eslint-disable-next-line no-empty
+                    } catch {}
+
+                    const themeClasses = useMemo(() => {
+                        if (!cssObjectByRuleNameOrGetCssObjectByRuleName) {
+                            return undefined;
+                        }
+
+                        const themeClasses: Record<string, string> = {};
+
+                        for (const ruleName in cssObjectByRuleNameOrGetCssObjectByRuleName) {
+                            const cssObjectOrGetCssObject =
+                                cssObjectByRuleNameOrGetCssObjectByRuleName[
+                                    ruleName
+                                ];
+
+                            if (!(cssObjectOrGetCssObject instanceof Object)) {
+                                continue;
+                            }
+
+                            themeClasses[ruleName] = css(
+                                typeof cssObjectOrGetCssObject === "function"
+                                    ? cssObjectOrGetCssObject({
+                                          theme,
+                                          "ownerState":
+                                              styleOverrides?.ownerState,
+                                          ...styleOverrides?.props,
+                                      })
+                                    : cssObjectOrGetCssObject,
+                            );
+                        }
+
+                        return themeClasses;
+                    }, [
+                        cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                        undefined
+                            ? undefined
+                            : JSON.stringify(
+                                  cssObjectByRuleNameOrGetCssObjectByRuleName,
+                              ),
+                        getDependencyArrayRef(styleOverrides?.props),
+                        getDependencyArrayRef(styleOverrides?.ownerState),
+                        css,
+                    ]);
+
+                    classes = useMemo(
+                        () => mergeClasses(classes, themeClasses, cx),
+                        [classes, themeClasses, cx],
+                    );
+                }
+
+                return {
+                    classes,
+                    theme,
+                    css,
+                    cx,
+                };
             };
         };
     }
