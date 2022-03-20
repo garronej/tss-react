@@ -33,9 +33,11 @@ const useStyles = makeStyles()({
 const { classes } = useStyles();
 ```
 
-#### Naming the stylesheets (useful for debugging and theme styleOverrides)
+#### Naming the stylesheets (useful for debugging and theme style overrides)
 
-To ease debugging you can specify a name that will appear in every class names. It is like the [`option.name` in material-ui v4's `makeStyles`](https://mui.com/styles/api/#makestyles-styles-options-hook)
+To ease debugging you can specify a name that will appear in every class names. It is like the [`option.name` in material-ui v4's `makeStyles`](https://mui.com/styles/api/#makestyles-styles-options-hook).
+
+It's also required to for [theme style overrides](../mui-theme-styleoverrides.md).
 
 ```typescript
 const useStyles = makeStyles({ "name": "MyComponent" })({
