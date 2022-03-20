@@ -34,6 +34,7 @@
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
 -   ✅ Library authors: [`tss-react` won’t be yet another entry in your `peerDependencies`](https://docs.tss-react.dev/publish-a-module-that-uses-tss).
+-   ✅ Support [MUI's theme global styles overrides](https://docs.tss-react.dev/mui-theme-styleoverrides)
 
 ```bash
 $ yarn add tss-react @emotion/react
