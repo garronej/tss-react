@@ -106,7 +106,9 @@ function App() {
           {
             "title": "Seamless integration with [`mui`](https://mui.com)",
             "description": `[\`tss-react\`](https://github.com/tss-react) is a recommended by the core MUI team as a good option for updating from 
-            material-ui v4 to mui v5. Find the migration guide [here](https://mui.com/guides/migration-v4/#2-use-tss-react).`
+            material-ui v4 to mui v5. Find the migration guide [here](https://mui.com/guides/migration-v4/#2-use-tss-react).
+            Even [MUI theme styleOverrides](https://docs.tss-react.dev/mui-theme-styleoverrides) is supported!
+            `
           },
           {
             "title": "[`withStyles`](https://docs.tss-react.dev/api-references/withstyles) API support",
