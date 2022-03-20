@@ -1,5 +1,24 @@
 # useMergedClasses
 
+{% hint style="warning" %}
+This API is not deprecated but the new recommended way is to do: &#x20;
+
+```diff
+-let { classes } = useStyles();
+-classes = useMergedClasses(classes, props.classes);
++const { classes } = usesStyles(undefined, { props });
+```
+
+This would also work (mentioned just so you understand how it works): &#x20;
+
+```typescript
+const { classes } = usesStyles(
+    undefined, 
+    { "props": { "classes": props.classes } }
+);
+```
+{% endhint %}
+
 Merge the internal classes and the one that might have been provided as props into a single classes object.
 
 {% hint style="info" %}
@@ -18,6 +37,8 @@ type Props = {
 function MyTestComponentForMergedClassesInternal(props: Props) {
     let { classes } = useStyles();
     classes = useMergedClasses(classes, props.classes);
+    
+
 
     return (
         <div className={classes.foo}>

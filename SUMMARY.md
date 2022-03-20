@@ -14,4 +14,6 @@
   * [Gatsby](ssr/gatsby.md)
   * [Next.js](ssr/next.js.md)
   * [Other backends](ssr/other-backends.md)
+* [🦱 Your own classes prop](your-own-classes-prop.md)
+* [🍭 MUI Theme styleOverrides](mui-theme-styleoverrides.md)
 * [📦 Publish a module that uses TSS](publish-a-module-that-uses-tss.md)

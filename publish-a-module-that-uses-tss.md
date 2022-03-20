@@ -4,6 +4,14 @@ description: How to express you dependencies requirements
 
 # 📦 Publish a module that uses TSS
 
+{% hint style="success" %}
+Soon, it won't be mandatory to explicitly provide an emotion cache for TSS to play well with MUI. &#x20;
+
+Then, it wont be necessary to give specific SSR instructions. &#x20;
+
+[Follow the advancement](https://github.com/mui/material-ui/issues/28045#issuecomment-1072978306).
+{% endhint %}
+
 
 
 {% tabs %}
@@ -54,10 +62,6 @@ render(
     document.getElementById("root")
 );
 ```
-
-{% hint style="info" %}
-I am trying to move things forward with MUI so that it is no longer required to explicitly provide an emotion cache. See [this issue](https://github.com/mui/material-ui/issues/28045).
-{% endhint %}
 {% endtab %}
 
 {% tab title="Your module don't use MUI" %}
@@ -86,3 +90,4 @@ yarn add YOUR_MODULE @emotion/react
 {% endtab %}
 {% endtabs %}
 
+Your users also need to follow [TSS's instructions to enable SSR](ssr/) (at least for now...).&#x20;
