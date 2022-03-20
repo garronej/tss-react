@@ -26,6 +26,8 @@ type Props = {
 
 function MyTestComponentForMergedClassesInternal(props: Props) {
     const { classes } = useStyles({ "color": "pink" }, { props });
+    //NOTE: Only the classes will be read from propsj, 
+    //you could write { props: { classes: props.classes } }
 
     return (
         <div className={classes.foo}>
