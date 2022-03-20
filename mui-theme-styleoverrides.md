@@ -1,6 +1,6 @@
 # 🍭 MUI Theme styleOverrides
 
-TSS Support [MUI Global style overrides from `createTheme`](https://mui.com/customization/theme-components/%23global-style-overrides)  out of the box. &#x20;
+TSS Support [MUI Global style overrides from `createTheme`](https://mui.com/customization/theme-components/%23global-style-overrides)  out of the box.  Previously in material-ui v4 it was: [global theme overrides](https://v4.mui.com/customization/components/#global-theme-override).
 
 By default, however, only the `theme` object is passed to the callbacks, if you want to pass the correct `props`, and a specific `ownerState` have a look at the following example: &#x20;
 
