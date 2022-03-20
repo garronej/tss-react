@@ -32,6 +32,7 @@ function MyComponent(props: Props) {
 
 }
 
+//NOTE: you can also write { "name": "MyComponent" }
 const useStyles = makeStyles({ "name": { MyComponent } })(theme => ({
     "root": {
         "border": "1px solid black",
