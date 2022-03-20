@@ -1,3 +1,9 @@
+## **3.6.0** (2022-03-20)  
+  
+- Support MUI Global style overrides https://github.com/gregnb/mui-datatables/pull/1871  
+- #65  
+- Add documentation about how to publish a module using tss    
+  
 ### **3.5.2** (2022-03-07)  
   
 - Use createContext as shared object for storing contex    
