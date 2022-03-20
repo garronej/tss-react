@@ -52,6 +52,10 @@ const useStyles = makeStyles({ "name": { MyComponent } })(theme => ({
 }));
 ```
 
+{% hint style="info" %}
+You can also write `makeStyles({ "name": "MyComponent" })`, see [specific doc](api-references/makestyles-usestyles.md#naming-the-stylesheets-useful-for-debugging-and-theme-styleoverrides).
+{% endhint %}
+
 Declaration of the theme: &#x20;
 
 ```typescript
