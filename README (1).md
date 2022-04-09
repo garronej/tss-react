@@ -81,6 +81,7 @@ export function MyComponent(props: Props) {
 
     //Thanks to cx, className will take priority over classes.root 🤩
     //With TSS you must stop using clsx and use cx instead.
+    //More info here: https://github.com/mui/material-ui/pull/31802#issuecomment-1093478971
     return <span className={cx(classes.root, className)}>hello world</span>;
 }
 
