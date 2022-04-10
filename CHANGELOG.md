@@ -1,3 +1,10 @@
+### **3.6.1** (2022-04-10)  
+  
+- Merge pull request #74 from baharalidurrani/react18-peer-testing
+
+react v18 peer dependency updated  
+- react v18 peer dependency updated    
+  
 ## **3.6.0** (2022-03-20)  
   
 - Support MUI Global style overrides https://github.com/gregnb/mui-datatables/pull/1871  
