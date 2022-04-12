@@ -15,7 +15,7 @@ export interface CSSObject
 
 
 //NOTE: Implicit peer dependency. @emotion/react depends on it. 
-import * as CSS from "csstype";
+import type * as CSS from "csstype";
 
 export type CSSProperties = CSS.PropertiesFallback<number | string>
 export type CSSPropertiesWithMultiValues = {

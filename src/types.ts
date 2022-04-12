@@ -7,8 +7,8 @@ export interface Css {
     (...args: CSSInterpolation[]): string;
 }
 
-import { CxArg } from "./tools/classnames";
-export { CxArg };
+import type { CxArg } from "./tools/classnames";
+export type { CxArg };
 
 //SEE: https://github.com/emotion-js/emotion/pull/2276
 export type Cx = (...classNames: CxArg[]) => string;

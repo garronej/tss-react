@@ -60,7 +60,8 @@
     "dependencies": {
         "@emotion/serialize": "*",
         "@emotion/utils": "*",
-        "@emotion/cache": "*"
+        "@emotion/cache": "*",
+        "csstype": "*"
     },
     "devDependencies": {
         "@emotion/server": "^11.4.0",
