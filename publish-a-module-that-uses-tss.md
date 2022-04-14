@@ -60,6 +60,8 @@ render(
     document.getElementById("root")
 );
 ```
+
+Your users also need to follow [TSS's instructions to enable SSR](ssr/) (at least for now...).
 {% endtab %}
 
 {% tab title="Your module don't use MUI" %}
@@ -85,7 +87,8 @@ Your users install your module like that:&#x20;
 ```bash
 yarn add YOUR_MODULE @emotion/react
 ```
+
+Your users also need to follow [TSS's instructions to enable SSR](ssr/).
 {% endtab %}
 {% endtabs %}
 
-Your users also need to follow [TSS's instructions to enable SSR](ssr/) (at least for now...).&#x20;
