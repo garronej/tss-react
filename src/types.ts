@@ -1,7 +1,14 @@
-import type { CSSObject } from "./tools/types/CSSObject";
-export type { CSSObject };
-import type { CSSInterpolation } from "./tools/types/CSSObject";
+import type {
+    CSSObject as CSSObject_base,
+    CSSInterpolation,
+} from "@emotion/serialize";
 export type { CSSInterpolation };
+
+export interface CSSObject extends CSSObject_base {
+    /** https://emotion.sh/docs/labels */
+    label?: string;
+}
+
 export interface Css {
     (template: TemplateStringsArray, ...args: CSSInterpolation[]): string;
     (...args: CSSInterpolation[]): string;
