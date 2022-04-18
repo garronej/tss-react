@@ -1,3 +1,10 @@
+### **3.6.2** (2022-04-18)  
+  
+- Make @emtoion/server an optional peer dependency  
+- Use type from @emotion/serialize instead of copying them  
+- Make test app runnable on Windows #78 emotion-js/emotion#2725  
+- Make csstype an expliciy dependency (for yarn 2+)    
+  
 ### **3.6.1** (2022-04-10)  
   
 - Merge pull request #74 from baharalidurrani/react18-peer-testing
