@@ -21,6 +21,9 @@
   <a href="https://docs.tss-react.dev">Documentation</a>
 </p>
 
+> There is a known problem with SSR with next and `react-dom` 18 beeing investigated.  
+> More info [here](https://github.com/garronej/tss-react/issues/78) and [here](https://github.com/emotion-js/emotion/issues/2725)  
+
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
