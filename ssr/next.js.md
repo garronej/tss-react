@@ -8,6 +8,12 @@ yarn add @emotion/server
 
 {% tabs %}
 {% tab title="With MUI" %}
+{% hint style="danger" %}
+Do not upgrade to react-dom 18 yet, it's not supported by MUI. &#x20;
+
+Follow resolution [here](https://github.com/mui/material-ui/issues/32051#issuecomment-1100986622).
+{% endhint %}
+
 {% hint style="info" %}
 The following instructions are assuming you are using `@mui`v5.
 
