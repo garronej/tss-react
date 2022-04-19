@@ -11,8 +11,8 @@ import { GlArticle } from "gitlanding/GlArticle";
 import { GlIllustration } from "gitlanding/GlIllustration";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
-import nestedSelectorsMp4Url from "./assets/nestedSelectors.mp4";
-import nestedSelectorsWebmUrl from "./assets/nestedSelectors-vp9-chrome.webm";
+import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
+import nestedSelectorsWebmUrl from "./assets/nestedSelectors_small-vp9-chrome.webm";
 
 import { css } from "gitlanding";
 
@@ -93,7 +93,7 @@ function App() {
           }}
           illustration={
             <GlIllustration
-              hasShadow={true}
+              hasShadow={false}
               type="video"
               height={400}
               sources={[
