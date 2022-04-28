@@ -12,6 +12,8 @@ yarn add @emotion/server
 Do not upgrade to react-dom 18 yet, it's not supported by MUI. &#x20;
 
 Follow resolution [here](https://github.com/mui/material-ui/issues/32051#issuecomment-1100986622).
+
+The problem should be fixed with Next.js v12.1.6 that should release soon. &#x20;
 {% endhint %}
 
 {% hint style="info" %}
