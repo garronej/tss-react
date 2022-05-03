@@ -21,10 +21,6 @@
   <a href="https://docs.tss-react.dev">Documentation</a>
 </p>
 
-> WARNING for Next.js users: Do not upgrade to `react-dom` 18 yet, it's not supported by MUI.
-> Follow resolution [here](https://github.com/mui/material-ui/issues/32051#issuecomment-1100986622).  
-> UPDATE: Should be fixed when Next.js v12.1.6 releases.
-
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
