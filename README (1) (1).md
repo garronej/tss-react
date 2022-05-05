@@ -22,7 +22,7 @@ Also the caches used by mui should have be instantiated with `"prepend": true`.
 
 ```tsx
 import createCache from "@emotion/cache";
-import { TssCacheProvider } from "tss-react;
+import { TssCacheProvider } from "tss-react";
 import { CacheProvider } from "@emotion/react";
 
 const muiCache = createCache({
