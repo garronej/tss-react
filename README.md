@@ -24,10 +24,10 @@
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
-> 🚨 Do not upgrade to react-dom 18 yet, it's not supported by MUI.
-> There is a compatibility problem between emotion Next.js and React 18.
-> It is not related to tss-react it affects MUI as a whole.
-> Follow the advancement of the issue on Next.js repo, on MUI repo, on TSS repo.
+> 🚨 WARNING: Next.js + React 18 -> Broken SSR.  
+> This is **not** an issue specific to `tss-react` it affects MUI as a whole.  
+> More specifically, there is currently no working configuration for Next.js + React 18 + Emotion [advanced approach](https://emotion.sh/docs/ssr#advanced-approach) (which is the only strategy supported by MUI).  
+> Follow the advancement of the related issues on the [Next.js repo](https://github.com/vercel/next.js/issues/36675), on the [MUI repo](https://github.com/mui/material-ui/issues/32051) and on the [TSS repo](https://github.com/garronej/tss-react/issues/82).
 
 -   ✅ Seamless integration with [mui](https://mui.com) and [material-ui v4](https://v4.mui.com/).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
