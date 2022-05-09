@@ -1,6 +1,7 @@
 import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
 import { render } from "react-dom";
+import { StrictMode } from "react";
 //NOTE: If makeStyles was located in src/app we would write: import { makeStyles } from "app/makeStyles";
 import { useStyles } from "makeStyles";
 import { App } from "./App";
@@ -53,11 +54,13 @@ function Root() {
 }
 
 render(
-    <CacheProvider value={muiCache}>
-        <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <Root />
-        </MuiThemeProvider>
-    </CacheProvider>,
+    <StrictMode>
+        <CacheProvider value={muiCache}>
+            <MuiThemeProvider theme={theme}>
+                <CssBaseline />
+                <Root />
+            </MuiThemeProvider>
+        </CacheProvider>
+    </StrictMode>,
     document.getElementById("root")
 );
