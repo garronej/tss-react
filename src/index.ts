@@ -1,4 +1,6 @@
-export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
+import { CSSObject } from "./types";
+export { CSSObject };
+export type { CSSInterpolation, Css, Cx, CxArg } from "./types";
 /** @see <https://docs.tss-react.dev/api-references> */
 export { useCssAndCx } from "./cssAndCx";
 export { useMergedClasses } from "./mergeClasses";
@@ -17,8 +19,15 @@ export { GlobalStyles } from "./GlobalStyles";
 export { getTssDefaultEmotionCache, TssCacheProvider } from "./cache";
 
 /** @see <https://docs.tss-react.dev/api-references/makestyles-usestyles> */
-export function createMakeAndWithStyles<Theme>(params: {
+export function createMakeAndWithStyles<
+    Theme,
+    CustomObject = CSSObject,
+>(params: {
     useTheme: () => Theme;
+    customObjectToCSSObject?: (params: {
+        customObject: CustomObject;
+        theme: Theme;
+    }) => CSSObject;
 }) {
     return {
         ...createMakeStyles(params),

@@ -6,10 +6,19 @@ import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
 import { capitalize } from "./tools/capitalize";
 
-export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
-    const { useTheme } = params;
+export function createWithStyles<Theme, CustomObject = CSSObject>(params: {
+    useTheme: () => Theme;
+    customObjectToCSSObject?: (params: {
+        customObject: CustomObject;
+        theme: Theme;
+    }) => CSSObject;
+}) {
+    const { useTheme, customObjectToCSSObject } = params;
 
-    const { makeStyles } = createMakeStyles({ useTheme });
+    const { makeStyles } = createMakeStyles({
+        useTheme,
+        customObjectToCSSObject,
+    });
 
     function withStyles<
         C extends ReactComponent<any> | keyof ReactHTML,
@@ -33,7 +42,7 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
               },
     >(
         Component: C,
-        cssObjectByRuleNameOrGetCssObjectByRuleName:
+        customObjectByRuleNameOrGetCustomObjectByRuleName:
             | (CssObjectByRuleName & {
                   [mediaQuery: `@media${string}`]: {
                       [Key in keyof CssObjectByRuleName]?: CSSObject;
@@ -75,17 +84,18 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
         const useStyles = makeStyles<Props, any>(
             params?.name !== undefined ? params : { name },
         )(
-            typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
+            typeof customObjectByRuleNameOrGetCustomObjectByRuleName ===
+                "function"
                 ? (theme: Theme, props: Props, classes: Record<any, string>) =>
                       incorporateMediaQueries(
-                          cssObjectByRuleNameOrGetCssObjectByRuleName(
+                          customObjectByRuleNameOrGetCustomObjectByRuleName(
                               theme,
                               props,
                               classes,
                           ),
                       ) as any
                 : (incorporateMediaQueries(
-                      cssObjectByRuleNameOrGetCssObjectByRuleName,
+                      customObjectByRuleNameOrGetCustomObjectByRuleName,
                   ) as any),
         );
 

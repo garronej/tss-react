@@ -9,6 +9,7 @@ import { useDarkMode } from "next-dark-mode";
 import Typography from "@mui/material/Typography";
 import type { CSSObject } from "tss-react";
 import InputBase from "@mui/material/InputBase";
+import { makeSxStyles } from "tss-react/mui";
 
 export default function Index() {
 
@@ -209,6 +210,7 @@ const { App } = (() => {
                         }}
                         lightBulbBorderColor="black"
                     />
+                    <TestSxComponent />
                 </div>
             </>
         );
@@ -568,5 +570,32 @@ const { TestingStyleOverrides } = (() => {
     }));
 
     return { TestingStyleOverrides };
+
+})();
+
+const { TestSxComponent } = (() => {
+
+    const TestSxComponent = () => {
+
+        const { classes } = useSxStyles();
+
+        return <div className={classes.root}>Should look like: https://mui.com/material-ui/react-box/#the-sx-prop</div>;
+
+    };
+
+    const useSxStyles = makeSxStyles({ "name": { TestSxComponent } })({
+        "root": {
+            "width": 300,
+            "height": 300,
+            "backgroundColor": 'primary.dark',
+            '&:hover': {
+                "backgroundColor": 'primary.main',
+                "opacity": [0.9, 0.8, 0.7]
+            }
+        }
+    });
+
+    return { TestSxComponent };
+
 
 })();

@@ -16,8 +16,20 @@ const getCounter = (() => {
     return () => counter++;
 })();
 
-export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
-    const { useTheme } = params;
+export function createMakeStyles<Theme, CustomObject = CSSObject>(params: {
+    useTheme: () => Theme;
+    customObjectToCSSObject?: (params: {
+        customObject: CustomObject;
+        theme: Theme;
+    }) => CSSObject;
+}) {
+    const {
+        useTheme,
+        customObjectToCSSObject = (params: { customObject: CustomObject }) => {
+            const { customObject } = params;
+            return customObject as any as CSSObject;
+        },
+    } = params;
 
     /** returns useStyle. */
     function makeStyles<
@@ -32,7 +44,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 : Object.keys(nameOrWrappedName)[0];
 
         return function <RuleName extends string>(
-            cssObjectByRuleNameOrGetCssObjectByRuleName:
+            customObjectByRuleNameOrGetCustomObjectByRuleName:
                 | ((
                       theme: Theme,
                       params: Params,
@@ -42,15 +54,15 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                       >,
                   ) => Record<
                       RuleName | RuleNameSubsetReferencableInNestedSelectors,
-                      CSSObject
+                      CustomObject
                   >)
-                | Record<RuleName, CSSObject>,
+                | Record<RuleName, CustomObject>,
         ) {
-            const getCssObjectByRuleName =
-                typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
+            const getCustomObjectByRuleName =
+                typeof customObjectByRuleNameOrGetCustomObjectByRuleName ===
                 "function"
-                    ? cssObjectByRuleNameOrGetCssObjectByRuleName
-                    : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
+                    ? customObjectByRuleNameOrGetCustomObjectByRuleName
+                    : () => customObjectByRuleNameOrGetCustomObjectByRuleName;
 
             const outerCounter = getCounter();
 
@@ -94,15 +106,19 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                             },
                         });
 
-                    const cssObjectByRuleName = getCssObjectByRuleName(
+                    const customObjectByRuleName = getCustomObjectByRuleName(
                         theme,
                         params,
                         refClasses || ({} as RefClasses),
                     );
 
                     const classes = objectFromEntries(
-                        objectKeys(cssObjectByRuleName).map(ruleName => {
-                            const cssObject = cssObjectByRuleName[ruleName];
+                        objectKeys(customObjectByRuleName).map(ruleName => {
+                            const cssObject = customObjectToCSSObject({
+                                "customObject":
+                                    customObjectByRuleName[ruleName],
+                                theme,
+                            });
 
                             if (!cssObject.label) {
                                 cssObject.label = `${
