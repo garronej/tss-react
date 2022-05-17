@@ -67,7 +67,8 @@ function App() {
             "textWrapper": css({
               "maxWidth": 1030
             }),
-            "imageWrapper": css({ "maxWidth": 460 })
+            "imageWrapper": css({ "maxWidth": 460 }),
+            "image": css({ "borderRadius": 10 })
           }}
           title="makeStyles is dead 😧 long live makeStyles! 🎉"
           subTitle="The great hook based CSS-in-JS API now with state of the art TypeScript support 🚀"
@@ -96,6 +97,7 @@ function App() {
               hasShadow={false}
               type="video"
               height={400}
+              className={css({ "borderRadius": 10 })}
               sources={[
                 {
                   "src": nestedSelectorsMp4Url,
