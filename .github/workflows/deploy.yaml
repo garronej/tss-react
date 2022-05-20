@@ -14,7 +14,8 @@ jobs:
         node-version: '16'
     - uses: bahmutov/npm-install@v1
     - run: yarn build
+    - run: echo $(node -e 'console.log(require("url").parse(require("./package.json").homepage).host)') > build/CNAME
     - run: git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{github.repository}}.git
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npx -y -p gh-pages@3.1.0 gh-pages -d build -u "github-actions-bot <actions@github.com>"
+    - run: npx -y -p gh-pages@3.1.0 gh-pages -d build --add -u "github-actions-bot <actions@github.com>"

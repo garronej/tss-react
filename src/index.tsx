@@ -97,7 +97,7 @@ function App() {
               hasShadow={false}
               type="video"
               height={400}
-              className={css({ "borderRadius": 10 })}
+              className={css({ "& video": { "borderRadius": 10 } })}
               sources={[
                 {
                   "src": nestedSelectorsMp4Url,
