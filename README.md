@@ -21,10 +21,12 @@
   <a href="https://docs.tss-react.dev">Documentation</a>
 </p>
 
+> 🚨 WARNING: Next.js + React 18 -> SSR will only work with Next.js `12.1.7-canary.4` or newer.
+
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
-> 🚨 WARNING: Next.js + React 18 -> SSR will only work with Next.js `12.1.7-canary.4` or newer.
+> If you like TSS consider giving the project a ⭐️
 
 -   ✅ Seamless integration with [mui](https://mui.com).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
@@ -47,9 +49,6 @@ $ yarn add tss-react @emotion/react
 </p>
 
 **JavaScript support**: [YES](https://github.com/garronej/tss-react/issues/28).
-
-> If the API frustrate you in anyway feel free to [start a discussion ](https://github.com/garronej/tss-react/discussions) 💬  
-> If you like TSS consider giving the project a ⭐️
 
 https://user-images.githubusercontent.com/6702424/166390575-0530e16b-4aff-4914-a8fa-20b02da829cc.mov
 
