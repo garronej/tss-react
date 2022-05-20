@@ -1,6 +1,5 @@
 import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
-import { render } from "react-dom";
 import { StrictMode } from "react";
 //NOTE: If makeStyles was located in src/app we would write: import { makeStyles } from "app/makeStyles";
 import { useStyles } from "makeStyles";
@@ -9,7 +8,7 @@ import { CacheProvider } from "@emotion/react";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-
+import { createRoot } from "react-dom/client";
 import createCache from "@emotion/cache";
 
 const muiCache = createCache({
@@ -53,7 +52,7 @@ function Root() {
 
 }
 
-render(
+createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <CacheProvider value={muiCache}>
             <MuiThemeProvider theme={theme}>
@@ -61,6 +60,5 @@ render(
                 <Root />
             </MuiThemeProvider>
         </CacheProvider>
-    </StrictMode>,
-    document.getElementById("root")
+    </StrictMode>
 );
