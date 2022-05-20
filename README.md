@@ -29,7 +29,7 @@
 > More specifically, there is currently no working configuration for Next.js + React 18 + Emotion [advanced approach](https://emotion.sh/docs/ssr#advanced-approach) (which is the only strategy supported by MUI).  
 > Follow the advancement of the related issues on the [Next.js repo](https://github.com/vercel/next.js/issues/36675), on the [MUI repo](https://github.com/mui/material-ui/issues/32051) and on the [TSS repo](https://github.com/garronej/tss-react/issues/82).
 
--   ✅ Seamless integration with [mui](https://mui.com) and [material-ui v4](https://v4.mui.com/).
+-   ✅ Seamless integration with [mui](https://mui.com).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
 -   ✅ Server side rendering support (e.g: Next.js, Gatsby).
 -   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
