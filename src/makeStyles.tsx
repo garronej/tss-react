@@ -13,7 +13,22 @@ import { mergeClasses } from "./mergeClasses";
 const getCounter = (() => {
     let counter = 0;
 
-    return () => counter++;
+    return () => {
+        if (counter === 0 && typeof process !== "undefined") {
+            try {
+                process.nextTick(() => {
+                    console.log("[tss-react] reset counter");
+                    counter = 0;
+                });
+            } catch {
+                /*nothing*/
+            }
+        }
+
+        console.log("[tss-react] increment counter");
+
+        return counter++;
+    };
 })();
 
 export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
