@@ -13,19 +13,18 @@ import { mergeClasses } from "./mergeClasses";
 const getCounter = (() => {
     let counter = 0;
 
-    return () => {
-        if (counter === 0 && typeof process !== "undefined") {
-            try {
-                process.nextTick(() => {
-                    console.log("[tss-react] reset counter");
-                    counter = 0;
-                });
-            } catch {
-                /*nothing*/
-            }
-        }
+    const counterByHash = new Map<string, number>();
 
-        console.log("[tss-react] increment counter");
+    return (hash: string | undefined) => {
+        if (hash !== undefined) {
+            const prevCounter = counterByHash.get(hash);
+
+            if (prevCounter !== undefined) {
+                return prevCounter;
+            }
+
+            counterByHash.set(hash, counter);
+        }
 
         return counter++;
     };
@@ -67,7 +66,19 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                     ? cssObjectByRuleNameOrGetCssObjectByRuleName
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
-            const outerCounter = getCounter();
+            const outerCounter = getCounter(
+                typeof window !== "undefined"
+                    ? undefined
+                    : [
+                          name,
+                          typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                          "function"
+                              ? cssObjectByRuleNameOrGetCssObjectByRuleName.toString()
+                              : JSON.stringify(
+                                    cssObjectByRuleNameOrGetCssObjectByRuleName,
+                                ),
+                      ].join(""),
+            );
 
             return function useStyles(
                 params: Params,
