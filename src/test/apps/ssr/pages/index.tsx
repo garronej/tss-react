@@ -216,6 +216,7 @@ const { App } = (() => {
 
     const useStyles = makeStyles<void, "child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">({
         "name": { App },
+        "uniqId": "s4phyZ"
     })((theme, _params, classes) => {
 
         const childRefTest_wrapper2 = {
@@ -374,7 +375,8 @@ const MyBreadcrumbs = withStyles(
                 "color": theme.palette.primary.main
             }
         }
-    })
+    }),
+    { "uniqId": "mVgGsK" }
 );
 
 const { SecondNestedSelectorExample } = (() => {
@@ -398,7 +400,8 @@ const { SecondNestedSelectorExample } = (() => {
     });
 
     const useStyles = makeStyles<{ color: "primary" | "secondary" }, "child" | "small">({
-        "name": { SecondNestedSelectorExample }
+        "name": { SecondNestedSelectorExample },
+        "uniqId": "2rd8IJ"
     })(
         (theme, { color }, classes) => ({
             "root": {

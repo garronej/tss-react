@@ -10,11 +10,7 @@ import { useTssEmotionCache } from "./cache";
 import { assert } from "./tools/assert";
 import { mergeClasses } from "./mergeClasses";
 
-const getCounter = (() => {
-    let counter = 0;
-
-    return () => counter++;
-})();
+let counter = 0;
 
 export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     const { useTheme } = params;
@@ -23,8 +19,8 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
     function makeStyles<
         Params = void,
         RuleNameSubsetReferencableInNestedSelectors extends string = never,
-    >(params?: { name?: string | Record<string, unknown> }) {
-        const { name: nameOrWrappedName } = params ?? {};
+    >(params?: { name?: string | Record<string, unknown>; uniqId?: string }) {
+        const { name: nameOrWrappedName, uniqId = counter++ } = params ?? {};
 
         const name =
             typeof nameOrWrappedName !== "object"
@@ -51,8 +47,6 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 "function"
                     ? cssObjectByRuleNameOrGetCssObjectByRuleName
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
-
-            const outerCounter = getCounter();
 
             return function useStyles(
                 params: Params,
@@ -88,7 +82,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
 
                                 return (refClassesCache[propertyKey] = `${
                                     cache.key
-                                }-${outerCounter}${
+                                }-${uniqId}${
                                     name !== undefined ? `-${name}` : ""
                                 }-${propertyKey}-ref`);
                             },
