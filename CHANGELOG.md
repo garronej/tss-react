@@ -1,3 +1,10 @@
+## **3.7.0** (2022-05-24)  
+  
+- #87  
+- Validate that everything is now working with React 18  
+- #78  
+- No more problem with React 18 and Next.js    
+  
 ### **3.6.2** (2022-04-18)  
   
 - Make @emtoion/server an optional peer dependency  
