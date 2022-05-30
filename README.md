@@ -21,8 +21,6 @@
   <a href="https://docs.tss-react.dev">Documentation</a>
 </p>
 
-> 🚨 WARNING: Next.js + React 18 -> SSR will only work with Next.js `12.1.7-canary.4` or newer.
-
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
