@@ -16,8 +16,8 @@
         "react": "18.1.0",
         "react-dom": "18.1.0",
         "tss-react": "file:../../../../dist",
-        "next-dark-mode": "^3.0.0",
-        "@emotion/server": "11.4.0"
+        "@emotion/server": "11.4.0",
+        "powerhooks": "^0.17.0"
     },
     "devDependencies": {
         "@types/react": "18.0.9",

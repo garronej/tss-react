@@ -5,7 +5,7 @@ import { makeStyles, useStyles, withStyles } from "../shared/makeStyles";
 import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import { useDarkMode } from "next-dark-mode";
+import { useIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
 import Typography from "@mui/material/Typography";
 import type { CSSObject } from "tss-react";
 import InputBase from "@mui/material/InputBase";
@@ -32,9 +32,9 @@ const { App } = (() => {
     function App(props: { className?: string; }) {
         const { className } = props;
         const { classes, css, cx, theme } = useStyles();
-        const { darkModeActive, switchToLightMode, switchToDarkMode } = useDarkMode();
+        const { isDarkModeEnabled, setIsDarkModeEnabled } = useIsDarkModeEnabled();
 
-        console.log({ darkModeActive });
+        console.log({ isDarkModeEnabled });
 
         return (
             <>
@@ -179,20 +179,8 @@ const { App } = (() => {
                         "padding": 30,
                         "backgroundColor": theme.palette.background.paper
                     })}>
-
-                        <Button
-                            onClick={
-                                () => {
-
-                                    if (darkModeActive) {
-                                        switchToLightMode();
-                                    } else {
-                                        switchToDarkMode();
-                                    }
-                                }
-                            }
-                        >
-                            Currently in {darkModeActive ? "dark" : "light"} mode, click to toggle
+                        <Button onClick={() => setIsDarkModeEnabled(!isDarkModeEnabled)} >
+                            Currently in {isDarkModeEnabled ? "dark" : "light"} mode, click to toggle
                         </Button>
                     </div>
                     <SecondNestedSelectorExample />

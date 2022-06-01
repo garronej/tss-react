@@ -1,14 +1,13 @@
 import { useMemo } from "react";
 import Head from "next/head";
-import withDarkMode from "next-dark-mode";
 import type { AppProps } from 'next/app'
-import { useDarkMode } from "next-dark-mode";
 import type { EmotionCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from '@emotion/react';
+import { useIsDarkModeEnabled, withIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
 
 let muiCache: EmotionCache | undefined = undefined;
 
@@ -16,12 +15,12 @@ export const createMuiCache = () => muiCache = createCache({ "key": "mui", "prep
 
 export function App({ Component, pageProps }: AppProps) {
 
-	const { darkModeActive } = useDarkMode();
+	const { isDarkModeEnabled } = useIsDarkModeEnabled();
 
 	const theme = useMemo(
 		() => createTheme({
 			"palette": {
-				"mode": darkModeActive ? "dark" : "light",
+				"mode": isDarkModeEnabled ? "dark" : "light",
 				"primary": {
 					"main": "#32CD32" //Limegreen
 				},
@@ -47,7 +46,7 @@ export function App({ Component, pageProps }: AppProps) {
 				}
 			}
 		}),
-		[darkModeActive]
+		[isDarkModeEnabled]
 	);
 
 	return (
@@ -68,4 +67,4 @@ export function App({ Component, pageProps }: AppProps) {
 
 }
 
-export default withDarkMode(App);
+export default withIsDarkModeEnabled(App);
