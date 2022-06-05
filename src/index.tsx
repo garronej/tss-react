@@ -1,4 +1,3 @@
-import { render } from "react-dom";
 import { GlTemplate } from "gitlanding/GlTemplate";
 import { GlHeader } from "gitlanding/GlHeader";
 import { GlHero } from "gitlanding/GlHero";
@@ -9,6 +8,8 @@ import { GlSectionDivider } from "gitlanding/GlSectionDivider";
 import { ThemeProvider } from "./theme";
 import { GlArticle } from "gitlanding/GlArticle";
 import { GlIllustration } from "gitlanding/GlIllustration";
+import { createRoot } from "react-dom/client";
+import { StrictMode } from "react";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
 import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
@@ -160,4 +161,11 @@ function App() {
   );
 }
 
-render(<App />, document.getElementById("root"));
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+          <ThemeProvider >
+              <App />
+          </ThemeProvider>
+  </StrictMode>
+);
