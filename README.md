@@ -9,7 +9,7 @@
       <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=main">
     </a>
     <a href="https://www.npmjs.com/package/tss-react">
-      <img src="https://img.shields.io/npm/dw/tss-react">
+      <img src="https://img.shields.io/npm/dm/tss-react">
     </a>
     <a href="https://github.com/garronej/tss-react/blob/main/LICENSE">
       <img src="https://img.shields.io/npm/l/tss-react">
