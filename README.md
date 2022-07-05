@@ -89,6 +89,10 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 <details>
     <summary>Click to expand</summary>
 
+## v3.7.1
+
+-  Retrocompatibility with React 16. [Ref](https://github.com/garronej/tss-react/issues/95)
+
 ## v3.3.1
 
 -   I.E is **almost** supported out of the box (See note at the end of [this sections](#nested-selectors---syntax-))
