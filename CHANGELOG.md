@@ -1,3 +1,11 @@
+### **3.7.1** (2022-07-05)  
+  
+- Merge pull request #96 from garronej/react_retrocompat
+
+React retrocompat  
+- Release beta  
+- #95    
+  
 ## **3.7.0** (2022-05-24)  
   
 - #87  
