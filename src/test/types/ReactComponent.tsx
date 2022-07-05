@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import type { ReactComponent } from "../../tools/ReactComponent";
 import { memo } from "react";
 import Button from "@mui/material/Button";

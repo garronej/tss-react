@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { forwardRef, createElement } from "react";
+import React, { forwardRef, createElement } from "react";
 import type { ReactHTML } from "react";
 import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
