@@ -91,7 +91,7 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 
 ## v3.7.1
 
--  Retrocompatibility with React 16. [Ref](https://github.com/garronej/tss-react/issues/95)
+-   Retrocompatibility with React 16. [Ref](https://github.com/garronej/tss-react/issues/95)
 
 ## v3.3.1
 
