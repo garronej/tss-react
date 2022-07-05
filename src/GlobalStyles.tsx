@@ -1,3 +1,4 @@
+import React from "react";
 import * as reactEmotion from "@emotion/react";
 import type { CSSInterpolation } from "./types";
 
