@@ -27,7 +27,7 @@ If your project is using TypeScript < v4.4 you'll need to use `tss-react/compat`
 As a MUI user (if you are using TypeScript >= v4.4), you can simply:
 
 ```tsx
-import { makeStyles } from "tss-react/mui";
+import { makeStyles } from "tss-react/mui"; // "tss-react/mui-compat" if your project is using Typescript < 4.4
 import Button from "@mui/material/Button";
 
 type Props = {
