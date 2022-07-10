@@ -1,7 +1,6 @@
 # Table of contents
 
-* [🚀 Why TSS](README.md)
-* [🔧 Setup](readme-1.md)
+* [🔧 Setup](README.md)
 * [🔍 API References](page-1/README.md)
   * [makeStyles -> useStyles](page-1/makestyles-usestyles.md)
   * [withStyles](page-1/withstyles.md)
