@@ -21,7 +21,7 @@ If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) check
 {% endhint %}
 
 ```tsx
-import { makeStyles } from "tss-react/mui"; // "tss-react/mui-compat" if your project is using Typescript < 4.4
+import { makeStyles, withStyles } from "tss-react/mui"; // "tss-react/mui-compat" if your project is using Typescript < 4.4
 import Button from "@mui/material/Button";
 
 type Props = {
