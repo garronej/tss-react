@@ -7,9 +7,9 @@ import type { EmotionCache } from "@emotion/cache";
 /** @se <https://docs.tss-react.dev/ssr/next.js> */
 export function withEmotionCache(params: {
     Document: typeof NextDocument;
-    getCaches?: () => EmotionCache[];
+    getCaches: () => EmotionCache[];
 }): typeof NextDocument {
-    const { Document, getCaches = () => [] } = params;
+    const { Document, getCaches } = params;
     return class DocumentWithEmotionCache extends Document {
         static async getInitialProps(ctx: DocumentContext) {
             const emotionServers = getCaches()
