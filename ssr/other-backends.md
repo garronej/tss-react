@@ -4,12 +4,6 @@ description: Configure SSR in in frameworks other than Next.js like for example 
 
 # Other backends
 
-{% hint style="success" %}
-**MUI**: Theses instructions are for the peoples using `tss-react` as a standalone solution. &#x20;
-
-MUI users can refer to [the MUI documentation relative to SSR](https://mui.com/material-ui/guides/server-rendering/) and ignore this.&#x20;
-{% endhint %}
-
 ```
 yarn add @emotion/server
 ```
@@ -97,6 +91,6 @@ export function App(){
 }
 ```
 
-{% hint style="danger" %}
+{% hint style="warning" %}
 If you are using nested selectors, you may need to provide [uniq identifiers to your stylesheet](../nested-selectors.md#ssr).
 {% endhint %}
