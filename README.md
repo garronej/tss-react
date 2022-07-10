@@ -20,49 +20,38 @@ yarn add tss-react @emotion/react @mui/material @emotion/styled
 If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/guides/migration-v4/#2-use-tss-react).
 {% endhint %}
 
+{% hint style="info" %}
+If your project is using TypeScript < v4.4 you'll need to use `tss-react/compat`, checkout the **Standalone** tab.
+{% endhint %}
+
 As a MUI user (if you are using TypeScript >= v4.4), you can simply:
-
-```typescript
-import { makeStyles, withStyles } from "tss-react/mui";
-```
-
-The theme object that will be passed to your callbacks functions will be the one you get with `import { useTheme } from "@mui/material/styles"`.
-
-If you want to take controls over what the `theme` object should be, you can re-export `makeStyles` and `withStyles` from a file called, for example, `makesStyles.ts`:
-
-```typescript
-import { useTheme } from "@mui/material/styles";
-//WARNING: tss-react require TypeScript v4.4 or newer. If you can't update use:
-//import { createMakeAndWithStyles } from "tss-react/compat";
-import { createMakeAndWithStyles } from "tss-react";
-
-export const { makeStyles, withStyles } = createMakeAndWithStyles({
-    useTheme
-    // OR, if you have extended the default mui theme adding your own custom properties: 
-    // Let's assume the myTheme object that you provide to the <ThemeProvider /> is of 
-    // type MyTheme then you'll write:
-    //"useTheme": useTheme as (()=> MyTheme)
-});
-```
-
-`./MyComponent.tsx`
 
 ```tsx
 import { makeStyles } from "tss-react/mui";
-//OR:
-//import { makeStyles } from "./makeStyles";
+import Button from "@mui/material/Button";
 
-export function MyComponent(props: Props) {
+type Props = {
+    className?: string;
+};
+
+export function MyButton(props: Props) {
     const { className } = props;
 
-    const [color, setColor] = useState<"red" | "blue">("red");
+    const [isClicked, setIsClicked] = useState(false);
 
-    const { classes, cx } = useStyles({ color });
+    const { classes, cx } = useStyles({ "color": isClicked ? "blue": "red" });
 
     //Thanks to cx, className will take priority over classes.root 🤩
     //With TSS you must stop using clsx and use cx instead.
     //More info here: https://github.com/mui/material-ui/pull/31802#issuecomment-1093478971
-    return <span className={cx(classes.root, className)}>hello world</span>;
+    return (
+        <Button 
+            className={cx(classes.root, className)}
+            onClick={()=> setIsClicked(true)}
+        >
+            hello world
+        </Button>
+    );
 }
 
 const useStyles = makeStyles<{ color: "red" | "blue" }>()(
@@ -70,7 +59,7 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
         "root": {
             color,
             "&:hover": {
-                "backgroundColor": theme.primaryColor
+                "color": theme.palette.primary.main
             }
         }
     })
@@ -82,10 +71,6 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
 
 Even if you never use it explicitly, it's a peer dependency of `@mui/material`.
 {% endhint %}
-{% endtab %}
-
-{% tab title="With MUI & theme augmentation" %}
-
 {% endtab %}
 
 {% tab title="Standalone" %}
