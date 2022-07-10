@@ -1,5 +1,11 @@
 # Next.js
 
+{% hint style="success" %}
+**MUI**: Theses instructions are for the peoples using `tss-react` as a standalone solution. &#x20;
+
+MUI users can refer to [the MUI documentation relative to SSR](https://mui.com/material-ui/guides/server-rendering/) and ignore this.&#x20;
+{% endhint %}
+
 {% hint style="info" %}
 Next.js + React 18 -> SSR will only work with Next.js 12.1.7-canary.4 or newer.
 {% endhint %}

@@ -1,6 +1,7 @@
 # Table of contents
 
-* [🔧 Setup](README.md)
+* [⬆ Migration v3 -> v4](README.md)
+* [🔧 Setup](<README (1).md>)
 * [🔍 API References](page-1/README.md)
   * [makeStyles -> useStyles](page-1/makestyles-usestyles.md)
   * [withStyles](page-1/withstyles.md)
