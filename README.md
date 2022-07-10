@@ -20,12 +20,6 @@ yarn add tss-react @emotion/react @mui/material @emotion/styled
 If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/guides/migration-v4/#2-use-tss-react).
 {% endhint %}
 
-{% hint style="info" %}
-If your project is using TypeScript < v4.4 you'll need to use `tss-react/compat`, checkout the **Standalone** tab.
-{% endhint %}
-
-As a MUI user (if you are using TypeScript >= v4.4), you can simply:
-
 ```tsx
 import { makeStyles } from "tss-react/mui"; // "tss-react/mui-compat" if your project is using Typescript < 4.4
 import Button from "@mui/material/Button";
