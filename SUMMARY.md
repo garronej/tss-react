@@ -6,7 +6,6 @@
   * [withStyles](page-1/withstyles.md)
   * [\<GlobalStyles />](page-1/globalstyles.md)
   * [keyframes](page-1/keyframes.md)
-  * [useMergedClasses](page-1/usemergedclasses.md)
 * [💽 Cache](readme-1-1.md)
 * [💫 Nested selectors (ex $ syntax)](nested-selectors.md)
 * [⚡ SSR](ssr/README.md)
