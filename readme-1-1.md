@@ -4,43 +4,43 @@ description: How to integrate emotion cache with TSS
 
 # 💽 Cache
 
-By default, `tss-react` uses an emotion cache that you can access with
+There is two ways to make tss-react use a specific emotion cache instead of the default one. &#x20;
+
+### Using the provider
+
+tss-react pickups the contextual cache.  &#x20;
 
 ```tsx
-import { getTssDefaultEmotionCache } from "tss-react"
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+
+const cache = createCache({
+  "key": "custom"
+});
+
+render(
+    <CacheProvider value={cache}>
+        {/* ... */}
+    </CacheProvider>
+);
 ```
 
-If you want `tss-react` to use a specific [emotion cache](https://emotion.sh/docs/@emotion/cache) you can provide it using
+### Specify the cache at inception
 
 ```typescript
-import { TssCacheProvider } from "tss-react"
-```
+import createCache from "@emotion/cache";
+// This is assuming you are using MUI, the useTheme function can be any hook that returns an object.
+import { useTheme } from "@mui/material/styles";
+import { createMakeAndWithStyles } from "tss-react";
 
-If you are using `tss-react` with mui, be aware that mui and TSS can't share the same cache.
-
-Also the caches used by mui should have be instantiated with `"prepend": true`.
-
-```tsx
-import createCache from "@emotion/cache";
-import { TssCacheProvider } from "tss-react";
-import { CacheProvider } from "@emotion/react";
-
-const muiCache = createCache({
-    "key": "my-custom-prefix-for-mui",
-    "prepend": true
+const cache = createCache({
+  "key": "custom"
 });
 
-const tssCache = createCache({
-    "key": "my-custom-prefix-for-tss"
+export const { makeStyles, withStyles, useStyles } = createMakeAndWithStyles({
+    useTheme,
+    cache
 });
-
-<CacheProvider value={muiCache}>
-    <TssCacheProvider value={tssCache}>
-        {/* ... */}
-    </TssCacheProvider>
-</CacheProvider>;
 ```
 
-{% hint style="info" %}
-Using custom emotion caches impact how you [setup SSR](ssr/).
-{% endhint %}
+### &#x20;
