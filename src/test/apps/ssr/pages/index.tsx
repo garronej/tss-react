@@ -1,6 +1,6 @@
 
 import { useReducer, memo } from "react";
-import { GlobalStyles, useMergedClasses } from "tss-react";
+import { GlobalStyles } from "tss-react";
 import { makeStyles, useStyles, withStyles } from "../shared/makeStyles";
 import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
@@ -432,9 +432,7 @@ const { MyTestComponentForMergedClasses } = (() => {
 
     const MyTestComponentForMergedClassesInternal = (props: Props) => {
 
-        let { classes } = useStyles();
-
-        classes = useMergedClasses(classes, props.classes);
+        const { classes } = useStyles(undefined, { props });
 
         return (
             <div className={classes.foo}>

@@ -1,9 +1,5 @@
-import BaseDocument from "next/document";
-import { withEmotionCache } from "tss-react/nextJs";
-import { createMuiCache } from "./_app";
+import Document from "next/document";
+import { withEmotionCache } from "./_app";
 
-export default withEmotionCache({
-    "Document": BaseDocument,
-    "getCaches": () => [createMuiCache()]
-});
+export default withEmotionCache(Document);
 

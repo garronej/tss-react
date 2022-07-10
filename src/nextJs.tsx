@@ -23,11 +23,13 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
         );
     }
 
-    function withEmotionCache(params: {
-        Document: typeof NextDocument;
-        getExtraCaches?: () => EmotionCache[];
-    }) {
-        const { Document, getExtraCaches = () => [] } = params;
+    function withEmotionCache(
+        Document: typeof NextDocument,
+        params?: {
+            getExtraCaches: () => EmotionCache[];
+        },
+    ) {
+        const { getExtraCaches = () => [] } = params ?? {};
         return class DocumentWithEmotionCache extends Document {
             static async getInitialProps(ctx: DocumentContext) {
                 const emotionServers = [createMuiCache(), ...getExtraCaches()]
