@@ -28,7 +28,20 @@ render(
 ### Specify the cache at inception
 
 ```typescript
+//src/tss.ts
 import createCache from "@emotion/cache";
+// This is assuming you are using MUI, the useTheme function can be any hook that returns an object.
+import { useTheme } from "@mui/material/styles";
+import { createMakeAndWithStyles } from "tss-react";
+
+const cache = createCache({
+  "key": "custom"
+});
+
+export const { makeStyles, withStyles, useStyles } = createMakeAndWithStyles({
+    useTheme,
+    cache
+});
 ```
 
 ### &#x20;

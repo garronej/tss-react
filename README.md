@@ -84,6 +84,10 @@ Even if you never use it explicitly, it's a peer dependency of `@mui/material`.
 {% endhint %}
 {% endtab %}
 
+{% tab title="With MUI & theme augmentation" %}
+
+{% endtab %}
+
 {% tab title="Standalone" %}
 ```
 yarn add tss-react @emotion/react
