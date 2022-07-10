@@ -5,11 +5,15 @@ import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
 import { capitalize } from "./tools/capitalize";
+import type { EmotionCache } from "@emotion/cache";
 
-export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
-    const { useTheme } = params;
+export function createWithStyles<Theme>(params: {
+    useTheme: () => Theme;
+    cache?: EmotionCache;
+}) {
+    const { useTheme, cache } = params;
 
-    const { makeStyles } = createMakeStyles({ useTheme });
+    const { makeStyles } = createMakeStyles({ useTheme, cache });
 
     function withStyles<
         C extends ReactComponent<any> | keyof ReactHTML,

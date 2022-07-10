@@ -3,17 +3,48 @@ import { useMemo } from "react";
 import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject, CSSInterpolation } from "./types";
-import { useCssAndCx } from "./cssAndCx";
+import { createUseCssAndCx } from "./cssAndCx";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "./tools/typeGuard";
-import { useTssEmotionCache } from "./cache";
+//import { useTssEmotionCache } from "./cache";
 import { assert } from "./tools/assert";
 import { mergeClasses } from "./mergeClasses";
+import type { EmotionCache } from "@emotion/cache";
+declare module "@emotion/react" {
+    export function __unsafe_useEmotionCache(): EmotionCache | null;
+}
+
+import { __unsafe_useEmotionCache as useContextualCache } from "@emotion/react";
 
 let counter = 0;
 
-export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
-    const { useTheme } = params;
+export function createMakeStyles<Theme>(params: {
+    useTheme: () => Theme;
+    cache?: EmotionCache;
+}) {
+    const { useTheme, cache } = params;
+
+    function useCache() {
+        const contextualCache = useContextualCache();
+
+        const cacheToBeUsed = cache ?? contextualCache;
+
+        if (cacheToBeUsed === null) {
+            throw new Error(
+                [
+                    "In order to get SSR working with tss-react you need to explicitly provide an Emotion cache.",
+                    "MUI users be aware: This is not an error strictly related to tss-react, with or without tss-react,",
+                    "MUI needs an Emotion cache to be provided for SSR to work.",
+                    "Here is the MUI documentation related to SSR setup: https://mui.com/material-ui/guides/server-rendering/",
+                    "TSS provides helper that makes the process of setting up SSR easier: https://docs.tss-react.dev/ssr",
+                ].join("\n"),
+            );
+        }
+
+        return cacheToBeUsed;
+    }
+
+    const { useCssAndCx } = createUseCssAndCx({ useCache });
 
     /** returns useStyle. */
     function makeStyles<
@@ -62,7 +93,7 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
 
                 const { css, cx } = useCssAndCx();
 
-                const cache = useTssEmotionCache();
+                const cache = useCache();
 
                 let classes = useMemo(() => {
                     const refClassesCache: Record<string, string> = {};
@@ -131,12 +162,11 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme }) {
                 }, [cache, css, cx, theme, getDependencyArrayRef(params)]);
 
                 const propsClasses = styleOverrides?.props.classes;
-                {
-                    classes = useMemo(
-                        () => mergeClasses(classes, propsClasses, cx),
-                        [classes, getDependencyArrayRef(propsClasses), cx],
-                    );
-                }
+
+                classes = useMemo(
+                    () => mergeClasses(classes, propsClasses, cx),
+                    [classes, getDependencyArrayRef(propsClasses), cx],
+                );
 
                 {
                     let cssObjectByRuleNameOrGetCssObjectByRuleName:

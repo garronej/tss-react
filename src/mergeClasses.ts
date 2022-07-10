@@ -3,9 +3,6 @@
 
 import type { Cx } from "./types";
 import { objectKeys } from "./tools/objectKeys";
-import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
-import { useCssAndCx } from "./cssAndCx";
-import { useMemo } from "react";
 
 export function mergeClasses<T extends string, U extends string>(
     classesFromUseStyles: Record<T, string>,
@@ -44,16 +41,4 @@ export function mergeClasses<T extends string, U extends string>(
     });
 
     return out;
-}
-
-export function useMergedClasses<T extends string>(
-    classes: Record<T, string>,
-    classesOv: Partial<Record<T, string>> | undefined,
-): Record<T, string> {
-    const { cx } = useCssAndCx();
-
-    return useMemo(
-        () => mergeClasses(classes, classesOv, cx),
-        [classes, getDependencyArrayRef(classesOv), cx],
-    );
 }

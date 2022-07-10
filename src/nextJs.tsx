@@ -3,10 +3,6 @@ import createEmotionServer from "@emotion/server/create-instance";
 import type NextDocument from "next/document";
 import type { DocumentContext } from "next/document";
 import type { EmotionCache } from "@emotion/cache";
-import {
-    getTssDefaultEmotionCache,
-    getDoExistsTssDefaultEmotionCacheMemoizedValue,
-} from "./cache";
 
 /** @se <https://docs.tss-react.dev/ssr/next.js> */
 export function withEmotionCache(params: {
@@ -16,17 +12,7 @@ export function withEmotionCache(params: {
     const { Document, getCaches = () => [] } = params;
     return class DocumentWithEmotionCache extends Document {
         static async getInitialProps(ctx: DocumentContext) {
-            const emotionServers = (() => {
-                const caches = getCaches();
-
-                return getDoExistsTssDefaultEmotionCacheMemoizedValue() &&
-                    caches.indexOf(getTssDefaultEmotionCache()) >= 0
-                    ? caches
-                    : [
-                          ...caches,
-                          getTssDefaultEmotionCache({ "doReset": true }),
-                      ];
-            })()
+            const emotionServers = getCaches()
                 .sort((a, b) =>
                     getPrepend(a) === getPrepend(b)
                         ? 0

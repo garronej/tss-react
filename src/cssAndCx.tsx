@@ -5,7 +5,6 @@ import type { RegisteredCache } from "@emotion/serialize";
 import { insertStyles, getRegisteredStyles } from "@emotion/utils";
 import { useGuaranteedMemo } from "./tools/useGuaranteedMemo";
 import type { EmotionCache } from "@emotion/cache";
-import { useTssEmotionCache } from "./cache";
 import { matchCSSObject } from "./types";
 
 export const { createCssAndCx } = (() => {
@@ -70,16 +69,21 @@ export const { createCssAndCx } = (() => {
     return { createCssAndCx };
 })();
 
-/** Will pickup the contextual cache if any */
-export function useCssAndCx() {
-    const cache = useTssEmotionCache();
+export function createUseCssAndCx(params: { useCache: () => EmotionCache }) {
+    const { useCache } = params;
 
-    const { css, cx } = useGuaranteedMemo(
-        () => createCssAndCx({ cache }),
-        [cache],
-    );
+    function useCssAndCx() {
+        const cache = useCache();
 
-    return { css, cx };
+        const { css, cx } = useGuaranteedMemo(
+            () => createCssAndCx({ cache }),
+            [cache],
+        );
+
+        return { css, cx };
+    }
+
+    return { useCssAndCx };
 }
 
 // https://github.com/garronej/tss-react/issues/27
