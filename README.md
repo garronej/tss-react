@@ -78,10 +78,10 @@ Even if you never use it explicitly, it's a peer dependency of `@mui/material`.
 yarn add tss-react @emotion/react
 ```
 
-`./makeStyles.ts`
-
 ```typescript
-import { createMakeStyles } from "tss-react";
+// src/theme.ts
+
+import { createMakeStyles } from "tss-react"; //"tss-react/compat" if your project is using Typescript < 4.4
 
 function useTheme() {
     return {
@@ -89,13 +89,19 @@ function useTheme() {
     };
 }
 
-export const { makeStyles } = createMakeStyles({ useTheme });
+export const { 
+  makeStyles,
+  withStyles,
+  useStyles
+} = createMakeAndWithStyles({ useTheme });
 ```
 
-`./MyComponent.tsx`
+
 
 ```tsx
-import { makeStyles } from "./makeStyles";
+// src/components/MyComponents.tsx
+
+import { makeStyles } from "../theme";
 
 export function MyComponent(props: Props) {
     const { className } = props;
@@ -119,19 +125,25 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     })
 );
 ```
-{% endtab %}
-{% endtabs %}
-
-{% hint style="info" %}
-You can detect unused classes with [this ESLint plugin](detecting-unused-classes.md).
-{% endhint %}
 
 {% hint style="success" %}
 If you don't want to end up writing things like:
 
 ```typescript
-import { makeStyles } from "../../../../../../makeStyles";
+import { makeStyles } from "../../../../../../theme";
 ```
 
-You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your `tsconfig.json` and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
+You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your tsconfig.json and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
+
+In the above example it would be:
+
+```typescript
+import { makeStyles } from "theme";
+```
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+You can detect unused classes with [this ESLint plugin](detecting-unused-classes.md).
 {% endhint %}
