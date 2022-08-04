@@ -97,7 +97,7 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme }) {
             return (
                 <Component_
                     ref={ref}
-                    className={cx(classes.root, className)}
+                    className={cx(...Object.keys(classes), className)}
                     {...(typeof Component === "string" ? {} : { classes })}
                     {...rest}
                 />
