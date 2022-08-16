@@ -62,7 +62,3 @@ yarn add YOUR_MODULE @emotion/react
 Regarding SSR setup you can forward your user to [the dedicated documentation](ssr/).
 {% endtab %}
 {% endtabs %}
-
-{% hint style="warning" %}
-Wherever you make use of [nested selectors](nested-selectors.md) you must [provide a `uniqId`](nested-selectors.md#ssr) to make sure your components will works in every SSR setup.
-{% endhint %}
