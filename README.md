@@ -1,5 +1,9 @@
 # ⬆ Migration v3 -> v4
 
+## Upgrade MUI
+
+If you are using MUI you must upgrade `@mui/material` to `v5.9.3` or newer.&#x20;
+
 ## Breaking changes
 
 ### SSR setup
