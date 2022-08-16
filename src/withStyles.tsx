@@ -91,6 +91,18 @@ export function createWithStyles<Theme>(params: {
                   ) as any),
         );
 
+        function getHasNonRootClasses(classes: Record<string, string>) {
+            for (const name in classes) {
+                if (name === "root") {
+                    continue;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const Out = forwardRef<any, Props>(function (props, ref) {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -101,7 +113,11 @@ export function createWithStyles<Theme>(params: {
             return (
                 <Component_
                     ref={ref}
-                    className={cx(classes.root, className)}
+                    className={
+                        getHasNonRootClasses(classes)
+                            ? className
+                            : cx(classes.root, className)
+                    }
                     {...(typeof Component === "string" ? {} : { classes })}
                     {...rest}
                 />
