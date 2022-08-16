@@ -8,6 +8,8 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import type { CSSObject } from "tss-react";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
+import Tab from "@mui/material/Tab";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 const H1 = styled('h1')({
 	"color": "yellow"
@@ -168,6 +170,7 @@ export function App(props: { className?: string; }) {
 					}}
 					lightBulbBorderColor="black"
 				/>
+				<StyledTab icon={<PhoneIcon />} label="Background should be green" />
 			</div>
 		</>
 	);
@@ -513,3 +516,12 @@ const { TestingStyleOverrides } = (() => {
 	return { TestingStyleOverrides };
 
 })();
+
+const StyledTab = withStyles(Tab, {
+	"root": {
+		"backgroundColor": "root"
+	},
+	"labelIcon": {
+		"backgroundColor": "green"
+	}
+});

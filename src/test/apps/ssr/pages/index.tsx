@@ -9,6 +9,8 @@ import { useIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
 import Typography from "@mui/material/Typography";
 import type { CSSObject } from "tss-react";
 import InputBase from "@mui/material/InputBase";
+import Tab from "@mui/material/Tab";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 export default function Index() {
 
@@ -197,6 +199,7 @@ const { App } = (() => {
                         }}
                         lightBulbBorderColor="black"
                     />
+				    <StyledTab icon={<PhoneIcon />} label="styled Tab" />
                 </div>
             </>
         );
@@ -559,3 +562,13 @@ const { TestingStyleOverrides } = (() => {
     return { TestingStyleOverrides };
 
 })();
+
+
+const StyledTab = withStyles(Tab, {
+	"root": {
+		"backgroundColor": "root"
+	},
+	"labelIcon": {
+		"backgroundColor": "green"
+	}
+});
