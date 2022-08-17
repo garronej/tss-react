@@ -82,7 +82,7 @@ yarn start_ssr
 yarn start_muiV4
 ```
 
-In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)
+In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)!
 
 # Changelog highlights
 
