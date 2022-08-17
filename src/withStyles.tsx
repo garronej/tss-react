@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { forwardRef, createElement } from "react";
-import type { ReactHTML } from "react";
+import type { ReactHTML, FunctionComponent } from "react";
 import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
@@ -70,10 +70,18 @@ export function createWithStyles<Theme>(params: {
                   })()
                 : Component;
 
+        /**
+         * Get component name for wrapping
+         * @see https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
+         */
         const name = (() => {
-            const { name } = Component_;
-
-            return typeof name === "string" ? name : undefined;
+            const { name, displayName } = Component_ as FunctionComponent;
+            if (typeof displayName === "string") {
+                return displayName;
+            }
+            if (typeof name === "string") {
+                return name;
+            }
         })();
 
         const useStyles = makeStyles<Props, any>(params)(
@@ -125,8 +133,12 @@ export function createWithStyles<Theme>(params: {
         });
 
         if (name !== undefined) {
+            const componentName = `${name}WithStyles`;
             Object.defineProperty(Out, "name", {
-                "value": `${name}WithStyles`,
+                "value": componentName,
+            });
+            Object.defineProperty(Out, "displayName", {
+                "value": componentName,
             });
         }
 
