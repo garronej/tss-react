@@ -36,7 +36,7 @@ jobs:
     steps:
     - name: Tell if project is using npm or yarn
       id: step1
-      uses: garronej/ts-ci@v1.1.3
+      uses: garronej/ts-ci@v1.1.7
       with: 
         action_name: tell_if_project_uses_npm_or_yarn
     - uses: actions/checkout@v2.3.4
@@ -47,11 +47,11 @@ jobs:
     - if: steps.step1.outputs.npm_or_yarn == 'yarn'
       run: |
         yarn build
-#       yarn test
+      # yarn test
     - if: steps.step1.outputs.npm_or_yarn == 'npm'
       run: |
         npm run build
-#       npm test
+        npm test
   check_if_version_upgraded:
     name: Check if version upgrade
     # We run this only if it's a push on the default branch or if it's a PR from a 
@@ -74,39 +74,25 @@ jobs:
         action_name: is_package_json_version_upgraded
         branch: ${{ github.head_ref || github.ref }}
 
-  update_changelog:
-    runs-on: ubuntu-latest
-    needs: check_if_version_upgraded
-    if: needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true'
-    steps:
-    - uses: garronej/ts-ci@v1.1.3
-      with:
-        action_name: update_changelog
-        branch: ${{ github.head_ref || github.ref }}
-
   create_github_release:
     runs-on: ubuntu-latest
+    # We create a release only if the version have been upgraded and we are on a default branch
+    # PR on the default branch can release beta but not real release
+    if: |
+      needs.check_if_version_upgraded.outputs.is_upgraded_version == 'true' &&
+      (
+        github.event_name == 'push' ||
+        needs.check_if_version_upgraded.outputs.is_release_beta == 'true'
+      )
     needs: 
-      - update_changelog
       - check_if_version_upgraded
     steps:
-    - name: Build GitHub release body
-      id: step1
-      run: |
-        if [ "$FROM_VERSION" = "0.0.0" ]; then
-            echo "::set-output name=body::🚀"
-        else
-            echo "::set-output name=body::📋 [CHANGELOG](https://github.com/$GITHUB_REPOSITORY/blob/v$TO_VERSION/CHANGELOG.md)"
-        fi
-      env: 
-        FROM_VERSION: ${{ needs.check_if_version_upgraded.outputs.from_version }}
-        TO_VERSION: ${{ needs.check_if_version_upgraded.outputs.to_version }}
-    - uses: garronej/action-gh-release@v0.2.0
+    - uses: softprops/action-gh-release@v0.1.14
       with:
         name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}
         tag_name: v${{ needs.check_if_version_upgraded.outputs.to_version }}
         target_commitish: ${{ github.head_ref || github.ref }}
-        body: ${{ steps.step1.outputs.body }}
+        generate_release_notes: true
         draft: false
         prerelease: ${{ needs.check_if_version_upgraded.outputs.is_release_beta == 'true' }}
       env:
@@ -115,7 +101,7 @@ jobs:
   publish_on_npm:
     runs-on: ubuntu-latest
     needs: 
-      - update_changelog
+      - create_github_release
       - check_if_version_upgraded
     steps:
     - uses: actions/checkout@v2.3.4
