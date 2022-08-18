@@ -74,7 +74,7 @@ export function createWithStyles<Theme>(params: {
          * Get component name for wrapping
          * @see https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
          */
-        const name = (() => {
+        const name: string | undefined = (() => {
             {
                 const displayName = (Component_ as any).displayName;
 
@@ -143,9 +143,9 @@ export function createWithStyles<Theme>(params: {
         });
 
         if (name !== undefined) {
-            Object.defineProperty(Out, "name", {
-                "value": `${name}WithStyles`,
-            });
+            Out.displayName = `${capitalize(name)}WithStyles`;
+
+            Object.defineProperty(Out, "name", { "value": Out.displayName });
         }
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
