@@ -4,7 +4,7 @@ import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject, CSSInterpolation } from "./types";
 import { createUseCssAndCx } from "./cssAndCx";
-import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
+//import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "./tools/typeGuard";
 //import { useTssEmotionCache } from "./cache";
 import { assert } from "./tools/assert";
@@ -159,13 +159,23 @@ export function createMakeStyles<Theme>(params: {
                     });
 
                     return classes;
-                }, [cache, css, cx, theme, getDependencyArrayRef(params)]);
+                }, [
+                    cache,
+                    css,
+                    cx,
+                    theme,
+                    /*getDependencyArrayRef(params)*/ params,
+                ]);
 
                 const propsClasses = styleOverrides?.props.classes;
 
                 classes = useMemo(
                     () => mergeClasses(classes, propsClasses, cx),
-                    [classes, getDependencyArrayRef(propsClasses), cx],
+                    [
+                        classes,
+                        /*getDependencyArrayRef(propsClasses),*/ propsClasses,
+                        cx,
+                    ],
                 );
 
                 {
@@ -227,8 +237,8 @@ export function createMakeStyles<Theme>(params: {
                             : JSON.stringify(
                                   cssObjectByRuleNameOrGetCssObjectByRuleName,
                               ),
-                        getDependencyArrayRef(styleOverrides?.props),
-                        getDependencyArrayRef(styleOverrides?.ownerState),
+                        /* getDependencyArrayRef(styleOverrides?.props), */ styleOverrides?.props,
+                        /* getDependencyArrayRef(styleOverrides?.ownerState), */ styleOverrides?.ownerState,
                         css,
                     ]);
 
