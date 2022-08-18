@@ -199,7 +199,7 @@ const { App } = (() => {
                         }}
                         lightBulbBorderColor="black"
                     />
-				    <StyledTab icon={<PhoneIcon />} label="styled Tab" />
+				    <StyledTab icon={<PhoneIcon />} label="Background should be greenish" />
                 </div>
             </>
         );
@@ -566,7 +566,7 @@ const { TestingStyleOverrides } = (() => {
 
 const StyledTab = withStyles(Tab, {
 	"root": {
-		"backgroundColor": "root"
+		"backgroundColor": "red"
 	},
 	"labelIcon": {
 		"backgroundColor": "green"
