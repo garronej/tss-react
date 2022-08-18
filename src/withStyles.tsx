@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { forwardRef, createElement } from "react";
-import type { ReactHTML, FunctionComponent } from "react";
+import type { ReactHTML } from "react";
 import type { ReactComponent } from "./tools/ReactComponent";
 import type { CSSObject } from "./types";
 import { createMakeStyles } from "./makeStyles";
@@ -75,16 +75,26 @@ export function createWithStyles<Theme>(params: {
          * @see https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
          */
         const name = (() => {
-            const { name, displayName } = Component_ as FunctionComponent;
-            if (typeof displayName === "string") {
-                return displayName;
+            {
+                const displayName = (Component_ as any).displayName;
+
+                if (displayName) {
+                    return displayName;
+                }
             }
-            if (typeof name === "string") {
-                return name;
+
+            {
+                const { name } = Component_;
+
+                if (name) {
+                    return name;
+                }
             }
+
+            return params?.name;
         })();
 
-        const useStyles = makeStyles<Props, any>(params)(
+        const useStyles = makeStyles<Props, any>({ ...params, name })(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
                 ? (theme: Theme, props: Props, classes: Record<any, string>) =>
                       incorporateMediaQueries(
@@ -133,12 +143,8 @@ export function createWithStyles<Theme>(params: {
         });
 
         if (name !== undefined) {
-            const componentName = `${name}WithStyles`;
             Object.defineProperty(Out, "name", {
-                "value": componentName,
-            });
-            Object.defineProperty(Out, "displayName", {
-                "value": componentName,
+                "value": `${name}WithStyles`,
             });
         }
 

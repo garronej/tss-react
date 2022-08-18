@@ -57,13 +57,31 @@ export function createWithStyles<Theme>(params: {
                   })()
                 : Component;
 
+        /**
+         * Get component name for wrapping
+         * @see https://reactjs.org/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging
+         */
         const name = (() => {
-            const { name } = Component_;
+            {
+                const displayName = (Component_ as any).displayName;
 
-            return typeof name === "string" ? name : undefined;
+                if (displayName) {
+                    return displayName;
+                }
+            }
+
+            {
+                const { name } = Component_;
+
+                if (name) {
+                    return name;
+                }
+            }
+
+            return params?.name;
         })();
 
-        const useStyles = makeStyles<Props, any>(params)(
+        const useStyles = makeStyles<Props, any>({ ...params, name })(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
                 ? (theme: Theme, props: Props, classes: Record<any, string>) =>
                       incorporateMediaQueries(
