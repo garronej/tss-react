@@ -24,7 +24,7 @@
 > 🗣 v4 is out! 🎉 Check [the migration guide](https://docs.tss-react.dev/update-to-v4).  
 > This major enables TSS and MUI to share the emotion cache. It makes using TSS transparent, things just work 🥳.
 > This was made possible by the peoples behind [Emotion](https://github.com/emotion-js/emotion/pull/2441) and [MUI](https://github.com/mui/material-ui/pull/33205)
-> that reviewed and merged our PRs. Many thanks to them.  
+> that reviewed and merged our PRs. Many thanks to them.
 
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
