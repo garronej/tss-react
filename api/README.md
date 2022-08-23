@@ -10,8 +10,8 @@ import {
 } from "tss-react";
 ```
 
-{% content-ref url="makestyles-usestyles.md" %}
-[makestyles-usestyles.md](makestyles-usestyles.md)
+{% content-ref url="makestyles.md" %}
+[makestyles.md](makestyles.md)
 {% endcontent-ref %}
 
 {% content-ref url="withstyles.md" %}
