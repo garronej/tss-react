@@ -36,6 +36,10 @@ function App() {
                 "label": "Documentation",
                 "href": "https://docs.tss-react.dev",
               },
+              {
+                "playground": "Playground",
+                "href": "https://stackblitz.com/edit/tss-react?file=Hello.tsx"
+              }
             ]}
             enableDarkModeSwitch={true}
             githubRepoUrl={repoUrl}
