@@ -5,13 +5,13 @@ export { createMakeStyles };
 import { createWithStyles } from "./withStyles_compat";
 export { createWithStyles };
 
-/** @see <https://docs.tss-react.dev/api-references/keyframes> */
+/** @see <https://docs.tss-react.dev/api/keyframes> */
 export { keyframes } from "@emotion/react";
 
-/** @see <https://docs.tss-react.dev/api-references/globalstyles> */
+/** @see <https://docs.tss-react.dev/api/globalstyles> */
 export { GlobalStyles } from "./GlobalStyles";
 
-/** @see <https://docs.tss-react.dev/api-references/makestyles-usestyles> */
+/** @see <https://docs.tss-react.dev/api/makestyles> */
 export function createMakeAndWithStyles<Theme>(params: {
     useTheme: () => Theme;
     cache?: EmotionCache;
