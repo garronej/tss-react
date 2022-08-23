@@ -1,135 +1,143 @@
-# ⬆ Migration v3 -> v4
+---
+description: Start using TSS, with or without MUI
+---
 
-## Breaking changes
+# 🔧 Setup
 
-### SSR setup
+{% hint style="info" %}
+`tss-react` has over 170 000 monthly NPM download and fewer than 222 ⭐️ on GitHub.
 
-{% hint style="success" %}
-MUI users can now setup SSR as per described in the [MUI documentation](https://mui.com/material-ui/guides/server-rendering/). Nothing specific to `tss-react` is required.
+If you use TSS in production, please consider [giving the project a star](https://github.com/garronej/tss-react).
 {% endhint %}
 
-```diff
-// src/pages/_app.tsx
-
--import type { EmotionCache } from "@emotion/cache";
--import createCache from "@emotion/cache";
--import { CacheProvider } from '@emotion/react';
-+import { createEmotionSsrAdvancedApproach } from "tss-react/nextJs";
-
--let muiCache: EmotionCache | undefined = undefined;
--export const createMuiCache = () => muiCache = createCache({ "key": "mui", "prepend": true });
-
-+const { EmotionCacheProvider, withEmotionCache } = createEmotionSsrAdvancedApproach({ "key": "css" });
-+export { withEmotionCache };
-
- function App({ Component, pageProps }: AppProps) {
-
-   ...
-
--			<CacheProvider value={muiCache ?? createMuiCache()}>
-+			<EmotionCacheProvider>
-				<MuiThemeProvider theme={theme}>
-					<CssBaseline />
-					<Component {...pageProps} />
-				</MuiThemeProvider>
--			</CacheProvider>
-+			</EmotionCacheProvider>
-
- );
-
+{% tabs %}
+{% tab title="With MUI" %}
+```bash
+yarn add tss-react @emotion/react @mui/material @emotion/styled
 ```
 
-```diff
-// src/pages/_document.tsx
+{% hint style="info" %}
+If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
+{% endhint %}
 
-import BaseDocument from "next/document";
--import { withEmotionCache } from "tss-react/nextJs";
--import { createMuiCache } from "./_app";
-+import { withEmotionCache } from "./_app";
+```tsx
+import { makeStyles, withStyles } from "tss-react/mui"; // "tss-react/mui-compat" if your project is using Typescript < 4.4
+import Button from "@mui/material/Button";
 
--export default withEmotionCache({
--    "Document": BaseDocument,
--    "getCaches": () => [createMuiCache()]
--});
-+export default withEmotionCache(BaseDocument);
-```
+type Props = {
+    className?: string;
+};
 
-### `<TssCacheProvider />` removed
+export function MyButton(props: Props) {
+    const { className } = props;
 
-```diff
- import createCache from "@emotion/cache";
- import { CacheProvider } from "@emotion/react";
--import { TssCacheProvider } from "tss-react";
-+import { createMakeAndWithStyles } from "tss-react";
-+import { useTheme } from "@mui/material/styles";
+    const [isClicked, setIsClicked] = useState(false);
 
- const muiCache = createCache({
-     "key": "my-custom-prefix-for-mui",
-     "prepend": true
- });
+    const { classes, cx } = useStyles({ "color": isClicked ? "blue": "red" });
 
- const tssCache = createCache({
-     "key": "my-custom-prefix-for-tss"
- });
+    //Thanks to cx, className will take priority over classes.root 🤩
+    //With TSS you must stop using clsx and use cx instead.
+    //More info here: https://github.com/mui/material-ui/pull/31802#issuecomment-1093478971
+    return (
+        <Button 
+            className={cx(classes.root, className)}
+            onClick={()=> setIsClicked(true)}
+        >
+            hello world
+        </Button>
+    );
+}
 
-+export const { makeStyles, withStyles } = createMakeAndWithStyles({
-+    useTheme,
-+    "cache": tssCache
-+});
-
- <CacheProvider value={muiCache}>
--   <TssCacheProvider value={tssCache}>
-        {/* ... */}
--   </TssCacheProvider>
- </CacheProvider>;
-```
-
-### `useCssAndCx` removed
-
-```diff
--import { useCssAndCx } from "tss-react";
-+import { useStyles } from "tss-react/mui";
-
--const { css, cx }= useCssAndCx();
-+const { css, cx } = useStyles();
-```
-
-### `useMergedClasses` removed
-
-```diff
--import { useMergedClasses } from "tss-react";
-
--let { classes } = useStyles({ "color": "blue" });
--classes = useMergedClasses(classes, props.classes);
-+const { classes } = usesStyles({ "color": "blue" }, { props });
-
--let { classes } = useStyles();
--classes = useMergedClasses(classes, props.classes);
-+const { classes } = usesStyles(undefined, { props });
-```
-
-## Removing noise
-
-Explicitly providing an emotion cache is still supported but no longer required.&#x20;
-
-```diff
- import { createRoot } from "react-dom/client";
--import { CacheProvider } from "@emotion/react";
--import createCache from "@emotion/cache";
--import { ThemeProvider } from "@mui/material/styles";
-
--export const muiCache = createCache({
--    "key": "mui",
--    "prepend": true
--});
-
- const container = document.getElementById('app');
- const root = createRoot(container!); 
- root.render(
--    <CacheProvider value={muiCache}>
-        <ThemeProvider theme={myTheme}>
-            <App />
-        </ThemeProvider>
--    </CacheProvider>
+const useStyles = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            color,
+            "&:hover": {
+                "color": theme.palette.primary.main
+            }
+        }
+    })
 );
 ```
+
+{% hint style="warning" %}
+**Keep `@emotion/styled` as a dependency of your project**.
+
+Even if you never use it explicitly, it's a peer dependency of `@mui/material`.
+{% endhint %}
+{% endtab %}
+
+{% tab title="Standalone" %}
+```
+yarn add tss-react @emotion/react
+```
+
+```typescript
+// src/theme.ts
+
+import { createMakeStyles } from "tss-react"; //"tss-react/compat" if your project is using Typescript < 4.4
+
+function useTheme() {
+    return {
+        "primaryColor": "#32CD32",
+    };
+}
+
+export const { 
+  makeStyles,
+  withStyles,
+  useStyles
+} = createMakeAndWithStyles({ useTheme });
+```
+
+
+
+```tsx
+// src/components/MyComponents.tsx
+
+import { makeStyles } from "../theme";
+
+export function MyComponent(props: Props) {
+    const { className } = props;
+
+    const [color, setColor] = useState<"red" | "blue">("red");
+
+    const { classes, cx } = useStyles({ color });
+
+    //Thanks to cx, className will take priority over classes.root 🤩
+    return <span className={cx(classes.root, className)}>hello world</span>;
+}
+
+const useStyles = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            color,
+            "&:hover": {
+                "backgroundColor": theme.primaryColor
+            }
+        }
+    })
+);
+```
+
+{% hint style="success" %}
+If you don't want to end up writing things like:
+
+```typescript
+import { makeStyles } from "../../../../../../theme";
+```
+
+You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your tsconfig.json and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
+
+In the above example it would be:
+
+```typescript
+import { makeStyles } from "theme";
+```
+{% endhint %}
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+You can detect unused classes with [this ESLint plugin](detecting-unused-classes.md).
+{% endhint %}
