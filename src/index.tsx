@@ -37,7 +37,7 @@ function App() {
                 "href": "https://docs.tss-react.dev",
               },
               {
-                "playground": "Playground",
+                "label": "Playground",
                 "href": "https://stackblitz.com/edit/tss-react?file=Hello.tsx"
               }
             ]}
