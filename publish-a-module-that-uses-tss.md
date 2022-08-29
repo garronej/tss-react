@@ -32,6 +32,10 @@ Your users install your module like that:&#x20;
 yarn add YOUR_MODULE @mui/material @emotion/react @emotion/styled
 ```
 
+{% hint style="info" %}
+The version of `@mui/material` must be newer or equal to `5.9.3`
+{% endhint %}
+
 Regarding SSR setup you can forward your user to the dedicated [MUI documentation](https://mui.com/material-ui/guides/server-rendering/).
 {% endtab %}
 

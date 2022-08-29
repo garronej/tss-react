@@ -92,7 +92,7 @@ import { useStyles } from "tss-react/mui";
 function App(){
     const { css } = useStyles();
     return (
-        <MyComponent 
+        <TestingStyleOverrides 
             className={css({ "backgroundColor": "white" })}
             classes={{
                 "root": css({
