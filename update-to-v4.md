@@ -120,7 +120,7 @@ Explicitly providing an emotion cache is still supported but no longer required.
  import { createRoot } from "react-dom/client";
 -import { CacheProvider } from "@emotion/react";
 -import createCache from "@emotion/cache";
--import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 -export const muiCache = createCache({
 -    "key": "mui",
