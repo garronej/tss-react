@@ -6,10 +6,19 @@
         "type": "git",
         "url": "git://github.com/garronej/tss-react.git"
     },
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js"
+        }
+    },
     "scripts": {
-        "build": "tsc",
+        "build": "rm -rf dist && yarn build:esm && yarn build:cjs",
+        "build:esm": "tsc --module es2015 --outDir dist/esm",
+        "build:cjs": "tsc --module commonjs --outDir dist/cjs",
         "start_spa": "yarn yarn_link && cd src/test/apps/spa && yarn start",
         "start_ssr": "yarn yarn_link && cd src/test/apps/ssr && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
@@ -35,11 +44,16 @@
     "author": "u/garronej",
     "license": "MIT",
     "files": [
-        "dist/",
-        "!dist/test/",
-        "!dist/bin/",
-        "!dist/package.json",
-        "!dist/tsconfig.tsbuildinfo"
+        "dist/esm",
+        "!dist/esm/test/",
+        "!dist/esm/bin/",
+        "!dist/esm/package.json",
+        "!dist/esm/tsconfig.tsbuildinfo",
+        "dist/cjs",
+        "!dist/cjs/test/",
+        "!dist/cjs/bin/",
+        "!dist/cjs/package.json",
+        "!dist/cjs/tsconfig.tsbuildinfo"
     ],
     "keywords": [
         "jss",
