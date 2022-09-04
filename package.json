@@ -8,8 +8,19 @@
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "module": "esm/index.js",
+    "exports": {
+        ".": {
+            "import": "./esm/index.js",
+            "require": "./index.js"
+        },
+        "./mui": {
+            "import": "./esm/mui.js",
+            "require": "./mui.js"
+        }
+    },
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && tsc --module es2015 --outDir dist/esm",
         "start_spa": "yarn yarn_link && cd src/test/apps/spa && yarn start",
         "start_ssr": "yarn yarn_link && cd src/test/apps/ssr && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
@@ -39,7 +50,11 @@
         "!dist/test/",
         "!dist/bin/",
         "!dist/package.json",
-        "!dist/tsconfig.tsbuildinfo"
+        "!dist/tsconfig.tsbuildinfo",
+        "!dist/esm/test/",
+        "!dist/esm/bin/",
+        "!dist/esm/package.json",
+        "!dist/esm/tsconfig.tsbuildinfo"
     ],
     "keywords": [
         "jss",

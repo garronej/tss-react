@@ -3,6 +3,7 @@
         "module": "CommonJS",
         "target": "ES6",
         "lib": ["es2015", "ES2019.Object", "DOM"],
+        "moduleResolution": "node",
         "esModuleInterop": true,
         "declaration": true,
         "outDir": "./dist",
