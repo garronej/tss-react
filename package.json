@@ -6,33 +6,35 @@
         "type": "git",
         "url": "git://github.com/garronej/tss-react.git"
     },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "module": "esm/index.js",
     "exports": {
         ".": {
-            "import": "./dist/esm/index.js",
-            "require": "./dist/cjs/index.js"
+            "import": "./esm/index.js",
+            "require": "./index.js"
         },
         "./mui": {
-            "import": "./dist/esm/mui.js",
-            "require": "./dist/cjs/mui.js"
+            "import": "./esm/mui.js",
+            "require": "./mui.js"
         }
     },
     "typesVersions": {
-        "*": {
-            "*": [
-                "./dist/esm/*"
-            ]
-        },
         "<4.4": {
-            "./dist/esm/index.d.ts": [
-                "./dist/esm/compat.d.ts"
+            "./esm/index.d.ts": [
+                "./esm/compat.d.ts"
             ],
-            "./dist/esm/mui.d.ts": [
-                "./dist/esm/mui-compat.d.ts"
+            "./esm/mui.d.ts": [
+                "./esm/mui-compat.d.ts"
+            ],
+            "./cjs/index.d.ts": [
+                "./esm/compat.d.ts"
+            ],
+            "./cjs/mui.d.ts": [
+                "./esm/mui-compat.d.ts"
             ]
         }
     },
-    "main": "dist/cjs/index.js",
-    "types": "dist/esm/index.d.ts",
     "scripts": {
         "build": "rm -rf dist && yarn build:esm && yarn build:cjs",
         "build:esm": "tsc --module es2015 --outDir dist/esm",
