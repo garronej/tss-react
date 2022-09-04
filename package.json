@@ -16,6 +16,9 @@
         "./mui": {
             "import": "./dist/esm/mui.js"
         },
+        "./nextJs": {
+            "import": "./dist/esm/nextJs.js"
+        },
         "./compat": {
             "import": "./dist/esm/compat.js"
         },
