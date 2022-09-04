@@ -11,22 +11,24 @@
             "import": "./dist/esm/index.js",
             "require": "./dist/cjs/index.js"
         },
-        "./compat": {
-            "import": "./dist/esm/compat.js",
-            "require": "./dist/cjs/compat.js"
-        },
         "./mui": {
             "import": "./dist/esm/mui.js",
             "require": "./dist/cjs/mui.js"
-        },
-        "./mui-compat": {
-            "import": "./dist/esm/mui-compat.js",
-            "require": "./dist/cjs/mui-compat.js"
         }
     },
     "typesVersions": {
         "*": {
-           "*": ["./dist/esm/*"]
+            "*": [
+                "./dist/esm/*"
+            ]
+        },
+        "<4.4": {
+            "./dist/esm/index.d.ts": [
+                "./dist/esm/compat.d.ts"
+            ],
+            "./dist/esm/mui.d.ts": [
+                "./dist/esm/mui-compat.d.ts"
+            ]
         }
     },
     "main": "dist/cjs/index.js",
