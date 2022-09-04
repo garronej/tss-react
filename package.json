@@ -11,19 +11,24 @@
     "module": "dist/esm/index.js",
     "exports": {
         ".": {
-            "import": "./dist/esm/index.js"
+            "import": "./dist/esm/index.js",
+            "require": "./dist/index.js"
         },
         "./mui": {
-            "import": "./dist/esm/mui.js"
+            "import": "./dist/esm/mui.js",
+            "require": "./dist/mui.js"
         },
         "./nextJs": {
-            "import": "./dist/esm/nextJs.js"
+            "import": "./dist/esm/nextJs.js",
+            "require": "./dist/nextJs.js"
         },
         "./compat": {
-            "import": "./dist/esm/compat.js"
+            "import": "./dist/esm/compat.js",
+            "require": "./dist/compat.js"
         },
         "./mui_compat": {
-            "import": "./dist/esm/mui_compat.js"
+            "import": "./dist/esm/mui_compat.js",
+            "require": "./dist/mui_compat.js"
         }
     },
     "scripts": {
