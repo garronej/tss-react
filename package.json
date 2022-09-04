@@ -36,9 +36,7 @@
         }
     },
     "scripts": {
-        "build": "rm -rf dist && yarn build:esm && yarn build:cjs",
-        "build:esm": "tsc --module es2015 --outDir dist/esm",
-        "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+        "build": "tsc && tsc --module es2015 --outDir dist/esm",
         "start_spa": "yarn yarn_link && cd src/test/apps/spa && yarn start",
         "start_ssr": "yarn yarn_link && cd src/test/apps/ssr && yarn dev",
         "lint:check": "eslint . --ext .ts,.tsx",
