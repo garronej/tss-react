@@ -13,6 +13,18 @@
         ".": {
             "import": "./dist/esm/index.js",
             "require": "./dist/cjs/index.js"
+        },
+        "./compat": {
+            "import": "./dist/esm/compat.js",
+            "require": "./dist/cjs/compat.js"
+        },
+        "./mui": {
+            "import": "./dist/esm/mui.js",
+            "require": "./dist/cjs/mui.js"
+        },
+        "./mui-compat": {
+            "import": "./dist/esm/mui-compat.js",
+            "require": "./dist/cjs/mui-compat.js"
         }
     },
     "scripts": {
