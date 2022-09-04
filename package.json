@@ -11,18 +11,22 @@
     "types": "dist/esm/index.d.ts",
     "exports": {
         ".": {
+            "types": "./dist/esm/index.d.ts",
             "import": "./dist/esm/index.js",
             "require": "./dist/cjs/index.js"
         },
         "./compat": {
+            "types": "./dist/esm/compat.d.ts",
             "import": "./dist/esm/compat.js",
             "require": "./dist/cjs/compat.js"
         },
         "./mui": {
+            "types": "./dist/esm/mui.d.ts",
             "import": "./dist/esm/mui.js",
             "require": "./dist/cjs/mui.js"
         },
         "./mui-compat": {
+            "types": "./dist/esm/mui-compat.d.ts",
             "import": "./dist/esm/mui-compat.js",
             "require": "./dist/cjs/mui-compat.js"
         }
