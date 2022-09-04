@@ -94,6 +94,16 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 <details>
     <summary>Click to expand</summary>
 
+## v4.1.0  
+
+- Publish an ESM distribution.  
+  This fixes many bug when working in [Vite](https://vitejs.dev/).  
+
+## v4.0.0
+
+- No need to provide an emotion cache explicitly, MUI and TSS can share the same emotion cache.  
+  No special instruction to make TSS work with SSR.
+
 ## v3.7.1
 
 -   Retrocompatibility with React 16. [Ref](https://github.com/garronej/tss-react/issues/95)
