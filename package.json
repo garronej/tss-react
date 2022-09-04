@@ -8,31 +8,23 @@
     },
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "module": "esm/index.js",
+    "module": "dist/esm/index.js",
     "exports": {
         ".": {
-            "import": "./esm/index.js",
-            "require": "./index.js"
+            "import": "./dist/esm/index.js",
+            "require": "./dist/index.js"
         },
         "./mui": {
-            "import": "./esm/mui.js",
-            "require": "./mui.js"
-        }
-    },
-    "typesVersions": {
-        "<4.4": {
-            "./esm/index.d.ts": [
-                "./esm/compat.d.ts"
-            ],
-            "./esm/mui.d.ts": [
-                "./esm/mui-compat.d.ts"
-            ],
-            "./cjs/index.d.ts": [
-                "./esm/compat.d.ts"
-            ],
-            "./cjs/mui.d.ts": [
-                "./esm/mui-compat.d.ts"
-            ]
+            "import": "./dist/esm/mui.js",
+            "require": "./dist/mui.js"
+        },
+        "./compat": {
+            "import": "./dist/esm/compat.js",
+            "require": "./dist/compat.js"
+        },
+        "./mui_compat": {
+            "import": "./dist/esm/mui_compat.js",
+            "require": "./dist/mui_compat.js"
         }
     },
     "scripts": {
