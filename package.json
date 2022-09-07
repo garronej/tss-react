@@ -26,9 +26,9 @@
             "import": "./dist/esm/compat.js",
             "require": "./dist/compat.js"
         },
-        "./mui_compat": {
-            "import": "./dist/esm/mui_compat.js",
-            "require": "./dist/mui_compat.js"
+        "./mui-compat": {
+            "import": "./dist/esm/mui-compat.js",
+            "require": "./dist/mui-compat.js"
         }
     },
     "scripts": {
