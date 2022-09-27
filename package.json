@@ -94,7 +94,7 @@
     "devDependencies": {
         "@emotion/server": "11.4.0",
         "@emotion/react": "11.9.0",
-        "@mui/material": "5.9.3",
+        "@mui/material": "5.10.7",
         "@emotion/styled": "11.3.0",
         "@types/node": "^15.3.1",
         "@types/react": "18.0.9",

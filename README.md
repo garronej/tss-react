@@ -21,11 +21,6 @@
   <a href="https://docs.tss-react.dev">Documentation</a>
 </p>
 
-> 🗣 There is [a PR](https://github.com/mui/material-ui/pull/34451) open on the MUI repo that fixes problems of styles
-> not applying correctly after upgrading to TSS v4.
-> [Example with `InputLabel`](https://github.com/garronej/tss-react/issues/103#issuecomment-1248386773).  
-> Thank you for your understanding and sorry for the inconvenience.
-
 > 🗣 v4 is out! 🎉 Check [the migration guide](https://docs.tss-react.dev/update-to-v4).  
 > This major enables TSS and MUI to share the emotion cache. It makes using TSS transparent, things just work 🥳.
 > This was made possible by the peoples behind [Emotion](https://github.com/emotion-js/emotion/pull/2441) and [MUI](https://github.com/mui/material-ui/pull/33205)
