@@ -14,7 +14,7 @@ export { GlobalStyles } from "./GlobalStyles";
 /** @see <https://docs.tss-react.dev/api/makestyles> */
 export function createMakeAndWithStyles<Theme>(params: {
     useTheme: () => Theme;
-    cache?: EmotionCache;
+    cache?: EmotionCache | (() => EmotionCache);
 }) {
     return {
         ...createMakeStyles(params),

@@ -9,7 +9,7 @@ import type { EmotionCache } from "@emotion/cache";
 
 export function createWithStyles<Theme>(params: {
     useTheme: () => Theme;
-    cache?: EmotionCache;
+    cache?: EmotionCache | (() => EmotionCache);
 }) {
     const { useTheme, cache } = params;
 

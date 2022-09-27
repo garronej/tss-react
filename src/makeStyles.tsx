@@ -19,14 +19,32 @@ let counter = 0;
 
 export function createMakeStyles<Theme>(params: {
     useTheme: () => Theme;
-    cache?: EmotionCache;
+    cache?: EmotionCache | (() => EmotionCache);
 }) {
-    const { useTheme, cache } = params;
+    const { useTheme, cache: cacheOrGetCache } = params;
+
+    const cacheOrGetCacheMemoized =
+        typeof cacheOrGetCache !== "function"
+            ? cacheOrGetCache
+            : (() => {
+                  let cache: EmotionCache | undefined = undefined;
+
+                  return () => {
+                      if (cache === undefined) {
+                          cache = cacheOrGetCache();
+                      }
+
+                      return cache;
+                  };
+              })();
 
     function useCache() {
         const contextualCache = useContextualCache();
 
-        const cacheToBeUsed = cache ?? contextualCache;
+        const cacheToBeUsed =
+            typeof cacheOrGetCacheMemoized === "function"
+                ? cacheOrGetCacheMemoized()
+                : cacheOrGetCacheMemoized ?? contextualCache;
 
         if (cacheToBeUsed === null) {
             throw new Error(
