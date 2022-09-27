@@ -29,6 +29,10 @@
         "./mui-compat": {
             "import": "./dist/esm/mui-compat.js",
             "require": "./dist/mui-compat.js"
+        },
+        "./cssAndCx": {
+            "import": "./dist/esm/cssAndCx.js",
+            "require": "./dist/cssAndCx.js"
         }
     },
     "scripts": {
