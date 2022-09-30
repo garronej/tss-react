@@ -58,36 +58,6 @@ import BaseDocument from "next/document";
 +export default withEmotionCache(BaseDocument);
 ```
 
-### `<TssCacheProvider />` removed
-
-```diff
- import createCache from "@emotion/cache";
- import { CacheProvider } from "@emotion/react";
--import { TssCacheProvider } from "tss-react";
-+import { createMakeAndWithStyles } from "tss-react";
-+import { useTheme } from "@mui/material/styles";
-
- const muiCache = createCache({
-     "key": "my-custom-prefix-for-mui",
-     "prepend": true
- });
-
- const tssCache = createCache({
-     "key": "my-custom-prefix-for-tss"
- });
-
-+export const { makeStyles, withStyles } = createMakeAndWithStyles({
-+    useTheme,
-+    "cache": tssCache
-+});
-
- <CacheProvider value={muiCache}>
--   <TssCacheProvider value={tssCache}>
-        {/* ... */}
--   </TssCacheProvider>
- </CacheProvider>;
-```
-
 ### `useCssAndCx` removed
 
 ```diff
