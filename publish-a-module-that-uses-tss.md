@@ -70,3 +70,7 @@ Regarding SSR setup you can forward your user to [the dedicated documentation](s
 {% hint style="warning" %}
 Wherever you make use of [nested selectors](nested-selectors.md) you must [provide a `uniqId`](nested-selectors.md#ssr) to make sure your components will works in every SSR setup.
 {% endhint %}
+
+{% hint style="warning" %}
+You should avoid using `<TssCacheProvider />` or you should make `tss-react` as peerDependency of your module which you probably want to avoid. &#x20;
+{% endhint %}
