@@ -1,7 +1,7 @@
 import type { EmotionCache } from "@emotion/cache";
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
-import { createMakeStyles } from "./makeStyles";
-export { createMakeStyles };
+import { createMakeStyles, TssCacheProvider } from "./makeStyles";
+export { createMakeStyles, TssCacheProvider };
 import { createWithStyles } from "./withStyles";
 export { createWithStyles };
 

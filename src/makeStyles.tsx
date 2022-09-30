@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useMemo } from "react";
+import React, { useMemo } from "react";
+import type { ReactNode } from "react";
 import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject, CSSInterpolation } from "./types";
@@ -9,6 +10,7 @@ import { typeGuard } from "./tools/typeGuard";
 import { assert } from "./tools/assert";
 import { mergeClasses } from "./mergeClasses";
 import type { EmotionCache } from "@emotion/cache";
+import { createContext, useContext } from "react";
 declare module "@emotion/react" {
     export function __unsafe_useEmotionCache(): EmotionCache | null;
 }
@@ -21,12 +23,17 @@ export function createMakeStyles<Theme>(params: {
     useTheme: () => Theme;
     cache?: EmotionCache;
 }) {
-    const { useTheme, cache } = params;
+    const { useTheme, cache: cacheProvidedAtInception } = params;
 
     function useCache() {
         const contextualCache = useContextualCache();
 
-        const cacheToBeUsed = cache ?? contextualCache;
+        const cacheExplicitlyProvidedForTss = useCacheProvidedByProvider();
+
+        const cacheToBeUsed =
+            cacheProvidedAtInception ??
+            cacheExplicitlyProvidedForTss ??
+            contextualCache;
 
         if (cacheToBeUsed === null) {
             throw new Error(
@@ -254,4 +261,23 @@ export function createMakeStyles<Theme>(params: {
     }
 
     return { makeStyles, useStyles };
+}
+
+const reactContext = createContext<EmotionCache | undefined>(undefined);
+
+function useCacheProvidedByProvider() {
+    const cacheExplicitlyProvidedForTss = useContext(reactContext);
+
+    return cacheExplicitlyProvidedForTss;
+}
+
+export function TssCacheProvider(props: {
+    value: EmotionCache;
+    children: ReactNode;
+}) {
+    const { children, value } = props;
+
+    return (
+        <reactContext.Provider value={value}>{children}</reactContext.Provider>
+    );
 }
