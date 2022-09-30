@@ -97,6 +97,10 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 <details>
     <summary>Click to expand</summary>
 
+## v4.2.0
+
+-   Re introduce [`<TssCacheProvider />`](https://docs.tss-react.dev/cache#use-a-specific-provider)
+
 ## v4.1.0
 
 -   Publish an ESM distribution. Many thanks to [@jiby-aurum](https://github.com/jiby-aurum) for [he's help](https://github.com/garronej/tss-react/pull/105).
