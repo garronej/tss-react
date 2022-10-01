@@ -38,7 +38,7 @@ function App() {
               },
               {
                 "label": "Playground",
-                "href": "https://stackblitz.com/edit/tss-react?file=Hello.tsx"
+                "href": "https://stackblitz.com/edit/tss-react-wv2set?file=Hello.tsx,index.tsx,tss.ts"
               }
             ]}
             enableDarkModeSwitch={true}
