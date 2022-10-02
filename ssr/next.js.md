@@ -56,7 +56,7 @@ augmentDocumentWithEmotionCache(Document);
 export default Document;
 ```
 
-### Multiple emotion cache
+### MUI and TSS use different caches
 
 If you want TSS and MUI to use different caches you can implement this approach: &#x20;
 
