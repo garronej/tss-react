@@ -235,3 +235,18 @@ If you can't use `import { } from "tss-react/compat";` instead of `import { } fr
 Only `withStyles()` will have slightly inferior type inference.
 
 </details>
+
+## Development
+
+Running the demo apps:
+
+```bash
+git clone https://github.com/garronej/tss-react
+cd tss-react
+yarn
+yarn build
+npx tsc -w & npx tsc --module es2015 --outDir dist/esm -w
+# Open another Terminal
+yarn start_spa  # For testing in in a Create React App setup
+yarn start_ssr # For testing in a Next.js setup
+```
