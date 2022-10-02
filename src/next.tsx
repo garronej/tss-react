@@ -1,8 +1,8 @@
 import * as React from "react";
+import type { ReactNode } from "react";
 import createEmotionServer from "@emotion/server/create-instance";
 import type { DocumentContext } from "next/document";
 import type { EmotionCache } from "@emotion/cache";
-import type { Provider } from "react";
 import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
 import type { Options as OptionsOfCreateCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
@@ -11,7 +11,10 @@ import DefaultDocument from "next/document";
 
 /** @see <https://docs.tss-react.dev/ssr/next> */
 export function createEmotionSsrAdvancedApproach(params: {
-    CacheProvider?: Provider<EmotionCache>;
+    CacheProvider?: (props: {
+        value: EmotionCache;
+        children: ReactNode;
+    }) => JSX.Element;
     options: OptionsOfCreateCache;
 }) {
     const { CacheProvider = DefaultCacheProvider, options } = params;
