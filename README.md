@@ -97,6 +97,12 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 <details>
     <summary>Click to expand</summary>
 
+## v4.3.0
+
+-   Provide [an alternative setup](https://docs.tss-react.dev/troubleshoot-migration-to-muiv5-with-tss) for peoples
+    experiencing styles inconsistencies after upgrading to MUI v5 using TSS.
+-   [Better Next.js integration API](https://docs.tss-react.dev/ssr/next.js).
+
 ## v4.2.0
 
 -   Re introduce [`<TssCacheProvider />`](https://docs.tss-react.dev/cache#use-a-specific-provider)
