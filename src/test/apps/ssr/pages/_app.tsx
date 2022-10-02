@@ -7,10 +7,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useIsDarkModeEnabled, withIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 
-const { augmentDocumentWithEmotionCache, withAppEmotionCache } = createEmotionSsrAdvancedApproach({
-	"options": {
-		"key": "css"
-	}
+const { augmentDocumentWithEmotionCache, withAppEmotionCache } = createEmotionSsrAdvancedApproach({ 
+	"key": "css",
+	"prepend": true
 });
 
 export { augmentDocumentWithEmotionCache };

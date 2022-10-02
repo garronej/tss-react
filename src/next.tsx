@@ -10,15 +10,13 @@ import type { NextComponentType } from "next";
 import DefaultDocument from "next/document";
 
 /** @see <https://docs.tss-react.dev/ssr/next> */
-export function createEmotionSsrAdvancedApproach(params: {
-    CacheProvider?: (props: {
+export function createEmotionSsrAdvancedApproach(
+    options: OptionsOfCreateCache,
+    CacheProvider: (props: {
         value: EmotionCache;
         children: ReactNode;
-    }) => JSX.Element;
-    options: OptionsOfCreateCache;
-}) {
-    const { CacheProvider = DefaultCacheProvider, options } = params;
-
+    }) => JSX.Element | null = DefaultCacheProvider,
+) {
     let cache: EmotionCache | undefined = undefined;
 
     const createSpecificCacheCache = () => (cache = createCache(options));
