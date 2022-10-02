@@ -47,13 +47,11 @@ export function createEmotionSsrAdvancedApproach(params: {
                     />
                 ));
 
-            const prepend = getPrepend(cache);
-
             const otherStyles = React.Children.toArray(initialProps.styles);
 
             return {
                 ...initialProps,
-                "styles": prepend
+                "styles": !!(cache.sheet as any).prepend
                     ? [...emotionStyles, ...otherStyles]
                     : [...otherStyles, ...emotionStyles],
             };
@@ -84,9 +82,4 @@ export function createEmotionSsrAdvancedApproach(params: {
     }
 
     return { withAppEmotionCache, augmentDocumentWithEmotionCache };
-}
-
-function getPrepend(cache: EmotionCache): boolean {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return !!(cache.sheet as any).prepend;
 }
