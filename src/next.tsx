@@ -9,7 +9,10 @@ import createCache from "@emotion/cache";
 import type { NextComponentType } from "next";
 import DefaultDocument from "next/document";
 
-/** @see <https://docs.tss-react.dev/ssr/next> */
+/**
+ * @see <https://docs.tss-react.dev/ssr/next>
+ * This utility implements https://emotion.sh/docs/ssr#advanced-approach
+ * */
 export function createEmotionSsrAdvancedApproach(
     /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
     options: Omit<OptionsOfCreateCache, "insertionPoint"> & {
