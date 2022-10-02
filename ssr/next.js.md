@@ -85,9 +85,7 @@ export { augmentDocumentWithEmotionCache_tss };
 
 export { withEmotionCache };
 
-export default augmentDocumentWithEmotionCache_mui(
-    augmentDocumentWithEmotionCache_tss(App)
-);
+export default withAppEmotionCache_mui(withAppEmotionCache_tss(App));
 ```
 
 ```tsx
