@@ -1,7 +1,8 @@
 import Document from "next/document";
-import { augmentDocumentWithEmotionCache } from "./_app";
+import { augmentDocumentWithEmotionCache_mui, augmentDocumentWithEmotionCache_tss } from "./_app";
 
-augmentDocumentWithEmotionCache(Document);
+augmentDocumentWithEmotionCache_mui(Document);
+augmentDocumentWithEmotionCache_tss(Document);
 
 export default Document;
 
