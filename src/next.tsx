@@ -11,14 +11,18 @@ import DefaultDocument from "next/document";
 
 /** @see <https://docs.tss-react.dev/ssr/next> */
 export function createEmotionSsrAdvancedApproach(
+    /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
     options: Omit<OptionsOfCreateCache, "insertionPoint"> & {
         prepend?: boolean;
     },
+    /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
     CacheProvider: (props: {
         value: EmotionCache;
         children: ReactNode;
     }) => JSX.Element | null = DefaultCacheProvider,
 ) {
+    const { prepend, ...optionsWithoutPrependProp } = options;
+
     const propName = `${options.key}EmotionCache`;
 
     function augmentDocumentWithEmotionCache(
@@ -31,7 +35,7 @@ export function createEmotionSsrAdvancedApproach(
         (Document as any).getInitialProps = async (
             appContext: DocumentContext,
         ) => {
-            const cache = createCache(options);
+            const cache = createCache(optionsWithoutPrependProp);
 
             const emotionServer = createEmotionServer(cache);
 
@@ -62,7 +66,7 @@ export function createEmotionSsrAdvancedApproach(
 
             return {
                 ...initialProps,
-                "styles": options.prepend
+                "styles": prepend
                     ? [...emotionStyles, ...otherStyles]
                     : [...otherStyles, ...emotionStyles],
             };
@@ -75,7 +79,9 @@ export function createEmotionSsrAdvancedApproach(
         function AppWithEmotionCache(props: any) {
             const { [propName]: cache, ...rest } = props;
             return (
-                <CacheProvider value={cache ?? createCache(options)}>
+                <CacheProvider
+                    value={cache ?? createCache(optionsWithoutPrependProp)}
+                >
                     <App {...rest} />
                 </CacheProvider>
             );
