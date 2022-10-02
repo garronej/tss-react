@@ -71,25 +71,6 @@ https://user-images.githubusercontent.com/6702424/166390575-0530e16b-4aff-4914-a
     <a href="https://docs.tss-react.dev/setup"><b>Get started 🚀</b></a>
 </p>
 
-# Development
-
-```bash
-yarn
-yarn build
-#For automatically recompiling when file change
-#npx tsc -w
-
-# To start the Single Page Application test app (create react app)
-# This app is live here: https://www.tss-react.dev/test/
-yarn start_spa
-
-# To start the Server Side Rendering app (next.js)
-yarn start_ssr
-
-# To start the Server Side Rendering app that test the mui v4 integration.
-yarn start_muiV4
-```
-
 In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)!
 
 # Changelog highlights
@@ -130,6 +111,21 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 -   New API for [nested selectors](#nested-selectors--syntax-). We no longer use `createRef()`.
 -   [`label` have been renamed `name`](#naming-the-stylesheets-useful-for-debugging) for helping the migration from [the old mui API](https://mui.com/styles/api/#makestyles-styles-options-hook).
 </details>
+
+# Development
+
+Running the demo apps:
+
+```bash
+git clone https://github.com/garronej/tss-react
+cd tss-react
+yarn
+yarn build
+npx tsc -w & npx tsc --module es2015 --outDir dist/esm -w
+# Open another Terminal
+yarn start_spa  # For testing in in a Create React App setup
+yarn start_ssr # For testing in a Next.js setup
+```
 
 # FAQ
 
@@ -235,18 +231,3 @@ If you can't use `import { } from "tss-react/compat";` instead of `import { } fr
 Only `withStyles()` will have slightly inferior type inference.
 
 </details>
-
-## Development
-
-Running the demo apps:
-
-```bash
-git clone https://github.com/garronej/tss-react
-cd tss-react
-yarn
-yarn build
-npx tsc -w & npx tsc --module es2015 --outDir dist/esm -w
-# Open another Terminal
-yarn start_spa  # For testing in in a Create React App setup
-yarn start_ssr # For testing in a Next.js setup
-```
