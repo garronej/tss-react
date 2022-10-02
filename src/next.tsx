@@ -8,6 +8,7 @@ import type { Options as OptionsOfCreateCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import type { NextComponentType } from "next";
 import DefaultDocument from "next/document";
+import { assert } from "tsafe/assert";
 
 /**
  * @see <https://docs.tss-react.dev/ssr/next>
@@ -26,7 +27,8 @@ export function createEmotionSsrAdvancedApproach(
 ) {
     const { prepend, ...optionsWithoutPrependProp } = options;
 
-    const propName = `${options.key}EmotionCache`;
+    const appPropName = `${options.key}EmotionCache`;
+    const insertionPointId = `${options.key}-emotion-cache-insertion-point`;
 
     function augmentDocumentWithEmotionCache(
         Document: NextComponentType<any, any, any>,
@@ -48,22 +50,27 @@ export function createEmotionSsrAdvancedApproach(
                 originalRenderPage({
                     "enhanceApp": (App: any) =>
                         function EnhanceApp(props) {
-                            return <App {...{ ...props, [propName]: cache }} />;
+                            return (
+                                <App {...{ ...props, [appPropName]: cache }} />
+                            );
                         },
                 });
 
             const initialProps = await super_getInitialProps(appContext);
 
-            const emotionStyles = emotionServer
-                .extractCriticalToChunks(initialProps.html)
-                .styles.filter(({ css }) => css !== "")
-                .map(style => (
-                    <style
-                        data-emotion={`${style.key} ${style.ids.join(" ")}`}
-                        key={style.key}
-                        dangerouslySetInnerHTML={{ "__html": style.css }}
-                    />
-                ));
+            const emotionStyles = [
+                <style id={insertionPointId} />,
+                ...emotionServer
+                    .extractCriticalToChunks(initialProps.html)
+                    .styles.filter(({ css }) => css !== "")
+                    .map(style => (
+                        <style
+                            data-emotion={`${style.key} ${style.ids.join(" ")}`}
+                            key={style.key}
+                            dangerouslySetInnerHTML={{ "__html": style.css }}
+                        />
+                    )),
+            ];
 
             const otherStyles = React.Children.toArray(initialProps.styles);
 
@@ -79,12 +86,34 @@ export function createEmotionSsrAdvancedApproach(
     function withAppEmotionCache<
         AppComponent extends NextComponentType<any, any, any>,
     >(App: AppComponent): AppComponent {
+        const createClientSideCache = (() => {
+            let cache: EmotionCache | undefined = undefined;
+
+            return () => {
+                if (cache !== undefined) {
+                    return cache;
+                }
+
+                return (cache = createCache({
+                    ...optionsWithoutPrependProp,
+                    "insertionPoint": (() => {
+                        //NOTE: We know for sure we are on the client
+
+                        const htmlElement =
+                            document.getElementById(insertionPointId);
+
+                        assert(htmlElement !== null);
+
+                        return htmlElement;
+                    })(),
+                }));
+            };
+        })();
+
         function AppWithEmotionCache(props: any) {
-            const { [propName]: cache, ...rest } = props;
+            const { [appPropName]: cache, ...rest } = props;
             return (
-                <CacheProvider
-                    value={cache ?? createCache(optionsWithoutPrependProp)}
-                >
+                <CacheProvider value={cache ?? createClientSideCache()}>
                     <App {...rest} />
                 </CacheProvider>
             );
