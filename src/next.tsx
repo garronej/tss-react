@@ -17,9 +17,7 @@ export function createEmotionSsrAdvancedApproach(
         children: ReactNode;
     }) => JSX.Element | null = DefaultCacheProvider,
 ) {
-    let cache: EmotionCache | undefined = undefined;
-
-    const createSpecificCacheCache = () => (cache = createCache(options));
+    const propName = `${options.key}EmotionCache`;
 
     function augmentDocumentWithEmotionCache(
         Document: NextComponentType<any, any, any>,
@@ -31,9 +29,19 @@ export function createEmotionSsrAdvancedApproach(
         (Document as any).getInitialProps = async (
             appContext: DocumentContext,
         ) => {
-            const cache = createSpecificCacheCache();
+            const cache = createCache(options);
 
             const emotionServer = createEmotionServer(cache);
+
+            const originalRenderPage = appContext.renderPage;
+
+            appContext.renderPage = () =>
+                originalRenderPage({
+                    "enhanceApp": (App: any) =>
+                        function EnhanceApp(props) {
+                            return <App {...{ ...props, [propName]: cache }} />;
+                        },
+                });
 
             const initialProps = await super_getInitialProps(appContext);
 
@@ -63,9 +71,10 @@ export function createEmotionSsrAdvancedApproach(
         AppComponent extends NextComponentType<any, any, any>,
     >(App: AppComponent): AppComponent {
         function AppWithEmotionCache(props: any) {
+            const { [propName]: cache, ...rest } = props;
             return (
-                <CacheProvider value={cache ?? createSpecificCacheCache()}>
-                    <App {...props} />
+                <CacheProvider value={cache ?? createCache(options)}>
+                    <App {...rest} />
                 </CacheProvider>
             );
         }
