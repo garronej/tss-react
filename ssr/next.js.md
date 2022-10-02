@@ -35,11 +35,9 @@ import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 const {
     augmentDocumentWithEmotionCache,
     withAppEmotionCache
-} = createEmotionSsrAdvancedApproach({ 
-    "key": "css"
-});
+} = createEmotionSsrAdvancedApproach({ "key": "css" });
 
-export { withEmotionCache };
+export { augmentDocumentWithEmotionCache };
 
 export default withAppEmotionCache(App);
 ```
