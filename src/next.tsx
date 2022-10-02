@@ -46,14 +46,20 @@ export function createEmotionSsrAdvancedApproach(
 
             const originalRenderPage = appContext.renderPage;
 
-            appContext.renderPage = () =>
+            appContext.renderPage = ({ enhanceApp, ...params }: any) =>
                 originalRenderPage({
-                    "enhanceApp": (App: any) =>
-                        function EnhanceApp(props) {
+                    ...params,
+                    "enhanceApp": (App: any) => {
+                        const EnhancedApp = enhanceApp?.(App) ?? App;
+
+                        return function EnhanceApp(props) {
                             return (
-                                <App {...{ ...props, [appPropName]: cache }} />
+                                <EnhancedApp
+                                    {...{ ...props, [appPropName]: cache }}
+                                />
                             );
-                        },
+                        };
+                    },
                 });
 
             const initialProps = await super_getInitialProps(appContext);
