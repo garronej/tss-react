@@ -1,5 +1,8 @@
 import Document from "next/document";
-import { withEmotionCache } from "./_app";
+import { augmentDocumentWithEmotionCache } from "./_app";
 
-export default withEmotionCache(Document);
+augmentDocumentWithEmotionCache(Document);
+
+export default Document;
+
 

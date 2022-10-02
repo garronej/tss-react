@@ -8,7 +8,9 @@ import { CacheProvider } from "@emotion/react";
 import type { Options as CreateCacheOption } from "@emotion/cache";
 import createCache from "@emotion/cache";
 
-/** @se <https://docs.tss-react.dev/ssr/next.js> */
+/**
+ * @deprecated Use tss-react/next instead.
+ * @see <https://docs.tss-react.dev/ssr/next> */
 export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
     let muiCache: EmotionCache | undefined = undefined;
 
