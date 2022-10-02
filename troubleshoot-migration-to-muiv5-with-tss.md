@@ -58,8 +58,6 @@ const {
 
 export { augmentDocumentWithEmotionCache_tss };
 
-export { withEmotionCache };
-
 export default withAppEmotionCache_mui(withAppEmotionCache_tss(App));
 ```
 
