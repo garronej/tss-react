@@ -35,7 +35,50 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 {% endtab %}
 
 {% tab title="Next.js" %}
+#### pages/\_app.tsx
 
+```tsx
+import Head from "next/head";
+import App from "next/app";
+import type { AppProps } from 'next/app'
+import { createEmotionSsrAdvancedApproach } from "tss-react/next";
+import { TssCacheProvider } from "tss-react";
+
+const {
+    augmentDocumentWithEmotionCache: augmentDocumentWithEmotionCache_mui,
+    withAppEmotionCache: withAppEmotionCache_mui
+} = createEmotionSsrAdvancedApproach({ "key": "mui", "prepend": true });
+
+export { augmentDocumentWithEmotionCache_mui };
+
+const {
+    augmentDocumentWithEmotionCache: augmentDocumentWithEmotionCache_tss,
+    withAppEmotionCache: withAppEmotionCache_tss
+} = createEmotionSsrAdvancedApproach({ "key": "tss" }, TssCacheProvider);
+
+export { augmentDocumentWithEmotionCache_tss };
+
+export { withEmotionCache };
+
+export default withAppEmotionCache_mui(withAppEmotionCache_tss(App));
+```
+
+#### pages/\_document.tsx
+
+```tsx
+//pages/_document.tsx
+
+import Document from "next/document";
+import { 
+   augmentDocumentWithEmotionCache_mui,  
+   augmentDocumentWithEmotionCache_tss
+} from "./_app";
+
+augmentDocumentWithEmotionCache_mui(Document);
+augmentDocumentWithEmotionCache_tss(Document);
+
+export default Document;
+```
 {% endtab %}
 {% endtabs %}
 
