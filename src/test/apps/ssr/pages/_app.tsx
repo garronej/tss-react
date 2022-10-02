@@ -6,21 +6,13 @@ import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useIsDarkModeEnabled, withIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
-import { TssCacheProvider } from "tss-react";
 
 const {
-    augmentDocumentWithEmotionCache: augmentDocumentWithEmotionCache_mui,
-    withAppEmotionCache: withAppEmotionCache_mui
-} = createEmotionSsrAdvancedApproach({ "key": "mui", "prepend": true });
+    augmentDocumentWithEmotionCache,
+    withAppEmotionCache
+} = createEmotionSsrAdvancedApproach({ "key": "css" });
 
-export { augmentDocumentWithEmotionCache_mui };
-
-const {
-    augmentDocumentWithEmotionCache: augmentDocumentWithEmotionCache_tss,
-    withAppEmotionCache: withAppEmotionCache_tss
-} = createEmotionSsrAdvancedApproach({ "key": "tss" }, TssCacheProvider);
-
-export { augmentDocumentWithEmotionCache_tss };
+export { augmentDocumentWithEmotionCache };
 
 export function App({ Component, pageProps }: AppProps) {
 
@@ -74,4 +66,4 @@ export function App({ Component, pageProps }: AppProps) {
 
 }
 
-export default withAppEmotionCache_mui(withAppEmotionCache_tss(withIsDarkModeEnabled(App)));
+export default withAppEmotionCache(withIsDarkModeEnabled(App));
