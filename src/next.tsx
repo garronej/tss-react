@@ -11,7 +11,9 @@ import DefaultDocument from "next/document";
 
 /** @see <https://docs.tss-react.dev/ssr/next> */
 export function createEmotionSsrAdvancedApproach(
-    options: OptionsOfCreateCache,
+    options: Omit<OptionsOfCreateCache, "insertionPoint"> & {
+        prepend?: boolean;
+    },
     CacheProvider: (props: {
         value: EmotionCache;
         children: ReactNode;
@@ -60,7 +62,7 @@ export function createEmotionSsrAdvancedApproach(
 
             return {
                 ...initialProps,
-                "styles": !!(cache.sheet as any).prepend
+                "styles": options.prepend
                     ? [...emotionStyles, ...otherStyles]
                     : [...otherStyles, ...emotionStyles],
             };
