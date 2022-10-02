@@ -36,8 +36,7 @@ const {
     augmentDocumentWithEmotionCache,
     withAppEmotionCache
 } = createEmotionSsrAdvancedApproach({ 
-    "key": "css", 
-    "prepend": true 
+    "key": "css"
 });
 
 export { withEmotionCache };
