@@ -39,6 +39,7 @@ const {
 
 export { augmentDocumentWithEmotionCache };
 
+//You can also pass your custom App if you have one. 
 export default withAppEmotionCache(App);
 ```
 
@@ -48,6 +49,7 @@ export default withAppEmotionCache(App);
 import Document from "next/document";
 import { augmentDocumentWithEmotionCache } from "./_app";
 
+//You can also pass your custom document if you have one. 
 augmentDocumentWithEmotionCache(Document);
 
 export default Document;
