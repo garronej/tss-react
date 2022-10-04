@@ -65,7 +65,7 @@ export function createEmotionSsrAdvancedApproach(
             const initialProps = await super_getInitialProps(appContext);
 
             const emotionStyles = [
-                <style id={insertionPointId} />,
+                <style id={insertionPointId} key={insertionPointId} />,
                 ...emotionServer
                     .extractCriticalToChunks(initialProps.html)
                     .styles.filter(({ css }) => css !== "")
