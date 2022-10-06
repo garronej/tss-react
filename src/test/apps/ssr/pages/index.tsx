@@ -389,6 +389,7 @@ const { SecondNestedSelectorExample } = (() => {
         );
 
     });
+    SecondNestedSelectorExample.displayName = "SecondNestedSelectorExample";
 
     const useStyles = makeStyles<{ color: "primary" | "secondary" }, "child" | "small">({
         "name": { SecondNestedSelectorExample },
@@ -541,7 +542,7 @@ const { TestingStyleOverrides } = (() => {
 
     }
 
-    const useStyles = makeStyles({ "name": { TestingStyleOverrides } })(theme => ({
+    const useStyles = makeStyles({ "name": { TestingStyleOverrides } })({
         "root": {
             "border": "1px solid black",
             "width": 500,
@@ -557,7 +558,7 @@ const { TestingStyleOverrides } = (() => {
             "left": 500/2 - 50,
             "borderRadius": "50%"
         }
-    }));
+    });
 
     return { TestingStyleOverrides };
 

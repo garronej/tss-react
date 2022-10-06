@@ -35,7 +35,6 @@ export function App({ Component, pageProps }: AppProps) {
 				}
 			},
 			"components": {
-				//@ts-ignore
 				"TestingStyleOverrides": {
 					"styleOverrides": {
 						"lightBulb": ({ theme, ownerState: { isOn }, lightBulbBorderColor }: any) => ({
@@ -45,7 +44,7 @@ export function App({ Component, pageProps }: AppProps) {
 					}
 
 				}
-			}
+			} as any
 		}),
 		[isDarkModeEnabled]
 	);
