@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <CacheProvider value={muiCache}>
         <TssCacheProvider value={tssCache}> 
             <App />
-        <TssCacheProvider />
+        </TssCacheProvider>
     </CacheProvider>
 );
 ```
