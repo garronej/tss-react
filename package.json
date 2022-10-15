@@ -1,6 +1,6 @@
 {
     "name": "tss-react",
-    "version": "4.3.5-rc.0",
+    "version": "4.3.5",
     "description": "Type safe CSS-in-JS API heavily inspired by react-jss",
     "repository": {
         "type": "git",
