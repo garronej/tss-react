@@ -103,7 +103,15 @@ export function createEmotionSsrAdvancedApproach(
                 return (cache = createCache({
                     ...optionsWithoutPrependProp,
                     "insertionPoint": (() => {
-                        //NOTE: We know for sure we are on the client
+                        // NOTE: Under normal circumstances we are on the client.
+                        // It might not be the case though, see: https://github.com/garronej/tss-react/issues/124
+                        const isBrowser =
+                            typeof document === "object" &&
+                            typeof document?.getElementById === "function";
+
+                        if (!isBrowser) {
+                            return undefined;
+                        }
 
                         const htmlElement =
                             document.getElementById(insertionPointId);
