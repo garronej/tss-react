@@ -37,6 +37,10 @@
         "./cssAndCx": {
             "import": "./dist/esm/cssAndCx.js",
             "require": "./dist/cssAndCx.js"
+        },
+        "./tools/classnames": {
+            "import": "./dist/esm/tools/classnames.js",
+            "require": "./dist/tools/classnames.js"
         }
     },
     "scripts": {
