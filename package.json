@@ -37,10 +37,6 @@
         "./cssAndCx": {
             "import": "./dist/esm/cssAndCx.js",
             "require": "./dist/cssAndCx.js"
-        },
-        "./tools/classnames": {
-            "import": "./dist/esm/tools/classnames.js",
-            "require": "./dist/tools/classnames.js"
         }
     },
     "scripts": {
@@ -89,7 +85,19 @@
     ],
     "homepage": "https://www.tss-react.dev",
     "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
+        "react": "^16.8.0 || ^17.0.2 || ^18.0.0",
+        "@emotion/react": "^11.4.1",
+        "@emotion/server": "^11.4.0"
+    },
+    "peerDependenciesMeta": {
+        "@emotion/server": {
+            "optional": true
+        }
+    },
+    "dependencies": {
+        "@emotion/serialize": "*",
+        "@emotion/utils": "*",
+        "@emotion/cache": "*"
     },
     "devDependencies": {
         "@emotion/server": "11.4.0",
