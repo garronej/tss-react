@@ -1,6 +1,6 @@
 {
     "name": "tss-react",
-    "version": "4.4.0",
+    "version": "4.4.1-rc.0",
     "description": "Type safe CSS-in-JS API heavily inspired by react-jss",
     "repository": {
         "type": "git",
@@ -89,19 +89,7 @@
     ],
     "homepage": "https://www.tss-react.dev",
     "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.2 || ^18.0.0",
-        "@emotion/react": "^11.4.1",
-        "@emotion/server": "^11.4.0"
-    },
-    "peerDependenciesMeta": {
-        "@emotion/server": {
-            "optional": true
-        }
-    },
-    "dependencies": {
-        "@emotion/serialize": "*",
-        "@emotion/utils": "*",
-        "@emotion/cache": "*"
+        "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
     },
     "devDependencies": {
         "@emotion/server": "11.4.0",
