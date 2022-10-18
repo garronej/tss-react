@@ -26,7 +26,7 @@
 
 > If you like TSS consider giving the project a ⭐️
 
--   ✅ Seamless integration with [mui](https://mui.com).
+-   ✅ Seamless integration with [MUI](https://mui.com).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
 -   ✅ Server side rendering support (e.g: Next.js, Gatsby).
 -   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
