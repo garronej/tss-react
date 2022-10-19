@@ -17,7 +17,7 @@ yarn add tss-react @emotion/react @mui/material @emotion/styled
 {% hint style="info" %}
 If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
 
-Things don’t display as they use to before migrating? Don't worry, [I got you covered](fix-broken-styles-after-upgrading-to-muiv5-with-tss.md)!
+Things don’t display as they use to before migrating? Don't worry, [I got you covered](fix-broken-styles-after-upgrading-to-mui-v5-with-tss.md)!
 {% endhint %}
 
 ```tsx

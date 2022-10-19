@@ -1,6 +1,6 @@
-# 🆘 Fix broken styles after upgrading to MUIv5 with TSS
+# 🆘 Fix broken styles after upgrading to MUI v5 with TSS
 
-You upgraded to MUIv5 using tss-react but the somme styles doesn't apply the same way it uses to? &#x20;
+You upgraded to MUIv5 using tss-react but the somme styles doesn't apply the same way they uses to? &#x20;
 
 Setting up emotion like that will probably fix your issues: &#x20;
 
