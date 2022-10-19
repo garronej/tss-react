@@ -84,6 +84,6 @@ export default Document;
 If your issues are fixed by doing this, please [open an issue about it](https://github.com/garronej/tss-react/issues/new) so I can address the root cause of the problem by issuing a PR on the MUI repo. &#x20;
 {% endhint %}
 
-Explainations: tss-react ans MUI are supposed to be able to share the same emotion cache since tss-react v4. It's almost always the case but in [some edge cases](https://github.com/garronej/tss-react/issues/115) involeving MUI's internal styles media queries the styles dosen't apply in the same order than before. &#x20;
+Explainations: tss-react ans MUI are supposed to be able to share the same emotion cache. It's almost always the case but in [some edge cases](https://github.com/garronej/tss-react/issues/115) involeving MUI's internal styles media queries the styles dosen't apply in the same order than before. &#x20;
 
 By explicitely telling MUI to use one cache and TSS to use another and by making sure the MUI styles comes before in the `<head />` (`prepend: true`) you ensure that TSS generated styles always overwrite the default styles. &#x20;

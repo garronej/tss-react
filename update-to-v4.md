@@ -112,6 +112,6 @@ import { ThemeProvider } from "@mui/material/styles";
 
 Chechout this page: &#x20;
 
-{% content-ref url="fix-broken-styles-after-upgrading-to-mui-v5-with-tss.md" %}
-[fix-broken-styles-after-upgrading-to-mui-v5-with-tss.md](fix-broken-styles-after-upgrading-to-mui-v5-with-tss.md)
+{% content-ref url="troubleshoot-migration-to-muiv5-with-tss.md" %}
+[troubleshoot-migration-to-muiv5-with-tss.md](troubleshoot-migration-to-muiv5-with-tss.md)
 {% endcontent-ref %}
