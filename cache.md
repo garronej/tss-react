@@ -34,7 +34,7 @@ import { useTheme } from "@mui/material/styles";
 import { createMakeAndWithStyles } from "tss-react";
 
 const cache = createCache({
-  "key": "custom"
+  "key": "tss"
 });
 
 export const { makeStyles, withStyles, useStyles } = createMakeAndWithStyles({
@@ -43,4 +43,25 @@ export const { makeStyles, withStyles, useStyles } = createMakeAndWithStyles({
 });
 ```
 
-### &#x20;
+### Use a specific provider
+
+If you want to provide a contextuel cache only to tss-react you can use the \<TssCacheProvider />. &#x20;
+
+<pre class="language-tsx"><code class="lang-tsx"><strong>import { TssCacheProvider } from "tss-react";
+</strong>import createCache from "@emotion/cache";
+
+const cache = createCache({
+  "key": "tss"
+});
+
+render(
+    &#x3C;TssCacheProvider value={cache}>
+        {/* ... */}
+    &#x3C;/TssCacheProvider>
+);</code></pre>
+
+&#x20;To be clear, the difference between `import { CacheProvider } from "@emotion/react";` and `import { TssCacheProvider } from "tss-react";` is that the cahe provided by `<TssCacheProvider />` will only be picked up by `tss-react` when the cache provided by `<CacheProvider />` will be picked up by MUI. &#x20;
+
+{% hint style="danger" %}
+If you are [a library author that publish a module that uses `tss-react` internally](publish-a-module-that-uses-tss.md). You should avoid using `<TssCacheProvider />` if you want to avoid having `tss-react` as peerDependency of your module.&#x20;
+{% endhint %}

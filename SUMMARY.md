@@ -19,4 +19,4 @@
 * [📦 Publish a module that uses TSS](publish-a-module-that-uses-tss.md)
 * [🔩 single-spa](single-spa.md)
 * [📲 React Native](react-native.md)
-* [🆘 Troubleshoot migration to MUIv5 with TSS](troubleshoot-migration-to-muiv5-with-tss.md)
+* [🆘 Fix broken styles after upgrading to MUIv5 with TSS](fix-broken-styles-after-upgrading-to-muiv5-with-tss.md)
