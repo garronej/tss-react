@@ -110,8 +110,6 @@ import { ThemeProvider } from "@mui/material/styles";
 
 ## Having issues? &#x20;
 
-Chechout this page: &#x20;
-
 {% content-ref url="troubleshoot-migration-to-muiv5-with-tss.md" %}
 [troubleshoot-migration-to-muiv5-with-tss.md](troubleshoot-migration-to-muiv5-with-tss.md)
 {% endcontent-ref %}
