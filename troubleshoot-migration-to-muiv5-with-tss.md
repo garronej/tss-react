@@ -84,6 +84,12 @@ export default Document;
 If your issues are fixed by doing this, please [open an issue about it](https://github.com/garronej/tss-react/issues/new) so I can address the root cause of the problem by issuing a PR on the MUI repo. &#x20;
 {% endhint %}
 
-Explainations: tss-react ans MUI are supposed to be able to share the same emotion cache. It's almost always the case but in [some edge cases](https://github.com/garronej/tss-react/issues/115) MUI styles may end up taking priority over your custom styles. &#x20;
+### Why and how does it work?
 
-By explicitely telling MUI to use one cache and TSS to use another and by making sure the MUI styles comes before in the `<head />` (`prepend: true`) you ensure that TSS generated styles that always overwrite MUI's default styles. &#x20;
+In theory, when TSS and MUI uses the same emotion cache, the styles that you provide via className or classes should always take priority over MUI's default styles.
+
+It's almost always the case but in [some edge cases](https://github.com/garronej/tss-react/issues/115) involving media queries on the MUI side, it isn't.
+
+You always have the option to artificially increase the specificity with [&&](https://user-images.githubusercontent.com/6702424/196739133-838beb4f-7365-446a-8dc6-d3b5b686df31.png) or using !important but it you are just upgrading to MUI v5 you probably don't want to spend hours troubleshooting issues one by one.
+
+By explicitly telling MUI to use one cache and TSS to use another and by making sure the MUI styles are injected before in the \<head /> (prepend: true) you ensure that TSS-generated styles that always overwrite MUI's default styles.
