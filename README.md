@@ -5,7 +5,9 @@ description: Start using TSS, with or without MUI
 # 🔧 Setup
 
 {% hint style="info" %}
-Consider [giving the project a ⭐️](https://github.com/garronej/tss-react). It means a lot to me ❤️
+`tss-react` has over 232 000 monthly NPM download and fewer than 300 ⭐️ on GitHub.
+
+If you use TSS in production, please consider [giving the project a star](https://github.com/garronej/tss-react).
 {% endhint %}
 
 {% tabs %}
@@ -16,8 +18,6 @@ yarn add tss-react @emotion/react @mui/material @emotion/styled
 
 {% hint style="info" %}
 If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
-
-Things don’t display as they use to before migrating? Don't worry, [I got you covered](troubleshoot-migration-to-muiv5-with-tss.md)!
 {% endhint %}
 
 ```tsx
