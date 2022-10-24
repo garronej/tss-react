@@ -114,7 +114,7 @@ The render of the avove code
 
 ## SSR
 
-With server side rendering enabled you could end up with warnings like: &#x20;
+In SSR setups, on stylesheets using nested selectors, you could end up with warnings like: &#x20;
 
 {% hint style="danger" %}
 `Warning: Prop className did not match. Server: "tss-XXX-root-ref" Client: "tss-YYY-root-ref"`.
