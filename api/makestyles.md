@@ -73,7 +73,7 @@ const useStyles = makeStyles({ "name": { MyComponent } })({
 
 const { classes } = useStyles();
 
-//classes.root will be a string like: "tss-xxxxxx-MyComponent-root"
+//classes.root will be a string like: "css-xxxxxx-MyComponent-root"
 ```
 
 This prevent you from having to remember to update the label when you rename the component.

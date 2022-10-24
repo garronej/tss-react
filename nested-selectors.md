@@ -167,3 +167,14 @@ Short unique identifiers can be generated with [this website](https://shortuniqu
      }
  );
 ```
+
+withStyles: &#x20;
+
+<pre class="language-diff"><code class="lang-diff"> const MyDiv = withStyles("div", {
+   "root": {
+     /* ... */
+   }
+<strong> }, { 
+</strong><strong>   name: "MyDiv",
+</strong><strong>+  uniqId: "xDTt4n"
+</strong><strong> });</strong></code></pre>

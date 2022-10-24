@@ -11,7 +11,7 @@ MUI users can refer to [the MUI documentation relative to SSR](https://mui.com/m
 {% endhint %}
 
 {% hint style="warning" %}
-If you are using nested selectors, you may need to provide [uniq identifiers to the styleshees that uses nested selectors](../nested-selectors.md#ssr).
+If you are using nested selectors, you may need to provide [uniq identifiers to your stylesheet](../nested-selectors.md#ssr).
 {% endhint %}
 
 ```
