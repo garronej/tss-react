@@ -90,6 +90,6 @@ In theory, when TSS and MUI uses the same emotion cache, the styles that you pro
 
 It's almost always the case but in [some edge cases](https://github.com/garronej/tss-react/issues/115) involving media queries on the MUI side, it isn't.
 
-You always have the option to artificially increase the specificity with [&&](https://user-images.githubusercontent.com/6702424/196739133-838beb4f-7365-446a-8dc6-d3b5b686df31.png) or using !important but it you are just upgrading to MUI v5 you probably don't want to spend hours troubleshooting issues one by one.
+You always have the option to artificially increase the specificity with [&&](https://user-images.githubusercontent.com/6702424/196739133-838beb4f-7365-446a-8dc6-d3b5b686df31.png) or using `!important` but if you are just upgrading to MUI v5 you probably don't want to spend hours troubleshooting issues one by one.
 
-By explicitly telling MUI to use one cache and TSS to use another and by making sure the MUI styles are injected before in the \<head /> (prepend: true) you ensure that TSS-generated styles that always overwrite MUI's default styles.
+By explicitly telling MUI to use one cache and TSS to use another and by making sure the MUI styles are injected before in the `<head />` (`prepend: true`) you ensure that TSS-generated styles that always overwrite MUI's default styles.
