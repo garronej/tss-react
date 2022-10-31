@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - no_cache
   pull_request:
     branches:
       - main
