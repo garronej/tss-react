@@ -5,7 +5,6 @@ import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
 import type { CSSObject, CSSInterpolation } from "./types";
 import { createUseCssAndCx } from "./cssAndCx";
-import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "./tools/typeGuard";
 import { assert } from "./tools/assert";
 import { mergeClasses } from "./mergeClasses";
@@ -165,13 +164,13 @@ export function createMakeStyles<Theme>(params: {
                     });
 
                     return classes;
-                }, [cache, css, cx, theme, getDependencyArrayRef(params)]);
+                }, [cache, css, cx, theme, params]);
 
                 const propsClasses = styleOverrides?.props.classes;
 
                 classes = useMemo(
                     () => mergeClasses(classes, propsClasses, cx),
-                    [classes, getDependencyArrayRef(propsClasses), cx],
+                    [classes, propsClasses, cx],
                 );
 
                 {
@@ -233,8 +232,8 @@ export function createMakeStyles<Theme>(params: {
                             : JSON.stringify(
                                   cssObjectByRuleNameOrGetCssObjectByRuleName,
                               ),
-                        getDependencyArrayRef(styleOverrides?.props),
-                        getDependencyArrayRef(styleOverrides?.ownerState),
+                        styleOverrides?.props,
+                        styleOverrides?.ownerState,
                         css,
                     ]);
 
