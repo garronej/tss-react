@@ -37,6 +37,10 @@
         "./cssAndCx": {
             "import": "./dist/esm/cssAndCx.js",
             "require": "./dist/cssAndCx.js"
+        },
+        "./dsfr": {
+            "import": "./dist/esm/dsfr.js",
+            "require": "./dist/dsfr.js"
         }
     },
     "scripts": {
@@ -100,6 +104,7 @@
         "@emotion/cache": "*"
     },
     "devDependencies": {
+        "@codegouvfr/react-dsfr": "^0.0.28",
         "@emotion/server": "11.4.0",
         "@emotion/react": "11.9.0",
         "@mui/material": "5.10.7",
