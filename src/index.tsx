@@ -14,6 +14,7 @@ import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
 import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
 import nestedSelectorsWebmUrl from "./assets/nestedSelectors_small-vp9-chrome.webm";
+import trendingPngUrl from "./assets/tss-trending.png";
 
 import { css } from "gitlanding";
 
@@ -75,8 +76,8 @@ function App() {
             "imageWrapper": css({ "maxWidth": 460 }),
             "image": css({ "borderRadius": 10 })
           }}
-          title="makeStyles is dead 😧 long live makeStyles! 🎉"
-          subTitle="The great hook based CSS-in-JS API now with state of the art TypeScript support 🚀"
+          title="The most reacty CSS in TS solution"
+          subTitle="Just like JSS but type safe and powered by emotion 🚀"
           illustration={{
             "type": "image",
             "imageSrc": demoGifUrl
@@ -117,6 +118,30 @@ function App() {
           }
           hasAnimation={true}
           illustrationPosition="left"
+
+        />
+
+        <GlArticle
+          id="firstSection"
+          title="Stonks 📈"
+          body={`People are using it.  
+          ...mostly as a tool to migrate from [@material-ui v4 makeStyles](https://mui.com/system/styles/basics/#hook-api)
+          but not only.  
+          TSS react is a very competitive standalone styling solution that provide a great Developer Experience, flexibility and maintainability.`}
+          buttonLabel="Compare download trend 👀"
+          buttonLink={{
+            "href": "https://npmtrends.com/@remix-run/react-vs-solid-js-vs-tss-react",
+          }}
+          illustration={
+            <GlIllustration
+              hasShadow={true}
+              type="image"
+              className={css({ "maxWidth": 300 })}
+              url={trendingPngUrl}
+            />
+          }
+          hasAnimation={true}
+          illustrationPosition="right"
 
         />
 
