@@ -20,3 +20,4 @@
 * [📲 React Native](react-native.md)
 * [🆘 Fix broken styles after upgrading to MUI v5 with TSS](troubleshoot-migration-to-muiv5-with-tss.md)
 * [⬆ Migration v3 -> v4](update-to-v4.md)
+* [🩳 MUI sx syntax](mui-sx-syntax.md)
