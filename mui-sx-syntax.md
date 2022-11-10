@@ -34,4 +34,4 @@ const useStyles = makeStyles()(theme => styleFunctionSx({
 }));
 ```
 
-<figure><img src=".gitbook/assets/sx_in_tss.gif" alt=""><figcaption></figcaption></figure>
+{% embed url="https://user-images.githubusercontent.com/6702424/201123586-6de70f37-b072-4e55-baba-56a53d7ca769.gif" %}
