@@ -1,7 +1,7 @@
 # Next.js
 
 {% hint style="danger" %}
-If you are using nested selectors, you may need to provide [uniq identifiers to your stylesheet](../nested-selectors.md#ssr).
+If you are using nested selectors, you may need to provide [uniq identifiers to the styleshees that uses nested selectors](../nested-selectors.md#ssr).
 {% endhint %}
 
 {% hint style="info" %}
