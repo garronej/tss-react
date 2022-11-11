@@ -40,7 +40,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 ```tsx
 import Head from "next/head";
 import App from "next/app";
-import type { AppProps } from 'next/app'
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { TssCacheProvider } from "tss-react";
 

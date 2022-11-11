@@ -29,7 +29,6 @@ This is the recommended approach.&#x20;
 
 import Head from "next/head";
 import App from "next/app";
-import type { AppProps } from 'next/app'
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 
 const {
@@ -64,7 +63,6 @@ If you want TSS and MUI to use different caches you can implement this approach:
 
 import Head from "next/head";
 import App from "next/app";
-import type { AppProps } from 'next/app'
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 import { TssCacheProvider } from "tss-react";
 
