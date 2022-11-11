@@ -38,15 +38,15 @@ export function createEmotionSsrAdvancedApproach(
             DefaultDocument.getInitialProps.bind(DefaultDocument);
 
         (Document as any).getInitialProps = async (
-            appContext: DocumentContext,
+            documentContext: DocumentContext,
         ) => {
             const cache = createCache(optionsWithoutPrependProp);
 
             const emotionServer = createEmotionServer(cache);
 
-            const originalRenderPage = appContext.renderPage;
+            const originalRenderPage = documentContext.renderPage;
 
-            appContext.renderPage = ({ enhanceApp, ...params }: any) =>
+            documentContext.renderPage = ({ enhanceApp, ...params }: any) =>
                 originalRenderPage({
                     ...params,
                     "enhanceApp": (App: any) => {
@@ -62,7 +62,7 @@ export function createEmotionSsrAdvancedApproach(
                     },
                 });
 
-            const initialProps = await super_getInitialProps(appContext);
+            const initialProps = await super_getInitialProps(documentContext);
 
             const emotionStyles = [
                 <style id={insertionPointId} key={insertionPointId} />,
