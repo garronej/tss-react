@@ -60,7 +60,7 @@ render(
     &#x3C;/TssCacheProvider>
 );</code></pre>
 
-&#x20;To be clear, the difference between `import { CacheProvider } from "@emotion/react";` and `import { TssCacheProvider } from "tss-react";` is that the cahe provided by `<TssCacheProvider />` will only be picked up by `tss-react` when the cache provided by `<CacheProvider />` will be picked up by MUI. &#x20;
+&#x20;To be clear, the difference between `import { CacheProvider } from "@emotion/react";` and `import { TssCacheProvider } from "tss-react";` is that the cahe provided by `<TssCacheProvider />` will only be picked up by `tss-react` when the cache provided by `<CacheProvider />` will be picked up by TSS, MUI and any direct usage of `@emotion/react`. &#x20;
 
 {% hint style="danger" %}
 If you are [a library author that publish a module that uses `tss-react` internally](publish-a-module-that-uses-tss.md). You should avoid using `<TssCacheProvider />` if you want to avoid having `tss-react` as peerDependency of your module.&#x20;
