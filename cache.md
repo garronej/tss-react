@@ -4,7 +4,7 @@ description: How to integrate emotion cache with TSS
 
 # 💽 Cache
 
-There is two ways to make tss-react use a specific emotion cache instead of the default one. &#x20;
+There is three ways to make tss-react use a specific emotion cache instead of the default one. &#x20;
 
 ### Using the provider
 
