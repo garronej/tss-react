@@ -1,5 +1,5 @@
 ---
-description: How to configure Server Side Sendering
+description: How to configure Server Side Rendering
 ---
 
 # ⚡ SSR
