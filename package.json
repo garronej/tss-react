@@ -71,10 +71,10 @@
     "files": [
         "dist/",
         "!dist/test/",
-        "!dist/esm/test/",
         "!dist/tsconfig.tsbuildinfo",
-        "!dist/esm/tsconfig.tsbuildinfo",
-        "!dist/package.json"
+        "!dist/package.json",
+        "!dist/esm/test/",
+        "!dist/esm/tsconfig.tsbuildinfo"
     ],
     "keywords": [
         "jss",
