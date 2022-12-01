@@ -63,9 +63,19 @@ export function createWithStyles<Theme>(params: {
          */
         const name: string | undefined = (() => {
             {
+                const { name: nameOrWrappedName } = params ?? {};
+
+                if (nameOrWrappedName !== undefined) {
+                    return typeof nameOrWrappedName !== "object"
+                        ? nameOrWrappedName
+                        : Object.keys(nameOrWrappedName)[0];
+                }
+            }
+
+            {
                 const displayName = (Component_ as any).displayName;
 
-                if (displayName) {
+                if (typeof displayName === "string" && displayName !== "") {
                     return displayName;
                 }
             }
@@ -77,8 +87,6 @@ export function createWithStyles<Theme>(params: {
                     return name;
                 }
             }
-
-            return params?.name;
         })();
 
         const useStyles = makeStyles<Props, any>({ ...params, name })(
