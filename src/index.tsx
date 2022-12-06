@@ -171,7 +171,7 @@ function App() {
             },
             {
               "title": "Equivalent for `$` syntax",
-              "description": `JSS's [Pseudo and Nested Selectors](https://cssinjs.org/jss-plugin-nested/?v=v10.9.0) are featured in a type-safe way. [Check the doc](https://docs.tss-react.dev/nested-selectors-ex-usd-syntax).`
+              "description": `JSS's [Pseudo and Nested Selectors](https://cssinjs.org/jss-plugin-nested/?v=v10.9.0) are featured in a type-safe way. [Check the doc](https://docs.tss-react.dev/nested-selectors).`
             },
             {
               "title": "Build on top of `@emotion/react`",
