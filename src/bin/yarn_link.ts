@@ -100,7 +100,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     });
 };
 
-const testAppNames = ["spa", "ssr"] as const;
+const testAppNames = ["spa", "ssr", "next-appdir"] as const;
 
 const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
     pathJoin(tssReactDirPath, "src", "test", "apps", testAppName);

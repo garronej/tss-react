@@ -1,3 +1,5 @@
+"use client";
+
 import type { EmotionCache } from "@emotion/cache";
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 import { createMakeStyles, TssCacheProvider } from "./makeStyles";

@@ -15,7 +15,8 @@
         "strict": true,
         "downlevelIteration": true,
         "jsx": "react",
-        "noFallthroughCasesInSwitch": true
+        "noFallthroughCasesInSwitch": true,
+        "skipLibCheck": true
     },
     "include": ["src"],
     "exclude": ["src/test/apps", "src/bin"]

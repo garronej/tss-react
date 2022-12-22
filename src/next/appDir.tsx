@@ -8,7 +8,7 @@ import type { Options as OptionsOfCreateCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import type { NextComponentType } from "next";
 import DefaultDocument from "next/document";
-import { assert } from "./tools/assert";
+import { assert } from "../tools/assert";
 
 /**
  * @see <https://docs.tss-react.dev/ssr/next>

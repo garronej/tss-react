@@ -117,6 +117,7 @@ npx tsc -w & npx tsc --module es2015 --outDir dist/esm -w
 # Open another Terminal
 yarn start_spa  # For testing in in a Create React App setup
 yarn start_ssr # For testing in a Next.js setup
+yarn start_appdir #  Next.js 13 setup in App directory mode
 ```
 
 # FAQ
