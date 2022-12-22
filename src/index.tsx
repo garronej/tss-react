@@ -166,7 +166,7 @@ function App() {
             },
             {
               "title": "**S**erver **S**ide **R**endering support (SSR)",
-              "description": `Quick and easy [integration with Next.js](https://docs.tss-react.dev/ssr/next.js).
+              "description": `Quick and easy [integration with Next.js 13](https://docs.tss-react.dev/ssr/next.js) (pagesDir and appDir).
             detailed instructions for integrating [with any other backend framework](https://docs.tss-react.dev/ssr/other-backend).`
             },
             {
