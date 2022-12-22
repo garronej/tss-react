@@ -24,10 +24,16 @@ yarn add @emotion/server
 
 This is the recommended approach.&#x20;
 
-```tsx
-//pages/_app.tsx
+{% tabs %}
+{% tab title="pages dir" %}
+{% hint style="info" %}
+These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).&#x20;
 
-import Head from "next/head";
+Now, if you are feeling adventurous and want to experiment with Next 13 beta features such as server components head over to [the next tab](next.js.md#app-dir).
+{% endhint %}
+
+{% code title="pages/_app.tsx" %}
+```tsx
 import App from "next/app";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
 
@@ -41,10 +47,10 @@ export { augmentDocumentWithEmotionCache };
 //You can also pass your custom App if you have one. 
 export default withAppEmotionCache(App);
 ```
+{% endcode %}
 
-```tsx
-//pages/_document.tsx
-
+{% code title="pages/_document.tsx" %}
+```typescript
 import Document from "next/document";
 import { augmentDocumentWithEmotionCache } from "./_app";
 
@@ -53,14 +59,44 @@ augmentDocumentWithEmotionCache(Document);
 
 export default Document;
 ```
+{% endcode %}
+{% endtab %}
+
+{% tab title="app dir" %}
+{% hint style="info" %}
+This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow [these instructions instead](next.js.md#pages-dir).
+{% endhint %}
+
+{% code title="app/layout.tsx" %}
+```tsx
+import { NextAppDirEmotionCacheProvider } from "tss-react/next";
+
+export default function RootLayout({ children }: { children: JSX.Element; }) {
+    return (
+        <html>
+            {/* It's important to keep a head tag, even if it's empty */}
+	    <head></head> 
+	    <body>
+	        <NextAppDirEmotionCacheProvider options={{ key: "css" }}>
+		    {children}
+		</NextAppDirEmotionCacheProvider>
+	    </body>
+	</html>
+    );
+}
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
 
 ### MUI and TSS use different caches
 
-If you want TSS and MUI to use different caches you can implement this approach: &#x20;
+If you want TSS and MUI to use different caches you can implement this approach:&#x20;
 
+{% tabs %}
+{% tab title="pages dir" %}
+{% code title="pages/_app.tsx" %}
 ```tsx
-//pages/_app.tsx
-
 import Head from "next/head";
 import App from "next/app";
 import { createEmotionSsrAdvancedApproach } from "tss-react/next";
@@ -81,11 +117,12 @@ const {
 export { augmentDocumentWithEmotionCache_tss };
 
 export default withAppEmotionCache_mui(withAppEmotionCache_tss(App));
+
 ```
+{% endcode %}
 
+{% code title="pages/_document.tsx" %}
 ```tsx
-//pages/_document.tsx
-
 import Document from "next/document";
 import { 
    augmentDocumentWithEmotionCache_mui,  
@@ -97,3 +134,36 @@ augmentDocumentWithEmotionCache_tss(Document);
 
 export default Document;
 ```
+{% endcode %}
+{% endtab %}
+
+{% tab title="app dir" %}
+{% code title="app/layout.tsx" %}
+```tsx
+import { NextAppDirEmotionCacheProvider } from "tss-react/next";
+
+export default function RootLayout({ children }: { children: JSX.Element }) {
+    return (
+        <html>
+            <head></head>
+	    <body>
+                <NextAppDirEmotionCacheProvider 
+                    options={{ "key": "css" }}
+                >
+	            <NextAppDirEmotionCacheProvider 
+	                options={{ "key": "tss" }} 
+	                CacheProvider={TssCacheProvider}
+	            >
+			<AppMuiThemeProvider>
+			    {children}
+			</AppMuiThemeProvider>
+		    </NextAppDirEmotionCacheProvider>
+		</NextAppDirEmotionCacheProvider>
+	    </body>
+	</html>
+    );
+}
+```
+{% endcode %}
+{% endtab %}
+{% endtabs %}
