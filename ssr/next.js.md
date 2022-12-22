@@ -64,7 +64,7 @@ export default Document;
 
 {% tab title="app dir" %}
 {% hint style="info" %}
-This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow [these instructions instead](next.js.md#pages-dir).
+This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow the [instructions of the previous tab instead](next.js.md#pages-dir).
 {% endhint %}
 
 {% code title="app/layout.tsx" %}
