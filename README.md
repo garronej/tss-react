@@ -21,6 +21,8 @@
   <a href="https://docs.tss-react.dev">Documentation</a>
 </p>
 
+> 🆕 `tss-react` now [supports Next.js 13 appDir](https://docs.tss-react.dev/ssr/next.js#app-dir) 🥳.
+
 `'tss-react'` is intended to be the replacement for
 [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
@@ -69,6 +71,10 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 
 <details>
     <summary>Click to expand</summary>
+
+## v4.5.0
+
+-   Provide support for [Next 13 appDir](https://docs.tss-react.dev/ssr/next.js#app-dir).
 
 ## v4.3.0
 
