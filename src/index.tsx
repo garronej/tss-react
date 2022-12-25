@@ -170,12 +170,12 @@ function App() {
             detailed instructions for integrating [with any other backend framework](https://docs.tss-react.dev/ssr/other-backend).`
             },
             {
-              "title": "Equivalent for `$` syntax",
+              "title": "Equivalent for the `$` syntax",
               "description": `JSS's [Pseudo and Nested Selectors](https://cssinjs.org/jss-plugin-nested/?v=v10.9.0) are featured in a type-safe way. [Check the doc](https://docs.tss-react.dev/nested-selectors).`
             },
             {
               "title": "Build on top of `@emotion/react`",
-              "description": `It has very little impact on the bundle size alongside mui (~5kB minziped, [\`@emotion/react\`](https://emotion.sh/docs/@emotion/react) is already included int mui). 
+              "description": `It has very little impact on the bundle size alongside mui (~5kB minziped, [\`@emotion/react\`](https://emotion.sh/docs/@emotion/react) is already included in mui). 
             You can control the Emotion cache \`tss-react\` will use.`
             },
             {
