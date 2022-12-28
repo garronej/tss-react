@@ -1,4 +1,4 @@
-import { useColors } from "@codegouvfr/react-dsfr";
+import { useColors } from "@codegouvfr/react-dsfr/useColors";
 import { createMakeAndWithStyles } from "./index";
 
 /** @see <https://docs.tss-react.dev/setup> */

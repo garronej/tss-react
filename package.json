@@ -104,7 +104,7 @@
         "@emotion/cache": "*"
     },
     "devDependencies": {
-        "@codegouvfr/react-dsfr": "^0.0.28",
+        "@codegouvfr/react-dsfr": "^0.14.0",
         "@emotion/server": "11.10.0",
         "@emotion/react": "11.10.5",
         "@mui/material": "5.11.1",

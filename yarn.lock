@@ -82,14 +82,12 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@codegouvfr/react-dsfr@^0.0.28":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@codegouvfr/react-dsfr/-/react-dsfr-0.0.28.tgz#ea238bd997365d9ac22f25e0c119b458635a5e4f"
-  integrity sha512-DUw5ojkRaYXYzjBiZN/bSd6xeUAWCYbrSwMEyRMr0kFir32Jg6fzTbhpyby6DuUBTVx6PDLZ8JlFDB9ifBOSFA==
+"@codegouvfr/react-dsfr@^0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@codegouvfr/react-dsfr/-/react-dsfr-0.14.0.tgz#93e667679294d5b2c129b8b063432a4f2cfbcc6f"
+  integrity sha512-f3EPzIJcY6OzeEd7JEQ4Rst/euc7aE3fjlcfYC87REOFI2o67JGvt/QZJq1d96ZbsLqOwxri+5oQqb60lgBk+A==
   dependencies:
-    "@gouvfr/dsfr" "1.8.1"
-    remixicon "^2.5.0"
-    tsafe "^1.1.1"
+    tsafe "^1.4.0"
 
 "@cspotcode/source-map-consumer@0.8.0":
   version "0.8.0"
@@ -262,11 +260,6 @@
     js-yaml "^3.13.1"
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
-
-"@gouvfr/dsfr@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.8.1.tgz#2484eb8ad9a73b5f01c5f41f49146d1aa8a71b7b"
-  integrity sha512-XpVFdvhtalA5jSAhzzNaMd+/Hvf8Ef9jCdAZhuukEEMo2/cWvCgzz9tfbE+9QTJDIVP+EwJ7aCGWcXUSWkOHJg==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -1900,11 +1893,6 @@ regexpp@^3.1.0:
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
   integrity sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==
 
-remixicon@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/remixicon/-/remixicon-2.5.0.tgz#b5e245894a1550aa23793f95daceadbf96ad1a41"
-  integrity sha512-q54ra2QutYDZpuSnFjmeagmEiN9IMo56/zz5dDNitzKD23oFRw77cWo4TsrAdmdkPiEn8mxlrTqxnkujDbEGww==
-
 require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
@@ -2200,10 +2188,10 @@ tsafe@^0.10.0:
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.10.0.tgz#c4fba365a49467ea6167e8c9482ddb94ee51b795"
   integrity sha512-CFfa1uJKfU0DDRbuB8bf2mfXjkOqiTsrltexzMMLxq5gjd1LttFECNGsO8dYUALJDbShb6+f3CwAppW/wf9BrA==
 
-tsafe@^1.1.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.2.1.tgz#578f7acd22b5ff32b5b820b6eb551af9ad4024da"
-  integrity sha512-fDDbPiAG6xjZuyXXakHZi8ewGx7ERxGVJ3dwFtcoex+9lvp/nHm5ROlFAB6lyZSmspG0cjpYpFxrKyRnniiOdQ==
+tsafe@^1.4.0:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.4.1.tgz#59cdad8ac41babf88e56dcd1a683ae2fb145d059"
+  integrity sha512-3IDBalvf6SyvHFS14UiwCWzqdSdo+Q0k2J7DZyJYaHW/iraW9DJpaBKDJpry3yQs3o/t/A+oGaRW3iVt2lKxzA==
 
 tslib@^1.8.1:
   version "1.14.1"
