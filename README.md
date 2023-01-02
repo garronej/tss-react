@@ -75,7 +75,7 @@ yarn add tss-react @emotion/react
 ```typescript
 // src/theme.ts
 
-import { createMakeStyles } from "tss-react"; //"tss-react/compat" if your project is using Typescript < 4.4
+import { createMakeAndWithStyles } from "tss-react"; //"tss-react/compat" if your project is using Typescript < 4.4
 
 function useTheme() {
     return {
