@@ -71,7 +71,7 @@ This is the documentation for [Next 13 app directory mode (beta)](https://beta.n
 ```tsx
 import { NextAppDirEmotionCacheProvider } from "tss-react/next";
 
-export default function RootLayout({ children }: { children: JSX.Element; }) {
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
     return (
         <html>
             {/* It's important to keep a head tag, even if it's empty */}
