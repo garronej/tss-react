@@ -82,7 +82,7 @@ import createCache from "@emotion/cache";
 
 let appCache: EmotionCache | undefined = undefined;
 
-export const crateAppCache = () =>
+export const createAppCache = () =>
     appCache = createCache({ 
         "key": "css"
     });
