@@ -78,7 +78,7 @@ function functionInChargeOfRenderingTheHtml(res) {
 
 ```tsx
 import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+import createCache, { EmotionCache } from "@emotion/cache";
 
 let appCache: EmotionCache | undefined = undefined;
 
