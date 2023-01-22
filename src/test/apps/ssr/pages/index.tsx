@@ -11,6 +11,8 @@ import type { CSSObject } from "tss-react";
 import InputBase from "@mui/material/InputBase";
 import Tab from "@mui/material/Tab";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { unstable_styleFunctionSx } from "@mui/system";
+export const styleFunctionSx = unstable_styleFunctionSx as (params: object) => CSSObject;
 
 export default function Index() {
 
@@ -200,6 +202,7 @@ const { App } = (() => {
                         lightBulbBorderColor="black"
                     />
 				    <StyledTab icon={<PhoneIcon />} label="Background should be greenish" />
+                    <TestSxComponent />
                 </div>
             </>
         );
@@ -573,3 +576,38 @@ const StyledTab = withStyles(Tab, {
 		"backgroundColor": "green"
 	}
 });
+
+
+const { TestSxComponent } = (() => {
+
+    function TestSxComponent() {
+
+        const { classes } = useStyles();
+    
+        return (
+            <div className={classes.root}>
+                Should look like: https://mui.com/material-ui/react-box/#the-sx-prop
+                but in green.
+            </div>
+        );
+    
+    };
+
+    const useStyles = makeStyles()(theme => ({
+        root: styleFunctionSx({
+            theme,
+            sx: {
+                width: 300,
+                height: 300,
+                backgroundColor: "primary.dark",
+                "&:hover": {
+                    backgroundColor: 'primary.main',
+                    opacity: [0.9, 0.8, 0.7]
+                }
+            }
+        })
+    }));
+
+    return { TestSxComponent };
+
+})();
