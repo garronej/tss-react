@@ -148,7 +148,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
             <head></head>
 	    <body>
                 <NextAppDirEmotionCacheProvider 
-                    options={{ "key": "css" }}
+                    options={{ "key": "mui" }}
                 >
 	            <NextAppDirEmotionCacheProvider 
 	                options={{ "key": "tss" }} 
