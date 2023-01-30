@@ -35,7 +35,7 @@ Now, if you are feeling adventurous and want to experiment with Next 13 beta fea
 {% code title="pages/_app.tsx" %}
 ```tsx
 import App from "next/app";
-import { createEmotionSsrAdvancedApproach } from "tss-react/next";
+import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
 
 const {
     augmentDocumentWithEmotionCache,
@@ -69,7 +69,7 @@ This is the documentation for [Next 13 app directory mode (beta)](https://beta.n
 
 {% code title="app/layout.tsx" %}
 ```tsx
-import { NextAppDirEmotionCacheProvider } from "tss-react/next";
+import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
 
 export default function RootLayout({ children }: { children: React.ReactNode; }) {
     return (
@@ -99,7 +99,7 @@ If you want TSS and MUI to use different caches you can implement this approach:
 ```tsx
 import Head from "next/head";
 import App from "next/app";
-import { createEmotionSsrAdvancedApproach } from "tss-react/next";
+import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
 import { TssCacheProvider } from "tss-react";
 
 const {
@@ -140,7 +140,7 @@ export default Document;
 {% tab title="app dir" %}
 {% code title="app/layout.tsx" %}
 ```tsx
-import { NextAppDirEmotionCacheProvider } from "tss-react/next";
+import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
     return (
