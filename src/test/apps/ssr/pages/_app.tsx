@@ -5,7 +5,7 @@ import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useIsDarkModeEnabled, withIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
-import { createEmotionSsrAdvancedApproach } from "tss-react/next";
+import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
 
 const {
     augmentDocumentWithEmotionCache,

@@ -1,5 +1,5 @@
 import AppMuiThemeProvider from "../shared/AppMuiThemeProvider";
-import { NextAppDirEmotionCacheProvider } from "tss-react/next";
+import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
 //import { TssCacheProvider } from "tss-react";
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
