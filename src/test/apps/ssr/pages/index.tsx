@@ -580,33 +580,33 @@ const StyledTab = withStyles(Tab, {
 
 const { TestSxComponent } = (() => {
 
-    function TestSxComponent() {
+function TestSxComponent() {
 
-        const { classes } = useStyles();
+    const { classes } = useStyles();
     
-        return (
-            <div className={classes.root}>
-                Should look like: https://mui.com/material-ui/react-box/#the-sx-prop
-                but in green.
-            </div>
-        );
+    return (
+        <div className={classes.root}>
+            Should look like: https://mui.com/material-ui/react-box/#the-sx-prop
+            but in green.
+        </div>
+    );
     
-    };
+};
 
-    const useStyles = makeStyles()(theme => ({
-        root: styleFunctionSx({
-            theme,
-            sx: {
-                width: 300,
-                height: 300,
-                backgroundColor: "primary.dark",
-                "&:hover": {
-                    backgroundColor: 'primary.main',
-                    opacity: [0.9, 0.8, 0.7]
-                }
+const useStyles = makeStyles()(theme => ({
+    root: styleFunctionSx({
+        theme,
+        sx: {
+            width: 300,
+            height: 300,
+            backgroundColor: "primary.dark",
+            "&:hover": {
+                backgroundColor: 'primary.main',
+                opacity: [0.9, 0.8, 0.7]
             }
-        })
-    }));
+        }
+    })
+}));
 
     return { TestSxComponent };
 

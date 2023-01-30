@@ -26,6 +26,14 @@
             "import": "./dist/esm/next/index.js",
             "require": "./dist/next/index.js"
         },
+        "./next/pagesDir": {
+            "import": "./dist/esm/next/pagesDir.js",
+            "require": "./dist/next/pagesDir.js"
+        },
+        "./next/appDir": {
+            "import": "./dist/esm/next/appDir.js",
+            "require": "./dist/next/appDir.js"
+        },
         "./compat": {
             "import": "./dist/esm/compat.js",
             "require": "./dist/compat.js"
