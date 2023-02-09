@@ -1,26 +1,22 @@
 # Next.js
 
-{% hint style="danger" %}
+{% hint style="warning" %}
 If you are using nested selectors, you may need to provide [uniq identifiers to the styleshees that uses nested selectors](../nested-selectors.md#ssr).
 {% endhint %}
 
 {% hint style="info" %}
-Next.js + React 18 -> SSR will only work with Next.js 12.1.7-canary.4 or newer.
+Require Next.js 12.1.7 or newer.
 {% endhint %}
 
 {% hint style="success" %}
-**MUI**: The following instructions are for the peoples using `tss-react` as a standalone solution. &#x20;
-
-MUI users can refer to [the MUI documentation relative to SSR](https://mui.com/material-ui/guides/server-rendering/) and ignore this.&#x20;
+MUI users: If you use this tooling you won't have to worry about setting up SSR for MUI. If SSR works for TSS, it works for MUI as well. If you prefer you can setup SSR by following [the MUI documentation,](https://mui.com/material-ui/guides/server-rendering/) it works but I advise against it though as the TSS tooling abstract away a lot of complex logic you don't need to worry about.
 {% endhint %}
-
-Setup to make SSR work with [Next.js](https://nextjs.org).
 
 ```
 yarn add @emotion/server
 ```
 
-### Single emotion cache
+### Single emotion cache (recommended approach)
 
 This is the recommended approach.&#x20;
 
@@ -89,9 +85,9 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
 {% endtab %}
 {% endtabs %}
 
-### MUI and TSS use different caches
+### Make MUI and TSS use different caches
 
-If you want TSS and MUI to use different caches you can implement this approach:&#x20;
+If you want TSS and MUI to use different caches you can implement this approach. This is mainly usefull if you are migrating from MUI v4 using TSS and [some styles dosen't display like they used to](../troubleshoot-migration-to-muiv5-with-tss.md).&#x20;
 
 {% tabs %}
 {% tab title="pages dir" %}

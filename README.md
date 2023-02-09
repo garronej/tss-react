@@ -8,6 +8,10 @@ description: Start using TSS, with or without MUI
 Consider [giving the project a ⭐️](https://github.com/garronej/tss-react). It means a lot to me ❤️
 {% endhint %}
 
+{% hint style="info" %}
+🗳️ [I've opened a pool about introducing a new API.](https://github.com/garronej/tss-react/discussions/143)
+{% endhint %}
+
 {% tabs %}
 {% tab title="With MUI" %}
 ```bash
