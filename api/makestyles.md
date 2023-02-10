@@ -112,7 +112,7 @@ export const {
 `./MyComponent.tsx`
 
 ```tsx
-//Here we ca import useStyles directly instead of generating it from makeStyles.
+//Here we can import useStyles directly instead of generating it from makeStyles.
 import { useStyles } from "./makeStyles";
 
 export function MyComponent(props: Props) {
