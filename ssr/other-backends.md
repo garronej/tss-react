@@ -78,11 +78,11 @@ function functionInChargeOfRenderingTheHtml(res) {
 
 ```tsx
 import { CacheProvider } from "@emotion/react";
-import createCache, { EmotionCache } from "@emotion/cache";
+import createCache, { type EmotionCache } from "@emotion/cache";
 
 let appCache: EmotionCache | undefined = undefined;
 
-export const createAppCache = () =>
+export const crateAppCache = () =>
     appCache = createCache({ 
         "key": "css"
     });
@@ -161,7 +161,7 @@ function functionInChargeOfRenderingTheHtml(res) {
 
 ```tsx
 import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+import createCache, { type EmotionCache } from "@emotion/cache";
 import { TssCacheProvider } from "tss-react";
 
 let muiCache: EmotionCache | undefined = undefined;
