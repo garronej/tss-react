@@ -17,7 +17,6 @@ This is the new way for [Overriding styles - `classes` prop](https://v4.mui.com/
 {% endhint %}
 
 ```tsx
-import { useMergedClasses } from "tss-react";
 
 type Props = {
     //classes?: { foo?: string; bar?: string; };
