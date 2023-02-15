@@ -1,13 +1,14 @@
 {
     "name": "ssr",
     "version": "0.1.0",
-    "private": true,    
+    "private": true,
     "scripts": {
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "analyze": "ANALYZE=true next build"
+        "analyze": "ANALYZE=true next build",
+        "es-check": "es-check es5 './.next/static/chunks/**/*.js' -v"
     },
     "dependencies": {
         "@emotion/react": "11.10.5",
@@ -16,7 +17,9 @@
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "5.11.1",
         "@next/bundle-analyzer": "^13.1.6",
+        "es-check": "^7.1.0",
         "next": "13.0.7",
+        "next-transpile-modules": "^10.0.0",
         "powerhooks": "^0.17.2",
         "react": "18.2.0",
         "react-dom": "18.2.0",

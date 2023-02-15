@@ -1,6 +1,7 @@
 import Document from "next/document";
-import { augmentDocumentWithEmotionCache } from "./_app";
+import  augmentDocumentWithEmotionCache  from "tss-react/next/augumentDocumentWithEmotionCache";
 
-augmentDocumentWithEmotionCache(Document);
+
+augmentDocumentWithEmotionCache({ "key": "css" })(Document);
 
 export default Document;

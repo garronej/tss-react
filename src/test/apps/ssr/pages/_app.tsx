@@ -5,14 +5,9 @@ import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useIsDarkModeEnabled, withIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
-import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
+import  withAppEmotionCache  from "tss-react/next/withAppEmotionCache";
 
-const {
-    augmentDocumentWithEmotionCache,
-    withAppEmotionCache
-} = createEmotionSsrAdvancedApproach({ "key": "css" });
 
-export { augmentDocumentWithEmotionCache };
 
 export function App({ Component, pageProps }: AppProps) {
 
@@ -65,4 +60,4 @@ export function App({ Component, pageProps }: AppProps) {
 
 }
 
-export default withAppEmotionCache(withIsDarkModeEnabled(App));
+export default withAppEmotionCache({ "key": "css" })(withIsDarkModeEnabled(App));
