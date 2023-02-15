@@ -12,7 +12,7 @@ import InputBase from "@mui/material/InputBase";
 import Tab from "@mui/material/Tab";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { unstable_styleFunctionSx } from "@mui/system";
-export const styleFunctionSx = unstable_styleFunctionSx as (params: object) => CSSObject;
+export const styleFunctionSx = unstable_styleFunctionSx as (params: Record<string,unknown>) => CSSObject;
 
 export default function Index() {
 
