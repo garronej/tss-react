@@ -7,28 +7,26 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "analyze": "ANALYZE=true next build",
-        "es-check": "es-check es5 './.next/static/chunks/**/*.js' -v"
+        "analyze": "ANALYZE=true next build"
     },
     "dependencies": {
         "@emotion/react": "11.10.5",
         "@emotion/server": "11.10.0",
         "@emotion/styled": "11.10.5",
         "@mui/icons-material": "^5.11.0",
-        "@mui/material": "5.11.1",     
+        "@mui/material": "5.11.1",
         "next": "13.0.7",
-        "next-transpile-modules": "^10.0.0",
         "powerhooks": "^0.17.2",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "tss-react": "file:../../../../dist"
     },
     "devDependencies": {
+        "@next/bundle-analyzer": "^13.1.6",
         "@types/node": "^18.11.17",
         "@types/react": "18.0.26",
         "eslint": "7.30.0",
         "eslint-config-next": "11.0.1",
-        "typescript": "^4.6.4",
-        "@next/bundle-analyzer": "^13.1.6"
+        "typescript": "^4.6.4"
     }
 }
