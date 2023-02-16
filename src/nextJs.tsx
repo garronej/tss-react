@@ -10,7 +10,7 @@ import createCache from "@emotion/cache";
 
 /**
  * @deprecated Use tss-react/next instead.
- * @see <https://docs.tss-react.dev/ssr/next> */
+ * @see <https://docs.tss-react.dev/ssr/next.js> */
 export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
     let muiCache: EmotionCache | undefined = undefined;
 

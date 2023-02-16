@@ -31,8 +31,8 @@
             "require": "./dist/next/pagesDir.js"
         },
         "./next/augumentDocumentWithEmotionCache": {
-            "import": "./dist/esm/next/augumentDocumentWithEmotionCache.js",
-            "require": "./dist/next/augumentDocumentWithEmotionCache.js"
+            "import": "./dist/esm/next/augmentDocumentWithEmotionCache.js",
+            "require": "./dist/next/augmentDocumentWithEmotionCache.js"
         },
         "./next/withAppEmotionCache": {
             "import": "./dist/esm/next/withAppEmotionCache.js",

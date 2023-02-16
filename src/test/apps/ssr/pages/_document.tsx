@@ -1,7 +1,7 @@
 import Document from "next/document";
-import  augmentDocumentWithEmotionCache  from "tss-react/next/augumentDocumentWithEmotionCache";
+import augmentDocumentWithEmotionCache from "tss-react/next/augmentDocumentWithEmotionCache";
 
-
-augmentDocumentWithEmotionCache({ "key": "css" })(Document);
+augmentDocumentWithEmotionCache({ "key": "mui" })(Document);
+augmentDocumentWithEmotionCache({ "key": "tss" })(Document);
 
 export default Document;

@@ -15,9 +15,7 @@
         "@emotion/server": "11.10.0",
         "@emotion/styled": "11.10.5",
         "@mui/icons-material": "^5.11.0",
-        "@mui/material": "5.11.1",
-        "@next/bundle-analyzer": "^13.1.6",
-        "es-check": "^7.1.0",
+        "@mui/material": "5.11.1",     
         "next": "13.0.7",
         "next-transpile-modules": "^10.0.0",
         "powerhooks": "^0.17.2",
@@ -30,6 +28,7 @@
         "@types/react": "18.0.26",
         "eslint": "7.30.0",
         "eslint-config-next": "11.0.1",
-        "typescript": "^4.6.4"
+        "typescript": "^4.6.4",
+        "@next/bundle-analyzer": "^13.1.6"
     }
 }

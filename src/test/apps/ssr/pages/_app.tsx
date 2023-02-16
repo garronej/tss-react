@@ -6,11 +6,9 @@ import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useIsDarkModeEnabled, withIsDarkModeEnabled } from "../shared/isDarkModeEnabled";
 import  withAppEmotionCache  from "tss-react/next/withAppEmotionCache";
-
-
+import { TssCacheProvider } from "tss-react";
 
 export function App({ Component, pageProps }: AppProps) {
-
 	const { isDarkModeEnabled } = useIsDarkModeEnabled();
 
 	const theme = useMemo(
@@ -60,4 +58,4 @@ export function App({ Component, pageProps }: AppProps) {
 
 }
 
-export default withAppEmotionCache({ "key": "css" })(withIsDarkModeEnabled(App));
+export default withAppEmotionCache({key: 'mui'})(withAppEmotionCache({ "key": "tss" }, TssCacheProvider)(withIsDarkModeEnabled(App)));

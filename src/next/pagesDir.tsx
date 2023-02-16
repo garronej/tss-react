@@ -6,7 +6,7 @@ import wrappedWithAppEmotionCache from "./withAppEmotionCache";
 import wrappedAugmentDocumentWithEmotionCache from "./augmentDocumentWithEmotionCache";
 
 /**
- * @see <https://docs.tss-react.dev/ssr/next>
+ * @see <https://docs.tss-react.dev/ssr/next.js>
  * This utility implements https://emotion.sh/docs/ssr#advanced-approach
  * */
 export function createEmotionSsrAdvancedApproach(
