@@ -21,7 +21,7 @@ export type NextAppDirEmotionCacheProviderProps = {
 };
 
 export function NextAppDirEmotionCacheProvider(
-    props: NextAppDirEmotionCacheProviderProps,
+    props: NextAppDirEmotionCacheProviderProps
 ) {
     const { options, CacheProvider = DefaultCacheProvider, children } = props;
 
@@ -57,7 +57,7 @@ export function NextAppDirEmotionCacheProvider(
                 key={cache.key}
                 data-emotion={`${cache.key} ${names.join(" ")}`}
                 dangerouslySetInnerHTML={{
-                    "__html": styles,
+                    "__html": styles
                 }}
             />
         );

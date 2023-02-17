@@ -22,7 +22,7 @@ export function createEmotionSsrAdvancedApproach(
     CacheProvider: (props: {
         value: EmotionCache;
         children: ReactNode;
-    }) => JSX.Element | null = DefaultCacheProvider,
+    }) => JSX.Element | null = DefaultCacheProvider
 ) {
     const { prepend, ...optionsWithoutPrependProp } = options;
 
@@ -30,7 +30,7 @@ export function createEmotionSsrAdvancedApproach(
     const insertionPointId = `${options.key}-emotion-cache-insertion-point`;
 
     function augmentDocumentWithEmotionCache(
-        Document: NextComponentType<any, any, any>,
+        Document: NextComponentType<any, any, any>
     ): void {
         let super_getInitialProps = Document.getInitialProps?.bind(Document);
 
@@ -38,12 +38,12 @@ export function createEmotionSsrAdvancedApproach(
             import("next/document").then(
                 ({ default: DefaultDocument }) =>
                     (super_getInitialProps =
-                        DefaultDocument.getInitialProps.bind(DefaultDocument)),
+                        DefaultDocument.getInitialProps.bind(DefaultDocument))
             );
         }
 
         (Document as any).getInitialProps = async (
-            documentContext: DocumentContext,
+            documentContext: DocumentContext
         ) => {
             const cache = createCache(optionsWithoutPrependProp);
 
@@ -64,12 +64,12 @@ export function createEmotionSsrAdvancedApproach(
                                 />
                             );
                         };
-                    },
+                    }
                 });
 
             assert(
                 super_getInitialProps !== undefined,
-                "If you get this error please open an issue on the tss-react repo",
+                "If you get this error please open an issue on the tss-react repo"
             );
 
             const initialProps = await super_getInitialProps(documentContext);
@@ -85,7 +85,7 @@ export function createEmotionSsrAdvancedApproach(
                             key={style.key}
                             dangerouslySetInnerHTML={{ "__html": style.css }}
                         />
-                    )),
+                    ))
             ];
 
             const otherStyles = React.Children.toArray(initialProps.styles);
@@ -94,13 +94,13 @@ export function createEmotionSsrAdvancedApproach(
                 ...initialProps,
                 "styles": prepend
                     ? [...emotionStyles, ...otherStyles]
-                    : [...otherStyles, ...emotionStyles],
+                    : [...otherStyles, ...emotionStyles]
             };
         };
     }
 
     function withAppEmotionCache<
-        AppComponent extends NextComponentType<any, any, any>,
+        AppComponent extends NextComponentType<any, any, any>
     >(App: AppComponent): AppComponent {
         const createClientSideCache = (() => {
             let cache: EmotionCache | undefined = undefined;
@@ -129,7 +129,7 @@ export function createEmotionSsrAdvancedApproach(
                         assert(htmlElement !== null);
 
                         return htmlElement;
-                    })(),
+                    })()
                 }));
             };
         })();
@@ -147,7 +147,7 @@ export function createEmotionSsrAdvancedApproach(
             staticMethod =>
                 ((AppWithEmotionCache as any)[staticMethod] = (App as any)[
                     staticMethod
-                ]),
+                ])
         );
 
         AppWithEmotionCache.displayName = AppWithEmotionCache.name;

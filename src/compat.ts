@@ -20,6 +20,6 @@ export function createMakeAndWithStyles<Theme>(params: {
 }) {
     return {
         ...createMakeStyles(params),
-        ...createWithStyles(params),
+        ...createWithStyles(params)
     };
 }

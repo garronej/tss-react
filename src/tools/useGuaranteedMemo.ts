@@ -4,7 +4,7 @@ import { useRef } from "react";
  * won't be invoked again if deps hasn't change */
 export function useGuaranteedMemo<T>(
     fn: () => T,
-    deps: React.DependencyList,
+    deps: React.DependencyList
 ): T {
     const ref = useRef<{ v: T; prevDeps: unknown[] }>();
 
@@ -15,7 +15,7 @@ export function useGuaranteedMemo<T>(
     ) {
         ref.current = {
             "v": fn(),
-            "prevDeps": [...deps],
+            "prevDeps": [...deps]
         };
     }
 

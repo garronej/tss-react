@@ -4,12 +4,12 @@ import type { Equals } from "tsafe";
 import { assert } from "tsafe";
 
 const { makeStyles } = createMakeAndWithStyles({
-    "useTheme": () => ({}),
+    "useTheme": () => ({})
 });
 
 const useStyles = makeStyles()({
     "foo": {},
-    "bar": {},
+    "bar": {}
 });
 
 const { classes } = useStyles();
@@ -58,7 +58,7 @@ mergeClasses(classes, { "foo": 33 }, null as any);
     const mergedClasses = mergeClasses(
         classes,
         { "foo": "xxx", "somethingElse": "zzz" },
-        null as any,
+        null as any
     );
 
     assert<

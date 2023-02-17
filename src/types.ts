@@ -1,6 +1,6 @@
 import type {
     CSSObject as CSSObject_base,
-    CSSInterpolation,
+    CSSInterpolation
 } from "@emotion/serialize";
 export type { CSSInterpolation };
 
@@ -21,7 +21,7 @@ export type { CxArg };
 export type Cx = (...classNames: CxArg[]) => string;
 
 export function matchCSSObject(
-    arg: TemplateStringsArray | CSSInterpolation,
+    arg: TemplateStringsArray | CSSInterpolation
 ): arg is CSSObject {
     return (
         arg instanceof Object &&

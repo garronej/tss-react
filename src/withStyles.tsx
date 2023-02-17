@@ -34,7 +34,7 @@ export function createWithStyles<Theme>(params: {
               }
             : { root: CSSObject } & {
                   [mediaQuery: `@media${string}`]: { root: CSSObject };
-              },
+              }
     >(
         Component: C,
         cssObjectByRuleNameOrGetCssObjectByRuleName:
@@ -49,9 +49,9 @@ export function createWithStyles<Theme>(params: {
                   classes: Record<
                       Exclude<keyof CssObjectByRuleName, `@media${string}`>,
                       string
-                  >,
+                  >
               ) => CssObjectByRuleName),
-        params?: { name?: string | Record<string, unknown>; uniqId?: string },
+        params?: { name?: string | Record<string, unknown>; uniqId?: string }
     ): C extends keyof ReactHTML ? ReactHTML[C] : C {
         const Component_: ReactComponent<any> =
             typeof Component === "string"
@@ -63,7 +63,7 @@ export function createWithStyles<Theme>(params: {
                       };
 
                       Object.defineProperty(Out, "name", {
-                          "value": capitalize(tag),
+                          "value": capitalize(tag)
                       });
 
                       return Out;
@@ -109,12 +109,12 @@ export function createWithStyles<Theme>(params: {
                           cssObjectByRuleNameOrGetCssObjectByRuleName(
                               theme,
                               props,
-                              classes,
-                          ),
+                              classes
+                          )
                       ) as any
                 : (incorporateMediaQueries(
-                      cssObjectByRuleNameOrGetCssObjectByRuleName,
-                  ) as any),
+                      cssObjectByRuleNameOrGetCssObjectByRuleName
+                  ) as any)
         );
 
         function getHasNonRootClasses(classes: Record<string, string>) {
@@ -168,7 +168,7 @@ function incorporateMediaQueries(
         [RuleName_ in string]?: CSSObject;
     } & {
         [mediaQuery: `@media${string}`]: { [RuleName_ in string]?: CSSObject };
-    },
+    }
 ): { [RuleName_ in string]: CSSObject } {
     const cssObjectByRuleName: { [RuleName_ in string]: CSSObject } = {};
 
@@ -181,7 +181,7 @@ function incorporateMediaQueries(
             ((ruleNameOrMediaQuery.startsWith("@media")
                 ? (cssObjectByRuleNameWithMediaQueriesByMediaQuery as any)
                 : (cssObjectByRuleName as any))[ruleNameOrMediaQuery] =
-                cssObjectByRuleNameWithMediaQueries[ruleNameOrMediaQuery]),
+                cssObjectByRuleNameWithMediaQueries[ruleNameOrMediaQuery])
     );
 
     Object.keys(cssObjectByRuleNameWithMediaQueriesByMediaQuery).forEach(
@@ -195,10 +195,10 @@ function incorporateMediaQueries(
                 ruleName =>
                     (cssObjectByRuleName[ruleName] = {
                         ...(cssObjectByRuleName[ruleName] ?? {}),
-                        [mediaQuery]: cssObjectByRuleNameBis[ruleName],
-                    }),
+                        [mediaQuery]: cssObjectByRuleNameBis[ruleName]
+                    })
             );
-        },
+        }
     );
 
     return cssObjectByRuleName;

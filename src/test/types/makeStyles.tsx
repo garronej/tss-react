@@ -7,7 +7,7 @@ type Theme = {
 };
 
 const { makeStyles } = createMakeStyles({
-    "useTheme": () => null as unknown as Theme,
+    "useTheme": () => null as unknown as Theme
 });
 
 const useStyles = makeStyles<void, "xxx">()((theme, props, classes) => {
@@ -19,10 +19,10 @@ const useStyles = makeStyles<void, "xxx">()((theme, props, classes) => {
         "root": {
             "backgroundColor": "red",
             [`& .${classes.xxx}`]: {
-                "color": "white",
-            },
+                "color": "white"
+            }
         },
-        "xxx": {},
+        "xxx": {}
     };
 });
 
@@ -36,8 +36,8 @@ assert<Equals<typeof classes, Record<"root" | "xxx", string>>>();
 
         return {
             "root": {
-                "backgroundColor": "red",
-            },
+                "backgroundColor": "red"
+            }
         };
     });
 
@@ -50,21 +50,21 @@ makeStyles<void, "xxx">()(
     //@ts-expect-error: "xxx" should be added to the record of CSSObject
     (theme, props, refs) => ({
         "root": {
-            "backgroundColor": "red",
-        },
-    }),
+            "backgroundColor": "red"
+        }
+    })
 );
 
 {
     const { makeStyles } = createMakeStyles({
-        "useTheme": () => null as unknown as Theme,
+        "useTheme": () => null as unknown as Theme
     });
 
     const useStyles = makeStyles<void, "xxx">()({
         "root": {
-            "backgroundColor": "red",
+            "backgroundColor": "red"
         },
-        "xxx": {},
+        "xxx": {}
     });
 
     const { classes } = useStyles();
