@@ -36,7 +36,7 @@ import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
 const {
     augmentDocumentWithEmotionCache,
     withAppEmotionCache
-} = createEmotionSsrAdvancedApproach({ "key": "css" });
+} = createEmotionSsrAdvancedApproach({ key: "css" });
 
 export { augmentDocumentWithEmotionCache };
 
