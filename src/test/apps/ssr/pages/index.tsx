@@ -38,8 +38,6 @@ const { App } = (() => {
         const { classes, css, cx, theme } = useStyles();
         const { isDarkModeEnabled, setIsDarkModeEnabled } = useIsDarkModeEnabled();
 
-        console.log({ isDarkModeEnabled });
-
         return (
             <>
                 <GlobalStyles

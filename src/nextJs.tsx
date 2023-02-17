@@ -29,7 +29,7 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
         Document: typeof NextDocument,
         params?: {
             getExtraCaches: () => EmotionCache[];
-        },
+        }
     ) {
         const { getExtraCaches = () => [] } = params ?? {};
         return class DocumentWithEmotionCache extends Document {
@@ -40,7 +40,7 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
                             ? 0
                             : getPrepend(a)
                             ? -1
-                            : 1,
+                            : 1
                     )
                     .map(createEmotionServer);
 
@@ -61,13 +61,13 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
                                             } ${style.ids.join(" ")}`}
                                             key={style.key}
                                             dangerouslySetInnerHTML={{
-                                                "__html": style.css,
+                                                "__html": style.css
                                             }}
                                         />
-                                    )),
+                                    ))
                             )
-                            .reduce((prev, curr) => [...prev, ...curr], []),
-                    ],
+                            .reduce((prev, curr) => [...prev, ...curr], [])
+                    ]
                 };
             }
         };

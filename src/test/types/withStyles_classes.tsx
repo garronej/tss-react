@@ -6,13 +6,13 @@ import type { ButtonProps, ButtonClassKey } from "@mui/material/Button";
 import React from "react";
 
 const theme = {
-    "primaryColor": "blue",
+    "primaryColor": "blue"
 } as const;
 
 type Theme = typeof theme;
 
 const { withStyles } = createWithStyles({
-    "useTheme": () => theme,
+    "useTheme": () => theme
 });
 
 {
@@ -28,10 +28,10 @@ const { withStyles } = createWithStyles({
 
                 return {
                     "colorInherit": {
-                        "position": "absolute" as const,
-                    },
+                        "position": "absolute" as const
+                    }
                 };
-            },
+            }
         );
 
         assert<Equals<typeof MuiButton, typeof MyComponentStyled>>();
@@ -76,10 +76,10 @@ const { withStyles } = createWithStyles({
 
                 return {
                     "root": {
-                        "backgroundColor": "red",
-                    },
+                        "backgroundColor": "red"
+                    }
                 };
-            },
+            }
         );
 
         assert<
@@ -94,75 +94,75 @@ const { withStyles } = createWithStyles({
 
     withStyles(MuiButton, {
         "colorInherit": {
-            "position": "absolute",
-        },
+            "position": "absolute"
+        }
     });
 
     withStyles(MuiButton, {
         "colorInherit": {
             //@ts-expect-error
-            "color": 33,
-        },
+            "color": 33
+        }
     });
 
     withStyles(MuiButton, {
         "colorInherit": {
             //@ts-expect-error
-            "position": "absoluteXXX",
-        },
+            "position": "absoluteXXX"
+        }
     });
 
     withStyles(MuiButton, {
         "colorInherit": {
-            "position": "absolute",
+            "position": "absolute"
         },
         //@ts-expect-error
-        "ddd": {},
+        "ddd": {}
     });
 
     withStyles(MuiButton, {
         "colorInherit": {
-            "position": "absolute",
+            "position": "absolute"
         },
         "@media (min-width: 960px)": {
             "colorInherit": {
-                "position": "absolute",
-            },
-        },
+                "position": "absolute"
+            }
+        }
     });
 
     withStyles(MuiButton, {
         "colorInherit": {
-            "position": "absolute",
+            "position": "absolute"
         },
         "@media (min-width: 960px)": {
             //@ts-expect-error
-            "xxx": {},
-        },
+            "xxx": {}
+        }
     });
 
     withStyles(MuiButton, {
         "colorInherit": {
-            "position": "absolute",
+            "position": "absolute"
         },
         "@media (min-width: 960px)": {
             "colorInherit": {
                 //@ts-expect-error
-                "position": "absoluteXXX",
-            },
-        },
+                "position": "absoluteXXX"
+            }
+        }
     });
 
     withStyles(MuiButton, {
         "colorInherit": {
-            "position": "absolute",
+            "position": "absolute"
         },
         "@media (min-width: 960px)": {
             "colorInherit": {
                 //@ts-expect-error
-                "color": 33,
-            },
-        },
+                "color": 33
+            }
+        }
     });
 
     withStyles(
@@ -170,21 +170,21 @@ const { withStyles } = createWithStyles({
         //@ts-expect-error: needs as const
         () => ({
             "colorInherit": {
-                "position": "absolute",
-            },
-        }),
+                "position": "absolute"
+            }
+        })
     );
 
     withStyles(MuiButton, () => ({
         "colorInherit": {
-            "position": "absolute" as const,
-        },
+            "position": "absolute" as const
+        }
     }));
 
     withStyles(MuiButton, () => ({
         "colorInherit": {
-            "position": "absolute",
-        } as const,
+            "position": "absolute"
+        } as const
     }));
 
     withStyles(
@@ -192,9 +192,9 @@ const { withStyles } = createWithStyles({
         () =>
             ({
                 "colorInherit": {
-                    "position": "absolute",
-                },
-            } as const),
+                    "position": "absolute"
+                }
+            } as const)
     );
 
     withStyles(
@@ -202,17 +202,17 @@ const { withStyles } = createWithStyles({
         //@ts-expect-error
         () => ({
             "colorInherit": {
-                "color": 33,
-            },
-        }),
+                "color": 33
+            }
+        })
     );
 
     withStyles(MuiButton, () => ({
         "colorInherit": {
-            "position": "absolute" as const,
+            "position": "absolute" as const
         },
         //Unfortunately passes
-        "ddd": {},
+        "ddd": {}
     }));
 
     withStyles(
@@ -220,14 +220,14 @@ const { withStyles } = createWithStyles({
         //@ts-expect-error: need a const
         () => ({
             "colorInherit": {
-                "position": "absolute" as const,
+                "position": "absolute" as const
             },
             "@media (min-width: 960px)": {
                 "colorInherit": {
-                    "position": "absolute",
-                },
-            },
-        }),
+                    "position": "absolute"
+                }
+            }
+        })
     );
 
     withStyles(
@@ -235,25 +235,25 @@ const { withStyles } = createWithStyles({
         //@ts-expect-error
         () => ({
             "colorInherit": {
-                "position": "absolute" as const,
+                "position": "absolute" as const
             },
             "@media (min-width: 960px)": {
                 "colorInherit": {
-                    "color": 33,
-                },
-            },
-        }),
+                    "color": 33
+                }
+            }
+        })
     );
 
     withStyles(MuiButton, () => ({
         "colorInherit": {
-            "position": "absolute" as const,
+            "position": "absolute" as const
         },
         "@media (min-width: 960px)": {
             "colorInherit": {
-                "position": "absolute" as const,
-            },
-        },
+                "position": "absolute" as const
+            }
+        }
     }));
 
     withStyles(
@@ -261,25 +261,25 @@ const { withStyles } = createWithStyles({
         () =>
             ({
                 "colorInherit": {
-                    "position": "absolute",
+                    "position": "absolute"
                 },
                 "@media (min-width: 960px)": {
                     "colorInherit": {
-                        "position": "absolute",
-                    },
-                },
-            } as const),
+                        "position": "absolute"
+                    }
+                }
+            } as const)
     );
 
     withStyles(MuiButton, () => ({
         "colorInherit": {
-            "position": "absolute" as const,
+            "position": "absolute" as const
         },
         [`@media (min-width: ${960}px)`]: {
             "colorInherit": {
-                "position": "absolute" as const,
-            },
-        },
+                "position": "absolute" as const
+            }
+        }
     }));
 
     withStyles(
@@ -287,13 +287,13 @@ const { withStyles } = createWithStyles({
         //@ts-expect-error
         () => ({
             "colorInherit": {
-                "position": "absolute" as const,
+                "position": "absolute" as const
             },
             [`@media (min-width: ${960}px)`]: {
                 "colorInherit": {
-                    "color": 33,
-                },
-            },
-        }),
+                    "color": 33
+                }
+            }
+        })
     );
 }

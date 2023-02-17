@@ -44,8 +44,8 @@ export function createMakeStyles<Theme>(params: {
                     "MUI users be aware: This is not an error strictly related to tss-react, with or without tss-react,",
                     "MUI needs an Emotion cache to be provided for SSR to work.",
                     "Here is the MUI documentation related to SSR setup: https://mui.com/material-ui/guides/server-rendering/",
-                    "TSS provides helper that makes the process of setting up SSR easier: https://docs.tss-react.dev/ssr",
-                ].join("\n"),
+                    "TSS provides helper that makes the process of setting up SSR easier: https://docs.tss-react.dev/ssr"
+                ].join("\n")
             );
         }
 
@@ -57,7 +57,7 @@ export function createMakeStyles<Theme>(params: {
     /** returns useStyle. */
     function makeStyles<
         Params = void,
-        RuleNameSubsetReferencableInNestedSelectors extends string = never,
+        RuleNameSubsetReferencableInNestedSelectors extends string = never
     >(params?: { name?: string | Record<string, unknown>; uniqId?: string }) {
         const { name: nameOrWrappedName, uniqId = counter++ } = params ?? {};
 
@@ -74,12 +74,12 @@ export function createMakeStyles<Theme>(params: {
                       classes: Record<
                           RuleNameSubsetReferencableInNestedSelectors,
                           string
-                      >,
+                      >
                   ) => Record<
                       RuleName | RuleNameSubsetReferencableInNestedSelectors,
                       CSSObject
                   >)
-                | Record<RuleName, CSSObject>,
+                | Record<RuleName, CSSObject>
         ) {
             const getCssObjectByRuleName =
                 typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
@@ -95,7 +95,7 @@ export function createMakeStyles<Theme>(params: {
                         unknown
                     >;
                     ownerState?: Record<string, unknown>;
-                },
+                }
             ) {
                 const theme = useTheme();
 
@@ -124,13 +124,13 @@ export function createMakeStyles<Theme>(params: {
                                 }-${uniqId}${
                                     name !== undefined ? `-${name}` : ""
                                 }-${propertyKey}-ref`);
-                            },
+                            }
                         });
 
                     const cssObjectByRuleName = getCssObjectByRuleName(
                         theme,
                         params,
-                        refClasses || ({} as RefClasses),
+                        refClasses || ({} as RefClasses)
                     );
 
                     const classes = objectFromEntries(
@@ -148,13 +148,13 @@ export function createMakeStyles<Theme>(params: {
                                 `${css(cssObject)}${
                                     typeGuard<RuleNameSubsetReferencableInNestedSelectors>(
                                         ruleName,
-                                        ruleName in refClassesCache,
+                                        ruleName in refClassesCache
                                     )
                                         ? ` ${refClassesCache[ruleName]}`
                                         : ""
-                                }`,
+                                }`
                             ];
-                        }),
+                        })
                     ) as Record<RuleName, string>;
 
                     objectKeys(refClassesCache).forEach(ruleName => {
@@ -173,7 +173,7 @@ export function createMakeStyles<Theme>(params: {
 
                 classes = useMemo(
                     () => mergeClasses(classes, propsClasses, cx),
-                    [classes, getDependencyArrayRef(propsClasses), cx],
+                    [classes, getDependencyArrayRef(propsClasses), cx]
                 );
 
                 {
@@ -221,9 +221,9 @@ export function createMakeStyles<Theme>(params: {
                                           theme,
                                           "ownerState":
                                               styleOverrides?.ownerState,
-                                          ...styleOverrides?.props,
+                                          ...styleOverrides?.props
                                       })
-                                    : cssObjectOrGetCssObject,
+                                    : cssObjectOrGetCssObject
                             );
                         }
 
@@ -233,16 +233,16 @@ export function createMakeStyles<Theme>(params: {
                         undefined
                             ? undefined
                             : JSON.stringify(
-                                  cssObjectByRuleNameOrGetCssObjectByRuleName,
+                                  cssObjectByRuleNameOrGetCssObjectByRuleName
                               ),
                         getDependencyArrayRef(styleOverrides?.props),
                         getDependencyArrayRef(styleOverrides?.ownerState),
-                        css,
+                        css
                     ]);
 
                     classes = useMemo(
                         () => mergeClasses(classes, themeClasses, cx),
-                        [classes, themeClasses, cx],
+                        [classes, themeClasses, cx]
                     );
                 }
 
@@ -250,7 +250,7 @@ export function createMakeStyles<Theme>(params: {
                     classes,
                     theme,
                     css,
-                    cx,
+                    cx
                 };
             };
         };

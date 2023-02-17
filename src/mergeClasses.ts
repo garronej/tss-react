@@ -7,7 +7,7 @@ import { objectKeys } from "./tools/objectKeys";
 export function mergeClasses<T extends string, U extends string>(
     classesFromUseStyles: Record<T, string>,
     classesFromProps: Partial<Record<U, string>> | undefined,
-    cx: Cx,
+    cx: Cx
 ): Record<T, string> &
     (string extends U ? {} : Partial<Record<Exclude<U, T>, string>>) {
     //NOTE: We use this test to be resilient in case classesFromProps is not of the expected type.
@@ -21,8 +21,8 @@ export function mergeClasses<T extends string, U extends string>(
         ruleName =>
             (out[ruleName] = cx(
                 classesFromUseStyles[ruleName],
-                classesFromProps[ruleName],
-            )),
+                classesFromProps[ruleName]
+            ))
     );
 
     objectKeys(classesFromProps).forEach(ruleName => {

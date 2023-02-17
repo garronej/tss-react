@@ -14,7 +14,7 @@ export const { createCssAndCx } = (() => {
         const rawClassName = getRegisteredStyles(
             registered,
             registeredStyles,
-            className,
+            className
         );
 
         if (registeredStyles.length < 2) {
@@ -42,7 +42,7 @@ export const { createCssAndCx } = (() => {
                 increaseSpecificityToTakePrecedenceOverMediaQueries.saveClassNameCSSObjectMapping(
                     cache,
                     className,
-                    arg,
+                    arg
                 );
             }
 
@@ -56,7 +56,7 @@ export const { createCssAndCx } = (() => {
                 increaseSpecificityToTakePrecedenceOverMediaQueries.fixClassName(
                     cache,
                     className,
-                    css,
+                    css
                 );
 
             return merge(cache.registered, css, feat27FixedClassnames);
@@ -77,7 +77,7 @@ export function createUseCssAndCx(params: { useCache: () => EmotionCache }) {
 
         const { css, cx } = useGuaranteedMemo(
             () => createCssAndCx({ cache }),
-            [cache],
+            [cache]
         );
 
         return { css, cx };
@@ -97,7 +97,7 @@ const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
         "saveClassNameCSSObjectMapping": (
             cache: EmotionCache,
             className: string,
-            cssObject: CSSObject,
+            cssObject: CSSObject
         ) => {
             let cssObjectMap = cssObjectMapByCache.get(cache);
 
@@ -112,8 +112,8 @@ const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
             function fix(
                 classNameCSSObjects: [
                     string /*className*/,
-                    CSSObject | undefined,
-                ][],
+                    CSSObject | undefined
+                ][]
             ): (string | CSSObject)[] {
                 let isThereAnyMediaQueriesInPreviousClasses = false;
 
@@ -135,7 +135,7 @@ const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
                         }
                     } else {
                         out = {
-                            "&&": cssObject,
+                            "&&": cssObject
                         };
                     }
 
@@ -146,7 +146,7 @@ const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
             return (
                 cache: EmotionCache,
                 className: string,
-                css: Css,
+                css: Css
             ): string => {
                 const cssObjectMap = cssObjectMapByCache.get(cache);
 
@@ -156,15 +156,15 @@ const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
                             .split(" ")
                             .map(className => [
                                 className,
-                                cssObjectMap?.get(className),
-                            ]),
+                                cssObjectMap?.get(className)
+                            ])
                     ).map(classNameOrCSSObject =>
                         typeof classNameOrCSSObject === "string"
                             ? classNameOrCSSObject
-                            : css(classNameOrCSSObject),
-                    ),
+                            : css(classNameOrCSSObject)
+                    )
                 );
             };
-        })(),
+        })()
     };
 })();

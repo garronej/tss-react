@@ -148,12 +148,12 @@ type Props = {
 const useStyles = makeStyles(theme =>
     createStyles<"root" | "label", { color: "red" | "blue" }>({
         "root": {
-            "backgroundColor": theme.palette.primary.main,
+            "backgroundColor": theme.palette.primary.main
         },
         "label": ({ color }) => ({
-            color,
-        }),
-    }),
+            color
+        })
+    })
 );
 
 function MyComponent(props: Props) {
@@ -185,10 +185,10 @@ type Props = {
 const { useStyles } = makeStyles<{ color: "red" | "blue" }>()(
     (theme, { color }) => ({
         "root": {
-            "backgroundColor": theme.palette.primary.main,
+            "backgroundColor": theme.palette.primary.main
         },
-        "label": { color },
-    }),
+        "label": { color }
+    })
 );
 
 function MyComponent(props: Props) {

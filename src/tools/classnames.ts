@@ -37,7 +37,7 @@ export const classnames = (args: CxArg[]): string => {
                     ) {
                         console.error(
                             "You have passed styles created with `css` from `@emotion/react` package to the `cx`.\n" +
-                                "`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component.",
+                                "`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component."
                         );
                     }
                     toAdd = "";

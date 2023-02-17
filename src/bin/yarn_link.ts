@@ -14,7 +14,7 @@ fs.writeFileSync(
                 const packageJsonParsed = JSON.parse(
                     fs
                         .readFileSync(pathJoin(tssReactDirPath, "package.json"))
-                        .toString("utf8"),
+                        .toString("utf8")
                 );
 
                 return {
@@ -23,7 +23,7 @@ fs.writeFileSync(
                     "types": packageJsonParsed["types"].replace(/^dist\//, ""),
                     "module": packageJsonParsed["module"].replace(
                         /^dist\//,
-                        "",
+                        ""
                     ),
                     "exports": Object.fromEntries(
                         Object.entries(packageJsonParsed["exports"]).map(
@@ -31,22 +31,22 @@ fs.writeFileSync(
                                 path,
                                 Object.fromEntries(
                                     Object.entries(
-                                        obj as Record<string, string>,
+                                        obj as Record<string, string>
                                     ).map(([type, path]) => [
                                         type,
-                                        path.replace(/^\.\/dist\//, "./"),
-                                    ]),
-                                ),
-                            ],
-                        ),
-                    ),
+                                        path.replace(/^\.\/dist\//, "./")
+                                    ])
+                                )
+                            ]
+                        )
+                    )
                 };
             })(),
             null,
-            2,
+            2
         ),
-        "utf8",
-    ),
+        "utf8"
+    )
 );
 
 const commonThirdPartyDeps = (() => {
@@ -61,16 +61,16 @@ const commonThirdPartyDeps = (() => {
                         pathJoin(
                             tssReactDirPath,
                             "node_modules",
-                            namespaceModuleName,
-                        ),
+                            namespaceModuleName
+                        )
                     )
                     .map(
                         submoduleName =>
-                            `${namespaceModuleName}/${submoduleName}`,
-                    ),
+                            `${namespaceModuleName}/${submoduleName}`
+                    )
             )
             .reduce((prev, curr) => [...prev, ...curr], []),
-        ...standaloneModuleNames,
+        ...standaloneModuleNames
     ];
 })();
 
@@ -86,7 +86,7 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const cmd = [
         "yarn",
         "link",
-        ...(targetModuleName !== undefined ? [targetModuleName] : []),
+        ...(targetModuleName !== undefined ? [targetModuleName] : [])
     ].join(" ");
 
     console.log(`$ cd ${pathRelative(tssReactDirPath, cwd) || "."} && ${cmd}`);
@@ -95,8 +95,8 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
         cwd,
         "env": {
             ...process.env,
-            "HOME": yarnHomeDirPath,
-        },
+            "HOME": yarnHomeDirPath
+        }
     });
 };
 
@@ -106,7 +106,7 @@ const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
     pathJoin(tssReactDirPath, "src", "test", "apps", testAppName);
 
 testAppNames.forEach(testAppName =>
-    execSync("yarn install", { "cwd": getTestAppPath(testAppName) }),
+    execSync("yarn install", { "cwd": getTestAppPath(testAppName) })
 );
 
 console.log("=== Linking common dependencies ===");
@@ -125,8 +125,8 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
             "node_modules",
             ...(commonThirdPartyDep.startsWith("@")
                 ? commonThirdPartyDep.split("/")
-                : [commonThirdPartyDep]),
-        ],
+                : [commonThirdPartyDep])
+        ]
     );
 
     execYarnLink({ "cwd": localInstallPath });
@@ -134,8 +134,8 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
     testAppNames.forEach(testAppName =>
         execYarnLink({
             "cwd": getTestAppPath(testAppName),
-            "targetModuleName": commonThirdPartyDep,
-        }),
+            "targetModuleName": commonThirdPartyDep
+        })
     );
 });
 
@@ -146,6 +146,6 @@ execYarnLink({ "cwd": pathJoin(tssReactDirPath, "dist") });
 testAppNames.forEach(testAppName =>
     execYarnLink({
         "cwd": getTestAppPath(testAppName),
-        "targetModuleName": "tss-react",
-    }),
+        "targetModuleName": "tss-react"
+    })
 );
