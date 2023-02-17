@@ -7,7 +7,6 @@ import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
 import type { Options as OptionsOfCreateCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import type { NextComponentType } from "next";
-import DefaultDocument from "next/document";
 import { assert } from "../tools/assert";
 
 /**
@@ -33,9 +32,15 @@ export function createEmotionSsrAdvancedApproach(
     function augmentDocumentWithEmotionCache(
         Document: NextComponentType<any, any, any>,
     ): void {
-        const super_getInitialProps =
-            Document.getInitialProps?.bind(Document) ??
-            DefaultDocument.getInitialProps.bind(DefaultDocument);
+        let super_getInitialProps = Document.getInitialProps?.bind(Document);
+
+        if (super_getInitialProps === undefined) {
+            import("next/document").then(
+                ({ default: DefaultDocument }) =>
+                    (super_getInitialProps =
+                        DefaultDocument.getInitialProps.bind(DefaultDocument)),
+            );
+        }
 
         (Document as any).getInitialProps = async (
             documentContext: DocumentContext,
@@ -61,6 +66,11 @@ export function createEmotionSsrAdvancedApproach(
                         };
                     },
                 });
+
+            assert(
+                super_getInitialProps !== undefined,
+                "If you get this error please open an issue on the tss-react repo",
+            );
 
             const initialProps = await super_getInitialProps(documentContext);
 
