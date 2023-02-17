@@ -51,7 +51,7 @@
         }
     },
     "scripts": {
-        "build": "tsc --module CommonJS --outDir dist &&tsc",
+        "build": "tsc -p tsconfig-cjs.json && tsc -p tsconfig-esm.json",
         "start_spa": "yarn yarn_link && cd src/test/apps/spa && yarn start",
         "start_ssr": "yarn yarn_link && cd src/test/apps/ssr && yarn dev",
         "start_appdir": "yarn yarn_link && cd src/test/apps/next-appdir && yarn dev",
