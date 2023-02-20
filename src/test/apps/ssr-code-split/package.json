@@ -8,6 +8,7 @@
         "start": "next start",
         "lint": "next lint",
         "analyze": "ANALYZE=true yarn build"
+
     },
     "dependencies": {
         "@emotion/react": "11.10.5",

@@ -30,6 +30,14 @@
             "import": "./dist/esm/next/pagesDir.js",
             "require": "./dist/next/pagesDir.js"
         },
+        "./next/augumentDocumentWithEmotionCache": {
+            "import": "./dist/esm/next/augmentDocumentWithEmotionCache.js",
+            "require": "./dist/next/augmentDocumentWithEmotionCache.js"
+        },
+        "./next/withAppEmotionCache": {
+            "import": "./dist/esm/next/withAppEmotionCache.js",
+            "require": "./dist/next/withAppEmotionCache.js"
+        },
         "./next/appDir": {
             "import": "./dist/esm/next/appDir.js",
             "require": "./dist/next/appDir.js"
