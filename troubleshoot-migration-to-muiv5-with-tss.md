@@ -2,7 +2,9 @@
 
 You upgraded to MUIv5 using tss-react but the somme styles doesn't apply the same way they uses to? &#x20;
 
-Setting up emotion like that will probably fix your issues: &#x20;
+You can fix the indivudual problems [increasing specificity with &&](https://github.com/garronej/tss-react/issues/138#issuecomment-1374411085) but it's a very time consuming process. &#x20;
+
+Setting up emotion like that will probably fix all your issues: &#x20;
 
 {% tabs %}
 {% tab title="Create React App, Vite, and other SPA frameworks" %}
