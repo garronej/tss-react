@@ -54,7 +54,7 @@ import { augmentDocumentWithEmotionCache } from "./_app";
 
 augmentDocumentWithEmotionCache({ DefaultDocument });
 
-export default Document;
+export default DefaultDocument;
 ```
 {% endcode %}
 
