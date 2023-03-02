@@ -12,51 +12,60 @@ If you are using MUI you must upgrade `@mui/material` to `v5.10.7` or newer.&#x2
 MUI users can now setup SSR as per described in the [MUI documentation](https://mui.com/material-ui/guides/server-rendering/). Nothing specific to `tss-react` is required.
 {% endhint %}
 
-```diff
-// src/pages/_app.tsx
-
--import type { EmotionCache } from "@emotion/cache";
+<pre class="language-diff" data-title="src/pages/_app.tsx"><code class="lang-diff">-import type { EmotionCache } from "@emotion/cache";
 -import createCache from "@emotion/cache";
 -import { CacheProvider } from '@emotion/react';
-+import { createEmotionSsrAdvancedApproach } from "tss-react/nextJs";
+<strong>+import App from "next/app";
+</strong>+import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
 
 -let muiCache: EmotionCache | undefined = undefined;
 -export const createMuiCache = () => muiCache = createCache({ "key": "mui", "prepend": true });
 
-+const { EmotionCacheProvider, withEmotionCache } = createEmotionSsrAdvancedApproach({ "key": "css" });
-+export { withEmotionCache };
++const {
++    augmentDocumentWithEmotionCache,
++    withAppEmotionCache
++} = createEmotionSsrAdvancedApproach({ key: "css" });
+
++export { augmentDocumentWithEmotionCache };
 
  function App({ Component, pageProps }: AppProps) {
 
    ...
 
--			<CacheProvider value={muiCache ?? createMuiCache()}>
-+			<EmotionCacheProvider>
-				<MuiThemeProvider theme={theme}>
-					<CssBaseline />
-					<Component {...pageProps} />
-				</MuiThemeProvider>
--			</CacheProvider>
-+			</EmotionCacheProvider>
-
+-			&#x3C;CacheProvider value={muiCache ?? createMuiCache()}>
+				&#x3C;MuiThemeProvider theme={theme}>
+					&#x3C;CssBaseline />
+					&#x3C;Component {...pageProps} />
+				&#x3C;/MuiThemeProvider>
+-			&#x3C;/CacheProvider>
  );
+ 
++export default withAppEmotionCache(App);
 
-```
+</code></pre>
 
-```diff
-// src/pages/_document.tsx
+<pre class="language-diff"><code class="lang-diff">// src/pages/_document.tsx
 
-import BaseDocument from "next/document";
+-import BaseDocument from "next/document";
 -import { withEmotionCache } from "tss-react/nextJs";
 -import { createMuiCache } from "./_app";
-+import { withEmotionCache } from "./_app";
 
 -export default withEmotionCache({
 -    "Document": BaseDocument,
 -    "getCaches": () => [createMuiCache()]
 -});
-+export default withEmotionCache(BaseDocument);
-```
+
+<strong>+import DefaultDocument from "next/document";
+</strong>+import { augmentDocumentWithEmotionCache } from "./_app";
+
++augmentDocumentWithEmotionCache({ 
++  DefaultDocument,
++//  Document: MyDocument // If you have a custom document, provide it here.
++});
+
++export default Document;
+
+</code></pre>
 
 ### `useCssAndCx` removed
 
