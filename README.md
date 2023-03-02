@@ -77,6 +77,7 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 ## v4.7.0
 
 -   Reduce bundle size when using Next.js Pages dir setup, fixes [#147](https://github.com/garronej/tss-react/issues/147)
+    The \_app bundle sent to the client is down from ~160Kb to ~11Kb
 
 ## v4.5.0
 
