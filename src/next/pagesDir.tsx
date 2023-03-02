@@ -1,8 +1,6 @@
 import * as React from "react";
 import type { ReactNode } from "react";
 import createEmotionServer from "@emotion/server/create-instance";
-import type { DocumentContext } from "next/document";
-import type DefaultDocument from "next/document";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
 import type { Options as OptionsOfCreateCache } from "@emotion/cache";
@@ -31,7 +29,7 @@ export function createEmotionSsrAdvancedApproach(
     const insertionPointId = `${options.key}-emotion-cache-insertion-point`;
 
     function augmentDocumentWithEmotionCache(params: {
-        DefaultDocument: typeof DefaultDocument;
+        DefaultDocument: any;
         Document?: NextComponentType<any, any, any>;
     }): void {
         const { DefaultDocument, Document = DefaultDocument } = params;
@@ -40,9 +38,7 @@ export function createEmotionSsrAdvancedApproach(
             Document.getInitialProps?.bind(Document) ??
             DefaultDocument.getInitialProps.bind(DefaultDocument);
 
-        (Document as any).getInitialProps = async (
-            documentContext: DocumentContext
-        ) => {
+        (Document as any).getInitialProps = async (documentContext: any) => {
             const cache = createCache(optionsWithoutPrependProp);
 
             const emotionServer = createEmotionServer(cache);
@@ -55,7 +51,7 @@ export function createEmotionSsrAdvancedApproach(
                     "enhanceApp": (App: any) => {
                         const EnhancedApp = enhanceApp?.(App) ?? App;
 
-                        return function EnhanceApp(props) {
+                        return function EnhanceApp(props: any) {
                             return (
                                 <EnhancedApp
                                     {...{ ...props, [appPropName]: cache }}
