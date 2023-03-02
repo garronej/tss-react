@@ -2,12 +2,12 @@ import * as React from "react";
 import type { ReactNode } from "react";
 import createEmotionServer from "@emotion/server/create-instance";
 import type { DocumentContext } from "next/document";
+import type DefaultDocument from "next/document";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
 import type { Options as OptionsOfCreateCache } from "@emotion/cache";
 import createCache from "@emotion/cache";
 import type { NextComponentType } from "next";
-import DefaultDocument from "next/document";
 import { assert } from "../tools/assert";
 
 /**
@@ -30,9 +30,12 @@ export function createEmotionSsrAdvancedApproach(
     const appPropName = `${options.key}EmotionCache`;
     const insertionPointId = `${options.key}-emotion-cache-insertion-point`;
 
-    function augmentDocumentWithEmotionCache(
-        Document: NextComponentType<any, any, any>
-    ): void {
+    function augmentDocumentWithEmotionCache(params: {
+        DefaultDocument: typeof DefaultDocument;
+        Document?: NextComponentType<any, any, any>;
+    }): void {
+        const { DefaultDocument, Document = DefaultDocument } = params;
+
         const super_getInitialProps =
             Document.getInitialProps?.bind(Document) ??
             DefaultDocument.getInitialProps.bind(DefaultDocument);
