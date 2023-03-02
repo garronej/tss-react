@@ -62,8 +62,7 @@ export default DefaultDocument;
 
 {% code title="pages/_document.tsx" %}
 ```tsx
-import DefaultDocument from "next/document";
-import { Html, Head, Main, NextScript } from "next/document";
+import DefaultDocument, { Html, Head, Main, NextScript } from "next/document";
 import { augmentDocumentWithEmotionCache } from "./_app";
 
 export default function Document() {
