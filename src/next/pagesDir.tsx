@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactNode } from "react";
-import createEmotionServer from "@emotion/server/create-instance";
+import type createEmotionServer from "@emotion/server/create-instance";
 import type { DocumentContext } from "next/document";
 import type DefaultDocument from "next/document";
 import type { EmotionCache } from "@emotion/cache";
@@ -33,8 +33,13 @@ export function createEmotionSsrAdvancedApproach(
     function augmentDocumentWithEmotionCache(params: {
         DefaultDocument: typeof DefaultDocument;
         Document?: NextComponentType<any, any, any>;
+        createEmotionServer: typeof createEmotionServer;
     }): void {
-        const { DefaultDocument, Document = DefaultDocument } = params;
+        const {
+            DefaultDocument,
+            Document = DefaultDocument,
+            createEmotionServer
+        } = params;
 
         const super_getInitialProps =
             Document.getInitialProps?.bind(Document) ??
