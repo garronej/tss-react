@@ -21,6 +21,4 @@
 * [🔩 single-spa](single-spa.md)
 * [📲 React Native](react-native.md)
 * [🆘 Fix broken styles after upgrading to MUI v5 with TSS](troubleshoot-migration-to-muiv5-with-tss.md)
-* [⬆ Migration guides](migration-guides/README.md)
-  * [v3 -> v4](migration-guides/update-to-v4.md)
-  * [v4.6 -> v4.7](migration-guides/v4.6-greater-than-v4.7.md)
+* [⬆ Migration v3 -> v4](update-to-v4.md)

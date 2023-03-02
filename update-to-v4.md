@@ -1,4 +1,4 @@
-# v3 -> v4
+# ⬆ Migration v3 -> v4
 
 ## Upgrade MUI
 
@@ -12,60 +12,51 @@ If you are using MUI you must upgrade `@mui/material` to `v5.10.7` or newer.&#x2
 MUI users can now setup SSR as per described in the [MUI documentation](https://mui.com/material-ui/guides/server-rendering/). Nothing specific to `tss-react` is required.
 {% endhint %}
 
-<pre class="language-diff" data-title="src/pages/_app.tsx"><code class="lang-diff">-import type { EmotionCache } from "@emotion/cache";
+```diff
+// src/pages/_app.tsx
+
+-import type { EmotionCache } from "@emotion/cache";
 -import createCache from "@emotion/cache";
 -import { CacheProvider } from '@emotion/react';
-<strong>+import App from "next/app";
-</strong>+import { createEmotionSsrAdvancedApproach } from "tss-react/next/pagesDir";
++import { createEmotionSsrAdvancedApproach } from "tss-react/nextJs";
 
 -let muiCache: EmotionCache | undefined = undefined;
 -export const createMuiCache = () => muiCache = createCache({ "key": "mui", "prepend": true });
 
-+const {
-+    augmentDocumentWithEmotionCache,
-+    withAppEmotionCache
-+} = createEmotionSsrAdvancedApproach({ key: "css" });
-
-+export { augmentDocumentWithEmotionCache };
++const { EmotionCacheProvider, withEmotionCache } = createEmotionSsrAdvancedApproach({ "key": "css" });
++export { withEmotionCache };
 
  function App({ Component, pageProps }: AppProps) {
 
    ...
 
--			&#x3C;CacheProvider value={muiCache ?? createMuiCache()}>
-				&#x3C;MuiThemeProvider theme={theme}>
-					&#x3C;CssBaseline />
-					&#x3C;Component {...pageProps} />
-				&#x3C;/MuiThemeProvider>
--			&#x3C;/CacheProvider>
+-			<CacheProvider value={muiCache ?? createMuiCache()}>
++			<EmotionCacheProvider>
+				<MuiThemeProvider theme={theme}>
+					<CssBaseline />
+					<Component {...pageProps} />
+				</MuiThemeProvider>
+-			</CacheProvider>
++			</EmotionCacheProvider>
+
  );
- 
-+export default withAppEmotionCache(App);
 
-</code></pre>
+```
 
-<pre class="language-diff"><code class="lang-diff">// src/pages/_document.tsx
+```diff
+// src/pages/_document.tsx
 
--import BaseDocument from "next/document";
+import BaseDocument from "next/document";
 -import { withEmotionCache } from "tss-react/nextJs";
 -import { createMuiCache } from "./_app";
++import { withEmotionCache } from "./_app";
 
 -export default withEmotionCache({
 -    "Document": BaseDocument,
 -    "getCaches": () => [createMuiCache()]
 -});
-
-<strong>+import DefaultDocument from "next/document";
-</strong>+import { augmentDocumentWithEmotionCache } from "./_app";
-
-+augmentDocumentWithEmotionCache({ 
-+  DefaultDocument,
-+//  Document: MyDocument // If you have a custom document, provide it here.
-+});
-
-+export default Document;
-
-</code></pre>
++export default withEmotionCache(BaseDocument);
+```
 
 ### `useCssAndCx` removed
 
@@ -119,6 +110,6 @@ import { ThemeProvider } from "@mui/material/styles";
 
 ## Having issues? &#x20;
 
-{% content-ref url="../troubleshoot-migration-to-muiv5-with-tss.md" %}
-[troubleshoot-migration-to-muiv5-with-tss.md](../troubleshoot-migration-to-muiv5-with-tss.md)
+{% content-ref url="troubleshoot-migration-to-muiv5-with-tss.md" %}
+[troubleshoot-migration-to-muiv5-with-tss.md](troubleshoot-migration-to-muiv5-with-tss.md)
 {% endcontent-ref %}
