@@ -1,8 +1,7 @@
 import * as React from "react";
 import type { ReactNode } from "react";
-import createEmotionServer from "@emotion/server/create-instance";
+import type createEmotionServer_t from "@emotion/server/create-instance";
 import type { DocumentContext } from "next/document";
-import type DefaultDocument from "next/document";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
 import type { Options as OptionsOfCreateCache } from "@emotion/cache";
@@ -30,20 +29,35 @@ export function createEmotionSsrAdvancedApproach(
     const appPropName = `${options.key}EmotionCache`;
     const insertionPointId = `${options.key}-emotion-cache-insertion-point`;
 
-    function augmentDocumentWithEmotionCache(params: {
-        DefaultDocument: typeof DefaultDocument;
-        Document?: NextComponentType<any, any, any>;
-    }): void {
-        const { DefaultDocument, Document = DefaultDocument } = params;
+    function augmentDocumentWithEmotionCache(
+        Document: NextComponentType<any, any, any>
+    ): void {
+        let super_getInitialProps = Document.getInitialProps?.bind(Document);
 
-        const super_getInitialProps =
-            Document.getInitialProps?.bind(Document) ??
-            DefaultDocument.getInitialProps.bind(DefaultDocument);
+        if (super_getInitialProps === undefined) {
+            import("next/document").then(
+                ({ default: DefaultDocument }) =>
+                    (super_getInitialProps =
+                        DefaultDocument.getInitialProps.bind(DefaultDocument))
+            );
+        }
+
+        let createEmotionServer: typeof createEmotionServer_t | undefined =
+            undefined;
+
+        import("@emotion/server/create-instance").then(
+            m => (createEmotionServer = m.default)
+        );
 
         (Document as any).getInitialProps = async (
             documentContext: DocumentContext
         ) => {
             const cache = createCache(optionsWithoutPrependProp);
+
+            assert(
+                createEmotionServer !== undefined,
+                "Emotion server not yet loaded. Please submit an issue to the tss-react repo"
+            );
 
             const emotionServer = createEmotionServer(cache);
 
@@ -64,6 +78,11 @@ export function createEmotionSsrAdvancedApproach(
                         };
                     }
                 });
+
+            assert(
+                super_getInitialProps !== undefined,
+                "Default document not yet loaded. Please submit an issue to the tss-react repo"
+            );
 
             const initialProps = await super_getInitialProps(documentContext);
 
