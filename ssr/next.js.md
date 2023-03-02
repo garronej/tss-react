@@ -45,15 +45,40 @@ export default withAppEmotionCache(App);
 ```
 {% endcode %}
 
+### Case 1: You have no custom `Document`
+
 {% code title="pages/_document.tsx" %}
 ```typescript
-import Document from "next/document";
+import DefaultDocument from "next/document";
 import { augmentDocumentWithEmotionCache } from "./_app";
 
-//You can also pass your custom document if you have one. 
-augmentDocumentWithEmotionCache(Document);
+augmentDocumentWithEmotionCache({ DefaultDocument });
 
 export default Document;
+```
+{% endcode %}
+
+### Case 2: You have a custom `Document`
+
+{% code title="pages/_document.tsx" %}
+```tsx
+import DefaultDocument from "next/document";
+import { Html, Head, Main, NextScript } from "next/document";
+import { augmentDocumentWithEmotionCache } from "./_app";
+
+export default function Document() {
+  return (
+    <Html>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
+}
+
+augmentDocumentWithEmotionCache({ DefaultDocument, Document });
 ```
 {% endcode %}
 {% endtab %}

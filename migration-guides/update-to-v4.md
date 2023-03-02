@@ -1,4 +1,4 @@
-# ⬆ Migration v3 -> v4
+# v3 -> v4
 
 ## Upgrade MUI
 
@@ -110,6 +110,6 @@ import { ThemeProvider } from "@mui/material/styles";
 
 ## Having issues? &#x20;
 
-{% content-ref url="troubleshoot-migration-to-muiv5-with-tss.md" %}
-[troubleshoot-migration-to-muiv5-with-tss.md](troubleshoot-migration-to-muiv5-with-tss.md)
+{% content-ref url="../troubleshoot-migration-to-muiv5-with-tss.md" %}
+[troubleshoot-migration-to-muiv5-with-tss.md](../troubleshoot-migration-to-muiv5-with-tss.md)
 {% endcontent-ref %}
