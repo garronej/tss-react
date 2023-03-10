@@ -47,7 +47,8 @@
             "require": "./dist/cssAndCx.js"
         },
         "./dsfr": {
-            "import": "./dist/esm/dsfr.js"
+            "import": "./dist/esm/dsfr.js",
+            "require": "./dist/dsfr.js"
         }
     },
     "scripts": {
