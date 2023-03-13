@@ -50,8 +50,8 @@ $ yarn add tss-react @emotion/react
     <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
 </p>
 
-> While this module is written in TypeScript, using TypeScript in your application is optional 
-> (but recommended as it comes with outstanding benefits to both you and your codebase).  
+> While this module is written in TypeScript, using TypeScript in your application is optional
+> (but recommended as it comes with outstanding benefits to both you and your codebase).
 
 https://user-images.githubusercontent.com/6702424/166390575-0530e16b-4aff-4914-a8fa-20b02da829cc.mov
 
