@@ -8,16 +8,16 @@ description: >-
 
 _Added in v3.6.0_
 
-Every MUI components accepts a `classes` props that enables you override the internal styles ([see MUI's doc](https://mui.com/guides/api/#css-classes)). &#x20;
+Every MUI components accepts a `classes` props that enables you override the internal styles ([see MUI's doc](https://mui.com/guides/api/#css-classes)).
 
 With TSS you can easily do the same for your components, it's done by merging the internal `classes` and the one that might have been provided as `props`.
 
 {% hint style="info" %}
-This is the new way for [Overriding styles - `classes` prop](https://v4.mui.com/styles/advanced/%23overriding-styles-classes-prop). &#x20;
+This is the new way for [Overriding styles - `classes` prop](https://v4.mui.com/styles/advanced/%23overriding-styles-classes-prop).
 {% endhint %}
 
 ```tsx
-
+// Please use type instead of interface here
 type Props = {
     //classes?: { foo?: string; bar?: string; };
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
