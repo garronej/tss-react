@@ -16,7 +16,7 @@
  *
  * The optimization will be enabled only if obj is
  * of the form Record<string, string | number | undefined | null>
- * overwise the object is returned (the function is the identity function).
+ * otherwise the object is returned (the function is the identity function).
  */
 export function getDependencyArrayRef(obj: any): any {
     if (!(obj instanceof Object) || typeof obj === "function") {
