@@ -90,13 +90,18 @@ export function createMakeStyles<Theme>(params: {
             return function useStyles(
                 params: Params,
                 styleOverrides?: {
-                    props: { classes?: Record<string, string> } & Record<
-                        string,
-                        unknown
-                    >;
+                    props: any;
                     ownerState?: Record<string, unknown>;
                 }
             ) {
+                //See: https://github.com/garronej/tss-react/issues/158
+                const styleOverrides_props = styleOverrides?.props as
+                    | ({ classes?: Record<string, string> } & Record<
+                          string,
+                          unknown
+                      >)
+                    | undefined;
+
                 const theme = useTheme();
 
                 const { css, cx } = useCssAndCx();
@@ -169,7 +174,7 @@ export function createMakeStyles<Theme>(params: {
                     return classes;
                 }, [cache, css, cx, theme, getDependencyArrayRef(params)]);
 
-                const propsClasses = styleOverrides?.props.classes;
+                const propsClasses = styleOverrides_props?.classes;
 
                 classes = useMemo(
                     () => mergeClasses(classes, propsClasses, cx),
@@ -221,7 +226,7 @@ export function createMakeStyles<Theme>(params: {
                                           theme,
                                           "ownerState":
                                               styleOverrides?.ownerState,
-                                          ...styleOverrides?.props
+                                          ...styleOverrides_props
                                       })
                                     : cssObjectOrGetCssObject
                             );
@@ -235,7 +240,7 @@ export function createMakeStyles<Theme>(params: {
                             : JSON.stringify(
                                   cssObjectByRuleNameOrGetCssObjectByRuleName
                               ),
-                        getDependencyArrayRef(styleOverrides?.props),
+                        getDependencyArrayRef(styleOverrides_props),
                         getDependencyArrayRef(styleOverrides?.ownerState),
                         css
                     ]);
