@@ -237,6 +237,9 @@ export function createMakeStyles<Theme>(params: {
                         cssObjectByRuleNameOrGetCssObjectByRuleName ===
                         undefined
                             ? undefined
+                            : typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                              "function"
+                            ? cssObjectByRuleNameOrGetCssObjectByRuleName
                             : JSON.stringify(
                                   cssObjectByRuleNameOrGetCssObjectByRuleName
                               ),
