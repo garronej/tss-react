@@ -2,7 +2,7 @@
     <img src="https://user-images.githubusercontent.com/6702424/109334865-8f85bf00-7861-11eb-90ab-da36f9afe1b6.png">  
 </p>
 <p align="center">
-    <i>✨ makeStyles is dead, long live makeStyles! ✨</i>
+    <i>✨ Dynamic Css-in-Js styles engine, based on Emotion ✨</i>
     <br>
     <br>
     <a href="https://github.com/garronej/tss-react/actions">
