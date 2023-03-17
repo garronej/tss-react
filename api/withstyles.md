@@ -8,52 +8,12 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 &#x20;[Using `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles\_classes.tsx#L112-L142) can often helps when you get red squiggly lines.
 {% endhint %}
 
-### Using only the className prop
+### With functional component
 
 {% code title="MyComponent.tsx" %}
 ```tsx
 import { withStyles } from "tss-react/mui";
-
-type Props ={
-    className?: string;
-    colorSmall: string;
-};
-
-function MyComponent(props: Props) {
-
-    const { className } = props;
-    
-    return (
-        <div className={className}>
-            The background color should be different when the screen is small.
-        </div>
-    );
-}
-
-const MyComponentStyled = withStyles(
-    MyComponent, 
-    (theme, props) => ({
-        root: {
-            backgroundColor: theme.palette.primary.main,
-            height: 100
-        },
-        "@media (max-width: 960px)": {
-            root: {
-                backgroundColor: props.colorSmall
-            }
-        }
-    })
-);
-
-export default MyComponentStyled;
-```
-{% endcode %}
-
-### Using a classes prop and a className prop
-
-{% code title="MyComponent.tsx" %}
-```tsx
-import { withStyles } from "tss-react/mui";
+import { getRootClassName } from "tss-react";
 
 type Props = {
     className?: string;
@@ -64,8 +24,7 @@ type Props = {
 function MyComponent(props: Props) {
     const { classes } = props;
     return (
-      // There is no need to apply props.className, it has been merged in props.classes.root
-      <div className={classes.root}>
+      <div className={getRootClassName(props)}>
         <span className={classes.text}>The background color should be different when the screen is small.</span>
       </div>
     );
@@ -95,10 +54,13 @@ export default MyComponentStyled;
 
 ### With class components
 
+The main reason you would use `withStyles` over `makeStyles` is to support class based components.
+
 {% code title="MyComponent.tsx" %}
 ```tsx
 import * as React from "react";
 import { withStyles } from "tss-react/mui";
+import { getRootClassName } from "tss-react";
 
 export type Props ={
   className?: string;
@@ -112,8 +74,7 @@ class MyComponent extends React.Component<Props> {
     const { classes } = this.props;
 
     return (
-      // There is no need to apply props.className, it has been merged in props.classes.root
-      <div className={classes.root}>
+      <div className={getRootClassName(this.props)}>
         <span className={classes.span}>The background color should be different when the screen is small.</span>
       </div>
     );
@@ -148,6 +109,7 @@ You can also pass a mui component like for example `<Button />` and you'll be ab
 
 ```tsx
 import Button from "@mui/material/Button";
+import { withStyles } from "tss-react/mui";
 
 const MyStyledButton = withStyles(Button, {
     "root": {
@@ -167,6 +129,8 @@ const MyStyledButton = withStyles(Button, {
 It's also possible to start from a builtin HTML component:
 
 ```tsx
+import { withStyles } from "tss-react/mui";
+
 const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
     "root": {
         "border": "1px solid black",
@@ -186,6 +150,8 @@ To ease debugging you can specify a name that will appear in every class names. 
 It's also required to for [theme style overrides](../mui-global-styleoverrides.md).
 
 ```typescript
+import { withStyles } from "tss-react/mui";
+
 const MyDiv = withStyles("div", {
   "root": {
     /* ... */
