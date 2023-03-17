@@ -4,14 +4,27 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 
 ![](https://user-images.githubusercontent.com/6702424/136705025-dadfff08-7d9a-49f7-8696-533ca38ec38f.gif)
 
-**IMPORTANT NOTICE**: [Don't be afraid to use `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles\_classes.tsx#L112-L142) when you get red squiggly lines.
+{% hint style="info" %}
+&#x20;[Using `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles\_classes.tsx#L112-L142) can often helps when you get red squiggly lines.
+{% endhint %}
 
-You can pass as first argument any component that accept a `className` props:
+### Using only the className prop
 
+{% code title="MyComponent.tsx" %}
 ```tsx
-function MyComponent(props: { className?: string; colorSmall: string }) {
+import { withStyles } from "tss-react/mui";
+
+type Props ={
+    className?: string;
+    colorSmall: string;
+};
+
+function MyComponent(props: Props) {
+
+    const { className } = props;
+    
     return (
-        <div className={props.className}>
+        <div className={className}>
             The background color should be different when the screen is small.
         </div>
     );
@@ -20,18 +33,116 @@ function MyComponent(props: { className?: string; colorSmall: string }) {
 const MyComponentStyled = withStyles(
     MyComponent, 
     (theme, props) => ({
-        "root": {
-            "backgroundColor": theme.palette.primary.main,
-            "height": 100
+        root: {
+            backgroundColor: theme.palette.primary.main,
+            height: 100
         },
         "@media (max-width: 960px)": {
-            "root": {
-                "backgroundColor": props.colorSmall
+            root: {
+                backgroundColor: props.colorSmall
             }
         }
     })
 );
+
+export default MyComponentStyled;
 ```
+{% endcode %}
+
+### Using a classes prop and a className prop
+
+{% code title="MyComponent.tsx" %}
+```tsx
+import { withStyles } from "tss-react/mui";
+
+type Props = {
+    className?: string;
+    classes?: Partial<Record<"root" | "label", string>>;
+    colorSmall: string;
+};
+
+function MyComponent(props: Props) {
+    const { classes } = props;
+    return (
+      // There is no need to apply props.className, it has been merged in props.classes.root
+      <div className={classes.root}>
+        <span className={classes.text}>The background color should be different when the screen is small.</span>
+      </div>
+    );
+}
+
+const MyComponentStyled = withStyles(
+    MyComponent, 
+    (theme, props) => ({
+        root: {
+            backgroundColor: theme.palette.primary.main,
+            height: 100
+        },
+        text: {
+            border: "1px solid red"
+        },
+        "@media (max-width: 960px)": {
+            root: {
+                backgroundColor: props.colorSmall
+            }
+        }
+    })
+);
+
+export default MyComponentStyled;
+```
+{% endcode %}
+
+### With class components
+
+{% code title="MyComponent.tsx" %}
+```tsx
+import * as React from "react";
+import { withStyles } from "tss-react/mui";
+
+export type Props ={
+  className?: string;
+  classes?: Partial<Record<"root" | "span", string>>;
+  isBig: boolean;
+};
+
+class MyComponent extends React.Component<Props> {
+  render() {
+  
+    const { classes } = this.props;
+
+    return (
+      // There is no need to apply props.className, it has been merged in props.classes.root
+      <div className={classes.root}>
+        <span className={classes.span}>The background color should be different when the screen is small.</span>
+      </div>
+    );
+  }
+}
+
+const MyComponentStyled = withStyles(
+  MyComponent, 
+  (theme, props) => ({
+      "root": {
+          "backgroundColor": theme.palette.primary.main,
+          "height": props.isBig ? 100 : 50
+      },
+      "span": {
+        "border": "1px solid red"
+      },
+      "@media (max-width: 960px)": {
+          "root": {
+              "backgroundColor": "red"
+          }
+      }
+  })
+);
+
+export default MyComponentStyled;
+```
+{% endcode %}
+
+### With a MUI component
 
 You can also pass a mui component like for example `<Button />` and you'll be able to overwrite [every rule name of the component](https://mui.com/api/button/#css) (it uses the `classes` prop).
 
@@ -83,4 +194,3 @@ const MyDiv = withStyles("div", {
 
 //The class apllied to the div will be like: "css-xxxxxx-MyDiv-root"
 ```
-
