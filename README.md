@@ -26,7 +26,7 @@
 > 🗳️ [I've opened a pool about introducing a new API.](https://github.com/garronej/tss-react/discussions/143)
 
 `'tss-react'` is intended to be the replacement for
-[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).  
+[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
 -   ✅ Seamless integration with [MUI](https://mui.com).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
