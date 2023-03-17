@@ -123,14 +123,17 @@ export function createWithStyles<Theme>(params: {
 
             const { classes, cx } = useStyles(props, { props });
 
+            const rootClassName = cx(classes.root, className);
+
             return (
                 <Component_
                     ref={ref}
                     className={
                         getHasNonRootClasses(classes)
                             ? className
-                            : cx(classes.root, className)
+                            : rootClassName
                     }
+                    {...{ [hiddenRootClassPropName]: rootClassName }}
                     {...(typeof Component === "string" ? {} : { classes })}
                     {...rest}
                 />
@@ -148,6 +151,20 @@ export function createWithStyles<Theme>(params: {
     }
 
     return { withStyles };
+}
+
+const hiddenRootClassPropName = "__withStyles_rootClassName";
+
+export function getRootClassName(props: any) {
+    const rootClassName = props[hiddenRootClassPropName];
+
+    if (typeof rootClassName !== "string") {
+        throw new Error(
+            "getRootClassName should only be used in conjunction with withStyles"
+        );
+    }
+
+    return rootClassName;
 }
 
 function incorporateMediaQueries(

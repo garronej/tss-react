@@ -4,8 +4,8 @@ import type { EmotionCache } from "@emotion/cache";
 export type { CSSInterpolation, CSSObject, Css, Cx, CxArg } from "./types";
 import { createMakeStyles, TssCacheProvider } from "./makeStyles";
 export { createMakeStyles, TssCacheProvider };
-import { createWithStyles } from "./withStyles_compat";
-export { createWithStyles };
+import { createWithStyles, getRootClassName } from "./withStyles_compat";
+export { createWithStyles, getRootClassName };
 
 /** @see <https://docs.tss-react.dev/api/keyframes> */
 export { keyframes } from "@emotion/react";

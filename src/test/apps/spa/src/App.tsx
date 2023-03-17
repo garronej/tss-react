@@ -1,6 +1,7 @@
 
 import { useReducer, memo } from "react";
 import { makeStyles, withStyles } from "makeStyles";
+import { getRootClassName } from "tss-react";
 import { GlobalStyles } from "tss-react";
 import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
@@ -270,7 +271,7 @@ const useStyles = makeStyles<void, "child" | "breadcrumbs2_separator" | "childRe
 
 function MyComponent(props: { className?: string; colorSmall: string; }) {
 	return (
-		<div className={props.className}>
+		<div className={getRootClassName(props)}>
 			The background color should turn from limegreen to cyan when the window
 			inner with goes below 960px.
 			Font should be red
