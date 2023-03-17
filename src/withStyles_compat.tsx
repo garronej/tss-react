@@ -155,8 +155,8 @@ export function createWithStyles<Theme>(params: {
 
 const hiddenRootClassPropName = "__withStyles_rootClassName";
 
-export function getRootClassName(props: any) {
-    const rootClassName = props[hiddenRootClassPropName];
+export function getRootClassName(props: { className?: string }) {
+    const rootClassName = (props as any)[hiddenRootClassPropName];
 
     if (typeof rootClassName !== "string") {
         throw new Error(
