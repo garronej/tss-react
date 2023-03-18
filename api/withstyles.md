@@ -13,7 +13,6 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 {% code title="MyComponent.tsx" %}
 ```tsx
 import { withStyles } from "tss-react/mui";
-import { getClasses } from "tss-react";
 
 type Props = {
     className?: string;
@@ -23,10 +22,10 @@ type Props = {
 
 function MyComponent(props: Props) {
 
-    const classes = getClasses(props);
+    const classes = withStyles.getClasses(props);
 
     return (
-      <div className={getRootClassName(props)}>
+      <div className={classes.root}>
         <span className={classes.text}>The background color should be different when the screen is small.</span>
       </div>
     );
@@ -62,7 +61,6 @@ The main reason you would use `withStyles` over `makeStyles` is to support class
 ```tsx
 import * as React from "react";
 import { withStyles } from "tss-react/mui";
-import { getClasses } from "tss-react";
 
 export type Props ={
   className?: string;
@@ -73,10 +71,10 @@ export type Props ={
 class MyComponent extends React.Component<Props> {
   render() {
   
-    const classes = getClasses(this.props);
+    const classes = withStyles.getClasses(this.props);
 
     return (
-      <div className={getRootClassName(this.props)}>
+      <div className={classes.root}>
         <span className={classes.span}>The background color should be different when the screen is small.</span>
       </div>
     );
