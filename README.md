@@ -40,6 +40,8 @@
 -   ✅ Library authors: [`tss-react` won’t be yet another entry in your `peerDependencies`](https://docs.tss-react.dev/publish-a-module-that-uses-tss).
 -   ✅ Support [MUI's theme global styles overrides](https://docs.tss-react.dev/mui-theme-styleoverrides)
 
+The more ⭐️ the project gets, the more time I spend improving and maintaining it. Thank you for your support 😊
+
 ```bash
 $ yarn add tss-react @emotion/react
 ```
