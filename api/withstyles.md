@@ -22,7 +22,7 @@ type Props = {
 };
 
 function MyComponent(props: Props) {
-    const { classes } = props;
+    const { classes = {} } = props;
     return (
       <div className={getRootClassName(props)}>
         <span className={classes.text}>The background color should be different when the screen is small.</span>
@@ -71,7 +71,7 @@ export type Props ={
 class MyComponent extends React.Component<Props> {
   render() {
   
-    const { classes } = this.props;
+    const { classes = {} } = this.props;
 
     return (
       <div className={getRootClassName(this.props)}>
