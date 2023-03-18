@@ -175,6 +175,17 @@ export default MyComponentStyled;
 ```
 {% endcode %}
 
+```tsx
+import MyComponent from "./MyComponent";
+
+render(
+    <MyComponent 
+       className="foo bar"
+       colorSmall="cyan" 
+    />
+);
+```
+
 ### With a MUI component
 
 You can also pass a mui component like for example `<Button />` and you'll be able to overwrite [every rule name of the component](https://mui.com/api/button/#css) (it uses the `classes` prop).
