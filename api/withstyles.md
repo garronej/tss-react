@@ -74,6 +74,7 @@ class MyComponent extends React.Component<Props> {
     const classes = withStyles.getClasses(this.props);
 
     return (
+      
       <div className={classes.root}>
         <span className={classes.span}>The background color should be different when the screen is small.</span>
       </div>
@@ -90,6 +91,53 @@ const MyComponentStyled = withStyles(
       },
       "span": {
         "border": "1px solid red"
+      },
+      "@media (max-width: 960px)": {
+          "root": {
+              "backgroundColor": "red"
+          }
+      }
+  })
+);
+
+export default MyComponentStyled;
+```
+{% endcode %}
+
+### With no classes props
+
+Your component can also only have a `className` prop (and no `classes`).
+
+{% code title="MyComponent.tsx" %}
+```typescript
+import * as React from "react";
+import { withStyles } from "tss-react/mui";
+
+export type Props ={
+  className?: string;
+  isBig: boolean;
+};
+
+class MyComponent extends React.Component<Props> {
+  render() {
+  
+    const classes = withStyles.getClasses(this.props);
+
+    return (
+      
+      <div className={classes.root}>
+        The background color should be different when the screen is small.
+      </div>
+    );
+  }
+}
+
+const MyComponentStyled = withStyles(
+  MyComponent, 
+  (theme, props) => ({
+      "root": {
+          "backgroundColor": theme.palette.primary.main,
+          "height": props.isBig ? 100 : 50
       },
       "@media (max-width: 960px)": {
           "root": {
