@@ -1,6 +1,6 @@
 
 "use client";
-import { useReducer, memo } from "react";
+import React, { useReducer, memo } from "react";
 import { GlobalStyles } from "tss-react";
 import { makeStyles, useStyles, withStyles } from "../shared/makeStyles";
 import { styled } from "@mui/material";
@@ -199,6 +199,8 @@ const { App } = (() => {
                         lightBulbBorderColor="black"
                     />
                     <StyledTab icon={<PhoneIcon />} label="Background should be greenish" />
+                    <TestWithStylesWithClassComponents isBig={true}/>
+                    <TestWithStylesWithClassComponents isBig={true} />
                 </div>
             </>
         );
@@ -302,8 +304,9 @@ const { App } = (() => {
 })();
 
 function MyComponent(props: { className?: string; colorSmall: string; }) {
+    const classes = withStyles.getClasses(props);
     return (
-        <div className={props.className}>
+        <div className={classes.root}>
             The background color should turn from limegreen to cyan when the window
             inner with goes below 960px.
             Font should be red
@@ -572,3 +575,46 @@ const StyledTab = withStyles(Tab, {
         "backgroundColor": "green"
     }
 });
+
+const TestWithStylesWithClassComponents = (() => {
+
+	type Props = {
+		className?: string;
+		classes?: Partial<Record<"root" | "span", string>>;
+		isBig: boolean;
+	};
+
+	class MyComponent extends React.Component<Props> {
+		render() {
+
+			const classes = withStyles.getClasses(this.props)
+
+			return (
+				<div className={classes.root}>
+					<span className={classes.span}>Background color should be green on big screen, red on small screen, there is a black border on the text</span>
+				</div>
+			);
+		}
+	}
+
+	const MyComponentStyled = withStyles(
+		MyComponent,
+		(theme, props) => ({
+			"root": {
+				"backgroundColor": theme.palette.primary.main,
+				"height": props.isBig ? 200 : undefined
+			},
+			"span": {
+				"border": "1px solid black"
+			},
+			"@media (max-width: 960px)": {
+				"root": {
+					"backgroundColor": "red"
+				}
+			}
+		})
+	);
+
+	return MyComponentStyled;
+
+})();

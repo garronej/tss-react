@@ -125,6 +125,11 @@ export function createWithStyles<Theme>(params: {
 
             const rootClassName = cx(classes.root, className);
 
+            fixedClassesByClasses.set(classes, {
+                ...classes,
+                "root": rootClassName
+            });
+
             return (
                 <Component_
                     ref={ref}
@@ -133,7 +138,6 @@ export function createWithStyles<Theme>(params: {
                             ? className
                             : rootClassName
                     }
-                    {...{ [hiddenRootClassPropName]: rootClassName }}
                     {...(typeof Component === "string" ? {} : { classes })}
                     {...rest}
                 />
@@ -150,21 +154,37 @@ export function createWithStyles<Theme>(params: {
         return Out as any;
     }
 
+    withStyles.getClasses = getClasses;
+
     return { withStyles };
 }
 
-const hiddenRootClassPropName = "__withStyles_rootClassName";
+const fixedClassesByClasses = new WeakMap<any, Record<string, string>>();
 
-export function getRootClassName(props: { className?: string }) {
-    const rootClassName = (props as any)[hiddenRootClassPropName];
+const errorMessageGetClasses =
+    "getClasses should only be used in conjunction with withStyles";
 
-    if (typeof rootClassName !== "string") {
-        throw new Error(
-            "getRootClassName should only be used in conjunction with withStyles"
-        );
+function getClasses<Classes>(props: {
+    className?: string;
+    classes?: Classes;
+}): Classes extends Record<string, unknown>
+    ? Classes extends Partial<Record<infer K, any>>
+        ? Record<K, string>
+        : Classes
+    : { root: string } {
+    const classesIn = props.classes;
+
+    if (classesIn === undefined) {
+        throw new Error(errorMessageGetClasses);
     }
 
-    return rootClassName;
+    const classes = fixedClassesByClasses.get(classesIn);
+
+    if (classes === undefined) {
+        throw new Error(errorMessageGetClasses);
+    }
+
+    return classes as any;
 }
 
 function incorporateMediaQueries(
