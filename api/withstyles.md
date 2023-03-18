@@ -15,7 +15,7 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 import { withStyles } from "tss-react/mui";
 
 type Props = {
-    className?: string;
+    className?: string;cod
     classes?: Partial<Record<"root" | "label", string>>;
     colorSmall: string;
 };
@@ -52,6 +52,18 @@ const MyComponentStyled = withStyles(
 export default MyComponentStyled;
 ```
 {% endcode %}
+
+```tsx
+import MyComponent from "./MyComponent";
+
+render(
+    <MyComponent 
+       className="foo bar" 
+       classes={{ text: "baz baz" }} 
+       colorSmall="cyan" 
+    />
+);
+```
 
 ### With class components
 
