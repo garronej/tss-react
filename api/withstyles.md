@@ -58,7 +58,7 @@ import MyComponent from "./MyComponent";
 
 render(
     <MyComponent 
-       className="foo bar" 
+       className="foo bar"
        classes={{ text: "baz baz" }} 
        colorSmall="cyan" 
     />
@@ -115,6 +115,18 @@ const MyComponentStyled = withStyles(
 export default MyComponentStyled;
 ```
 {% endcode %}
+
+```tsx
+import MyComponent from "./MyComponent";
+
+render(
+    <MyComponent 
+       className="foo bar" 
+       classes={{ text: "baz baz" }} 
+       colorSmall="cyan" 
+    />
+);
+```
 
 ### With no classes props
 
