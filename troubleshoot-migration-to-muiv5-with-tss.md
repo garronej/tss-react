@@ -2,7 +2,7 @@
 
 You upgraded to MUIv5 using tss-react but the somme styles doesn't apply the same way they uses to? &#x20;
 
-You can fix the indivudual problems [increasing specificity with &&](https://github.com/garronej/tss-react/issues/138#issuecomment-1374411085) but it's a very time consuming process. &#x20;
+You can fix the indivudual problems [increasing specificity with &&](increase-specificity.md) but it's a very time consuming process. &#x20;
 
 Setting up emotion like that will probably fix all your issues: &#x20;
 
@@ -37,7 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 {% endtab %}
 
 {% tab title="Next.js" %}
-[Link to the setp instruction](ssr/next.js.md#mui-and-tss-use-different-caches).
+Link to the setp instruction: [Make MUI and TSS use different caches](https://docs.tss-react.dev/ssr/next.js#make-mui-and-tss-use-different-caches).
 {% endtab %}
 {% endtabs %}
 
