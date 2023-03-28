@@ -87,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
 
 ### Make MUI and TSS use different caches
 
-If you want TSS and MUI to use different caches you can implement this approach. This is mainly usefull if you are migrating from MUI v4 using TSS and [some styles dosen't display like they used to](../troubleshoot-migration-to-muiv5-with-tss.md).&#x20;
+If you want TSS and MUI to use different caches you can implement this approach. This is mainly usefull if you are migrating from MUI v4 using TSS and [some styles don't display like they used to](../troubleshoot-migration-to-muiv5-with-tss.md).&#x20;
 
 {% tabs %}
 {% tab title="pages dir" %}
