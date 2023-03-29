@@ -265,7 +265,7 @@ const MyDiv = withStyles("div", {
 
 ### Use in place of styled &#x20;
 
-If you want to use withStyles instead of styled for the extra type safety it provides: &#x20;
+If you want to use `withStyles` instead of `styled` for the extra type safety it provides: &#x20;
 
 Before:&#x20;
 
