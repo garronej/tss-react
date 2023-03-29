@@ -195,29 +195,49 @@ import Button from "@mui/material/Button";
 import { withStyles } from "tss-react/mui";
 
 const MyStyledButton = withStyles(Button, {
-    "root": {
-        "backgroundColor": "grey"
+    root: {
+        backgroundColor: "grey"
     }
-    "text": {
-        "color": "red"
+    text: {
+        color: "red"
     },
     "@media (max-width: 960px)": {
-        "text": {
-            "color": "blue"
+        text: {
+            color: "blue"
         }
     }
 });
 ```
 
-It's also possible to start from a builtin HTML component:
+What's very powerfull about the withStyles API it it's capable to infer the type of the nested overwritable classes, example: &#x20;
+
+<figure><img src="../.gitbook/assets/nestedSelectors_small.46ae0227.gif" alt=""><figcaption></figcaption></figure>
+
+```tsx
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import { withStyles } from "tss-react/mui";
+
+const MyBreadcrumbs = withStyles(
+    Breadcrumbs,
+    (theme, props, classes) => {
+        ol: {
+            [`& .${classes.separator}`]: {
+                color: theme.palette.primary.main
+            }
+        }
+    }
+);
+```
+
+### With an base HTML component
 
 ```tsx
 import { withStyles } from "tss-react/mui";
 
 const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
-    "root": {
-        "border": "1px solid black",
-        "backgroundColor": href?.startsWith("https")
+    root: {
+        border: "1px solid black",
+        backgroundColor: href?.startsWith("https")
             ? theme.palette.primary.main
             : "red"
     }
@@ -226,7 +246,7 @@ const MyAnchorStyled = withStyles("a", (theme, { href }) => ({
 
 You can experiment with those examples [here](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/apps/spa/src/App.tsx#L240-L291) live [here](https://www.tss-react.dev/test/), you can also run it locally with [`yarn start_spa`](https://github.com/garronej/tss-react#development).
 
-#### Naming the stylesheets (useful for debugging and [theme style overrides](../mui-global-styleoverrides.md))
+### Naming the stylesheets (useful for debugging and [theme style overrides](../mui-global-styleoverrides.md))
 
 To ease debugging you can specify a name that will appear in every class names. It is like the [`option.name` in material-ui v4's `makeStyles`](https://mui.com/styles/api/#makestyles-styles-options-hook).
 
@@ -236,10 +256,32 @@ It's also required to for [theme style overrides](../mui-global-styleoverrides.m
 import { withStyles } from "tss-react/mui";
 
 const MyDiv = withStyles("div", {
-  "root": {
+  root: {
     /* ... */
   }
-}, { "name": "MyDiv" });
+}, { name: "MyDiv" });
 
 //The class apllied to the div will be like: "css-xxxxxx-MyDiv-root"
+```
+
+### Use in place of styled &#x20;
+
+If you want to use withStyles instead of styled for the extra type safety it provides: &#x20;
+
+Before:&#x20;
+
+```tsx
+import { useTheme, styled } from '@mui/material/styles';
+import {} 
+
+const StyledPopper = styled(Popper)({
+  [`& .${autocompleteClasses.listbox}`]: {
+    boxSizing: 'border-box',
+    '& ul': {
+      padding: 0,
+      margin: 0,
+    }
+  }
+});
+
 ```
