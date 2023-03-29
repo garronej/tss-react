@@ -149,7 +149,6 @@ class MyComponent extends React.Component<Props> {
     const classes = withStyles.getClasses(this.props);
 
     return (
-      
       <div className={classes.root}>
         The background color should be different when the screen is small.
       </div>
