@@ -190,8 +190,7 @@ render(
 
 You can also pass a mui component like for example `<Button />` and you'll be able to overwrite [every rule name of the component](https://mui.com/api/button/#css) (it uses the `classes` prop).
 
-```tsx
-import Button from "@mui/material/Button";
+<pre class="language-tsx"><code class="lang-tsx">import Button from "@mui/material/Button";
 import { withStyles } from "tss-react/mui";
 
 const MyStyledButton = withStyles(Button, {
@@ -201,13 +200,13 @@ const MyStyledButton = withStyles(Button, {
     text: {
         color: "red"
     },
-    "@media (max-width: 960px)": {
-        text: {
+<strong>    "@media (max-width: 960px)": {
+</strong>        text: {
             color: "blue"
         }
     }
 });
-```
+</code></pre>
 
 What's very powerfull about the withStyles API it it's capable to infer the type of the nested overwritable classes, example: &#x20;
 
@@ -271,17 +270,43 @@ If you want to use withStyles instead of styled for the extra type safety it pro
 Before:&#x20;
 
 ```tsx
-import { useTheme, styled } from '@mui/material/styles';
-import {} 
+import { styled } from '@mui/material/styles';
+import Popper from '@mui/material/Popper';
 
 const StyledPopper = styled(Popper)({
-  [`& .${autocompleteClasses.listbox}`]: {
+  border: '1px solid red',
+  '& .Mui-autoComplete-listBox': {
     boxSizing: 'border-box',
     '& ul': {
       padding: 0,
-      margin: 0,
+      margin: 0
+    }
+  },
+  "@media (max-width: 960px)": {
+    color: "blue"
+  }
+});
+```
+
+After (just wrap everything into `root`): &#x20;
+
+```typescript
+import { withStyles } from 'tss-react/mui';
+import Popper from '@mui/material/Popper';
+
+const StyledPopper = withStyles(Popper, {
+  root: {
+    border: '1px solid red',
+    '& .Mui-autoComplete-listBox': {
+      boxSizing: 'border-box',
+      '& ul': {
+        padding: 0,
+        margin: 0
+      }
+    },
+    "@media (max-width: 960px)": {
+      color: "blue"
     }
   }
 });
-
 ```
