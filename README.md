@@ -5,7 +5,7 @@ description: Start using TSS, with or without MUI
 # 🔧 Setup
 
 {% hint style="info" %}
-Consider [giving the project a ⭐️](https://github.com/garronej/tss-react). It means a lot to me ❤️
+The more ⭐️[ the project](https://github.com/tss-react) gets, the more time I spend improving and maintaining it. Thank you for your support 😊
 {% endhint %}
 
 {% hint style="info" %}
