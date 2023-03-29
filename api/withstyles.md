@@ -25,6 +25,7 @@ function MyComponent(props: Props) {
     const classes = withStyles.getClasses(props);
 
     return (
+      {/* props.classeName and props.classes.root are merged, props.className get higher specificity */}
       <div className={classes.root}>
         <span className={classes.text}>The background color should be different when the screen is small.</span>
       </div>
@@ -86,7 +87,7 @@ class MyComponent extends React.Component<Props> {
     const classes = withStyles.getClasses(this.props);
 
     return (
-      
+      {/* props.classeName and props.classes.root are merged, props.className get higher specificity */}
       <div className={classes.root}>
         <span className={classes.span}>The background color should be different when the screen is small.</span>
       </div>
@@ -97,16 +98,16 @@ class MyComponent extends React.Component<Props> {
 const MyComponentStyled = withStyles(
   MyComponent, 
   (theme, props) => ({
-      "root": {
-          "backgroundColor": theme.palette.primary.main,
-          "height": props.isBig ? 100 : 50
+      root: {
+          backgroundColor: theme.palette.primary.main,
+          height: props.isBig ? 100 : 50
       },
-      "span": {
-        "border": "1px solid red"
+      span: {
+        border: "1px solid red"
       },
       "@media (max-width: 960px)": {
-          "root": {
-              "backgroundColor": "red"
+          root: {
+              backgroundColorf=: "red"
           }
       }
   })
