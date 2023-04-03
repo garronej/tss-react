@@ -1,5 +1,23 @@
 # 🩳 MUI sx syntax
 
+{% hint style="warning" %}
+I do not recommend using the Sx syntax in conjunction with TSS, I don't see the value of it.&#x20;
+
+`Sx` syntax primary avantage is to be more consise which is an important factor when mixing your JSX and styles.  TSS however enable have separates the two. &#x20;
+
+Given this I'd rather write:&#x20;
+
+`backgroundColor: theme.palette.primary.main`
+
+than
+
+`backgroundColor: "primary.main"`
+
+The second is shorter all right but we trade type safery in the sake of brievety, IMO it isn't worth it. &#x20;
+
+Do not esitate to reach by [opening a discution](https://github.com/garronej/tss-react/discussions) about it if you think I'm missing something.&#x20;
+{% endhint %}
+
 You can use the [MUI's Sx syntax](https://mui.com/system/getting-started/the-sx-prop/) in MUI like so:&#x20;
 
 ```jsx
