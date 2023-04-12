@@ -3,7 +3,7 @@
 You can abitratly increace specificity using `&`.\
 The more you add, the more specific your selector will get.
 
-For example, matchall selectors are very low specificity. Any other rule will overwrite them.  Addig extra & ensures your custom style will get applied. &#x20;
+For example, matchall selectors are very low specificity. Any other rule will overwrite them.  Adding extra & ensures your custom style will get applied. &#x20;
 
 ```diff
 const useStyles = makeStyles()({
