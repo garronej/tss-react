@@ -107,7 +107,7 @@ const MyComponentStyled = withStyles(
       },
       "@media (max-width: 960px)": {
           root: {
-              backgroundColorf=: "red"
+              backgroundColor: "red"
           }
       }
   })
