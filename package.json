@@ -131,6 +131,6 @@
         "react": "18.1.0",
         "ts-node": "^10.2.1",
         "tsafe": "^0.10.0",
-        "typescript": "^4.8.4"
+        "typescript": "4.4.4"
     }
 }
