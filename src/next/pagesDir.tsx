@@ -5,9 +5,12 @@ import type { DocumentContext } from "next/document";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
 import type { Options as OptionsOfCreateCache } from "@emotion/cache";
-import createCache from "@emotion/cache";
+import * as mEmotionCache from "@emotion/cache";
 import type { NextComponentType } from "next";
 import { assert } from "../tools/assert";
+import { getDefaultExport } from "../tools/getDefaultExport";
+
+const createCache = getDefaultExport(mEmotionCache);
 
 /**
  * @see <https://docs.tss-react.dev/ssr/next>
@@ -46,7 +49,7 @@ export function createEmotionSsrAdvancedApproach(
             undefined;
 
         import("@emotion/server/create-instance").then(
-            m => (createEmotionServer = m.default)
+            m => (createEmotionServer = getDefaultExport(m))
         );
 
         (Document as any).getInitialProps = async (
