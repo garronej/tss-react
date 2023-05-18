@@ -67,6 +67,10 @@ Regarding SSR setup you can forward your user to [the dedicated documentation](s
 {% endtab %}
 {% endtabs %}
 
+In any case, it is of paramount importance that your library supports CSJ and ESM distribution. Please refer to the following discussion for precise instructions and a comprehensive explanation of why this is crucial. &#x20;
+
+{% embed url="https://github.com/garronej/tss-react/issues/136#issuecomment-1549661726" %}
+
 {% hint style="warning" %}
 Wherever you make use of [nested selectors](nested-selectors.md) you must [provide a `uniqId`](nested-selectors.md#ssr) to make sure your components will works in every SSR setup.
 {% endhint %}
