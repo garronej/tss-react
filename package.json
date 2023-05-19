@@ -18,14 +18,6 @@
             "module": "./dist/esm/mui.js",
             "default": "./dist/mui.js"
         },
-        "./nextJs": {
-            "module": "./dist/esm/nextJs.js",
-            "default": "./dist/nextJs.js"
-        },
-        "./next": {
-            "module": "./dist/esm/next/index.js",
-            "default": "./dist/next/index.js"
-        },
         "./next/pagesDir": {
             "module": "./dist/esm/next/pagesDir.js",
             "default": "./dist/next/pagesDir.js"
@@ -33,6 +25,17 @@
         "./next/appDir": {
             "module": "./dist/esm/next/appDir.js",
             "default": "./dist/next/appDir.js"
+        },
+        "./dsfr": {
+            "module": "./dist/esm/dsfr.js"
+        },
+        "./next": {
+            "module": "./dist/esm/next/index.js",
+            "default": "./dist/next/index.js"
+        },
+        "./nextJs": {
+            "module": "./dist/esm/nextJs.js",
+            "default": "./dist/nextJs.js"
         },
         "./compat": {
             "module": "./dist/esm/compat.js",
@@ -45,9 +48,6 @@
         "./cssAndCx": {
             "module": "./dist/esm/cssAndCx.js",
             "default": "./dist/cssAndCx.js"
-        },
-        "./dsfr": {
-            "module": "./dist/esm/dsfr.js"
         }
     },
     "scripts": {
