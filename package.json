@@ -12,48 +12,39 @@
     "exports": {
         ".": {
             "module": "./dist/esm/index.js",
-            "node": "./dist/index.js",
-            "require": "./dist/index.js"
+            "default": "./dist/index.js"
         },
         "./mui": {
             "module": "./dist/esm/mui.js",
-            "node": "./dist/mui.js",
-            "require": "./dist/mui.js"
+            "default": "./dist/mui.js"
         },
         "./nextJs": {
             "module": "./dist/esm/nextJs.js",
-            "node": "./dist/nextJs.js",
-            "require": "./dist/nextJs.js"
+            "default": "./dist/nextJs.js"
         },
         "./next": {
             "module": "./dist/esm/next/index.js",
-            "node": "./dist/next/index.js",
-            "require": "./dist/next/index.js"
+            "default": "./dist/next/index.js"
         },
         "./next/pagesDir": {
             "module": "./dist/esm/next/pagesDir.js",
-            "node": "./dist/next/pagesDir.js",
-            "require": "./dist/next/pagesDir.js"
+            "default": "./dist/next/pagesDir.js"
         },
         "./next/appDir": {
             "module": "./dist/esm/next/appDir.js",
-            "node": "./dist/next/appDir.js",
-            "require": "./dist/next/appDir.js"
+            "default": "./dist/next/appDir.js"
         },
         "./compat": {
             "module": "./dist/esm/compat.js",
-            "node": "./dist/compat.js",
-            "require": "./dist/compat.js"
+            "default": "./dist/compat.js"
         },
         "./mui-compat": {
             "module": "./dist/esm/mui-compat.js",
-            "node": "./dist/mui-compat.js",
-            "require": "./dist/mui-compat.js"
+            "default": "./dist/mui-compat.js"
         },
         "./cssAndCx": {
             "module": "./dist/esm/cssAndCx.js",
-            "node": "./dist/cssAndCx.js",
-            "require": "./dist/cssAndCx.js"
+            "default": "./dist/cssAndCx.js"
         },
         "./dsfr": {
             "module": "./dist/esm/dsfr.js"
