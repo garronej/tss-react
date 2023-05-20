@@ -11,58 +11,48 @@
     "module": "dist/esm/index.js",
     "exports": {
         ".": {
-            "import": "./dist/esm/index.mjs",
-            "require": "./dist/index.js",
-            "types": "./dist/index.d.ts"
+            "module": "./dist/esm/index.js",
+            "default": "./dist/index.js"
         },
         "./mui": {
-            "import": "./dist/esm/mui.mjs",
-            "require": "./dist/mui.js",
-            "types": "./dist/mui.d.ts"
+            "module": "./dist/esm/mui.js",
+            "default": "./dist/mui.js"
         },
         "./experiment": {
             "import": "./dist/esm/experiment.mjs",
             "require": "./dist/experiment.js",
             "types": "./dist/experiment.d.ts"
         },
-        "./nextJs": {
-            "import": "./dist/esm/nextJs.mjs",
-            "require": "./dist/nextJs.js",
-            "types": "./dist/nextJs.d.ts"
-        },
-        "./next": {
-            "import": "./dist/esm/next/index.mjs",
-            "require": "./dist/next/index.js",
-            "types": "./dist/next/index.d.ts"
-        },
         "./next/pagesDir": {
-            "import": "./dist/esm/next/pagesDir.mjs",
-            "require": "./dist/next/pagesDir.js",
-            "types": "./dist/next/pagesDir.d.ts"
+            "module": "./dist/esm/next/pagesDir.js",
+            "default": "./dist/next/pagesDir.js"
         },
         "./next/appDir": {
-            "import": "./dist/esm/next/appDir.mjs",
-            "require": "./dist/next/appDir.js",
-            "types": "./dist/next/appDir.d.ts"
-        },
-        "./compat": {
-            "import": "./dist/esm/compat.mjs",
-            "require": "./dist/compat.js",
-            "types": "./dist/compat.d.ts"
-        },
-        "./mui-compat": {
-            "import": "./dist/esm/mui-compat.mjs",
-            "require": "./dist/mui-compat.js",
-            "types": "./dist/mui-compat.d.ts"
-        },
-        "./cssAndCx": {
-            "import": "./dist/esm/cssAndCx.mjs",
-            "require": "./dist/cssAndCx.js",
-            "types": "./dist/cssAndCx.d.ts"
+            "module": "./dist/esm/next/appDir.js",
+            "default": "./dist/next/appDir.js"
         },
         "./dsfr": {
-            "import": "./dist/esm/dsfr.mjs",
-            "types": "./dist/esm/dsfr.d.ts"
+            "module": "./dist/esm/dsfr.js"
+        },
+        "./next": {
+            "module": "./dist/esm/next/index.js",
+            "default": "./dist/next/index.js"
+        },
+        "./nextJs": {
+            "module": "./dist/esm/nextJs.js",
+            "default": "./dist/nextJs.js"
+        },
+        "./compat": {
+            "module": "./dist/esm/compat.js",
+            "default": "./dist/compat.js"
+        },
+        "./mui-compat": {
+            "module": "./dist/esm/mui-compat.js",
+            "default": "./dist/mui-compat.js"
+        },
+        "./cssAndCx": {
+            "module": "./dist/esm/cssAndCx.js",
+            "default": "./dist/cssAndCx.js"
         }
     },
     "scripts": {
