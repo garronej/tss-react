@@ -20,6 +20,11 @@
             "require": "./dist/mui.js",
             "types": "./dist/mui.d.ts"
         },
+        "./experiment": {
+            "import": "./dist/esm/experiment.mjs",
+            "require": "./dist/experiment.js",
+            "types": "./dist/experiment.d.ts"
+        },
         "./nextJs": {
             "import": "./dist/esm/nextJs.mjs",
             "require": "./dist/nextJs.js",
@@ -107,9 +112,9 @@
     ],
     "homepage": "https://www.tss-react.dev",
     "peerDependencies": {
-        "react": "^16.8.0 || ^17.0.2 || ^18.0.0",
         "@emotion/react": "^11.4.1",
-        "@emotion/server": "^11.4.0"
+        "@emotion/server": "^11.4.0",
+        "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
     },
     "peerDependenciesMeta": {
         "@emotion/server": {
@@ -117,16 +122,17 @@
         }
     },
     "dependencies": {
+        "@emotion/cache": "*",
         "@emotion/serialize": "*",
         "@emotion/utils": "*",
-        "@emotion/cache": "*"
+        "tsafe": "^1.6.0"
     },
     "devDependencies": {
         "@codegouvfr/react-dsfr": "^0.14.0",
-        "@emotion/server": "11.10.0",
         "@emotion/react": "11.10.5",
-        "@mui/material": "5.11.1",
+        "@emotion/server": "11.10.0",
         "@emotion/styled": "11.10.5",
+        "@mui/material": "5.11.1",
         "@types/node": "^15.3.1",
         "@types/react": "18.0.26",
         "@types/react-dom": "18.0.9",
@@ -135,13 +141,12 @@
         "eslint": "^7.26.0",
         "eslint-config-prettier": "^8.3.0",
         "husky": "^4.3.8",
+        "js2mjs": "^0.3.0",
         "lint-staged": "^11.0.0",
         "next": "13.0.7",
         "prettier": "^2.3.0",
         "react": "18.1.0",
         "ts-node": "^10.2.1",
-        "tsafe": "^0.10.0",
-        "js2mjs": "^0.3.0",
         "typescript": "4.4.4"
     }
 }
