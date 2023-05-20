@@ -18,6 +18,11 @@
             "module": "./dist/esm/mui.js",
             "default": "./dist/mui.js"
         },
+        "./experiment": {
+            "import": "./dist/esm/experiment.mjs",
+            "require": "./dist/experiment.js",
+            "types": "./dist/experiment.d.ts"
+        },
         "./next/pagesDir": {
             "module": "./dist/esm/next/pagesDir.js",
             "default": "./dist/next/pagesDir.js"
@@ -109,7 +114,8 @@
     "dependencies": {
         "@emotion/serialize": "*",
         "@emotion/utils": "*",
-        "@emotion/cache": "*"
+        "@emotion/cache": "*",
+        "tsafe": "^1.6.0"
     },
     "devDependencies": {
         "@codegouvfr/react-dsfr": "^0.14.0",
@@ -130,7 +136,6 @@
         "prettier": "^2.3.0",
         "react": "18.1.0",
         "ts-node": "^10.2.1",
-        "tsafe": "^0.10.0",
         "typescript": "4.4.4"
     }
 }
