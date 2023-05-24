@@ -19,6 +19,8 @@
  * otherwise the object is returned (the function is the identity function).
  */
 export function getDependencyArrayRef(obj: any): any {
+    return obj;
+    /*
     if (!(obj instanceof Object) || typeof obj === "function") {
         return obj;
     }
@@ -46,4 +48,5 @@ export function getDependencyArrayRef(obj: any): any {
     }
 
     return "xSqLiJdLMd9s" + arr.join("|");
+    */
 }
