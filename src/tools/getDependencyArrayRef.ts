@@ -30,15 +30,7 @@ export function getDependencyArrayRef(obj: any): any {
 
         const typeofValue = typeof value;
 
-        if (
-            !(
-                typeofValue === "string" ||
-                (typeofValue === "number" && !isNaN(value)) ||
-                typeofValue === "boolean" ||
-                value === undefined ||
-                value === null
-            )
-        ) {
+        if (!(typeofValue === "string" || (typeofValue === "number" && !isNaN(value)) || typeofValue === "boolean" || value === undefined || value === null)) {
             return obj;
         }
 

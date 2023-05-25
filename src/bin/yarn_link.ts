@@ -11,34 +11,18 @@ fs.writeFileSync(
     Buffer.from(
         JSON.stringify(
             (() => {
-                const packageJsonParsed = JSON.parse(
-                    fs
-                        .readFileSync(pathJoin(tssReactDirPath, "package.json"))
-                        .toString("utf8")
-                );
+                const packageJsonParsed = JSON.parse(fs.readFileSync(pathJoin(tssReactDirPath, "package.json")).toString("utf8"));
 
                 return {
                     ...packageJsonParsed,
                     "main": packageJsonParsed["main"].replace(/^dist\//, ""),
                     "types": packageJsonParsed["types"].replace(/^dist\//, ""),
-                    "module": packageJsonParsed["module"].replace(
-                        /^dist\//,
-                        ""
-                    ),
+                    "module": packageJsonParsed["module"].replace(/^dist\//, ""),
                     "exports": Object.fromEntries(
-                        Object.entries(packageJsonParsed["exports"]).map(
-                            ([path, obj]) => [
-                                path,
-                                Object.fromEntries(
-                                    Object.entries(
-                                        obj as Record<string, string>
-                                    ).map(([type, path]) => [
-                                        type,
-                                        path.replace(/^\.\/dist\//, "./")
-                                    ])
-                                )
-                            ]
-                        )
+                        Object.entries(packageJsonParsed["exports"]).map(([path, obj]) => [
+                            path,
+                            Object.fromEntries(Object.entries(obj as Record<string, string>).map(([type, path]) => [type, path.replace(/^\.\/dist\//, "./")]))
+                        ])
                     )
                 };
             })(),
@@ -55,20 +39,7 @@ const commonThirdPartyDeps = (() => {
 
     return [
         ...namespaceModuleNames
-            .map(namespaceModuleName =>
-                fs
-                    .readdirSync(
-                        pathJoin(
-                            tssReactDirPath,
-                            "node_modules",
-                            namespaceModuleName
-                        )
-                    )
-                    .map(
-                        submoduleName =>
-                            `${namespaceModuleName}/${submoduleName}`
-                    )
-            )
+            .map(namespaceModuleName => fs.readdirSync(pathJoin(tssReactDirPath, "node_modules", namespaceModuleName)).map(submoduleName => `${namespaceModuleName}/${submoduleName}`))
             .reduce((prev, curr) => [...prev, ...curr], []),
         ...standaloneModuleNames
     ];
@@ -83,11 +54,7 @@ fs.mkdirSync(yarnHomeDirPath);
 const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
     const { targetModuleName, cwd } = params;
 
-    const cmd = [
-        "yarn",
-        "link",
-        ...(targetModuleName !== undefined ? [targetModuleName] : [])
-    ].join(" ");
+    const cmd = ["yarn", "link", ...(targetModuleName !== undefined ? [targetModuleName] : [])].join(" ");
 
     console.log(`$ cd ${pathRelative(tssReactDirPath, cwd) || "."} && ${cmd}`);
 
@@ -102,12 +69,9 @@ const execYarnLink = (params: { targetModuleName?: string; cwd: string }) => {
 
 const testAppNames = ["spa", "ssr", "next-appdir"] as const;
 
-const getTestAppPath = (testAppName: typeof testAppNames[number]) =>
-    pathJoin(tssReactDirPath, "src", "test", "apps", testAppName);
+const getTestAppPath = (testAppName: typeof testAppNames[number]) => pathJoin(tssReactDirPath, "src", "test", "apps", testAppName);
 
-testAppNames.forEach(testAppName =>
-    execSync("yarn install", { "cwd": getTestAppPath(testAppName) })
-);
+testAppNames.forEach(testAppName => execSync("yarn install", { "cwd": getTestAppPath(testAppName) }));
 
 console.log("=== Linking common dependencies ===");
 
@@ -119,15 +83,7 @@ commonThirdPartyDeps.forEach(commonThirdPartyDep => {
 
     console.log(`${current}/${total} ${commonThirdPartyDep}`);
 
-    const localInstallPath = pathJoin(
-        ...[
-            tssReactDirPath,
-            "node_modules",
-            ...(commonThirdPartyDep.startsWith("@")
-                ? commonThirdPartyDep.split("/")
-                : [commonThirdPartyDep])
-        ]
-    );
+    const localInstallPath = pathJoin(...[tssReactDirPath, "node_modules", ...(commonThirdPartyDep.startsWith("@") ? commonThirdPartyDep.split("/") : [commonThirdPartyDep])]);
 
     execYarnLink({ "cwd": localInstallPath });
 

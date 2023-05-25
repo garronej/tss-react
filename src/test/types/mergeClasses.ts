@@ -55,11 +55,7 @@ const classesFromProps:
 mergeClasses(classes, { "foo": 33 }, null as any);
 
 {
-    const mergedClasses = mergeClasses(
-        classes,
-        { "foo": "xxx", "somethingElse": "zzz" },
-        null as any
-    );
+    const mergedClasses = mergeClasses(classes, { "foo": "xxx", "somethingElse": "zzz" }, null as any);
 
     assert<
         Equals<

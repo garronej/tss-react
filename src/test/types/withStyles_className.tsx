@@ -22,20 +22,17 @@ function MyComponent(_props: Props) {
 }
 
 {
-    const MyComponentStyled = withStyles(
-        MyComponent,
-        (theme, props, classes) => {
-            assert<Equals<typeof theme, Theme>>();
-            assert<Equals<typeof props, Props>>();
-            assert<Equals<typeof classes, Record<"root", string>>>();
+    const MyComponentStyled = withStyles(MyComponent, (theme, props, classes) => {
+        assert<Equals<typeof theme, Theme>>();
+        assert<Equals<typeof props, Props>>();
+        assert<Equals<typeof classes, Record<"root", string>>>();
 
-            return {
-                "root": {
-                    "backgroundColor": "red"
-                }
-            };
-        }
-    );
+        return {
+            "root": {
+                "backgroundColor": "red"
+            }
+        };
+    });
 
     assert<Equals<typeof MyComponent, typeof MyComponentStyled>>();
 }
@@ -46,10 +43,7 @@ function MyComponent(_props: Props) {
         message: string;
     };
 
-    class MyClassBasedComponent extends React.Component<
-        Props,
-        { count: number }
-    > {
+    class MyClassBasedComponent extends React.Component<Props, { count: number }> {
         render() {
             return (
                 <div>
@@ -60,24 +54,19 @@ function MyComponent(_props: Props) {
         }
     }
 
-    const MyClassBasedComponentStyled = withStyles(
-        MyClassBasedComponent,
-        (theme, props, classes) => {
-            assert<Equals<typeof theme, Theme>>();
-            assert<Equals<typeof props, Props>>();
-            assert<Equals<typeof classes, Record<"root", string>>>();
+    const MyClassBasedComponentStyled = withStyles(MyClassBasedComponent, (theme, props, classes) => {
+        assert<Equals<typeof theme, Theme>>();
+        assert<Equals<typeof props, Props>>();
+        assert<Equals<typeof classes, Record<"root", string>>>();
 
-            return {
-                "root": {
-                    "backgroundColor": "red"
-                }
-            };
-        }
-    );
+        return {
+            "root": {
+                "backgroundColor": "red"
+            }
+        };
+    });
 
-    assert<
-        Equals<typeof MyClassBasedComponent, typeof MyClassBasedComponentStyled>
-    >();
+    assert<Equals<typeof MyClassBasedComponent, typeof MyClassBasedComponentStyled>>();
 }
 
 withStyles(MyComponent, {

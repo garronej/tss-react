@@ -13,16 +13,11 @@ export type NextAppDirEmotionCacheProviderProps = {
     /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
     options: Omit<OptionsOfCreateCache, "insertionPoint">;
     /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
-    CacheProvider?: (props: {
-        value: EmotionCache;
-        children: ReactNode;
-    }) => JSX.Element | null;
+    CacheProvider?: (props: { value: EmotionCache; children: ReactNode }) => JSX.Element | null;
     children: ReactNode;
 };
 
-export function NextAppDirEmotionCacheProvider(
-    props: NextAppDirEmotionCacheProviderProps
-) {
+export function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProviderProps) {
     const { options, CacheProvider = DefaultCacheProvider, children } = props;
 
     const [{ cache, flush }] = useState(() => {

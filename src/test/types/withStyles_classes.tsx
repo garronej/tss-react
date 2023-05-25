@@ -17,22 +17,17 @@ const { withStyles } = createWithStyles({
 
 {
     {
-        const MyComponentStyled = withStyles(
-            MuiButton,
-            (theme, props, classes) => {
-                assert<Equals<typeof theme, Theme>>();
-                assert<Equals<typeof props, ButtonProps>>();
-                assert<
-                    Equals<typeof classes, Record<ButtonClassKey, string>>
-                >();
+        const MyComponentStyled = withStyles(MuiButton, (theme, props, classes) => {
+            assert<Equals<typeof theme, Theme>>();
+            assert<Equals<typeof props, ButtonProps>>();
+            assert<Equals<typeof classes, Record<ButtonClassKey, string>>>();
 
-                return {
-                    "colorInherit": {
-                        "position": "absolute" as const
-                    }
-                };
-            }
-        );
+            return {
+                "colorInherit": {
+                    "position": "absolute" as const
+                }
+            };
+        });
 
         assert<Equals<typeof MuiButton, typeof MyComponentStyled>>();
     }
@@ -48,10 +43,7 @@ const { withStyles } = createWithStyles({
             message: string;
         };
 
-        class MyClassBasedComponent extends React.Component<
-            Props,
-            { count: number }
-        > {
+        class MyClassBasedComponent extends React.Component<Props, { count: number }> {
             render() {
                 return (
                     <div>
@@ -62,32 +54,19 @@ const { withStyles } = createWithStyles({
             }
         }
 
-        const MyClassBasedComponentStyled = withStyles(
-            MyClassBasedComponent,
-            (theme, props, classes) => {
-                assert<Equals<typeof theme, Theme>>();
-                assert<Equals<typeof props, Props>>();
-                assert<
-                    Equals<
-                        typeof classes,
-                        Record<keyof NonNullable<Props["classes"]>, string>
-                    >
-                >();
+        const MyClassBasedComponentStyled = withStyles(MyClassBasedComponent, (theme, props, classes) => {
+            assert<Equals<typeof theme, Theme>>();
+            assert<Equals<typeof props, Props>>();
+            assert<Equals<typeof classes, Record<keyof NonNullable<Props["classes"]>, string>>>();
 
-                return {
-                    "root": {
-                        "backgroundColor": "red"
-                    }
-                };
-            }
-        );
+            return {
+                "root": {
+                    "backgroundColor": "red"
+                }
+            };
+        });
 
-        assert<
-            Equals<
-                typeof MyClassBasedComponent,
-                typeof MyClassBasedComponentStyled
-            >
-        >();
+        assert<Equals<typeof MyClassBasedComponent, typeof MyClassBasedComponentStyled>>();
     }
 
     withStyles(MuiButton, {});

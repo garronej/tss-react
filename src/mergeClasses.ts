@@ -8,8 +8,7 @@ export function mergeClasses<T extends string, U extends string>(
     classesFromUseStyles: Record<T, string>,
     classesFromProps: Partial<Record<U, string>> | undefined,
     cx: Cx
-): Record<T, string> &
-    (string extends U ? {} : Partial<Record<Exclude<U, T>, string>>) {
+): Record<T, string> & (string extends U ? {} : Partial<Record<Exclude<U, T>, string>>) {
     //NOTE: We use this test to be resilient in case classesFromProps is not of the expected type.
     if (!(classesFromProps instanceof Object)) {
         return classesFromUseStyles as any;
@@ -17,13 +16,7 @@ export function mergeClasses<T extends string, U extends string>(
 
     const out: Record<T | U, string> = {} as any;
 
-    objectKeys(classesFromUseStyles).forEach(
-        ruleName =>
-            (out[ruleName] = cx(
-                classesFromUseStyles[ruleName],
-                classesFromProps[ruleName]
-            ))
-    );
+    objectKeys(classesFromUseStyles).forEach(ruleName => (out[ruleName] = cx(classesFromUseStyles[ruleName], classesFromProps[ruleName])));
 
     objectKeys(classesFromProps).forEach(ruleName => {
         if (ruleName in classesFromUseStyles) {

@@ -14,10 +14,7 @@ export { keyframes } from "@emotion/react";
 export { GlobalStyles } from "./GlobalStyles";
 
 /** @see <https://docs.tss-react.dev/api/makestyles> */
-export function createMakeAndWithStyles<Theme>(params: {
-    useTheme: () => Theme;
-    cache?: EmotionCache;
-}) {
+export function createMakeAndWithStyles<Theme>(params: { useTheme: () => Theme; cache?: EmotionCache }) {
     return {
         ...createMakeStyles(params),
         ...createWithStyles(params)

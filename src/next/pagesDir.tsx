@@ -19,45 +19,28 @@ export function createEmotionSsrAdvancedApproach(
         prepend?: boolean;
     },
     /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
-    CacheProvider: (props: {
-        value: EmotionCache;
-        children: ReactNode;
-    }) => JSX.Element | null = DefaultCacheProvider
+    CacheProvider: (props: { value: EmotionCache; children: ReactNode }) => JSX.Element | null = DefaultCacheProvider
 ) {
     const { prepend, ...optionsWithoutPrependProp } = options;
 
     const appPropName = `${options.key}EmotionCache`;
     const insertionPointId = `${options.key}-emotion-cache-insertion-point`;
 
-    function augmentDocumentWithEmotionCache(
-        Document: NextComponentType<any, any, any>
-    ): void {
+    function augmentDocumentWithEmotionCache(Document: NextComponentType<any, any, any>): void {
         let super_getInitialProps = Document.getInitialProps?.bind(Document);
 
         if (super_getInitialProps === undefined) {
-            import("next/document").then(
-                ({ default: DefaultDocument }) =>
-                    (super_getInitialProps =
-                        DefaultDocument.getInitialProps.bind(DefaultDocument))
-            );
+            import("next/document").then(({ default: DefaultDocument }) => (super_getInitialProps = DefaultDocument.getInitialProps.bind(DefaultDocument)));
         }
 
-        let createEmotionServer: typeof createEmotionServer_t | undefined =
-            undefined;
+        let createEmotionServer: typeof createEmotionServer_t | undefined = undefined;
 
-        import("@emotion/server/create-instance").then(
-            m => (createEmotionServer = m.default)
-        );
+        import("@emotion/server/create-instance").then(m => (createEmotionServer = m.default));
 
-        (Document as any).getInitialProps = async (
-            documentContext: DocumentContext
-        ) => {
+        (Document as any).getInitialProps = async (documentContext: DocumentContext) => {
             const cache = createCache(optionsWithoutPrependProp);
 
-            assert(
-                createEmotionServer !== undefined,
-                "Emotion server not yet loaded. Please submit an issue to the tss-react repo"
-            );
+            assert(createEmotionServer !== undefined, "Emotion server not yet loaded. Please submit an issue to the tss-react repo");
 
             const emotionServer = createEmotionServer(cache);
 
@@ -70,19 +53,12 @@ export function createEmotionSsrAdvancedApproach(
                         const EnhancedApp = enhanceApp?.(App) ?? App;
 
                         return function EnhanceApp(props) {
-                            return (
-                                <EnhancedApp
-                                    {...{ ...props, [appPropName]: cache }}
-                                />
-                            );
+                            return <EnhancedApp {...{ ...props, [appPropName]: cache }} />;
                         };
                     }
                 });
 
-            assert(
-                super_getInitialProps !== undefined,
-                "Default document not yet loaded. Please submit an issue to the tss-react repo"
-            );
+            assert(super_getInitialProps !== undefined, "Default document not yet loaded. Please submit an issue to the tss-react repo");
 
             const initialProps = await super_getInitialProps(documentContext);
 
@@ -91,29 +67,19 @@ export function createEmotionSsrAdvancedApproach(
                 ...emotionServer
                     .extractCriticalToChunks(initialProps.html)
                     .styles.filter(({ css }) => css !== "")
-                    .map(style => (
-                        <style
-                            data-emotion={`${style.key} ${style.ids.join(" ")}`}
-                            key={style.key}
-                            dangerouslySetInnerHTML={{ "__html": style.css }}
-                        />
-                    ))
+                    .map(style => <style data-emotion={`${style.key} ${style.ids.join(" ")}`} key={style.key} dangerouslySetInnerHTML={{ "__html": style.css }} />)
             ];
 
             const otherStyles = React.Children.toArray(initialProps.styles);
 
             return {
                 ...initialProps,
-                "styles": prepend
-                    ? [...emotionStyles, ...otherStyles]
-                    : [...otherStyles, ...emotionStyles]
+                "styles": prepend ? [...emotionStyles, ...otherStyles] : [...otherStyles, ...emotionStyles]
             };
         };
     }
 
-    function withAppEmotionCache<
-        AppComponent extends NextComponentType<any, any, any>
-    >(App: AppComponent): AppComponent {
+    function withAppEmotionCache<AppComponent extends NextComponentType<any, any, any>>(App: AppComponent): AppComponent {
         const createClientSideCache = (() => {
             let cache: EmotionCache | undefined = undefined;
 
@@ -127,16 +93,13 @@ export function createEmotionSsrAdvancedApproach(
                     "insertionPoint": (() => {
                         // NOTE: Under normal circumstances we are on the client.
                         // It might not be the case though, see: https://github.com/garronej/tss-react/issues/124
-                        const isBrowser =
-                            typeof document === "object" &&
-                            typeof document?.getElementById === "function";
+                        const isBrowser = typeof document === "object" && typeof document?.getElementById === "function";
 
                         if (!isBrowser) {
                             return undefined;
                         }
 
-                        const htmlElement =
-                            document.getElementById(insertionPointId);
+                        const htmlElement = document.getElementById(insertionPointId);
 
                         assert(htmlElement !== null);
 
@@ -155,12 +118,7 @@ export function createEmotionSsrAdvancedApproach(
             );
         }
 
-        Object.keys(App).forEach(
-            staticMethod =>
-                ((AppWithEmotionCache as any)[staticMethod] = (App as any)[
-                    staticMethod
-                ])
-        );
+        Object.keys(App).forEach(staticMethod => ((AppWithEmotionCache as any)[staticMethod] = (App as any)[staticMethod]));
 
         AppWithEmotionCache.displayName = AppWithEmotionCache.name;
 
