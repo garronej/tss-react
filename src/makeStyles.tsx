@@ -94,6 +94,13 @@ export function createMakeStyles<Theme>(params: {
                     ownerState?: Record<string, unknown>;
                 }
             ) {
+                console.log(
+                    "=========================================================="
+                );
+
+                let measured_duration = 0;
+                const start_useStyles_time = Date.now();
+
                 //See: https://github.com/garronej/tss-react/issues/158
                 const styleOverrides_props = styleOverrides?.props as
                     | ({ classes?: Record<string, string> } & Record<
@@ -102,9 +109,23 @@ export function createMakeStyles<Theme>(params: {
                       >)
                     | undefined;
 
+                const start_useTheme_time = Date.now();
+
                 const theme = useTheme();
 
+                console.log(
+                    `useTheme: ${(measured_duration +=
+                        Date.now() - start_useTheme_time)}ms`
+                );
+
+                const start_useCssAndCx_time = Date.now();
+
                 const { css, cx } = useCssAndCx();
+
+                console.log(
+                    `useCssAndCx: ${(measured_duration +=
+                        Date.now() - start_useCssAndCx_time)}ms`
+                );
 
                 const cache = useCache();
 
@@ -132,10 +153,17 @@ export function createMakeStyles<Theme>(params: {
                             }
                         });
 
+                    const start_getCssObjectByRuleName_time = Date.now();
+
                     const cssObjectByRuleName = getCssObjectByRuleName(
                         theme,
                         params,
                         refClasses || ({} as RefClasses)
+                    );
+
+                    console.log(
+                        `getCssObjectByRuleName: ${(measured_duration +=
+                            Date.now() - start_getCssObjectByRuleName_time)}ms`
                     );
 
                     const classes = objectFromEntries(
@@ -148,9 +176,18 @@ export function createMakeStyles<Theme>(params: {
                                 }${ruleName}`;
                             }
 
+                            const start_css_time = Date.now();
+
+                            const cssOut = css(cssObject);
+
+                            console.log(
+                                `css: ${(measured_duration +=
+                                    Date.now() - start_css_time)}ms`
+                            );
+
                             return [
                                 ruleName,
-                                `${css(cssObject)}${
+                                `${cssOut}${
                                     typeGuard<RuleNameSubsetReferencableInNestedSelectors>(
                                         ruleName,
                                         ruleName in refClassesCache
@@ -176,10 +213,18 @@ export function createMakeStyles<Theme>(params: {
 
                 const propsClasses = styleOverrides_props?.classes;
 
-                classes = useMemo(
-                    () => mergeClasses(classes, propsClasses, cx),
-                    [classes, getDependencyArrayRef(propsClasses), cx]
-                );
+                classes = useMemo(() => {
+                    const start_mergeClasses_time = Date.now();
+
+                    const out = mergeClasses(classes, propsClasses, cx);
+
+                    console.log(
+                        `mergeClasses: ${(measured_duration +=
+                            Date.now() - start_mergeClasses_time)}ms`
+                    );
+
+                    return out;
+                }, [classes, getDependencyArrayRef(propsClasses), cx]);
 
                 {
                     let cssObjectByRuleNameOrGetCssObjectByRuleName:
@@ -220,7 +265,7 @@ export function createMakeStyles<Theme>(params: {
                                 continue;
                             }
 
-                            themeClasses[ruleName] = css(
+                            const obj =
                                 typeof cssObjectOrGetCssObject === "function"
                                     ? cssObjectOrGetCssObject({
                                           theme,
@@ -228,7 +273,16 @@ export function createMakeStyles<Theme>(params: {
                                               styleOverrides?.ownerState,
                                           ...styleOverrides_props
                                       })
-                                    : cssObjectOrGetCssObject
+                                    : cssObjectOrGetCssObject;
+
+                            const start_css_theme_classes_time = Date.now();
+
+                            themeClasses[ruleName] = css(obj);
+
+                            console.log(
+                                `css_theme_classes: ${(measured_duration +=
+                                    Date.now() -
+                                    start_css_theme_classes_time)}ms`
                             );
                         }
 
@@ -253,6 +307,14 @@ export function createMakeStyles<Theme>(params: {
                         [classes, themeClasses, cx]
                     );
                 }
+
+                const total_time = Date.now() - start_useStyles_time;
+
+                console.log(
+                    `useStyles: ${total_time}ms, unmeasured duration: ${
+                        total_time - measured_duration
+                    }ms`
+                );
 
                 return {
                     classes,
