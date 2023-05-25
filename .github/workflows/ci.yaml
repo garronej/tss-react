@@ -114,7 +114,7 @@ jobs:
             PACKAGE_MANAGER=yarn
         fi
         $PACKAGE_MANAGER run build
-    - run: npx -y -p denoify@1.2.2 enable_short_npm_import_path
+    - run: npx -y -p denoify@1.5.6 enable_short_npm_import_path
       env:
         DRY_RUN: "0"
     - name: Publishing on NPM
