@@ -21,7 +21,10 @@ import { __unsafe_useEmotionCache as useContextualCache } from "@emotion/react";
 
 let counter = 0;
 
-export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?: EmotionCache }) {
+export function createMakeStyles<Theme>(params: {
+    useTheme: () => Theme;
+    cache?: EmotionCache;
+}) {
     const { useTheme, cache: cacheProvidedAtInception } = params;
 
     function useCache() {
@@ -29,7 +32,10 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
 
         const cacheExplicitlyProvidedForTss = useCacheProvidedByProvider();
 
-        const cacheToBeUsed = cacheProvidedAtInception ?? cacheExplicitlyProvidedForTss ?? contextualCache;
+        const cacheToBeUsed =
+            cacheProvidedAtInception ??
+            cacheExplicitlyProvidedForTss ??
+            contextualCache;
 
         if (cacheToBeUsed === null) {
             throw new Error(
@@ -49,18 +55,37 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
     const { useCssAndCx } = createUseCssAndCx({ useCache });
 
     /** returns useStyle. */
-    function makeStyles<Params = void, RuleNameSubsetReferencableInNestedSelectors extends string = never>(params?: { name?: string | Record<string, unknown>; uniqId?: string }) {
+    function makeStyles<
+        Params = void,
+        RuleNameSubsetReferencableInNestedSelectors extends string = never
+    >(params?: { name?: string | Record<string, unknown>; uniqId?: string }) {
         const { name: nameOrWrappedName, uniqId = counter++ } = params ?? {};
 
-        const name = typeof nameOrWrappedName !== "object" ? nameOrWrappedName : Object.keys(nameOrWrappedName)[0];
+        const name =
+            typeof nameOrWrappedName !== "object"
+                ? nameOrWrappedName
+                : Object.keys(nameOrWrappedName)[0];
 
         return function <RuleName extends string>(
             cssObjectByRuleNameOrGetCssObjectByRuleName:
-                | ((theme: Theme, params: Params, classes: Record<RuleNameSubsetReferencableInNestedSelectors, string>) => Record<RuleName | RuleNameSubsetReferencableInNestedSelectors, CSSObject>)
+                | ((
+                      theme: Theme,
+                      params: Params,
+                      classes: Record<
+                          RuleNameSubsetReferencableInNestedSelectors,
+                          string
+                      >
+                  ) => Record<
+                      RuleName | RuleNameSubsetReferencableInNestedSelectors,
+                      CSSObject
+                  >)
                 | Record<RuleName, CSSObject>
         ) {
             const getCssObjectByRuleName =
-                typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function" ? cssObjectByRuleNameOrGetCssObjectByRuleName : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
+                typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                "function"
+                    ? cssObjectByRuleNameOrGetCssObjectByRuleName
+                    : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
             return function useStyles(
                 params: Params,
@@ -69,32 +94,48 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
                     ownerState?: Record<string, unknown>;
                 }
             ) {
-                console.log("==========================================================");
+                console.log(
+                    "=========================================================="
+                );
 
                 let measured_duration = 0;
                 const start_useStyles_time = Date.now();
 
                 //See: https://github.com/garronej/tss-react/issues/158
-                const styleOverrides_props = styleOverrides?.props as ({ classes?: Record<string, string> } & Record<string, unknown>) | undefined;
+                const styleOverrides_props = styleOverrides?.props as
+                    | ({ classes?: Record<string, string> } & Record<
+                          string,
+                          unknown
+                      >)
+                    | undefined;
 
                 const start_useTheme_time = Date.now();
 
                 const theme = useTheme();
 
-                console.log(`useTheme: ${(measured_duration += Date.now() - start_useTheme_time)}ms`);
+                console.log(
+                    `useTheme: ${(measured_duration +=
+                        Date.now() - start_useTheme_time)}ms`
+                );
 
                 const start_useCssAndCx_time = Date.now();
 
                 const { css, cx } = useCssAndCx();
 
-                console.log(`useCssAndCx: ${(measured_duration += Date.now() - start_useCssAndCx_time)}ms`);
+                console.log(
+                    `useCssAndCx: ${(measured_duration +=
+                        Date.now() - start_useCssAndCx_time)}ms`
+                );
 
                 const cache = useCache();
 
                 let classes = useMemo(() => {
                     const refClassesCache: Record<string, string> = {};
 
-                    type RefClasses = Record<RuleNameSubsetReferencableInNestedSelectors, string>;
+                    type RefClasses = Record<
+                        RuleNameSubsetReferencableInNestedSelectors,
+                        string
+                    >;
 
                     const refClasses =
                         typeof Proxy !== "undefined" &&
@@ -104,31 +145,57 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
                                     assert(false);
                                 }
 
-                                return (refClassesCache[propertyKey] = `${cache.key}-${uniqId}${name !== undefined ? `-${name}` : ""}-${propertyKey}-ref`);
+                                return (refClassesCache[propertyKey] = `${
+                                    cache.key
+                                }-${uniqId}${
+                                    name !== undefined ? `-${name}` : ""
+                                }-${propertyKey}-ref`);
                             }
                         });
 
                     const start_getCssObjectByRuleName_time = Date.now();
 
-                    const cssObjectByRuleName = getCssObjectByRuleName(theme, params, refClasses || ({} as RefClasses));
+                    const cssObjectByRuleName = getCssObjectByRuleName(
+                        theme,
+                        params,
+                        refClasses || ({} as RefClasses)
+                    );
 
-                    console.log(`getCssObjectByRuleName: ${(measured_duration += Date.now() - start_getCssObjectByRuleName_time)}ms`);
+                    console.log(
+                        `getCssObjectByRuleName: ${(measured_duration +=
+                            Date.now() - start_getCssObjectByRuleName_time)}ms`
+                    );
 
                     const classes = objectFromEntries(
                         objectKeys(cssObjectByRuleName).map(ruleName => {
                             const cssObject = cssObjectByRuleName[ruleName];
 
                             if (!cssObject.label) {
-                                cssObject.label = `${name !== undefined ? `${name}-` : ""}${ruleName}`;
+                                cssObject.label = `${
+                                    name !== undefined ? `${name}-` : ""
+                                }${ruleName}`;
                             }
 
                             const start_css_time = Date.now();
 
                             const cssOut = css(cssObject);
 
-                            console.log(`css: ${(measured_duration += Date.now() - start_css_time)}ms`);
+                            console.log(
+                                `css: ${(measured_duration +=
+                                    Date.now() - start_css_time)}ms`
+                            );
 
-                            return [ruleName, `${cssOut}${typeGuard<RuleNameSubsetReferencableInNestedSelectors>(ruleName, ruleName in refClassesCache) ? ` ${refClassesCache[ruleName]}` : ""}`];
+                            return [
+                                ruleName,
+                                `${cssOut}${
+                                    typeGuard<RuleNameSubsetReferencableInNestedSelectors>(
+                                        ruleName,
+                                        ruleName in refClassesCache
+                                    )
+                                        ? ` ${refClassesCache[ruleName]}`
+                                        : ""
+                                }`
+                            ];
                         })
                     ) as Record<RuleName, string>;
 
@@ -137,7 +204,8 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
                             return;
                         }
 
-                        classes[ruleName as RuleName] = refClassesCache[ruleName];
+                        classes[ruleName as RuleName] =
+                            refClassesCache[ruleName];
                     });
 
                     return classes;
@@ -150,7 +218,10 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
 
                     const out = mergeClasses(classes, propsClasses, cx);
 
-                    console.log(`mergeClasses: ${(measured_duration += Date.now() - start_mergeClasses_time)}ms`);
+                    console.log(
+                        `mergeClasses: ${(measured_duration +=
+                            Date.now() - start_mergeClasses_time)}ms`
+                    );
 
                     return out;
                 }, [classes, getDependencyArrayRef(propsClasses), cx]);
@@ -158,10 +229,23 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
                 const start_theme_classes_time = Date.now();
 
                 {
-                    let cssObjectByRuleNameOrGetCssObjectByRuleName: Record<string, CSSInterpolation | ((params: { ownerState: any; theme: Theme }) => CSSInterpolation)> | undefined = undefined;
+                    let cssObjectByRuleNameOrGetCssObjectByRuleName:
+                        | Record<
+                              string,
+                              | CSSInterpolation
+                              | ((params: {
+                                    ownerState: any;
+                                    theme: Theme;
+                                }) => CSSInterpolation)
+                          >
+                        | undefined = undefined;
 
                     try {
-                        cssObjectByRuleNameOrGetCssObjectByRuleName = name !== undefined ? (theme as any).components?.[name]?.styleOverrides : undefined;
+                        cssObjectByRuleNameOrGetCssObjectByRuleName =
+                            name !== undefined
+                                ? (theme as any).components?.[name]
+                                      ?.styleOverrides
+                                : undefined;
 
                         // eslint-disable-next-line no-empty
                     } catch {}
@@ -174,7 +258,10 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
                         const themeClasses: Record<string, string> = {};
 
                         for (const ruleName in cssObjectByRuleNameOrGetCssObjectByRuleName) {
-                            const cssObjectOrGetCssObject = cssObjectByRuleNameOrGetCssObjectByRuleName[ruleName];
+                            const cssObjectOrGetCssObject =
+                                cssObjectByRuleNameOrGetCssObjectByRuleName[
+                                    ruleName
+                                ];
 
                             if (!(cssObjectOrGetCssObject instanceof Object)) {
                                 continue;
@@ -184,7 +271,8 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
                                 typeof cssObjectOrGetCssObject === "function"
                                     ? cssObjectOrGetCssObject({
                                           theme,
-                                          "ownerState": styleOverrides?.ownerState,
+                                          "ownerState":
+                                              styleOverrides?.ownerState,
                                           ...styleOverrides_props
                                       })
                                     : cssObjectOrGetCssObject;
@@ -194,24 +282,38 @@ export function createMakeStyles<Theme>(params: { useTheme: () => Theme; cache?:
 
                         return themeClasses;
                     }, [
-                        cssObjectByRuleNameOrGetCssObjectByRuleName === undefined
+                        cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                        undefined
                             ? undefined
-                            : typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
+                            : typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                              "function"
                             ? cssObjectByRuleNameOrGetCssObjectByRuleName
-                            : JSON.stringify(cssObjectByRuleNameOrGetCssObjectByRuleName),
+                            : JSON.stringify(
+                                  cssObjectByRuleNameOrGetCssObjectByRuleName
+                              ),
                         getDependencyArrayRef(styleOverrides_props),
                         getDependencyArrayRef(styleOverrides?.ownerState),
                         css
                     ]);
 
-                    classes = useMemo(() => mergeClasses(classes, themeClasses, cx), [classes, themeClasses, cx]);
+                    classes = useMemo(
+                        () => mergeClasses(classes, themeClasses, cx),
+                        [classes, themeClasses, cx]
+                    );
                 }
 
-                console.log(`theme_classes: ${(measured_duration += Date.now() - start_theme_classes_time)}ms`);
+                console.log(
+                    `theme_classes: ${(measured_duration +=
+                        Date.now() - start_theme_classes_time)}ms`
+                );
 
                 const total_time = Date.now() - start_useStyles_time;
 
-                console.log(`useStyles: ${total_time}ms, unmeasured duration: ${total_time - measured_duration}ms`);
+                console.log(
+                    `useStyles: ${total_time}ms, unmeasured duration: ${
+                        total_time - measured_duration
+                    }ms`
+                );
 
                 return {
                     classes,
@@ -240,8 +342,13 @@ function useCacheProvidedByProvider() {
     return cacheExplicitlyProvidedForTss;
 }
 
-export function TssCacheProvider(props: { value: EmotionCache; children: ReactNode }) {
+export function TssCacheProvider(props: {
+    value: EmotionCache;
+    children: ReactNode;
+}) {
     const { children, value } = props;
 
-    return <reactContext.Provider value={value}>{children}</reactContext.Provider>;
+    return (
+        <reactContext.Provider value={value}>{children}</reactContext.Provider>
+    );
 }

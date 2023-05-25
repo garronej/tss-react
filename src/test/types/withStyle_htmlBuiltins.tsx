@@ -1,7 +1,11 @@
 import { createWithStyles } from "../../withStyles";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
-import type { ClassAttributes, HTMLAttributes, DetailedHTMLFactory } from "react";
+import type {
+    ClassAttributes,
+    HTMLAttributes,
+    DetailedHTMLFactory
+} from "react";
 
 const theme = {
     "primaryColor": "blue"
@@ -27,7 +31,12 @@ type Props = ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>;
         };
     });
 
-    assert<Equals<typeof DivStyled, DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>>>();
+    assert<
+        Equals<
+            typeof DivStyled,
+            DetailedHTMLFactory<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+        >
+    >();
 }
 
 withStyles("div", {

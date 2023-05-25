@@ -188,12 +188,14 @@ type Props = {
     color: "red" | "blue";
 };
 
-const { useStyles } = makeStyles<{ color: "red" | "blue" }>()((theme, { color }) => ({
-    "root": {
-        "backgroundColor": theme.palette.primary.main
-    },
-    "label": { color }
-}));
+const { useStyles } = makeStyles<{ color: "red" | "blue" }>()(
+    (theme, { color }) => ({
+        "root": {
+            "backgroundColor": theme.palette.primary.main
+        },
+        "label": { color }
+    })
+);
 
 function MyComponent(props: Props) {
     const { classes } = useStyles(props);

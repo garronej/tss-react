@@ -7,14 +7,23 @@ import { createMakeStyles } from "./makeStyles";
 import { capitalize } from "./tools/capitalize";
 import type { EmotionCache } from "@emotion/cache";
 
-export function createWithStyles<Theme>(params: { useTheme: () => Theme; cache?: EmotionCache }) {
+export function createWithStyles<Theme>(params: {
+    useTheme: () => Theme;
+    cache?: EmotionCache;
+}) {
     const { useTheme, cache } = params;
 
     const { makeStyles } = createMakeStyles({ useTheme, cache });
 
     function withStyles<
         C extends ReactComponent<any> | keyof ReactHTML,
-        Props extends C extends ReactComponent<infer P> ? P : C extends keyof ReactHTML ? (ReactHTML[C] extends ReactComponent<infer P> ? NonNullable<P> : never) : never,
+        Props extends C extends ReactComponent<infer P>
+            ? P
+            : C extends keyof ReactHTML
+            ? ReactHTML[C] extends ReactComponent<infer P>
+                ? NonNullable<P>
+                : never
+            : never,
         CssObjectByRuleName extends Props extends {
             classes?: Partial<infer ClassNameByRuleName>;
         }
@@ -34,7 +43,14 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme; cache?:
                       [Key in keyof CssObjectByRuleName]?: CSSObject;
                   };
               })
-            | ((theme: Theme, props: Props, classes: Record<Exclude<keyof CssObjectByRuleName, `@media${string}`>, string>) => CssObjectByRuleName),
+            | ((
+                  theme: Theme,
+                  props: Props,
+                  classes: Record<
+                      Exclude<keyof CssObjectByRuleName, `@media${string}`>,
+                      string
+                  >
+              ) => CssObjectByRuleName),
         params?: { name?: string | Record<string, unknown>; uniqId?: string }
     ): C extends keyof ReactHTML ? ReactHTML[C] : C {
         const Component_: ReactComponent<any> =
@@ -63,7 +79,9 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme; cache?:
                 const { name: nameOrWrappedName } = params ?? {};
 
                 if (nameOrWrappedName !== undefined) {
-                    return typeof nameOrWrappedName !== "object" ? nameOrWrappedName : Object.keys(nameOrWrappedName)[0];
+                    return typeof nameOrWrappedName !== "object"
+                        ? nameOrWrappedName
+                        : Object.keys(nameOrWrappedName)[0];
                 }
             }
 
@@ -86,8 +104,17 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme; cache?:
 
         const useStyles = makeStyles<Props, any>({ ...params, name })(
             typeof cssObjectByRuleNameOrGetCssObjectByRuleName === "function"
-                ? (theme: Theme, props: Props, classes: Record<any, string>) => incorporateMediaQueries(cssObjectByRuleNameOrGetCssObjectByRuleName(theme, props, classes)) as any
-                : (incorporateMediaQueries(cssObjectByRuleNameOrGetCssObjectByRuleName) as any)
+                ? (theme: Theme, props: Props, classes: Record<any, string>) =>
+                      incorporateMediaQueries(
+                          cssObjectByRuleNameOrGetCssObjectByRuleName(
+                              theme,
+                              props,
+                              classes
+                          )
+                      ) as any
+                : (incorporateMediaQueries(
+                      cssObjectByRuleNameOrGetCssObjectByRuleName
+                  ) as any)
         );
 
         function getHasNonRootClasses(classes: Record<string, string>) {
@@ -116,7 +143,18 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme; cache?:
                 "root": rootClassName
             });
 
-            return <Component_ ref={ref} className={getHasNonRootClasses(classes) ? className : rootClassName} {...(typeof Component === "string" ? {} : { classes })} {...rest} />;
+            return (
+                <Component_
+                    ref={ref}
+                    className={
+                        getHasNonRootClasses(classes)
+                            ? className
+                            : rootClassName
+                    }
+                    {...(typeof Component === "string" ? {} : { classes })}
+                    {...rest}
+                />
+            );
         });
 
         if (name !== undefined) {
@@ -136,12 +174,17 @@ export function createWithStyles<Theme>(params: { useTheme: () => Theme; cache?:
 
 const fixedClassesByClasses = new WeakMap<any, Record<string, string>>();
 
-const errorMessageGetClasses = "getClasses should only be used in conjunction with withStyles";
+const errorMessageGetClasses =
+    "getClasses should only be used in conjunction with withStyles";
 
 function getClasses<Classes>(props: {
     className?: string;
     classes?: Classes;
-}): Classes extends Record<string, unknown> ? (Classes extends Partial<Record<infer K, any>> ? Record<K, string> : Classes) : { root: string } {
+}): Classes extends Record<string, unknown>
+    ? Classes extends Partial<Record<infer K, any>>
+        ? Record<K, string>
+        : Classes
+    : { root: string } {
     const classesIn = props.classes;
 
     if (classesIn === undefined) {
@@ -172,21 +215,28 @@ function incorporateMediaQueries(
 
     Object.keys(cssObjectByRuleNameWithMediaQueries).forEach(
         ruleNameOrMediaQuery =>
-            ((ruleNameOrMediaQuery.startsWith("@media") ? (cssObjectByRuleNameWithMediaQueriesByMediaQuery as any) : (cssObjectByRuleName as any))[ruleNameOrMediaQuery] =
+            ((ruleNameOrMediaQuery.startsWith("@media")
+                ? (cssObjectByRuleNameWithMediaQueriesByMediaQuery as any)
+                : (cssObjectByRuleName as any))[ruleNameOrMediaQuery] =
                 cssObjectByRuleNameWithMediaQueries[ruleNameOrMediaQuery])
     );
 
-    Object.keys(cssObjectByRuleNameWithMediaQueriesByMediaQuery).forEach(mediaQuery => {
-        const cssObjectByRuleNameBis = cssObjectByRuleNameWithMediaQueriesByMediaQuery[mediaQuery as any];
+    Object.keys(cssObjectByRuleNameWithMediaQueriesByMediaQuery).forEach(
+        mediaQuery => {
+            const cssObjectByRuleNameBis =
+                cssObjectByRuleNameWithMediaQueriesByMediaQuery[
+                    mediaQuery as any
+                ];
 
-        Object.keys(cssObjectByRuleNameBis).forEach(
-            ruleName =>
-                (cssObjectByRuleName[ruleName] = {
-                    ...(cssObjectByRuleName[ruleName] ?? {}),
-                    [mediaQuery]: cssObjectByRuleNameBis[ruleName]
-                })
-        );
-    });
+            Object.keys(cssObjectByRuleNameBis).forEach(
+                ruleName =>
+                    (cssObjectByRuleName[ruleName] = {
+                        ...(cssObjectByRuleName[ruleName] ?? {}),
+                        [mediaQuery]: cssObjectByRuleNameBis[ruleName]
+                    })
+            );
+        }
+    );
 
     return cssObjectByRuleName;
 }

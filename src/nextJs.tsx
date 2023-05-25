@@ -18,7 +18,11 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
 
     function EmotionCacheProvider(props: { children: ReactNode }) {
         const { children } = props;
-        return <CacheProvider value={muiCache ?? createMuiCache()}>{children}</CacheProvider>;
+        return (
+            <CacheProvider value={muiCache ?? createMuiCache()}>
+                {children}
+            </CacheProvider>
+        );
     }
 
     function withEmotionCache(
@@ -30,7 +34,15 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
         const { getExtraCaches = () => [] } = params ?? {};
         return class DocumentWithEmotionCache extends Document {
             static async getInitialProps(ctx: DocumentContext) {
-                const emotionServers = [createMuiCache(), ...getExtraCaches()].sort((a, b) => (getPrepend(a) === getPrepend(b) ? 0 : getPrepend(a) ? -1 : 1)).map(createEmotionServer);
+                const emotionServers = [createMuiCache(), ...getExtraCaches()]
+                    .sort((a, b) =>
+                        getPrepend(a) === getPrepend(b)
+                            ? 0
+                            : getPrepend(a)
+                            ? -1
+                            : 1
+                    )
+                    .map(createEmotionServer);
 
                 const initialProps = await Document.getInitialProps(ctx);
 
@@ -44,7 +56,9 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
                                     .styles.filter(({ css }) => css !== "")
                                     .map(style => (
                                         <style
-                                            data-emotion={`${style.key} ${style.ids.join(" ")}`}
+                                            data-emotion={`${
+                                                style.key
+                                            } ${style.ids.join(" ")}`}
                                             key={style.key}
                                             dangerouslySetInnerHTML={{
                                                 "__html": style.css

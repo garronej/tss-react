@@ -6,7 +6,8 @@ import type { ButtonProps } from "@mui/material/Button";
 import { assert } from "tsafe/assert";
 import type { Equals } from "tsafe";
 
-type ExtractProps<Component extends ReactComponent<any>> = Component extends ReactComponent<infer Props> ? Props : never;
+type ExtractProps<Component extends ReactComponent<any>> =
+    Component extends ReactComponent<infer Props> ? Props : never;
 
 {
     type MyComponentProps = { foo: string; bar?: string };

@@ -1,4 +1,7 @@
-import type { CSSObject as CSSObject_base, CSSInterpolation } from "@emotion/serialize";
+import type {
+    CSSObject as CSSObject_base,
+    CSSInterpolation
+} from "@emotion/serialize";
 export type { CSSInterpolation };
 
 export interface CSSObject extends CSSObject_base {
@@ -17,6 +20,13 @@ export type { CxArg };
 //SEE: https://github.com/emotion-js/emotion/pull/2276
 export type Cx = (...classNames: CxArg[]) => string;
 
-export function matchCSSObject(arg: TemplateStringsArray | CSSInterpolation): arg is CSSObject {
-    return arg instanceof Object && !("styles" in arg) && !("length" in arg) && !("__emotion_styles" in arg);
+export function matchCSSObject(
+    arg: TemplateStringsArray | CSSInterpolation
+): arg is CSSObject {
+    return (
+        arg instanceof Object &&
+        !("styles" in arg) &&
+        !("length" in arg) &&
+        !("__emotion_styles" in arg)
+    );
 }

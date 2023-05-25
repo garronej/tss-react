@@ -11,7 +11,11 @@ export const { createCssAndCx } = (() => {
     function merge(registered: RegisteredCache, css: Css, className: string) {
         const registeredStyles: string[] = [];
 
-        const rawClassName = getRegisteredStyles(registered, registeredStyles, className);
+        const rawClassName = getRegisteredStyles(
+            registered,
+            registeredStyles,
+            className
+        );
 
         if (registeredStyles.length < 2) {
             return className;
@@ -35,7 +39,11 @@ export const { createCssAndCx } = (() => {
                     break scope;
                 }
 
-                increaseSpecificityToTakePrecedenceOverMediaQueries.saveClassNameCSSObjectMapping(cache, className, arg);
+                increaseSpecificityToTakePrecedenceOverMediaQueries.saveClassNameCSSObjectMapping(
+                    cache,
+                    className,
+                    arg
+                );
             }
 
             return className;
@@ -44,7 +52,12 @@ export const { createCssAndCx } = (() => {
         const cx: Cx = (...args) => {
             const className = classnames(args);
 
-            const feat27FixedClassnames = increaseSpecificityToTakePrecedenceOverMediaQueries.fixClassName(cache, className, css);
+            const feat27FixedClassnames =
+                increaseSpecificityToTakePrecedenceOverMediaQueries.fixClassName(
+                    cache,
+                    className,
+                    css
+                );
 
             return merge(cache.registered, css, feat27FixedClassnames);
             //return merge(cache.registered, css, className);
@@ -62,7 +75,10 @@ export function createUseCssAndCx(params: { useCache: () => EmotionCache }) {
     function useCssAndCx() {
         const cache = useCache();
 
-        const { css, cx } = useGuaranteedMemo(() => createCssAndCx({ cache }), [cache]);
+        const { css, cx } = useGuaranteedMemo(
+            () => createCssAndCx({ cache }),
+            [cache]
+        );
 
         return { css, cx };
     }
@@ -72,10 +88,17 @@ export function createUseCssAndCx(params: { useCache: () => EmotionCache }) {
 
 // https://github.com/garronej/tss-react/issues/27
 const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
-    const cssObjectMapByCache = new WeakMap<EmotionCache, Map<string, CSSObject>>();
+    const cssObjectMapByCache = new WeakMap<
+        EmotionCache,
+        Map<string, CSSObject>
+    >();
 
     return {
-        "saveClassNameCSSObjectMapping": (cache: EmotionCache, className: string, cssObject: CSSObject) => {
+        "saveClassNameCSSObjectMapping": (
+            cache: EmotionCache,
+            className: string,
+            cssObject: CSSObject
+        ) => {
             let cssObjectMap = cssObjectMapByCache.get(cache);
 
             if (cssObjectMap === undefined) {
@@ -86,7 +109,12 @@ const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
             cssObjectMap.set(className, cssObject);
         },
         "fixClassName": (() => {
-            function fix(classNameCSSObjects: [string /*className*/, CSSObject | undefined][]): (string | CSSObject)[] {
+            function fix(
+                classNameCSSObjects: [
+                    string /*className*/,
+                    CSSObject | undefined
+                ][]
+            ): (string | CSSObject)[] {
                 let isThereAnyMediaQueriesInPreviousClasses = false;
 
                 return classNameCSSObjects.map(([className, cssObject]) => {
@@ -115,12 +143,25 @@ const increaseSpecificityToTakePrecedenceOverMediaQueries = (() => {
                 });
             }
 
-            return (cache: EmotionCache, className: string, css: Css): string => {
+            return (
+                cache: EmotionCache,
+                className: string,
+                css: Css
+            ): string => {
                 const cssObjectMap = cssObjectMapByCache.get(cache);
 
                 return classnames(
-                    fix(className.split(" ").map(className => [className, cssObjectMap?.get(className)])).map(classNameOrCSSObject =>
-                        typeof classNameOrCSSObject === "string" ? classNameOrCSSObject : css(classNameOrCSSObject)
+                    fix(
+                        className
+                            .split(" ")
+                            .map(className => [
+                                className,
+                                cssObjectMap?.get(className)
+                            ])
+                    ).map(classNameOrCSSObject =>
+                        typeof classNameOrCSSObject === "string"
+                            ? classNameOrCSSObject
+                            : css(classNameOrCSSObject)
                     )
                 );
             };
