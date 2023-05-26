@@ -1,11 +1,10 @@
 import { classnames } from "./tools/classnames";
 import type { Cx, Css, CSSObject } from "./types";
-import { serializeStyles } from "@emotion/serialize";
 import type { RegisteredCache } from "@emotion/serialize";
-import { insertStyles, getRegisteredStyles } from "@emotion/utils";
+import { getRegisteredStyles } from "@emotion/utils";
 import { useGuaranteedMemo } from "./tools/useGuaranteedMemo";
 import type { EmotionCache } from "@emotion/cache";
-import { matchCSSObject } from "./types";
+import { css as emotionCss } from "@emotion/css";
 
 export const { createCssAndCx } = (() => {
     function merge(registered: RegisteredCache, css: Css, className: string) {
@@ -27,27 +26,7 @@ export const { createCssAndCx } = (() => {
     function createCssAndCx(params: { cache: EmotionCache }) {
         const { cache } = params;
 
-        const css: Css = (...args) => {
-            const serialized = serializeStyles(args, cache.registered);
-            insertStyles(cache, serialized, false);
-            const className = `${cache.key}-${serialized.name}`;
-
-            scope: {
-                const arg = args[0];
-
-                if (!matchCSSObject(arg)) {
-                    break scope;
-                }
-
-                increaseSpecificityToTakePrecedenceOverMediaQueries.saveClassNameCSSObjectMapping(
-                    cache,
-                    className,
-                    arg
-                );
-            }
-
-            return className;
-        };
+        const css: Css = emotionCss;
 
         const cx: Cx = (...args) => {
             const className = classnames(args);
