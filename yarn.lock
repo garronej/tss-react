@@ -82,12 +82,12 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@codegouvfr/react-dsfr@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@codegouvfr/react-dsfr/-/react-dsfr-0.14.0.tgz#93e667679294d5b2c129b8b063432a4f2cfbcc6f"
-  integrity sha512-f3EPzIJcY6OzeEd7JEQ4Rst/euc7aE3fjlcfYC87REOFI2o67JGvt/QZJq1d96ZbsLqOwxri+5oQqb60lgBk+A==
+"@codegouvfr/react-dsfr@^0.57.3":
+  version "0.57.3"
+  resolved "https://registry.yarnpkg.com/@codegouvfr/react-dsfr/-/react-dsfr-0.57.3.tgz#a08130d709d50926d8989d23b589ca6b718611b1"
+  integrity sha512-v+uw9mZTncByiMr5AiWHRwXjnOUbK3cK4GP9zfq1vK/TqRsMmrlrjuQc9tKM75BYuKI7KXd6O5SKBZGWIbIPxQ==
   dependencies:
-    tsafe "^1.4.0"
+    tsafe "^1.6.3"
 
 "@cspotcode/source-map-consumer@0.8.0":
   version "0.8.0"
@@ -2188,10 +2188,10 @@ tsafe@^0.10.0:
   resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-0.10.0.tgz#c4fba365a49467ea6167e8c9482ddb94ee51b795"
   integrity sha512-CFfa1uJKfU0DDRbuB8bf2mfXjkOqiTsrltexzMMLxq5gjd1LttFECNGsO8dYUALJDbShb6+f3CwAppW/wf9BrA==
 
-tsafe@^1.4.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.4.1.tgz#59cdad8ac41babf88e56dcd1a683ae2fb145d059"
-  integrity sha512-3IDBalvf6SyvHFS14UiwCWzqdSdo+Q0k2J7DZyJYaHW/iraW9DJpaBKDJpry3yQs3o/t/A+oGaRW3iVt2lKxzA==
+tsafe@^1.6.3:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.4.tgz#048a114761714538c72f16abd25bb247d4e3780e"
+  integrity sha512-l4Z54QFGHO8GF0gBpb3yPGHjkIkIirl8rwW+lMBmtEMzOJeRs8BdjkDEx6nU8Ak9PQVp/KNDtECxTja8MMIDoA==
 
 tslib@^1.8.1:
   version "1.14.1"

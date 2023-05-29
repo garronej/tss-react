@@ -1,7 +1,7 @@
 import { useColors } from "@codegouvfr/react-dsfr/useColors";
 import { createMakeAndWithStyles } from "./index";
 
-/** @deprecated: Please use import { makeStyles } from "@codegouvfr/react-dsfr/tss"; instead. */
+/** @see <https://react-dsfr.etalab.studio/css-in-js#tss-react> */
 export const { makeStyles, withStyles, useStyles } = createMakeAndWithStyles({
     "useTheme": useColors
 });

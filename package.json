@@ -27,7 +27,12 @@
             "default": "./dist/next/appDir.js"
         },
         "./dsfr": {
-            "module": "./dist/esm/dsfr.js"
+            "module": "./dist/esm/dsfr.js",
+            "default": "./dist/dsfr.js"
+        },
+        "./cssAndCx": {
+            "module": "./dist/esm/cssAndCx.js",
+            "default": "./dist/cssAndCx.js"
         },
         "./next": {
             "module": "./dist/esm/next/index.js",
@@ -44,10 +49,6 @@
         "./mui-compat": {
             "module": "./dist/esm/mui-compat.js",
             "default": "./dist/mui-compat.js"
-        },
-        "./cssAndCx": {
-            "module": "./dist/esm/cssAndCx.js",
-            "default": "./dist/cssAndCx.js"
         }
     },
     "scripts": {
@@ -112,7 +113,7 @@
         "@emotion/cache": "*"
     },
     "devDependencies": {
-        "@codegouvfr/react-dsfr": "^0.14.0",
+        "@codegouvfr/react-dsfr": "^0.57.3",
         "@emotion/server": "11.10.0",
         "@emotion/react": "11.10.5",
         "@mui/material": "5.11.1",
