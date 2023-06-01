@@ -1,16 +1,12 @@
 import * as React from "react";
 import type { ReactNode } from "react";
-import * as mEmotionServerCreateInstance from "@emotion/server/create-instance";
+import createEmotionServer from "@emotion/server/create-instance";
 import type NextDocument from "next/document";
 import type { DocumentContext } from "next/document";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import type { Options as CreateCacheOption } from "@emotion/cache";
-import * as mEmotionCache from "@emotion/cache";
-import { getDefaultExport } from "./tools/getDefaultExport";
-
-const createEmotionServer = getDefaultExport(mEmotionServerCreateInstance);
-const createCache = getDefaultExport(mEmotionCache);
+import createCache from "@emotion/cache";
 
 /**
  * @deprecated Use tss-react/next instead.

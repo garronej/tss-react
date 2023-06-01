@@ -2305,6 +2305,11 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+tsafe@^1.6.0:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.4.tgz#048a114761714538c72f16abd25bb247d4e3780e"
+  integrity sha512-l4Z54QFGHO8GF0gBpb3yPGHjkIkIirl8rwW+lMBmtEMzOJeRs8BdjkDEx6nU8Ak9PQVp/KNDtECxTja8MMIDoA==
+
 tsconfig-paths@^3.14.1:
   version "3.14.1"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.14.1.tgz#ba0734599e8ea36c862798e920bcf163277b137a"
@@ -2326,11 +2331,12 @@ tslib@^2.4.0:
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 "tss-react@file:../../../../dist":
-  version "4.6.0"
+  version "4.8.4-rc.5"
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"
     "@emotion/utils" "*"
+    tsafe "^1.6.0"
 
 tsutils@^3.21.0:
   version "3.21.0"

@@ -1,16 +1,13 @@
 "use client";
 
 import React from "react";
-import * as mEmotionCache from "@emotion/cache";
+import createCache from "@emotion/cache";
 import { useServerInsertedHTML } from "next/navigation";
 import { useState } from "react";
 import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
 import type { Options as OptionsOfCreateCache } from "@emotion/cache";
 import type { EmotionCache } from "@emotion/cache";
 import type { ReactNode } from "react";
-import { getDefaultExport } from "../tools/getDefaultExport";
-
-const createCache = getDefaultExport(mEmotionCache);
 
 export type NextAppDirEmotionCacheProviderProps = {
     /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */

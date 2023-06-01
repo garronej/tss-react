@@ -113,7 +113,7 @@
     "homepage": "https://www.tss-react.dev",
     "peerDependencies": {
         "@emotion/react": "^11.4.1",
-        "@emotion/server": "^11.4.0",
+        "@emotion/server": "^11.11.0",
         "react": "^16.8.0 || ^17.0.2 || ^18.0.0"
     },
     "peerDependenciesMeta": {
@@ -129,9 +129,9 @@
     },
     "devDependencies": {
         "@codegouvfr/react-dsfr": "^0.14.0",
-        "@emotion/react": "11.10.5",
-        "@emotion/server": "11.10.0",
-        "@emotion/styled": "11.10.5",
+        "@emotion/react": "11.11.0",
+        "@emotion/server": "11.11.0",
+        "@emotion/styled": "11.11.0",
         "@mui/material": "5.11.1",
         "@types/node": "^15.3.1",
         "@types/react": "18.0.26",

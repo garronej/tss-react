@@ -10822,6 +10822,11 @@ ts-pnp@1.2.0, ts-pnp@^1.1.6:
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
 
+tsafe@^1.6.0:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/tsafe/-/tsafe-1.6.4.tgz#048a114761714538c72f16abd25bb247d4e3780e"
+  integrity sha512-l4Z54QFGHO8GF0gBpb3yPGHjkIkIirl8rwW+lMBmtEMzOJeRs8BdjkDEx6nU8Ak9PQVp/KNDtECxTja8MMIDoA==
+
 tsconfig-paths@^3.14.1:
   version "3.14.1"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.14.1.tgz#ba0734599e8ea36c862798e920bcf163277b137a"
@@ -10843,11 +10848,12 @@ tslib@^2.0.3:
   integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 "tss-react@file:../../../../dist":
-  version "4.4.5"
+  version "4.8.4-rc.5"
   dependencies:
     "@emotion/cache" "*"
     "@emotion/serialize" "*"
     "@emotion/utils" "*"
+    tsafe "^1.6.0"
 
 tsutils@^3.17.1, tsutils@^3.21.0:
   version "3.21.0"
