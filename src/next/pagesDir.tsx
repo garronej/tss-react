@@ -42,22 +42,21 @@ export function createEmotionSsrAdvancedApproach(
             );
         }
 
-        let createEmotionServer: typeof createEmotionServer_t | undefined =
-            undefined;
-
-        import("@emotion/server/create-instance").then(
-            m => (createEmotionServer = m.default)
-        );
+        const createEmotionServerOrPr:
+            | typeof createEmotionServer_t
+            | Promise<typeof createEmotionServer_t> = import(
+            "@emotion/server/create-instance"
+        ).then(({ default: createEmotionServer }) => createEmotionServer);
 
         (Document as any).getInitialProps = async (
             documentContext: DocumentContext
         ) => {
             const cache = createCache(optionsWithoutPrependProp);
 
-            assert(
-                createEmotionServer !== undefined,
-                "Emotion server not yet loaded. Please submit an issue to the tss-react repo"
-            );
+            const createEmotionServer =
+                createEmotionServerOrPr instanceof Promise
+                    ? await createEmotionServerOrPr
+                    : createEmotionServerOrPr;
 
             const emotionServer = createEmotionServer(cache);
 
