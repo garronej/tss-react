@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material";
 import { createMakeAndWithStyles } from "./index";
 
 /** @see <https://docs.tss-react.dev/setup> */
