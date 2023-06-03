@@ -1,21 +1,16 @@
 # 🩳 MUI sx syntax
 
 {% hint style="warning" %}
-I do not recommend using the Sx syntax in conjunction with TSS, I don't see the value of it.&#x20;
+I wouldn't recommend employing the Sx syntax in tandem with TSS, as its benefits don't seem significant in this context. The Sx syntax's primary advantage lies in its brevity, which is especially useful when intertwining JSX and styles. On the other hand, TSS offers the benefit of separating these two aspects.
 
-`Sx` syntax primary avantage is to be more consise which is an important factor when mixing your JSX and styles.  TSS however enable have separates the two. &#x20;
-
-Given this I'd rather write:&#x20;
-
-`backgroundColor: theme.palette.primary.main`
-
-than
-
+As an example, I would personally prefer writing: \
+`backgroundColor: theme.palette.primary.main` \
+over \
 `backgroundColor: "primary.main"`
 
-The second is shorter all right but we trade type safery in the sake of brievety, IMO it isn't worth it. &#x20;
+While the latter is indeed more concise, it sacrifices type safety for the sake of brevity, which, in my opinion, isn't a favorable trade-off.
 
-Do not esitate to reach by [opening a discution](https://github.com/garronej/tss-react/discussions) about it if you think I'm missing something.&#x20;
+Please don't hesitate to [initiate a discussion](https://github.com/garronej/tss-react/discussions) if you believe there are aspects I may have overlooked.
 {% endhint %}
 
 You can use the [MUI's Sx syntax](https://mui.com/system/getting-started/the-sx-prop/) in MUI like so:&#x20;
