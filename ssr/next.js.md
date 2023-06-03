@@ -4,10 +4,6 @@
 If you are using nested selectors, you may need to provide [unique identifiers to the styleshees that uses nested selectors](../nested-selectors.md#ssr).
 {% endhint %}
 
-{% hint style="info" %}
-Require Next.js 12.1.7 or newer.
-{% endhint %}
-
 {% hint style="success" %}
 Users of MUI: Utilizing this toolset eliminates the need for you to configure SSR for MUI manually. The beauty of it lies in its compatibility – if SSR functions for TSS, it assuredly works for MUI as well. However, if your preference leans towards setting up SSR independently, you can refer to [the MUI documentation](https://mui.com/material-ui/guides/server-rendering/). While this approach is functional, I would caution against it. The TSS toolset conveniently abstracts a substantial amount of intricate logic, thereby eliminating unnecessary complexities from your workflow.
 {% endhint %}
@@ -27,6 +23,8 @@ This documentation is for [Next projects using the App router](https://nextjs.or
 
 You are in this case if you have a `app/` directory at the root of your project.
 {% endhint %}
+
+Require Next.js 12.1.7 or newer.
 
 {% code title="app/layout.tsx" %}
 ```tsx
