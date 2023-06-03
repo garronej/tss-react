@@ -21,7 +21,7 @@ yarn add @emotion/server
 This is the recommended approach.
 
 {% tabs %}
-{% tab title="AppRouter" %}
+{% tab title="App Router" %}
 {% hint style="info" %}
 This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing).&#x20;
 
@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
 {% endcode %}
 {% endtab %}
 
-{% tab title="PagesRouter" %}
+{% tab title="Pages Router" %}
 {% hint style="info" %}
 This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing) (aka the legacy next setup). &#x20;
 
@@ -92,7 +92,37 @@ export default Document;
 If you want TSS and MUI to use different caches you can implement this approach. This is mainly usefull if you are migrating from MUI v4 using TSS and [some styles don't display like they used to](../troubleshoot-migration-to-muiv5-with-tss.md).
 
 {% tabs %}
-{% tab title="pages dir" %}
+{% tab title="App Router" %}
+{% code title="app/layout.tsx" %}
+```tsx
+import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
+
+export default function RootLayout({ children }: { children: JSX.Element }) {
+    return (
+        <html>
+            <head></head>
+	    <body>
+                <NextAppDirEmotionCacheProvider 
+                    options={{ "key": "mui" }}
+                >
+	            <NextAppDirEmotionCacheProvider 
+	                options={{ "key": "tss" }} 
+	                CacheProvider={TssCacheProvider}
+	            >
+			<AppMuiThemeProvider>
+			    {children}
+			</AppMuiThemeProvider>
+		    </NextAppDirEmotionCacheProvider>
+		</NextAppDirEmotionCacheProvider>
+	    </body>
+	</html>
+    );
+}
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="Page Router" %}
 {% code title="pages/_app.tsx" %}
 ```tsx
 import Head from "next/head";
@@ -131,36 +161,6 @@ augmentDocumentWithEmotionCache_mui(Document);
 augmentDocumentWithEmotionCache_tss(Document);
 
 export default Document;
-```
-{% endcode %}
-{% endtab %}
-
-{% tab title="app dir" %}
-{% code title="app/layout.tsx" %}
-```tsx
-import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
-
-export default function RootLayout({ children }: { children: JSX.Element }) {
-    return (
-        <html>
-            <head></head>
-	    <body>
-                <NextAppDirEmotionCacheProvider 
-                    options={{ "key": "mui" }}
-                >
-	            <NextAppDirEmotionCacheProvider 
-	                options={{ "key": "tss" }} 
-	                CacheProvider={TssCacheProvider}
-	            >
-			<AppMuiThemeProvider>
-			    {children}
-			</AppMuiThemeProvider>
-		    </NextAppDirEmotionCacheProvider>
-		</NextAppDirEmotionCacheProvider>
-	    </body>
-	</html>
-    );
-}
 ```
 {% endcode %}
 {% endtab %}
