@@ -32,5 +32,5 @@ function MyComponent() {
 
 {% hint style="info" %}
 Is there a reason to use this instead of  `import GlobalStyles from "@mui/material/GlobalStyles";?`  \
-``[`No`](https://github.com/garronej/tss-react/issues/41#issuecomment-1040136212) ``&#x20;
+[`No`](https://github.com/garronej/tss-react/issues/41#issuecomment-1040136212)&#x20;
 {% endhint %}
