@@ -18,14 +18,42 @@ yarn add @emotion/server
 
 ### Single emotion cache (recommended approach)
 
-This is the recommended approach.&#x20;
+This is the recommended approach.
 
 {% tabs %}
-{% tab title="pages dir" %}
+{% tab title="AppRouter" %}
 {% hint style="info" %}
-These are the instruction for [Next.js current stable mode](https://nextjs.org/docs). This is the mode you get when you [`yarn create next-app`](https://nextjs.org/docs/api-reference/create-next-app#interactive).&#x20;
+This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing).&#x20;
 
-Now, if you are feeling adventurous and want to experiment with Next 13 beta features such as server components head over to [the next tab](next.js.md#app-dir).
+You are in this case if you have a `app/` directory at the root of your project.
+{% endhint %}
+
+{% code title="app/layout.tsx" %}
+```tsx
+import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
+
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
+    return (
+        <html>
+            {/* It's important to keep a head tag, even if it's empty */}
+	    <head></head> 
+	    <body>
+	        <NextAppDirEmotionCacheProvider options={{ key: "css" }}>
+		    {children}
+		</NextAppDirEmotionCacheProvider>
+	    </body>
+	</html>
+    );
+}
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="PagesRouter" %}
+{% hint style="info" %}
+This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing) (aka the legacy next setup). &#x20;
+
+You are in this case if you have a `pages/` directory at the root of your project.
 {% endhint %}
 
 {% code title="pages/_app.tsx" %}
@@ -57,37 +85,11 @@ export default Document;
 ```
 {% endcode %}
 {% endtab %}
-
-{% tab title="app dir" %}
-{% hint style="info" %}
-This is the documentation for [Next 13 app directory mode (beta)](https://beta.nextjs.org/docs). If you're looking for the path of least resistance follow the [instructions of the previous tab instead](next.js.md#pages-dir).
-{% endhint %}
-
-{% code title="app/layout.tsx" %}
-```tsx
-import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
-
-export default function RootLayout({ children }: { children: React.ReactNode; }) {
-    return (
-        <html>
-            {/* It's important to keep a head tag, even if it's empty */}
-	    <head></head> 
-	    <body>
-	        <NextAppDirEmotionCacheProvider options={{ key: "css" }}>
-		    {children}
-		</NextAppDirEmotionCacheProvider>
-	    </body>
-	</html>
-    );
-}
-```
-{% endcode %}
-{% endtab %}
 {% endtabs %}
 
 ### Make MUI and TSS use different caches
 
-If you want TSS and MUI to use different caches you can implement this approach. This is mainly usefull if you are migrating from MUI v4 using TSS and [some styles don't display like they used to](../troubleshoot-migration-to-muiv5-with-tss.md).&#x20;
+If you want TSS and MUI to use different caches you can implement this approach. This is mainly usefull if you are migrating from MUI v4 using TSS and [some styles don't display like they used to](../troubleshoot-migration-to-muiv5-with-tss.md).
 
 {% tabs %}
 {% tab title="pages dir" %}
