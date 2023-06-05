@@ -21,7 +21,7 @@
   <a href="https://docs.tss-react.dev">Documentation</a>
 </p>
 
-> 🆕 `tss-react` now [supports Next.js 13 appDir](https://docs.tss-react.dev/ssr/next.js#app-dir) 🥳.
+> 🆕 `tss-react` [supports Next.js 13 App Router](https://docs.tss-react.dev/ssr/next.js#app-dir) 🥳.
 
 > 🗳️ [I've opened a pool about introducing a new API.](https://github.com/garronej/tss-react/discussions/143)
 
