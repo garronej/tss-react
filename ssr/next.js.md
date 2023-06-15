@@ -24,10 +24,6 @@ This documentation is for [Next projects using the App router](https://nextjs.or
 You are in this case if you have a `app/` directory at the root of your project.
 {% endhint %}
 
-As it stands, Emotion is currently not compatible with ServerComponents, which, as a result, also makes MUI incompatible. Consequently, any component where you use TSS must be labelled with [`the "use client" directive`](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive). It's important to note, however, that server-side rendering is indeed functional. The difference lies in the fact that the components will be rendered on both the backend and frontend, as opposed to being rendered solely on the backend.
-
-You can keep track of Emotion's developing support for ServerComponents at [this link](https://github.com/emotion-js/emotion/issues/2928). In the interim, if you wish to utilize ServerComponents at present, [you can implement the following approach](https://github.com/mui/material-ui/issues/34905#issuecomment-1330939826).
-
 {% code title="app/layout.tsx" %}
 ```tsx
 import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
@@ -47,6 +43,16 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
 }
 ```
 {% endcode %}
+
+{% embed url="https://github.com/garronej/mui-next-appdir-demo" %}
+Demo setup
+{% endembed %}
+
+As it stands, Emotion is currently not compatible with ServerComponents, which, as a result, also makes MUI incompatible. Consequently, any component where you use TSS must be labelled with [`the "use client" directive`](https://nextjs.org/docs/getting-started/react-essentials#the-use-client-directive).&#x20;
+
+It's important to note, however, that server-side rendering is indeed functional. The difference lies in the fact that the components will be rendered on both the backend and frontend, as opposed to being rendered solely on the backend.
+
+You can keep track of Emotion's developing support for ServerComponents at [this link](https://github.com/emotion-js/emotion/issues/2928). In the interim, if you wish to utilize ServerComponents at present, [you can implement the following approach](https://github.com/mui/material-ui/issues/34905#issuecomment-1330939826).
 {% endtab %}
 
 {% tab title="Pages Router" %}
