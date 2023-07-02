@@ -65,3 +65,5 @@ export function NextAppDirEmotionCacheProvider(
 
     return <CacheProvider value={cache}>{children}</CacheProvider>;
 }
+
+export default NextAppDirEmotionCacheProvider;
