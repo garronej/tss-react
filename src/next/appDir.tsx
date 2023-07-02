@@ -29,11 +29,14 @@ export function NextAppDirEmotionCacheProvider(
         const cache = createCache(options);
         cache.compat = true;
         const prevInsert = cache.insert;
-        let inserted: string[] = [];
+        let inserted: { name: string; isGlobal: boolean }[] = [];
         cache.insert = (...args) => {
-            const serialized = args[1];
+            const [selector, serialized] = args;
             if (cache.inserted[serialized.name] === undefined) {
-                inserted.push(serialized.name);
+                inserted.push({
+                    "name": serialized.name,
+                    "isGlobal": selector === ""
+                });
             }
             return prevInsert(...args);
         };
@@ -46,20 +49,48 @@ export function NextAppDirEmotionCacheProvider(
     });
 
     useServerInsertedHTML(() => {
-        const names = flush();
-        if (names.length === 0) return null;
-        let styles = "";
-        for (const name of names) {
-            styles += cache.inserted[name];
+        const inserted = flush();
+        if (inserted.length === 0) {
+            return null;
         }
+        let styles = "";
+        let dataEmotionAttribute = `${cache.key}`;
+        let globalStyles = "";
+        let globalDataEmotionAttribute = `${cache.key}-global`;
+
+        for (const { name, isGlobal } of inserted) {
+            const style = cache.inserted[name];
+
+            if (isGlobal) {
+                globalStyles += style;
+                globalDataEmotionAttribute += ` ${name}`;
+            } else {
+                styles += style;
+                dataEmotionAttribute += ` ${name}`;
+            }
+        }
+
         return (
-            <style
-                key={cache.key}
-                data-emotion={`${cache.key} ${names.join(" ")}`}
-                dangerouslySetInnerHTML={{
-                    "__html": styles
-                }}
-            />
+            <>
+                {styles !== "" && (
+                    <style
+                        key={cache.key}
+                        data-emotion={dataEmotionAttribute}
+                        dangerouslySetInnerHTML={{
+                            "__html": styles
+                        }}
+                    />
+                )}
+                {globalStyles !== "" && (
+                    <style
+                        key={`${cache.key}-global`}
+                        data-emotion={globalDataEmotionAttribute}
+                        dangerouslySetInnerHTML={{
+                            "__html": globalStyles
+                        }}
+                    />
+                )}
+            </>
         );
     });
 
