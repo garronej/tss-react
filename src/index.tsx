@@ -31,15 +31,18 @@ function App() {
             links={[
               {
                 "label": "GitHub",
-                "href": repoUrl
+                "href": "#",
+                "onClick": ()=> window.open(repoUrl, "_blank")
               },
               {
                 "label": "Documentation",
-                "href": "https://docs.tss-react.dev",
+                "href": "#",
+                "onClick": ()=> window.open("https://docs.tss-react.dev", "_blank")
               },
               {
                 "label": "Playground",
-                "href": "https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx"
+                "href": "#",
+                "onClick": ()=> window.open("https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx", "_blank")
               }
             ]}
             enableDarkModeSwitch={true}
