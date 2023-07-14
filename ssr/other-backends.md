@@ -4,11 +4,9 @@ description: Configure SSR in in frameworks other than Next.js like for example 
 
 # Other backends
 
-{% hint style="success" %}
-**MUI**: Theses instructions are for the peoples using `tss-react` as a standalone solution. &#x20;
+If you find this section confusing, bear in mind that TSS is using Emotion under the hood, if you find a working configuration for Emotion, TSS will work. &#x20;
 
-MUI users can refer to [the MUI documentation relative to SSR](https://mui.com/material-ui/guides/server-rendering/) and ignore this.&#x20;
-{% endhint %}
+It's equaly true for MUI, if MUI works, TSS works, it's also true the other way around. &#x20;
 
 {% hint style="warning" %}
 If you are using nested selectors, you may need to provide [uniq identifiers to the styleshees that uses nested selectors](../nested-selectors.md#ssr).

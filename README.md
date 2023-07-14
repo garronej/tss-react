@@ -4,18 +4,11 @@ description: Start using TSS, with or without MUI
 
 # 🔧 Setup
 
-{% hint style="info" %}
-The more ⭐️[ the project](https://github.com/tss-react) gets, the more time I spend improving and maintaining it. Thank you for your support 😊
-{% endhint %}
-
-{% hint style="info" %}
-🗳️ [I've opened a pool about introducing a new API.](https://github.com/garronej/tss-react/discussions/143)
-{% endhint %}
-
 {% tabs %}
 {% tab title="With MUI" %}
 ```bash
-yarn add tss-react @emotion/react @mui/material @emotion/styled
+yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
+yarn add tss-react
 ```
 
 {% hint style="info" %}
@@ -54,31 +47,26 @@ export function MyButton(props: Props) {
 
 const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     (theme, { color }) => ({
-        "root": {
+        root: {
             color,
             "&:hover": {
-                "color": theme.palette.primary.main
+                color: theme.palette.primary.main
             }
         }
     })
 );
 ```
 
-{% hint style="warning" %}
-**Keep `@emotion/styled` as a dependency of your project**.
 
-Even if you never use it explicitly, it's a peer dependency of `@mui/material`.
-{% endhint %}
 {% endtab %}
 
 {% tab title="Standalone" %}
-```
+```bash
 yarn add tss-react @emotion/react
 ```
 
+{% code title="src/tss.ts" %}
 ```typescript
-// src/theme.ts
-
 import { createMakeAndWithStyles } from "tss-react"; //"tss-react/compat" if your project is using Typescript < 4.4
 
 function useTheme() {
@@ -93,13 +81,11 @@ export const {
   useStyles
 } = createMakeAndWithStyles({ useTheme });
 ```
+{% endcode %}
 
-
-
+{% code title="src/MyComponents.tsx" %}
 ```tsx
-// src/components/MyComponents.tsx
-
-import { makeStyles } from "../theme";
+import { makeStyles } from "../tss";
 
 export function MyComponent(props: Props) {
     const { className } = props;
@@ -114,7 +100,7 @@ export function MyComponent(props: Props) {
 
 const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     (theme, { color }) => ({
-        "root": {
+        root: {
             color,
             "&:hover": {
                 "backgroundColor": theme.primaryColor
@@ -123,12 +109,13 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     })
 );
 ```
+{% endcode %}
 
 {% hint style="success" %}
 If you don't want to end up writing things like:
 
 ```typescript
-import { makeStyles } from "../../../../../../theme";
+import { makeStyles } from "../../../../../../tss";
 ```
 
 You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your tsconfig.json and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
@@ -136,12 +123,10 @@ You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/a
 In the above example it would be:
 
 ```typescript
-import { makeStyles } from "theme";
+import { makeStyles } from "tss";
 ```
 {% endhint %}
 {% endtab %}
 {% endtabs %}
 
-{% hint style="info" %}
-You can detect unused classes with [this ESLint plugin](detecting-unused-classes.md).
-{% endhint %}
+If you are in a Next.js Setup&#x20;
