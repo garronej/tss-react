@@ -26,6 +26,7 @@
 -   ✅ Seamless integration with [MUI](https://mui.com).
 -   ✅ Works in [Next.js App and Page Router](https://docs.tss-react.dev/ssr/next.js).
 -   ✅ Dynamic Style Generation: With TSS, you can instantly generate styles based on the properties and internal states of components. Although [this currently limits RSC support](https://docs.tss-react.dev/ssr/next.js), the capabilities it offers are remarkable. In comparison, "no runtime" solutions such as [PandaCSS](https://panda-css.com/) or [Vanilla Extract](https://vanilla-extract.style/) may not meet the same flexibility. For an illustration of tasks simplified by TSS but complicated with "no runtime" solutions, refer to [this example](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx).
+-   ✅ Maintain clean, readable code by [isolating styles from your component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx), or, for simpler designs, leverage the flexibility to [inline styles directly within your components](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx), similar to `@emotion/css`. The choice is yours.
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
 -   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
 -   ✅ Custom `@emotion` cache support.
