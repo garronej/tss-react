@@ -25,8 +25,8 @@ function App() {
     <GlTemplate
       header={
         <GlHeader
-          title={<GlLogo logoUrl={logoPngUrl} width={100} />}
-          titleSmallScreen={<GlLogo logoUrl={logoPngUrl} width={60} />}
+          title={<GlLogo className={css({ "visibility": "hidden" })} logoUrl={logoPngUrl} width={100} />}
+          titleSmallScreen={<GlLogo className={css({ "visibility": "hidden" })} logoUrl={logoPngUrl} width={60} />}
           links={[
             {
               "label": "GitHub",
