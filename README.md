@@ -48,7 +48,7 @@ https://user-images.githubusercontent.com/6702424/166390575-0530e16b-4aff-4914-a
 <p align="center">
     <i>Playground</i><br>
     <a href="https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx">
-        <img src="https://github.com/garronej/tss-react/assets/6702424/3a39d96b-b3d2-4068-a152-88b5957434ac">
+        <img src="https://github.com/garronej/tss-react/assets/6702424/3a39d96b-b3d2-4068-a152-88b5957434ac"/>
     </a>
 </p>
 
