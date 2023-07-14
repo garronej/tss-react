@@ -4,22 +4,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/material": "^5.8.2",
-    "gitlanding": "0.16.0",
-    "onyxia-ui": "^0.41.2",
-    "powerhooks": "^0.19.0",
-    "tsafe": "^0.10.0",
-    "tss-react": "^3.7.0",
-    "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.0",
+    "gitlanding": "^0.24.18",
+    "onyxia-ui": "^0.56.1",
+    "powerhooks": "^0.27.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsafe": "^1.6.4",
+    "tss-react": "^4.8.8"
   },
   "devDependencies": {
-    "@types/node": "^20.4.1",
-    "@types/react": "18.2.14",
-    "@types/react-dom": "18.2.7",
-    "react-scripts": "5.0.1",
+    "@types/node": "^20.4.2",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "react-scripts": "^5.0.1",
     "typescript": "^5.1.6"
   },
   "scripts": {
