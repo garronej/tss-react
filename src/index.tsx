@@ -9,7 +9,6 @@ import { ThemeProvider, useStyles } from "./theme";
 import { GlArticle } from "gitlanding/GlArticle";
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
-import { Text } from "./theme";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
 import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
