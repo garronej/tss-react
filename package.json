@@ -7,10 +7,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.2",
-    "@mui/icons-material": "^5.8.2",
-    "evt": "^2.3.0",
     "gitlanding": "0.16.0",
-    "memoizee": "^0.4.15",
     "onyxia-ui": "^0.41.2",
     "powerhooks": "^0.19.0",
     "tsafe": "^0.10.0",
@@ -19,7 +16,6 @@
     "react-dom": "18.1.0"
   },
   "devDependencies": {
-    "@types/memoizee": "^0.4.6",
     "@types/node": "^20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.7",
