@@ -1,4 +1,5 @@
 import { createThemeProvider, defaultGetTypographyDesc, defaultPalette } from "onyxia-ui";
+import { createMakeStyles } from "tss-react";
 
 export const palette: typeof defaultPalette = {
 	...defaultPalette,
@@ -25,7 +26,7 @@ export const palette: typeof defaultPalette = {
     }
 };
 
-export const { ThemeProvider, useTheme, useStyles } = createThemeProvider({
+export const { ThemeProvider, useTheme } = createThemeProvider({
 	palette,
 	"getTypographyDesc": params => ({
 		...defaultGetTypographyDesc(params),
@@ -33,3 +34,5 @@ export const { ThemeProvider, useTheme, useStyles } = createThemeProvider({
 	}),
 	"defaultIsDarkModeEnabled": true
 }); 
+
+export const { makeStyles, useStyles } = createMakeStyles({ useTheme });

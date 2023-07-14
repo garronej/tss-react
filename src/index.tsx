@@ -9,8 +9,8 @@ import { ThemeProvider, useStyles } from "./theme";
 import { GlArticle } from "gitlanding/GlArticle";
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
+import { TssPlayfulLogo } from "./TssPlayfulLogo";
 import logoPngUrl from "./assets/logo.png";
-import demoGifUrl from "./assets/demo.gif";
 import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
 import nestedSelectorsWebmUrl from "./assets/nestedSelectors_small-vp9-chrome.webm";
 import trendingPngUrl from "./assets/tss-trending.png";
@@ -65,9 +65,8 @@ function App() {
             title="A CSS-in-TypeScript Solution"
             subTitle="Effortlessly express sophisticated, dynamic styles in your React components ✨"
             illustration={{
-              "type": "image",
-              "src": demoGifUrl,
-              "hasShadow": true
+              "type": "custom component",
+              "Component": TssPlayfulLogo,
             }}
             hasLinkToSectionBellow={true}
           />
