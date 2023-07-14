@@ -37,8 +37,6 @@
 -   🚄 As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio) with mui's `makeStyles`)
 -   📦 Library authors: [`tss-react` won’t be yet another entry in your `peerDependencies`](https://docs.tss-react.dev/publish-a-module-that-uses-tss).
 
-The more ⭐️ the project gets, the more time I spend improving and maintaining it. Thank you for your support 😊
-
 > While this module is written in TypeScript, using TypeScript in your application is optional
 > (but recommended as it comes with outstanding benefits to both you and your codebase).
 
@@ -46,6 +44,8 @@ The more ⭐️ the project gets, the more time I spend improving and maintainin
     <br/>
     <a href="https://docs.tss-react.dev/setup"><b>Get started 🚀</b></a>
 </p>
+
+The more ⭐️ the project gets, the more time I spend improving and maintaining it. Thank you for your support 😊
 
 # Development
 
