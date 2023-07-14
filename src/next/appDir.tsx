@@ -54,16 +54,22 @@ export function NextAppDirEmotionCacheProvider(
             return null;
         }
         let styles = "";
-        let dataEmotionAttribute = `${cache.key}`;
-        let globalStyles = "";
-        let globalDataEmotionAttribute = `${cache.key}-global`;
+        let dataEmotionAttribute = cache.key;
+
+        const global: {
+            name: string;
+            style: string;
+        }[] = [];
 
         for (const { name, isGlobal } of inserted) {
             const style = cache.inserted[name];
 
+            if (typeof style === "boolean") {
+                continue;
+            }
+
             if (isGlobal) {
-                globalStyles += style;
-                globalDataEmotionAttribute += ` ${name}`;
+                global.push({ name, style });
             } else {
                 styles += style;
                 dataEmotionAttribute += ` ${name}`;
@@ -72,22 +78,17 @@ export function NextAppDirEmotionCacheProvider(
 
         return (
             <>
-                {globalStyles !== "" && (
+                {global.map(({ name, style }) => (
                     <style
-                        key={`${cache.key}-global`}
-                        data-emotion={globalDataEmotionAttribute}
-                        dangerouslySetInnerHTML={{
-                            "__html": globalStyles
-                        }}
+                        key={name}
+                        data-emotion={`${cache.key}-global ${name}`}
+                        dangerouslySetInnerHTML={{ "__html": style }}
                     />
-                )}
+                ))}
                 {styles !== "" && (
                     <style
-                        key={cache.key}
                         data-emotion={dataEmotionAttribute}
-                        dangerouslySetInnerHTML={{
-                            "__html": styles
-                        }}
+                        dangerouslySetInnerHTML={{ "__html": styles }}
                     />
                 )}
             </>
