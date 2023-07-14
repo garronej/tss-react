@@ -72,21 +72,21 @@ export function NextAppDirEmotionCacheProvider(
 
         return (
             <>
-                {styles !== "" && (
-                    <style
-                        key={cache.key}
-                        data-emotion={dataEmotionAttribute}
-                        dangerouslySetInnerHTML={{
-                            "__html": styles
-                        }}
-                    />
-                )}
                 {globalStyles !== "" && (
                     <style
                         key={`${cache.key}-global`}
                         data-emotion={globalDataEmotionAttribute}
                         dangerouslySetInnerHTML={{
                             "__html": globalStyles
+                        }}
+                    />
+                )}
+                {styles !== "" && (
+                    <style
+                        key={cache.key}
+                        data-emotion={dataEmotionAttribute}
+                        dangerouslySetInnerHTML={{
+                            "__html": styles
                         }}
                     />
                 )}
