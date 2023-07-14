@@ -9,6 +9,7 @@ import { ThemeProvider, useStyles } from "./theme";
 import { GlArticle } from "gitlanding/GlArticle";
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
+import { Text } from "./theme";
 import logoPngUrl from "./assets/logo.png";
 import demoGifUrl from "./assets/demo.gif";
 import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
@@ -64,8 +65,8 @@ function App() {
               "illustrationWrapper": css({ "maxWidth": 460 }),
               "illustration": css({ "borderRadius": 10 })
             }}
-            title="The most reacty CSS in TS solution"
-            subTitle="Just like JSS but type safe and powered by emotion 🚀"
+            title="A CSS-in-TypeScript Solution"
+            subTitle="Effortlessly express sophisticated, dynamic styles in your React components ✨"
             illustration={{
               "type": "image",
               "src": demoGifUrl,

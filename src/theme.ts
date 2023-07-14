@@ -1,4 +1,5 @@
 import { createThemeProvider, defaultGetTypographyDesc, defaultPalette } from "onyxia-ui";
+import { createText } from "onyxia-ui/Text";
 
 export const palette: typeof defaultPalette = {
 	...defaultPalette,
@@ -30,5 +31,10 @@ export const { ThemeProvider, useTheme, useStyles } = createThemeProvider({
 	"getTypographyDesc": params => ({
 		...defaultGetTypographyDesc(params),
 		"fontFamily": '"Work Sans", sans-serif'
-	})
+	}),
+	"defaultIsDarkModeEnabled": true
 }); 
+
+export const { Text } = createText({
+	useTheme
+});
