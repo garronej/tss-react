@@ -45,9 +45,7 @@ function App() {
             }
           ]}
           enableDarkModeSwitch={true}
-          githubRepoUrl={repoUrl}
           githubButtonSize="large"
-          showGithubStarCount={true}
         />
       }
       headerOptions={{
