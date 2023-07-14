@@ -56,7 +56,7 @@ export function NextAppDirEmotionCacheProvider(
         let styles = "";
         let dataEmotionAttribute = cache.key;
 
-        const global: {
+        const globals: {
             name: string;
             style: string;
         }[] = [];
@@ -69,7 +69,7 @@ export function NextAppDirEmotionCacheProvider(
             }
 
             if (isGlobal) {
-                global.push({ name, style });
+                globals.push({ name, style });
             } else {
                 styles += style;
                 dataEmotionAttribute += ` ${name}`;
@@ -78,7 +78,7 @@ export function NextAppDirEmotionCacheProvider(
 
         return (
             <>
-                {global.map(({ name, style }) => (
+                {globals.map(({ name, style }) => (
                     <style
                         key={name}
                         data-emotion={`${cache.key}-global ${name}`}
