@@ -19,18 +19,14 @@
   <a href="https://www.tss-react.dev">Home</a>
    - 
   <a href="https://docs.tss-react.dev">Documentation</a>
+  -
+  <a href="https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx">Playground</a>
 </p>
 
-> 🆕 `tss-react` [supports Next.js 13 App Router](https://docs.tss-react.dev/ssr/next.js#app-dir) 🥳.
-
-> 🗳️ [I've opened a pool about introducing a new API.](https://github.com/garronej/tss-react/discussions/143)
-
-`'tss-react'` is intended to be the replacement for
-[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
-
 -   ✅ Seamless integration with [MUI](https://mui.com).
+-   ✅ Works in [Next.js App and Page Router](https://docs.tss-react.dev/ssr/next.js).
+-   ✅ Dynamic Style Generation: With TSS, you can instantly generate styles based on the properties and internal states of components. Although [this currently limits RSC support](https://docs.tss-react.dev/ssr/next.js), the capabilities it offers are remarkable. In comparison, "no runtime" solutions such as [PandaCSS](https://panda-css.com/) or [Vanilla Extract](https://vanilla-extract.style/) may not meet the same flexibility. For an illustration of tasks simplified by TSS but complicated with "no runtime" solutions, refer to [this example](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx).
 -   ✅ [`withStyles`](https://v4.mui.com/styles/api/#withstyles-styles-options-higher-order-component) API support.
--   ✅ Server side rendering support (e.g: Next.js, Gatsby).
 -   ✅ Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
 -   ✅ Custom `@emotion` cache support.
 -   ✅ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has very little impact on the bundle size alongside mui (~5kB minziped).
@@ -38,37 +34,23 @@
 -   ✅ As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio)
     with mui's `makeStyles`)
 -   ✅ Library authors: [`tss-react` won’t be yet another entry in your `peerDependencies`](https://docs.tss-react.dev/publish-a-module-that-uses-tss).
--   ✅ Support [MUI's theme global styles overrides](https://docs.tss-react.dev/mui-theme-styleoverrides)
+
+`'tss-react'` can be used as a replacement for
+[@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 
 The more ⭐️ the project gets, the more time I spend improving and maintaining it. Thank you for your support 😊
-
-```bash
-$ yarn add tss-react @emotion/react
-```
-
-<p align="center">
-    <img src="https://user-images.githubusercontent.com/6702424/134704429-83b2760d-0b4d-42e8-9c9a-f287a3353c13.gif">
-</p>
 
 > While this module is written in TypeScript, using TypeScript in your application is optional
 > (but recommended as it comes with outstanding benefits to both you and your codebase).
 
 https://user-images.githubusercontent.com/6702424/166390575-0530e16b-4aff-4914-a8fa-20b02da829cc.mov
 
-<p align="center">
-    <br/>
-    <i>Playground:</i><br>
-    <a href='https://stackblitz.com/edit/tss-react?file=Hello.tsx'>
-        <img src="https://user-images.githubusercontent.com/6702424/109010505-214dca80-76b0-11eb-885e-2e5ef7ade821.png">
-    </a>
-</p>
+[![Playground](https://github.com/garronej/tss-react/assets/6702424/3a39d96b-b3d2-4068-a152-88b5957434ac)](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx)
 
 <p align="center">
     <br/>
     <a href="https://docs.tss-react.dev/setup"><b>Get started 🚀</b></a>
 </p>
-
-In SSR everything should work with [JavaScript disabled](https://developer.chrome.com/docs/devtools/javascript/disable/)!
 
 # Changelog highlights
 
