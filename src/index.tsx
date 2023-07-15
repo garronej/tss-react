@@ -21,7 +21,7 @@ const repoUrl = "https://github.com/garronej/tss-react";
 
 function App() {
 
-  const { css, theme } = useStyles();
+  const { css } = useStyles();
 
   const { windowInnerWidth } = useWindowInnerSize();
 
