@@ -25,6 +25,7 @@
 
 -   🚀 Seamless integration with [MUI](https://mui.com).
 -   🌐 Works in [Next.js App and Page Router](https://docs.tss-react.dev/ssr/next.js).
+-   🙅‍♂️ No custom styling syntax to learn, no shorthand, just plain CSS.
 -   💫 Dynamic Style Generation: With TSS, you can instantly generate styles based on the properties and internal states of components. Although [this currently limits Server component support](https://docs.tss-react.dev/ssr/next.js), the capabilities it offers are remarkable. In comparison, "no runtime" solutions such as [PandaCSS](https://panda-css.com/) or [Vanilla Extract](https://vanilla-extract.style/) might offer improved performance and compatibility, yet they cannot match TSS when it comes to flexibility and effortless expression of sophisticated, dynamic style rules.
 -   📚 Maintain clean, readable code by [isolating styles from your component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx), or, for simpler designs, leverage the flexibility to [inline styles directly within your components](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx). The choice is yours.
 -   🛡️ Eliminate CSS priority conflicts! With TSS you can determine the precedence of multiple classes applied to a component and [arbitrarily increase specificity of some rules](https://docs.tss-react.dev/increase-specificity).
