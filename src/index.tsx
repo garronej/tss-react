@@ -10,6 +10,8 @@ import { GlArticle } from "gitlanding/GlArticle";
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { TssPlayfulLogo } from "./TssPlayfulLogo";
+import { useWindowInnerSize } from "powerhooks/useWindowInnerSize";
+import { breakpointsValues } from "onyxia-ui";
 import logoPngUrl from "./assets/logo.png";
 import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
 import nestedSelectorsWebmUrl from "./assets/nestedSelectors_small-vp9-chrome.webm";
@@ -19,7 +21,9 @@ const repoUrl = "https://github.com/garronej/tss-react";
 
 function App() {
 
-  const { css } = useStyles();
+  const { css, theme } = useStyles();
+
+  const { windowInnerWidth } = useWindowInnerSize();
 
   return (
     <GlTemplate
@@ -61,11 +65,31 @@ function App() {
               }),
               "illustrationWrapper": css({ 
                 "maxWidth": 460,
-                "margin": "auto"
+                ...(()=>{
+
+                  if( windowInnerWidth < breakpointsValues.md ){
+                    return {
+                      "marginLeft": "auto",
+                      "marginRight": "auto",
+                    }
+                  }
+
+                  return undefined;
+
+                })()
+
               }),
               "illustration": css({ "borderRadius": 10 })
             }}
-            title="A CSS-in-TypeScript Solution"
+            title={(()=>{
+
+                  if( windowInnerWidth < breakpointsValues.md ){
+                    return "CSS-in-TypeScript React solution";
+                  }
+
+                  return "A CSS-in-TypeScript solution";
+
+            })()}
             subTitle="Effortlessly express sophisticated, dynamic styles in your React components ✨"
             illustration={{
               "type": "custom component",
