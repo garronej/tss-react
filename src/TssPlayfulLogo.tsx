@@ -5,6 +5,8 @@ import { useConstCallback } from "powerhooks";
 import Slider from "@mui/material/Slider";
 import tssTextImgUrl from "assets/tss_text.png";
 import tssSquareImgUrl from "assets/tss_square.png";
+import { useWindowInnerSize } from "powerhooks/useWindowInnerSize";
+import { breakpointsValues } from "onyxia-ui";
 
 
 export type Props = {
@@ -14,6 +16,7 @@ export type Props = {
 };
 
 const transitionDuration = 700;
+const targetSliderValuePr = 83;
 
 export function TssPlayfulLogo(props: Props) {
 	const {
@@ -29,7 +32,7 @@ export function TssPlayfulLogo(props: Props) {
 		onLoadProp?.();
 	});
 
-	const [offset, setOffset] = useState(0);
+	const [sliderPercentageValue, setSliderPercentageValue] = useState(0);
 
 	const [isTransitionEnabled, setIsTransitionEnabled] = useState(true);
 
@@ -44,7 +47,7 @@ export function TssPlayfulLogo(props: Props) {
 
 			await new Promise((resolve) => setTimeout(resolve, 1200));
 
-			setOffset(goodOffset);
+			setSliderPercentageValue(targetSliderValuePr);
 
 			await new Promise((resolve) => setTimeout(resolve, transitionDuration));
 
@@ -54,14 +57,23 @@ export function TssPlayfulLogo(props: Props) {
 
 	}, [isImageLoaded]);
 
-	const goodOffset = 83;
-	const maxOffset = 100;
+	const size = (function useClosure() {
+
+		const { windowInnerWidth } = useWindowInnerSize();
+
+		if( windowInnerWidth < breakpointsValues.sm ){
+			return "small";
+		}
+
+		return "big";
+
+	})();
 
 	const { classes, cx } = useStyles({
 		isImageLoaded,
 		isTransitionEnabled,
-		offset,
-		maxOffset
+		sliderPercentageValue,
+		size
 	});
 
 
@@ -75,26 +87,38 @@ export function TssPlayfulLogo(props: Props) {
 			<img
 				className={classes.textImg}
 				onLoad={onLoad}
-				data-offset={offset}
 				src={tssTextImgUrl}
 				alt="TSS text"
 			/>
 			<Slider
 				min={0}
-				max={maxOffset}
+				max={100}
 				className={classes.slider}
-				value={offset}
-				onChange={(_e, offset) => setOffset(offset as number)}
+				value={sliderPercentageValue}
+				onChange={(_e, offset) => setSliderPercentageValue(offset as number)}
 			/>
 		</div>
 	);
 }
 
-const useStyles = makeStyles<{ isImageLoaded: boolean; isTransitionEnabled: boolean; offset: number; maxOffset: number;  }>({
+const useStyles = makeStyles<{ 
+	isImageLoaded: boolean; 
+	isTransitionEnabled: boolean; 
+	sliderPercentageValue: number; 
+	size: "big" | "small";
+}>({
 	"name": { TssPlayfulLogo },
-})((theme, { isImageLoaded, isTransitionEnabled, offset, maxOffset }) => ({
+})((theme, { isImageLoaded, isTransitionEnabled, sliderPercentageValue, size }) => ({
 	"root": {
-		"position": "relative"
+		"position": "relative",
+		"&&": {
+			"width": (()=>{
+				switch(size){
+					case "big": return 460;
+					case "small": return 300;
+				}
+			})(),
+		}
 	},
 	"squareImg": {
 		"width": isImageLoaded ? "100%" : undefined,
@@ -104,7 +128,25 @@ const useStyles = makeStyles<{ isImageLoaded: boolean; isTransitionEnabled: bool
 	"textImg": {
 		"position": "absolute",
 		"top": "0",
-		"left": offset - maxOffset,
+		/*
+		When root width is 460px;
+
+		slider: 0%   -> left: -82px
+		slider: 100% -> left: 16px
+		slider: x%   -> left: -82px + 98px * x / 100
+
+		When root width is 300px;
+
+		slider: 0%   -> left: -53px
+		slider: 100% -> left: 10px
+		slider: x%   -> left: -53px + 63px * x / 100
+		*/
+		"left": (()=>{
+			switch(size){
+				case "big": return `calc(-82px + 98px * ${sliderPercentageValue} / 100)`;
+				case "small": return `calc(-53px + 63px * ${sliderPercentageValue} / 100)`;
+			}
+		})(),
 		"transition": !isTransitionEnabled ? undefined : `left ${transitionDuration}ms ease-in-out`,
 		"width": isImageLoaded ? "100%" : undefined,
 		"height": isImageLoaded ? "auto" : undefined,
@@ -112,7 +154,7 @@ const useStyles = makeStyles<{ isImageLoaded: boolean; isTransitionEnabled: bool
 	"slider": {
 		"position": "relative",
 		"left": 4,
-		"width": 366,
-		"marginTop": theme.spacing(3),
+		"width": "calc(100% - 4px * 2)",
+		"marginTop": theme.spacing(3)
 	},
 }));
