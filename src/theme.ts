@@ -31,8 +31,7 @@ export const { ThemeProvider, useTheme } = createThemeProvider({
 	"getTypographyDesc": params => ({
 		...defaultGetTypographyDesc(params),
 		"fontFamily": '"Work Sans", sans-serif'
-	}),
-	"defaultIsDarkModeEnabled": true
+	})
 }); 
 
 export const { makeStyles, useStyles } = createMakeStyles({ useTheme });
