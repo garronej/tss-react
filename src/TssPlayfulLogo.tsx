@@ -13,8 +13,6 @@ export type Props = {
 	onLoad?: () => void;
 };
 
-const goodOffset = 83;
-const maxOffset = 100;
 const transitionDuration = 700;
 
 export function TssPlayfulLogo(props: Props) {
@@ -36,13 +34,13 @@ export function TssPlayfulLogo(props: Props) {
 	const [isTransitionEnabled, setIsTransitionEnabled] = useState(true);
 
 
-	useEffect(()=>{
+	useEffect(() => {
 
-		if(!isImageLoaded){
+		if (!isImageLoaded) {
 			return;
 		}
 
-		(async ()=>{
+		(async () => {
 
 			await new Promise((resolve) => setTimeout(resolve, 1200));
 
@@ -56,11 +54,16 @@ export function TssPlayfulLogo(props: Props) {
 
 	}, [isImageLoaded]);
 
+	const goodOffset = 83;
+	const maxOffset = 100;
+
 	const { classes, cx } = useStyles({
 		isImageLoaded,
 		isTransitionEnabled,
-		offset
+		offset,
+		maxOffset
 	});
+
 
 	return (
 		<div id={id} className={cx(classes.root, className)} >
@@ -87,9 +90,9 @@ export function TssPlayfulLogo(props: Props) {
 	);
 }
 
-const useStyles = makeStyles<{ isImageLoaded: boolean; isTransitionEnabled: boolean; offset: number; }>({
+const useStyles = makeStyles<{ isImageLoaded: boolean; isTransitionEnabled: boolean; offset: number; maxOffset: number;  }>({
 	"name": { TssPlayfulLogo },
-})((theme, { isImageLoaded, isTransitionEnabled, offset }) => ({
+})((theme, { isImageLoaded, isTransitionEnabled, offset, maxOffset }) => ({
 	"root": {
 		"position": "relative"
 	},
