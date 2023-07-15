@@ -59,7 +59,10 @@ function App() {
               "textWrapper": css({
                 "maxWidth": 1030
               }),
-              "illustrationWrapper": css({ "maxWidth": 460 }),
+              "illustrationWrapper": css({ 
+                "maxWidth": 460,
+                "margin": "auto"
+              }),
               "illustration": css({ "borderRadius": 10 })
             }}
             title="A CSS-in-TypeScript Solution"

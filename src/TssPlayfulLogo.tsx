@@ -89,6 +89,10 @@ export function TssPlayfulLogo(props: Props) {
 				onLoad={onLoad}
 				src={tssTextImgUrl}
 				alt="TSS text"
+				style={{ 
+					// @ts-expect-error
+					"--slider-percentage-value": sliderPercentageValue 
+				}}
 			/>
 			<Slider
 				min={0}
@@ -143,8 +147,8 @@ const useStyles = makeStyles<{
 		*/
 		"left": (()=>{
 			switch(size){
-				case "big": return `calc(-82px + 98px * ${sliderPercentageValue} / 100)`;
-				case "small": return `calc(-53px + 63px * ${sliderPercentageValue} / 100)`;
+				case "big": return `calc(-82px + 98px * var(--slider-percentage-value) / 100)`;
+				case "small": return `calc(-53px + 63px * var(--slider-percentage-value) / 100)`;
 			}
 		})(),
 		"transition": !isTransitionEnabled ? undefined : `left ${transitionDuration}ms ease-in-out`,
