@@ -20,6 +20,7 @@ Things don’t display as they use to before migrating? Don't worry, [I got you 
 ```tsx
 import { makeStyles, withStyles } from "tss-react/mui"; // "tss-react/mui-compat" if your project is using Typescript < 4.4
 import Button from "@mui/material/Button";
+import { useState } from "react";
 
 type Props = {
     className?: string;
