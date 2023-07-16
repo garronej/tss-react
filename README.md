@@ -37,7 +37,7 @@
 -   🎯 [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
 -   📦 Library authors: [`tss-react` won’t be yet another entry in your `peerDependencies`](https://docs.tss-react.dev/publish-a-module-that-uses-tss).
 
-[demo.webm](https://github.com/garronej/tss-react/assets/6702424/4d99be99-dff8-4efe-b131-b70682c96cf3)
+[demo.webm](https://github.com/garronej/tss-react/assets/6702424/feedb0fc-dd80-46b3-b22f-90d5dd2b36e4)
 
 > While this module is written in TypeScript, using TypeScript in your application is optional
 > (but recommended as it comes with outstanding benefits to both you and your codebase).
