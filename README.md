@@ -56,8 +56,6 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     })
 );
 ```
-
-
 {% endtab %}
 
 {% tab title="Standalone" %}
@@ -124,9 +122,14 @@ In the above example it would be:
 
 ```typescript
 import { makeStyles } from "tss";
+
 ```
 {% endhint %}
 {% endtab %}
 {% endtabs %}
 
-If you are in a Next.js Setup&#x20;
+If you are in a Next.js setup there is an extra step to get SSR working: &#x20;
+
+{% content-ref url="ssr/next.js.md" %}
+[next.js.md](ssr/next.js.md)
+{% endcontent-ref %}
