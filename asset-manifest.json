@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.js": "/static/js/main.d14aaf8c.js",
-    "static/media/nestedSelectors_small-vp9-chrome.webm": "/static/media/nestedSelectors_small-vp9-chrome.32d5d96dbccc32b40af1.webm",
-    "static/media/nestedSelectors_small.mp4": "/static/media/nestedSelectors_small.46ae0227cfd1fe813e31.mp4",
+    "main.js": "/static/js/main.14c4fc0f.js",
+    "static/media/tss-demo-hevc-safari.mp4": "/static/media/tss-demo-hevc-safari.1d604ff48ae9607d4e74.mp4",
+    "static/media/tss-demo-vp9-chrome.webm": "/static/media/tss-demo-vp9-chrome.226d1e3a1c8bf18d303e.webm",
     "static/media/logo.png": "/static/media/logo.a9420f98fb404c3764c0.png",
     "static/media/tss_text.png": "/static/media/tss_text.af9bbd693c63174b6580.png",
     "static/media/tss-trending.png": "/static/media/tss-trending.6890c600ffeeb8c3d13c.png",
     "static/media/tss_square.png": "/static/media/tss_square.eddc68a8a9b5db551f33.png",
     "index.html": "/index.html",
-    "main.d14aaf8c.js.map": "/static/js/main.d14aaf8c.js.map"
+    "main.14c4fc0f.js.map": "/static/js/main.14c4fc0f.js.map"
   },
   "entrypoints": [
-    "static/js/main.d14aaf8c.js"
+    "static/js/main.14c4fc0f.js"
   ]
 }
