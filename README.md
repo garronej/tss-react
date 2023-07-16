@@ -26,7 +26,11 @@
 -   🚀 Seamless integration with [MUI](https://mui.com).
 -   🌐 Works in [Next.js App and Page Router](https://docs.tss-react.dev/ssr/next.js).
 -   🙅‍♂️ No custom styling syntax to learn, no shorthand, just plain CSS.
--   💫 Dynamic Style Generation: With TSS, you can instantly generate styles based on the props and internal states of components. Although [this currently limits Server component support](https://docs.tss-react.dev/ssr/next.js), the capabilities it offers are remarkable. In comparison, "no runtime" solutions such as [PandaCSS](https://panda-css.com/) or [Vanilla Extract](https://vanilla-extract.style/) might offer improved performance and compatibility, yet they cannot match TSS when it comes to flexibility and effortless expression of sophisticated, dynamic style rules.
+-   💫 Dynamic Style Generation: TSS enables to generate styles based on the props and internal states of components.  
+    This unfortunately prevents us from supporting [Server Component (RSC)](https://nextjs.org/docs/getting-started/react-essentials#server-components) in Next.js.  
+    We remain hopeful for future support of RSC, contingent on [the provision of a suitable solution by Vercel and React](https://github.com/vercel/next.js/blob/dc6c22c99117bb48beedc4eed402a57b21f03963/docs/02-app/01-building-your-application/04-styling/03-css-in-js.mdx#L10-L12).  
+    If you need RSC support today, you can consider _zero runtime_ solutions like Panda-CSS or Vanilla Extract,
+    but the expression of complex styles is significantly harder in this paradigm.
 -   📚 Maintain clean, readable code by [isolating styles from your component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx), or, for simpler designs, leverage the flexibility to [inline styles directly within your components](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx).
 -   🛡️ Eliminate CSS priority conflicts! With TSS you can determine the precedence of multiple classes applied to a component and [arbitrarily increase specificity of some rules](https://docs.tss-react.dev/increase-specificity).
 -   🧩 Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
