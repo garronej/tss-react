@@ -158,18 +158,21 @@ function App() {
           <GlCheckList
             heading="Everything you are expecting and more"
             hasAnimation={true}
+            Icon={() => null}
             elements={[
               {
-                "title": "Seamless integration with [`mui`](https://mui.com)",
-                "description": `[\`tss-react\`](https://github.com/tss-react) is a recommended by the core MUI team as a good option for updating from 
-            material-ui v4 to mui v5. Find the migration guide [here](https://mui.com/guides/migration-v4/#2-use-tss-react).
-            Even [MUI theme styleOverrides](https://docs.tss-react.dev/mui-theme-styleoverrides) is supported!
-            `
+                "title": "Works great with [`MUI`](https://mui.com)",
+                "IconOverride": createEmojiIcon("🤝"),
+                "description": `MUI provides [a step-by-step guide, along with a codemod tool](https://mui.com/guides/migration-v4/#2-use-tss-react), for transitioning from MUI version 4 to version 5 using TSS.  
+                You don't have to use MUI to use TSS, TSS is a standalone solution, but the two libraries are a great match.`,  
               },
               {
-                "title": "[`withStyles`](https://docs.tss-react.dev/api-references/withstyles) API support",
-                "description": `Contains everything you need for advantageously getting rid of 
-            [\`@material-ui/core/styles\`](https://v4.mui.com/styles/basics/#material-ui-styles). It will feel like an upgrade.`
+                "title": "Next.js App Router support",
+                "IconOverride": createEmojiIcon("🔧"),
+                "description": `Setting 
+                  up TSS (and MUI) to work with Next.js's SSR is a breeze. You just need to wrap your app withing our [\`<NextAppDirEmotionCacheProvider/>\`](https://docs.tss-react.dev/ssr/next.js).  
+                  MUI is using [our provider](https://github.com/mui/material-ui/blob/4036eb60b45c260e9f49904f1b54f8c947a944d2/examples/material-next-app-router-ts/src/components/ThemeRegistry/EmotionCache.tsx#L20-L21).  
+                `
               },
               {
                 "title": "**S**erver **S**ide **R**endering support (SSR)",
@@ -211,6 +214,17 @@ function App() {
       }
     />
   );
+}
+
+function createEmojiIcon(emoji: string) {
+
+
+  function IconOverride() {
+    return <div style={{ position: "relative", top: 2 }}>{emoji}</div>;
+  }
+
+  return IconOverride;
+
 }
 
 
