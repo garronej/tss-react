@@ -26,8 +26,8 @@
 -   🚀 Seamless integration with [MUI](https://mui.com).
 -   🌐 Works in [Next.js App and Page Router](https://docs.tss-react.dev/ssr/next.js).
 -   🙅‍♂️ No custom styling syntax to learn, no shorthand, just plain CSS.
--   💫 Dynamic Style Generation: With TSS, you can instantly generate styles based on the properties and internal states of components. Although [this currently limits Server component support](https://docs.tss-react.dev/ssr/next.js), the capabilities it offers are remarkable. In comparison, "no runtime" solutions such as [PandaCSS](https://panda-css.com/) or [Vanilla Extract](https://vanilla-extract.style/) might offer improved performance and compatibility, yet they cannot match TSS when it comes to flexibility and effortless expression of sophisticated, dynamic style rules.
--   📚 Maintain clean, readable code by [isolating styles from your component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx), or, for simpler designs, leverage the flexibility to [inline styles directly within your components](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx). The choice is yours.
+-   💫 Dynamic Style Generation: With TSS, you can instantly generate styles based on the props and internal states of components. Although [this currently limits Server component support](https://docs.tss-react.dev/ssr/next.js), the capabilities it offers are remarkable. In comparison, "no runtime" solutions such as [PandaCSS](https://panda-css.com/) or [Vanilla Extract](https://vanilla-extract.style/) might offer improved performance and compatibility, yet they cannot match TSS when it comes to flexibility and effortless expression of sophisticated, dynamic style rules.
+-   📚 Maintain clean, readable code by [isolating styles from your component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx), or, for simpler designs, leverage the flexibility to [inline styles directly within your components](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx).  
 -   🛡️ Eliminate CSS priority conflicts! With TSS you can determine the precedence of multiple classes applied to a component and [arbitrarily increase specificity of some rules](https://docs.tss-react.dev/increase-specificity).
 -   🧩 Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
 -   ⚙️ Freely customize the underlying `@emotion` cache.
@@ -35,7 +35,6 @@
 -   🛠️ Build on top of [`@emotion/react`](https://emotion.sh/docs/@emotion/react), it has very little impact on the bundle size alongside mui (~5kB minziped).
 -   ⬆️ `'tss-react'` can be used as an advantageous replacement for [@material-ui v4 `makeStyles`](https://material-ui.com/styles/basics/#hook-api) and [`'react-jss'`](https://cssinjs.org/react-jss/?v=v10.9.0).
 -   🎯 [Maintained for the foreseeable future](https://github.com/mui-org/material-ui/issues/28463#issuecomment-923085976), issues are dealt with within good delays.
--   🚄 As fast as `emotion` ([see the difference](https://stackoverflow.com/questions/68383046/is-there-a-performance-difference-between-the-sx-prop-and-the-makestyles-functio) with mui's `makeStyles`)
 -   📦 Library authors: [`tss-react` won’t be yet another entry in your `peerDependencies`](https://docs.tss-react.dev/publish-a-module-that-uses-tss).
 
 [1689466562741801-vp9-chrome.webm](https://github.com/garronej/tss-react/assets/6702424/ab29c52a-3abf-4665-91e1-16021847078b)
