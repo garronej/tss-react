@@ -175,23 +175,10 @@ function App() {
                 `
               },
               {
-                "title": "**S**erver **S**ide **R**endering support (SSR)",
-                "description": `Quick and easy [integration with Next.js 13](https://docs.tss-react.dev/ssr/next.js) (pagesDir and appDir).
-            detailed instructions for integrating [with any other backend framework](https://docs.tss-react.dev/ssr/other-backend).`
-              },
-              {
-                "title": "Equivalent for the `$` syntax",
-                "description": `JSS's [Pseudo and Nested Selectors](https://cssinjs.org/jss-plugin-nested/?v=v10.9.0) are featured in a type-safe way. [Check the doc](https://docs.tss-react.dev/nested-selectors).`
-              },
-              {
-                "title": "Build on top of `@emotion/react`",
-                "description": `It has very little impact on the bundle size alongside mui (~5kB minziped, [\`@emotion/react\`](https://emotion.sh/docs/@emotion/react) is already included in mui). 
-            You can control the Emotion cache \`tss-react\` will use.`
-              },
-              {
-                "title": "Not another peer dependency",
-                "description": `Library authors: \`tss-react\` won't be yet another entry in your \`peerDependencies\`. [See documentation](https://docs.tss-react.dev/publish-a-module-that-uses-tss).`
-              },
+                "title": "Actively Maintained and Widely Adopted",
+                "IconOverride": createEmojiIcon("👥"),
+                "description": `TSS [is used by thousands of dev teams](https://npmtrends.com/@remix-run/react-vs-solid-js-vs-tss-react). Issues are resolved swiftly, and the library will remain actively maintained for the foreseeable future.`
+              }
             ]}
           />
         </>
