@@ -13,8 +13,8 @@ import { TssPlayfulLogo } from "./TssPlayfulLogo";
 import { useWindowInnerSize } from "powerhooks/useWindowInnerSize";
 import { breakpointsValues } from "onyxia-ui";
 import logoPngUrl from "./assets/logo.png";
-import nestedSelectorsMp4Url from "./assets/nestedSelectors_small.mp4";
-import nestedSelectorsWebmUrl from "./assets/nestedSelectors_small-vp9-chrome.webm";
+import tssDemoMp4Url from "./assets/tss-demo-hevc-safari.mp4";
+import tssDemoWebmUrl from "./assets/tss-demo-vp9-chrome.webm";
 import trendingPngUrl from "./assets/tss-trending.png";
 
 const repoUrl = "https://github.com/garronej/tss-react";
@@ -119,11 +119,11 @@ function App() {
               "sources":
                 [
                   {
-                    "src": nestedSelectorsMp4Url,
+                    "src": tssDemoMp4Url,
                     "type": 'video/mp4; codecs="hvc1"',
                   },
                   {
-                    "src": nestedSelectorsWebmUrl,
+                    "src": tssDemoWebmUrl,
                     "type": "video/webm",
                   },
                 ]
