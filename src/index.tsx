@@ -153,10 +153,27 @@ function App() {
                 `
               },
               {
-                "title": "Actively Maintained and Widely Adopted",
+                "title": "Actively maintained and widely adopted",
                 "IconOverride": createEmojiIcon("👥"),
                 "description": `TSS [is used by thousands of dev teams](https://npmtrends.com/@remix-run/react-vs-solid-js-vs-tss-react). Issues are resolved swiftly, and the library will remain actively maintained for the foreseeable future.`
-              }
+              },
+              {
+                "title": "Dynamic Style Generation (for better and for worse)",
+                "IconOverride": createEmojiIcon("💫"),
+                "description": `TSS enables to generate styles based on the props and internal states of components.  
+                This unfortunately prevents us from supporting [Server Component (RSC)](https://nextjs.org/docs/getting-started/react-essentials#server-components) in Next.js.  
+                We remain hopeful for future support of RSC, contingent on [the provision of a suitable solution by Vercel and React](https://github.com/vercel/next.js/blob/dc6c22c99117bb48beedc4eed402a57b21f03963/docs/02-app/01-building-your-application/04-styling/03-css-in-js.mdx#L10-L12).  
+                If you need RSC support today, you can consider *zero runtime* solutions like Panda-CSS or Vanilla Extract, 
+                but the expression of complex styles is significantly harder in this paradigm.
+                `
+              },
+              {
+                "title": "Your JSX remains readable",
+                "IconOverride": createEmojiIcon("🤩"),
+                "description": `Unlike other styling solution that tend to clutter the JSX, TSS enables [isolating the styles from the component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx).  
+                That been said, sometime it's just easier to inline the styles directly within your components, [TSS enables this as well](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx).`
+              },
+
             ]}
           />
         </>
@@ -185,7 +202,9 @@ function createEmojiIcon(emoji: string) {
 
 
   function IconOverride() {
-    return <div style={{ position: "relative", top: 2 }}>{emoji}</div>;
+    return <div style={{ position: "relative", "top": 2, 
+      fontSize: "1.5rem", "lineHeight": 1, "textAlign": "center"
+   }}>{emoji}</div>;
   }
 
   return IconOverride;
