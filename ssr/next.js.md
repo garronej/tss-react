@@ -1,16 +1,8 @@
 # Next.js
 
-{% hint style="warning" %}
-If you are using nested selectors, you may need to provide [unique identifiers to the styleshees that uses nested selectors](../nested-selectors.md#ssr).
-{% endhint %}
-
 {% hint style="success" %}
 Users of MUI: Utilizing this toolset eliminates the need for you to configure SSR for MUI manually. The beauty of it lies in its compatibility – if SSR functions for TSS, it assuredly works for MUI as well. However, if your preference leans towards setting up SSR independently, you can refer to [the MUI documentation](https://mui.com/material-ui/guides/server-rendering/). While this approach is functional, I would caution against it. The TSS toolset conveniently abstracts a substantial amount of intricate logic, thereby eliminating unnecessary complexities from your workflow.
 {% endhint %}
-
-```
-yarn add @emotion/server
-```
 
 ### Single emotion cache (recommended approach)
 
@@ -18,17 +10,11 @@ This is the recommended approach.
 
 {% tabs %}
 {% tab title="App Router" %}
-{% hint style="info" %}
-This documentation is for [Next projects using the App router](https://nextjs.org/docs/app/building-your-application/routing).&#x20;
-
-You are in this case if you have a `app/` directory at the root of your project.
-{% endhint %}
-
 {% code title="app/layout.tsx" %}
 ```tsx
 import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
 
-export default function RootLayout({ children }: { children: React.ReactNode; }) {
+export default function Layout({ children }: { children: React.ReactNode; }) {
     return (
         <html>
             {/* It's important to keep a head tag, even if it's empty */}
@@ -56,13 +42,11 @@ You can keep track of Emotion's developing support for ServerComponents at [this
 {% endtab %}
 
 {% tab title="Pages Router" %}
-{% hint style="info" %}
-This documentation is for [Next projects using the Page Router](https://nextjs.org/docs/pages/building-your-application/routing) (aka the legacy next setup). &#x20;
+> Require Next.js 12.1.7 or newer.
 
-You are in this case if you have a `pages/` directory at the root of your project.
-{% endhint %}
-
-Require Next.js 12.1.7 or newer.
+```bash
+yarn add @emotion/server
+```
 
 {% code title="pages/_app.tsx" %}
 ```tsx
@@ -129,6 +113,10 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 {% endtab %}
 
 {% tab title="Page Router" %}
+```bash
+yarn add @emotion/server
+```
+
 {% code title="pages/_app.tsx" %}
 ```tsx
 import Head from "next/head";
@@ -151,7 +139,6 @@ const {
 export { augmentDocumentWithEmotionCache_tss };
 
 export default withAppEmotionCache_mui(withAppEmotionCache_tss(App));
-
 ```
 {% endcode %}
 
