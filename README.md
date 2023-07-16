@@ -48,10 +48,17 @@ export function MyButton(props: Props) {
 const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     (theme, { color }) => ({
         root: {
+            // The color of the text is either blue or red depending of 
+            // the state fo the component.
             color,
+            // When the curser is over the button the text is the primary color
             "&:hover": {
                 color: theme.palette.primary.main
-            }
+            },
+            // On small screens the button have a red border
+ 	    [theme.breakpoints.down("md")]: {
+	        border: "1px solid red"
+	    }
         }
     })
 );
@@ -69,7 +76,7 @@ import { createMakeAndWithStyles } from "tss-react"; //"tss-react/compat" if you
 
 function useTheme() {
     return {
-        "primaryColor": "#32CD32",
+        primaryColor: "#32CD32", // This is LimeGreen in hex
     };
 }
 
@@ -99,9 +106,16 @@ export function MyComponent(props: Props) {
 const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     (theme, { color }) => ({
         root: {
+            // The color of the text is either blue or red depending of 
+            // the state fo the component.
             color,
+            // When the curser is over the button the text is the primary color
             "&:hover": {
-                "backgroundColor": theme.primaryColor
+                backgroundColor: theme.primaryColor
+            },
+            // On small screens the button have a red border
+            "@media (max-width:48em)": {
+                border: "1px solid red"
             }
         }
     })
