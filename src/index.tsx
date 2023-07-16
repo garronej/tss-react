@@ -132,31 +132,9 @@ function App() {
             illustrationPosition="left"
           />
 
-          <GlArticle
-            id="firstSection"
-            title="Stonks 📈"
-            body={`People are using it.  
-          ...mostly as a tool to migrate from [@material-ui v4 makeStyles](https://mui.com/system/styles/basics/#hook-api)
-          but not only.  
-          TSS react is a very competitive standalone styling solution that provide a great Developer Experience, flexibility and maintainability.`}
-            buttonLabel="Compare download trend 👀"
-            buttonLink={{
-              "href": "https://npmtrends.com/@remix-run/react-vs-solid-js-vs-tss-react",
-            }}
-            illustration={{
-              "type": "image",
-              "hasShadow": true,
-              "src": trendingPngUrl
-            }}
-            hasAnimation={true}
-            illustrationPosition="right"
-          />
-
           <GlSectionDivider />
 
-
           <GlCheckList
-            heading="Everything you are expecting and more"
             hasAnimation={true}
             Icon={() => null}
             elements={[
