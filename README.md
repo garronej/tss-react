@@ -54,12 +54,11 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
             color,
             // When the curser is over the button has a black border
             "&:hover": {
-                border: '4px solid black',
+                border: '4px solid black'
             },
             // On screens bigger than MD the button will have a big cyan border
  	    [theme.breakpoints.up("md")]: {
-	        border: '10px solid cyan',
-
+	        border: '10px solid cyan'
 	    }
         }
     })
