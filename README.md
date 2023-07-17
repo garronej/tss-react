@@ -54,6 +54,8 @@
 
 The more ⭐️ the project gets, the more time I spend improving and maintaining it. Thank you for your support 😊
 
+Needless to mention, this library is heavily inspired by [JSS](https://cssinjs.org/react-jss), the OG CSS-in-JS solution.
+
 # Development
 
 Running the demo apps:
