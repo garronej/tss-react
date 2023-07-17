@@ -31,7 +31,8 @@
     We remain hopeful for future support of RSC, contingent on [the provision of a suitable solution by Vercel and React](https://github.com/vercel/next.js/blob/dc6c22c99117bb48beedc4eed402a57b21f03963/docs/02-app/01-building-your-application/04-styling/03-css-in-js.mdx#L10-L12).  
     If you need RSC support today, you can consider _zero runtime_ solutions like Panda-CSS or Vanilla Extract,
     but the expression of complex styles is significantly harder in this paradigm.
--   📚 Maintain clean, readable code by [isolating styles from your component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx), or, for simpler designs, leverage the flexibility to [inline styles directly within your components](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx).
+-   📚 Your JSX remains readable. Unlike other styling solution that tend to clutter the JSX, TSS enables [isolating the styles from the component structure](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo.tsx).  
+    That been said, sometime it's just easier to inline the styles directly within your components, [TSS enables this as well](https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui/TssLogo_intertwined.tsx).
 -   🛡️ Eliminate CSS priority conflicts! With TSS you can determine the precedence of multiple classes applied to a component and [arbitrarily increase specificity of some rules](https://docs.tss-react.dev/increase-specificity).
 -   🧩 Offers a [type-safe equivalent of the JSS `$` syntax](https://docs.tss-react.dev/nested-selectors).
 -   ⚙️ Freely customize the underlying `@emotion` cache.
