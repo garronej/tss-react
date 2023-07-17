@@ -64,6 +64,8 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     })
 );
 ```
+
+{% embed url="https://stackblitz.com/edit/vitejs-vite-sz4euf?file=src%2FMyButton.tsx" %}
 {% endtab %}
 
 {% tab title="Standalone" %}
