@@ -107,6 +107,7 @@ function App() {
               "type": "video",
               "hasShadow": false,
               "controls": true,
+              "loop": false,
               "sources":
                 [
                   {
@@ -140,7 +141,7 @@ function App() {
           <GlCheckList
             className={css({ "marginTop": 0 })}
             heading="Why TSS?"
-            subHeading="Why this styling solution instead of the [2261 others](https://www.npmjs.com/search?q=css-in-js)?"
+            subHeading="...instead of the [2261 others](https://www.npmjs.com/search?q=css-in-js) styling solutions?"
             hasAnimation={true}
             elements={[
               {
