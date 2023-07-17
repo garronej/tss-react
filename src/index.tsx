@@ -123,7 +123,7 @@ function App() {
                   },
                 ]
             }}
-            hasAnimation={true}
+            hasAnimation={false}
           />
           <GlButton 
             href="https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx"
@@ -172,7 +172,7 @@ function App() {
                 "description": `With TSS you can determine the precedence of multiple classes applied to a component and [arbitrarily increase specificity of some rules](https://docs.tss-react.dev/increase-specificity)`
               },
               {
-                "title": "No new syntax",
+                "title": "No special syntax, just CSS",
                 "IconOverride": createEmojiIcon("🙅‍♂️"),
                 "description": `TSS does not introduce new syntax. It's just plain CSS, albeit expressed under the form of a JavaScript object. 
                 Pseudo-class selectors like \`:hover\` and media queries are expressed as you would expect, [as properties of the style object](https://docs.tss-react.dev/).`
