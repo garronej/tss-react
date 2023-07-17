@@ -95,38 +95,53 @@ export const {
 
 {% code title="src/MyComponents.tsx" %}
 ```tsx
-import { makeStyles } from "../tss";
+import { useState } from 'react';
+import { makeStyles } from './tss';
+
+export type Props = {
+  className?: string;
+};
 
 export function MyComponent(props: Props) {
-    const { className } = props;
+  const { className } = props;
 
-    const [color, setColor] = useState<"red" | "blue">("red");
+  const [color, setColor] = useState<'red' | 'blue'>('red');
 
-    const { classes, cx } = useStyles({ color });
+  const { classes, cx } = useStyles({ color });
 
-    //Thanks to cx, className will take priority over classes.root 🤩
-    return <span className={cx(classes.root, className)}>hello world</span>;
+  //Thanks to cx, className will take priority over classes.root 🤩
+  return (
+    <span
+      className={cx(classes.root, className)}
+      onClick={() => setColor('blue')}
+    >
+      hello world
+    </span>
+  );
 }
 
-const useStyles = makeStyles<{ color: "red" | "blue" }>()(
-    (theme, { color }) => ({
-        root: {
-            // The color of the text is either blue or red depending of 
-            // the state fo the component.
-            color,
-            // When the curser is over the button the text is the primary color
-            "&:hover": {
-                backgroundColor: theme.primaryColor
-            },
-            // On small screens the button have a red border
-            "@media (max-width:48em)": {
-                border: "1px solid red"
-            }
-        }
-    })
+const useStyles = makeStyles<{ color: 'red' | 'blue' }>()(
+  (theme, { color }) => ({
+    root: {
+      cursor: 'pointer',
+      // The color of the text is red or blue depending on the state of the component
+      color,
+      // When mouse is hover, green border
+      '&:hover': {
+        border: `4px solid ${theme.primaryColor}`,
+      },
+      // On big screen, a big black border
+      '@media (min-width:48em)': {
+        border: '10px solid black',
+      },
+    },
+  })
 );
+
 ```
 {% endcode %}
+
+{% embed url="https://stackblitz.com/edit/vitejs-vite-32cb1p?file=src%2FMyComponent.tsx" %}
 
 {% hint style="success" %}
 If you don't want to end up writing things like:
