@@ -110,6 +110,7 @@ function App() {
               "hasShadow": false,
               "controls": true,
               "loop": false,
+              //"delayBeforeAutoPlay": 3000,
               "sources":
                 [
                   {
