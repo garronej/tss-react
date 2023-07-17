@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.js": "/static/js/main.81a4c247.js",
+    "main.js": "/static/js/main.4f6ebf11.js",
     "static/media/tss-demo-hevc-safari.mp4": "/static/media/tss-demo-hevc-safari.2c2f06f45558335828f4.mp4",
     "static/media/tss-demo-vp9-chrome.webm": "/static/media/tss-demo-vp9-chrome.903e0c5fcb69d24e34b3.webm",
     "static/media/logo.png": "/static/media/logo.a9420f98fb404c3764c0.png",
     "static/media/tss_text.png": "/static/media/tss_text.af9bbd693c63174b6580.png",
-    "static/media/tss-trending.png": "/static/media/tss-trending.6890c600ffeeb8c3d13c.png",
     "static/media/tss_square.png": "/static/media/tss_square.eddc68a8a9b5db551f33.png",
     "index.html": "/index.html",
-    "main.81a4c247.js.map": "/static/js/main.81a4c247.js.map"
+    "main.4f6ebf11.js.map": "/static/js/main.4f6ebf11.js.map"
   },
   "entrypoints": [
-    "static/js/main.81a4c247.js"
+    "static/js/main.4f6ebf11.js"
   ]
 }
