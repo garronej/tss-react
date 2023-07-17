@@ -108,7 +108,7 @@ function App() {
             illustration={{
               "type": "video",
               "hasShadow": false,
-              "controls": true,
+              "controls": false,
               "loop": false,
               //"delayBeforeAutoPlay": 3000,
               "sources":
