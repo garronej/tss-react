@@ -52,13 +52,14 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
             // The color of the text is either blue or red depending of 
             // the state fo the component.
             color,
-            // When the curser is over the button the text is the primary color
+            // When the curser is over the button has a black border
             "&:hover": {
-                color: theme.palette.primary.main
+                border: '4px solid black',
             },
-            // On small screens the button have a red border
- 	    [theme.breakpoints.down("md")]: {
-	        border: "1px solid red"
+            // On screens bigger than MD the button will have a big cyan border
+ 	    [theme.breakpoints.up("md")]: {
+	        border: '10px solid cyan',
+
 	    }
         }
     })
