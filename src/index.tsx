@@ -16,12 +16,14 @@ import { breakpointsValues } from "onyxia-ui";
 import logoPngUrl from "./assets/logo.png";
 import tssDemoMp4Url from "./assets/tss-demo-hevc-safari.mp4";
 import tssDemoWebmUrl from "./assets/tss-demo-vp9-chrome.webm";
+import tssDemoBlueishMp4Url from "./assets/tss-demo-hevc-safari-blueish.mp4";
+import tssDemoBlueishWebmUrl from "./assets/tss-demo-vp9-chrome-blueish.webm";
 
 const repoUrl = "https://github.com/garronej/tss-react";
 
 function App() {
 
-  const { css } = useStyles();
+  const { css, theme } = useStyles();
 
   const { windowInnerWidth } = useWindowInnerSize();
 
@@ -111,11 +113,11 @@ function App() {
               "sources":
                 [
                   {
-                    "src": tssDemoMp4Url,
+                    "src":  theme.isDarkModeEnabled ? tssDemoBlueishMp4Url : tssDemoMp4Url,
                     "type": 'video/mp4; codecs="hvc1"',
                   },
                   {
-                    "src": tssDemoWebmUrl,
+                    "src": theme.isDarkModeEnabled ? tssDemoBlueishWebmUrl : tssDemoWebmUrl,
                     "type": "video/webm",
                   },
                 ]
