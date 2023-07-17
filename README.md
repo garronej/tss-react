@@ -17,6 +17,7 @@ If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) check
 Things don’t display as they use to before migrating? Don't worry, [I got you covered](troubleshoot-migration-to-muiv5-with-tss.md)!
 {% endhint %}
 
+{% code title="src/MyButton.tsx" %}
 ```tsx
 import { makeStyles, withStyles } from "tss-react/mui"; // "tss-react/mui-compat" if your project is using Typescript < 4.4
 import Button from "@mui/material/Button";
@@ -64,6 +65,7 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
     })
 );
 ```
+{% endcode %}
 
 {% embed url="https://stackblitz.com/edit/vitejs-vite-sz4euf?file=src%2FMyButton.tsx" %}
 {% endtab %}
