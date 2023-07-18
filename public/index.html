@@ -64,6 +64,58 @@
     <meta property="twitter:image" content="%PUBLIC_URL%/preview.png">
 
     <title>%REACT_APP_TITLE%</title>
+
+    <script>
+      /*
+      This is a way to get the correct background color as soon as possible,
+      even before the JavaScript bundle is evaluated.
+      It is to prevent a white flash when the user has dark mode enabled.
+      It is very implementation dependent and can easily break...
+      if it does no big deal.
+      */
+      (function () {
+  
+        var isDarkModeEnabled = /true/.test((function () {
+  
+          var key = "powerhooks_useGlobalState_isDarkModeEnabled";
+          var value = null;
+  
+          try {
+            value = (new URLSearchParams(location.search)).get(key);
+          } catch (_) { }
+  
+          if (value !== null) {
+            return value;
+          }
+  
+          try {
+            value = localStorage.getItem(key);
+          } catch (_) { }
+  
+          if (value !== null) {
+            return value;
+          }
+  
+          try {
+            value = window.matchMedia("(prefers-color-scheme: dark)")
+              .matches ? "true" : "false";
+          } catch (_) { }
+  
+          if (value !== null) {
+            return value;
+          }
+  
+          return "false";
+  
+        })());
+  
+        document.documentElement.style.backgroundColor =
+          //getColor("light"|"dark").useCases.surfaces.background in src/theme.ts
+          isDarkModeEnabled ? "#1F2933" : "#F8F9FA";
+  
+      })();
+    </script>
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
