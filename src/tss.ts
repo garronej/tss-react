@@ -1,26 +1,41 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
+import { useMemo } from "react";
 import type { CSSObject, Css, Cx } from "./types";
+import type { EmotionCache } from "@emotion/cache";
+import { createUseCache } from "./makeStyles";
+import { createUseCssAndCx } from "./cssAndCx";
+import { assert } from "./tools/assert";
+import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
+import { objectKeys } from "./tools/objectKeys";
+import { typeGuard } from "./tools/typeGuard";
+import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
+import { mergeClasses } from "./mergeClasses";
 
 export type Tss<
     Context extends Record<string, unknown>,
     Params extends Record<string, unknown>,
     RuleNameSubsetReferencableInNestedSelectors extends string,
-    ExcludedMethod extends "withParams" | "withName" | "withNestedSelectors"
+    PluginParams extends Record<string, unknown>,
+    ExcludedMethod extends
+        | "withParams"
+        | "withName"
+        | "withNestedSelectors" = never
 > = Omit<
     {
         createUseStyles: <RuleName extends string>(
-            getCssObjectByRuleName: Tss.GetCssObjectByRuleNameOrCssObjectByRuleName<
+            getCssObjectByRuleName: Tss.CssObjectByRuleNameOrGetCssObjectByRuleName<
                 Context,
                 Params,
                 RuleNameSubsetReferencableInNestedSelectors,
                 RuleName
             >
-        ) => Tss.UseStyles<Context, Params, RuleName>;
+        ) => Tss.UseStyles<Context, Params, RuleName, PluginParams>;
         withParams: <Params extends Record<string, unknown>>() => Tss<
             Context,
             Params,
             RuleNameSubsetReferencableInNestedSelectors,
+            PluginParams,
             ExcludedMethod | "withParams"
         >;
         withName: (
@@ -29,6 +44,7 @@ export type Tss<
             Context,
             Params,
             RuleNameSubsetReferencableInNestedSelectors,
+            PluginParams,
             ExcludedMethod | "withName"
         >;
         withNestedSelectors: <
@@ -39,6 +55,7 @@ export type Tss<
             Context,
             Params,
             RuleNameSubsetReferencableInNestedSelectors,
+            PluginParams,
             ExcludedMethod | "withNestedSelectors"
         >;
     },
@@ -59,12 +76,16 @@ export namespace Tss {
     export type UseStyles<
         Context extends Record<string, unknown>,
         Params extends Record<string, unknown>,
-        RuleName extends string
-    > = Record<never, unknown> extends Params
-        ? () => UseStylesReturn<Context, RuleName>
-        : (params: Params) => UseStylesReturn<Context, RuleName>;
+        RuleName extends string,
+        PluginParams extends Record<string, unknown>
+    > = (
+        params: Params &
+            PluginParams & {
+                classesFromProps: Partial<Record<RuleName, string>>;
+            }
+    ) => UseStylesReturn<Context, RuleName>;
 
-    export type GetCssObjectByRuleNameOrCssObjectByRuleName<
+    export type CssObjectByRuleNameOrGetCssObjectByRuleName<
         Context extends Record<string, unknown>,
         Params extends Record<string, unknown>,
         RuleNameSubsetReferencableInNestedSelectors extends string,
@@ -86,12 +107,239 @@ export namespace Tss {
               CSSObject
           >)
         | Record<RuleName, CSSObject>;
+
+    export type UsePlugin<
+        Context extends Record<string, unknown>,
+        PluginParams extends Record<string, unknown>
+    > = (
+        params: {
+            classes: Record<string, string>;
+            cx: Cx;
+            css: Css;
+            name: string | undefined;
+            id: string | undefined;
+        } & Context &
+            PluginParams
+    ) => {
+        classes?: Record<string, string>;
+        cx?: Cx;
+        css?: Css;
+    };
 }
 
-export function createTss<Context extends Record<string, unknown>>(params: {
+export function createTss<
+    Context extends Record<string, unknown>,
+    PluginParams extends Record<string, unknown>
+>(params: {
     useContext: () => Context;
-}): { tss: Tss<Context, Record<never, unknown>, never, never> } {
-    const { useContext } = params;
+    usePlugin?: Tss.UsePlugin<Context, PluginParams>;
+    cache?: EmotionCache;
+}): { tss: Tss<Context, Record<never, unknown>, never, PluginParams, never> } {
+    const { useContext, usePlugin, cache: cacheProvidedAtInception } = params;
 
-    return null as any;
+    const { useCache } = createUseCache({ cacheProvidedAtInception });
+
+    const { useCssAndCx } = createUseCssAndCx({ useCache });
+
+    const usePluginDefault: Tss.UsePlugin<Context, PluginParams> = ({
+        classes,
+        cx,
+        css
+    }) => ({ classes, cx, css });
+
+    const tss = createTss_internal<
+        Context,
+        Record<never, unknown>,
+        never,
+        PluginParams
+    >({
+        useContext,
+        useCache,
+        useCssAndCx,
+        "usePlugin": usePlugin ?? usePluginDefault,
+        "id": undefined,
+        "name": undefined
+    });
+
+    return { tss };
+}
+
+let counter = 0;
+
+function createTss_internal<
+    Context extends Record<string, unknown>,
+    Params extends Record<string, unknown>,
+    RuleNameSubsetReferencableInNestedSelectors extends string,
+    PluginParams extends Record<string, unknown>
+>(params: {
+    useContext: () => Context;
+    useCache: () => EmotionCache;
+    useCssAndCx: () => { css: Css; cx: Cx };
+    usePlugin: Tss.UsePlugin<Context, PluginParams>;
+    id: string | undefined;
+    name: string | undefined;
+}): Tss<
+    Context,
+    Params,
+    RuleNameSubsetReferencableInNestedSelectors,
+    PluginParams
+> {
+    const { useContext, useCache, useCssAndCx, usePlugin, id, name } = params;
+
+    return {
+        "withParams": () => createTss_internal({ ...params }),
+        "withName": name => createTss_internal({ ...params, name }),
+        "withNestedSelectors": id => {
+            const isBrowser =
+                typeof document === "object" &&
+                typeof document?.getElementById === "function";
+
+            if (!isBrowser && id === undefined) {
+                console.warn(
+                    "In SSR setups you must provide an id to withNestedSelectors()"
+                );
+            }
+
+            return createTss_internal({
+                ...params,
+                "id": id ?? `${counter++}`
+            });
+        },
+        "createUseStyles": <RuleName extends string>(
+            cssObjectByRuleNameOrGetCssObjectByRuleName: Tss.CssObjectByRuleNameOrGetCssObjectByRuleName<
+                Context,
+                Params,
+                RuleNameSubsetReferencableInNestedSelectors,
+                RuleName
+            >
+        ) => {
+            const getCssObjectByRuleName =
+                typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
+                "function"
+                    ? cssObjectByRuleNameOrGetCssObjectByRuleName
+                    : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
+
+            return function useStyles({
+                classesFromProps,
+                ...paramsAndPluginParams
+            }: Params &
+                PluginParams & {
+                    classesFromProps?: Partial<Record<RuleName, string>>;
+                }) {
+                const context = useContext();
+
+                const { css, cx } = useCssAndCx();
+
+                const cache = useCache();
+
+                let classes = useMemo(() => {
+                    const refClassesCache: Record<string, string> = {};
+
+                    type RefClasses = Record<
+                        RuleNameSubsetReferencableInNestedSelectors,
+                        string
+                    >;
+
+                    // @ts-expect-error: Type safety non achievable.
+                    const cssObjectByRuleName = getCssObjectByRuleName({
+                        ...params,
+                        ...context,
+                        //"classes": refClasses || ({} as RefClasses),
+                        ...(id === undefined
+                            ? {}
+                            : {
+                                  "classes":
+                                      typeof Proxy === "undefined"
+                                          ? ({} as RefClasses)
+                                          : new Proxy<RefClasses>({} as any, {
+                                                "get": (
+                                                    _target,
+                                                    propertyKey
+                                                ) => {
+                                                    if (
+                                                        typeof propertyKey ===
+                                                        "symbol"
+                                                    ) {
+                                                        assert(false);
+                                                    }
+
+                                                    return (refClassesCache[
+                                                        propertyKey
+                                                    ] = `${cache.key}-${id}${
+                                                        name !== undefined
+                                                            ? `-${name}`
+                                                            : ""
+                                                    }-${propertyKey}-ref`);
+                                                }
+                                            })
+                              })
+                    });
+
+                    const classes = objectFromEntries(
+                        objectKeys(cssObjectByRuleName).map(ruleName => {
+                            const cssObject = cssObjectByRuleName[ruleName];
+
+                            if (!cssObject.label) {
+                                cssObject.label = `${
+                                    name !== undefined ? `${name}-` : ""
+                                }${ruleName}`;
+                            }
+
+                            return [
+                                ruleName,
+                                `${css(cssObject)}${
+                                    typeGuard<RuleNameSubsetReferencableInNestedSelectors>(
+                                        ruleName,
+                                        ruleName in refClassesCache
+                                    )
+                                        ? ` ${refClassesCache[ruleName]}`
+                                        : ""
+                                }`
+                            ];
+                        })
+                    ) as Record<RuleName, string>;
+
+                    objectKeys(refClassesCache).forEach(ruleName => {
+                        if (ruleName in classes) {
+                            return;
+                        }
+
+                        classes[ruleName as RuleName] =
+                            refClassesCache[ruleName];
+                    });
+
+                    return classes;
+                }, [
+                    cache,
+                    css,
+                    cx,
+                    getDependencyArrayRef(params),
+                    ...Object.values(context)
+                ]);
+
+                classes = useMemo(
+                    () => mergeClasses(classes, classesFromProps, cx),
+                    [classes, getDependencyArrayRef(classesFromProps), cx]
+                );
+
+                // @ts-expect-error: Type safety non achievable.
+                const pluginResultWrap = usePlugin({
+                    classes,
+                    css,
+                    cx,
+                    id,
+                    name,
+                    ...context,
+                    ...paramsAndPluginParams
+                });
+
+                return {
+                    "classes": pluginResultWrap.classes ?? classes,
+                    "css": pluginResultWrap.css ?? css,
+                    "cx": pluginResultWrap.cx ?? cx,
+                    ...context
+                };
+            };
+        }
+    };
 }
