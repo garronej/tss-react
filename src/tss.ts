@@ -24,7 +24,7 @@ export type Tss<
 > = Omit<
     {
         createUseStyles: <RuleName extends string>(
-            getCssObjectByRuleName: Tss.CssObjectByRuleNameOrGetCssObjectByRuleName<
+            cssObjectByRuleNameOrGetCssObjectByRuleName: Tss.CssObjectByRuleNameOrGetCssObjectByRuleName<
                 Context,
                 Params,
                 RuleNameSubsetReferencableInNestedSelectors,
@@ -81,7 +81,7 @@ export namespace Tss {
     > = (
         params: Params &
             PluginParams & {
-                classesFromProps: Partial<Record<RuleName, string>>;
+                classesFromProps?: Record<string, string | undefined>;
             }
     ) => UseStylesReturn<Context, RuleName>;
 
@@ -222,10 +222,7 @@ function createTss_internal<
             return function useStyles({
                 classesFromProps,
                 ...paramsAndPluginParams
-            }: Params &
-                PluginParams & {
-                    classesFromProps?: Partial<Record<RuleName, string>>;
-                }) {
+            }) {
                 const context = useContext();
 
                 const { css, cx } = useCssAndCx();
@@ -244,7 +241,6 @@ function createTss_internal<
                     const cssObjectByRuleName = getCssObjectByRuleName({
                         ...params,
                         ...context,
-                        //"classes": refClasses || ({} as RefClasses),
                         ...(id === undefined
                             ? {}
                             : {
