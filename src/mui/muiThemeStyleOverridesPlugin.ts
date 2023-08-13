@@ -7,7 +7,7 @@ import type { Tss } from "../tss";
 export type MuiThemeStyleOverridesPluginParams = {
     muiStyleOverridesParams?: {
         props: Record<string, unknown>;
-        ownerState: Record<string, unknown>;
+        ownerState?: Record<string, unknown>;
     };
 };
 

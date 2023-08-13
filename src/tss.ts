@@ -11,6 +11,7 @@ import { objectKeys } from "./tools/objectKeys";
 import { typeGuard } from "./tools/typeGuard";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { mergeClasses } from "./mergeClasses";
+import { isSsr } from "./tools/isSsr";
 
 export type Tss<
     Context extends Record<string, unknown>,
@@ -62,6 +63,13 @@ export type Tss<
     ExcludedMethod
 >;
 
+type VoidAllowedIfCanBeEmpty<T extends Record<string, unknown>> = Record<
+    never,
+    unknown
+> extends T
+    ? void | T
+    : T;
+
 export namespace Tss {
     export type UseStylesReturn<
         Context extends Record<string, unknown>,
@@ -79,10 +87,12 @@ export namespace Tss {
         RuleName extends string,
         PluginParams extends Record<string, unknown>
     > = (
-        params: Params &
-            PluginParams & {
-                classesFromProps?: Record<string, string | undefined>;
-            }
+        params: VoidAllowedIfCanBeEmpty<
+            Params &
+                PluginParams & {
+                    classesFromProps?: Record<string, string | undefined>;
+                }
+        >
     ) => UseStylesReturn<Context, RuleName>;
 
     export type CssObjectByRuleNameOrGetCssObjectByRuleName<
@@ -190,11 +200,7 @@ function createTss_internal<
         "withParams": () => createTss_internal({ ...params }),
         "withName": name => createTss_internal({ ...params, name }),
         "withNestedSelectors": id => {
-            const isBrowser =
-                typeof document === "object" &&
-                typeof document?.getElementById === "function";
-
-            if (!isBrowser && id === undefined) {
+            if (isSsr() && id === undefined) {
                 console.warn(
                     "In SSR setups you must provide an id to withNestedSelectors()"
                 );
@@ -219,10 +225,16 @@ function createTss_internal<
                     ? cssObjectByRuleNameOrGetCssObjectByRuleName
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
-            return function useStyles({
-                classesFromProps,
-                ...paramsAndPluginParams
-            }) {
+            return function useStyles(params) {
+                const { classesFromProps, ...paramsAndPluginParams } =
+                    (params ?? {}) as Params &
+                        PluginParams & {
+                            classesFromProps?: Record<
+                                string,
+                                string | undefined
+                            >;
+                        };
+
                 const context = useContext();
 
                 const { css, cx } = useCssAndCx();

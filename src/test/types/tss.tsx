@@ -135,6 +135,8 @@ const { tss } = createTss({
             }
         }
     });
+
+    useStyles();
 }
 
 tss.createUseStyles(({ contextProp1, contextProp2, ...rest }) => {
