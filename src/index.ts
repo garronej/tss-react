@@ -6,6 +6,9 @@ import { createMakeStyles, TssCacheProvider } from "./makeStyles";
 export { createMakeStyles, TssCacheProvider };
 import { createWithStyles } from "./withStyles";
 export { createWithStyles };
+import { createTss } from "./tss";
+export { createTss };
+export type { Tss } from "./tss";
 
 /** @see <https://docs.tss-react.dev/api/keyframes> */
 export { keyframes } from "@emotion/react";
@@ -23,3 +26,9 @@ export function createMakeAndWithStyles<Theme>(params: {
         ...createWithStyles(params)
     };
 }
+
+export const { tss } = createTss({
+    "useContext": () => ({})
+});
+
+export const useStyles = tss.createUseStyles(() => ({}));
