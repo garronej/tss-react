@@ -162,7 +162,7 @@ export function createMakeStyles<Theme>(params: {
                         classes,
                         css,
                         cx,
-                        name,
+                        "name": name ?? "makeStyle no name",
                         "id": uniqId,
                         muiStyleOverridesParams,
                         // NOTE: If it's not a Mui Theme the plugin is resilient, it will not crash

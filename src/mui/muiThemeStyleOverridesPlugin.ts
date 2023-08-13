@@ -19,10 +19,18 @@ export const useMuiThemeStyleOverridesPlugin: Tss.UsePlugin<
     { theme: MuiThemeLike },
     MuiThemeStyleOverridesPluginParams
 > = ({ classes, theme, muiStyleOverridesParams, css, cx, name }) => {
-    if (muiStyleOverridesParams !== undefined && name === undefined) {
-        throw new Error(
-            "To use muiStyleOverridesParams, you must specify a name using .withName('MyComponent')"
-        );
+    require_named: {
+        // NOTE: Hack for backwards compatibility with the makeStyle API.
+        if (name === "makeStyle no name") {
+            name = undefined;
+            break require_named;
+        }
+
+        if (muiStyleOverridesParams !== undefined && name === undefined) {
+            throw new Error(
+                "To use muiStyleOverridesParams, you must specify a name using .withName('MyComponent')"
+            );
+        }
     }
 
     let styleOverrides:
