@@ -1,2 +1,136 @@
-# tss / useStyles
+# tss - The Modern API
+
+The `tss` API provides a more streamlined and flexible approach to styling components. It allows for the creation of styles based on context, parameters, and nested selectors. This documentation will guide you through the usage of the `tss` API.
+
+## Basic Usage
+
+To start using the `tss` API, you first need to create a `tss` instance using the `createTss` function:
+
+```
+const { tss } = createTss({
+    "useContext": () => Reflect<Context>()
+});
+```
+
+### `createUseStyles()`
+
+The primary method to create styles is `createUseStyles`. It returns a `useStyles` hook that you can use in your components.
+
+```
+const useStyles = tss.createUseStyles(({ contextProp1, contextProp2 }) => {
+    return {
+        "root": {
+            // ...styles
+        }
+    };
+});
+
+const { classes, css, cx } = useStyles();
+```
+
+### `withName()`
+
+To provide a name for your styles (useful for debugging), you can chain the `withName` method:
+
+```
+const useStyles = tss
+    .withName("MyComponent")
+    .createUseStyles(({ contextProp1, contextProp2 }) => {
+        return {
+            "root": {
+                // ...styles
+            }
+        };
+    });
+```
+
+### `withParams()`
+
+If you want your styles to depend on certain parameters, you can use the `withParams` method:
+
+```
+const useStyles = tss
+    .withParams<{ prop1: string }>()
+    .createUseStyles(({ contextProp1, contextProp2, prop1 }) => {
+        return {
+            "root": {
+                // ...styles based on prop1
+            }
+        };
+    });
+
+useStyles({
+    "prop1": "value"
+});
+```
+
+### `withNestedSelectors()`
+
+For styles that have nested selectors, you can use the `withNestedSelectors` method:
+
+```
+const useStyles = tss
+    .withNestedSelectors<"xxx">()
+    .createUseStyles(({ contextProp1, contextProp2, classes }) => {
+        return {
+            "root": {
+                "backgroundColor": "red",
+                [\`& .${classes.xxx}\`]: {
+                    "color": "white"
+                }
+            },
+            "xxx": {}
+        };
+    });
+
+const { classes } = useStyles();
+```
+
+## Advanced Usage
+
+### Combining Methods
+
+You can combine the methods for more advanced use cases:
+
+```
+const useStyles = tss
+    .withName("MyComponent")
+    .withParams<{ prop1: { _brand_prop1: unknown } }>()
+    .withNestedSelectors<"xxx">()
+    .createUseStyles(({ contextProp1, contextProp2, classes, prop1 }) => {
+        return {
+            "root": {
+                "backgroundColor": "red",
+                [\`& .${classes.xxx}\`]: {
+                    "color": "white"
+                }
+            },
+            "xxx": {}
+        };
+    });
+
+const { classes } = useStyles({
+    "prop1": {
+        "_brand_prop1": true
+    }
+});
+```
+
+### Integration with MUI
+
+For those using Material-UI, there's a dedicated method to create styles:
+
+```
+const useStyles = tssMui.createUseStyles({});
+
+useStyles({
+    "classesFromProps": {},
+    "muiStyleOverridesParams": {
+        "ownerState": { "isOn": true },
+        "props": {
+            "lightBulbBorderColor": "yellow"
+        }
+    }
+});
+```
 
