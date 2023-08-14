@@ -50,7 +50,7 @@ export default function AppMuiThemeProvider(props: {
 			"components": {
 				"TestingStyleOverrides": {
 					"styleOverrides": {
-						"lightBulb": ({ theme, ownerState: { isOn }, lightBulbBorderColor }: any) => ({
+						"lightBulb": ({ theme, "ownerState": { isOn }, lightBulbBorderColor }: any) => ({
 							"border": `1px solid ${lightBulbBorderColor}`,
 							"backgroundColor": isOn ? theme.palette.info.main : "grey"
 						})

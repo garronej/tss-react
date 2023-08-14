@@ -13,11 +13,11 @@ import { assert } from "./tools/assert";
 import { mergeClasses } from "./mergeClasses";
 import type { EmotionCache } from "@emotion/cache";
 import { createContext, useContext } from "react";
-import { useMuiThemeStyleOverridesPlugin } from "./mui/muiThemeStyleOverridesPlugin";
+import { useMuiThemeStyleOverridesPlugin } from "./mui/themeStyleOverridesPlugin";
 import type {
     MuiThemeStyleOverridesPluginParams,
     MuiThemeLike
-} from "./mui/muiThemeStyleOverridesPlugin";
+} from "./mui/themeStyleOverridesPlugin";
 
 declare module "@emotion/react" {
     export function __unsafe_useEmotionCache(): EmotionCache | null;

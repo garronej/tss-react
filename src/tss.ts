@@ -90,7 +90,7 @@ export namespace Tss {
         params: VoidAllowedIfCanBeEmpty<
             Params &
                 PluginParams & {
-                    classesFromProps?: Record<string, string | undefined>;
+                    classesOverrides?: Record<string, string | undefined>;
                 }
         >
     ) => UseStylesReturn<Context, RuleName>;
@@ -226,10 +226,10 @@ function createTss_internal<
                     : () => cssObjectByRuleNameOrGetCssObjectByRuleName;
 
             return function useStyles(params) {
-                const { classesFromProps, ...paramsAndPluginParams } =
+                const { classesOverrides, ...paramsAndPluginParams } =
                     (params ?? {}) as Params &
                         PluginParams & {
-                            classesFromProps?: Record<
+                            classesOverrides?: Record<
                                 string,
                                 string | undefined
                             >;
@@ -326,8 +326,8 @@ function createTss_internal<
                 ]);
 
                 classes = useMemo(
-                    () => mergeClasses(classes, classesFromProps, cx),
-                    [classes, getDependencyArrayRef(classesFromProps), cx]
+                    () => mergeClasses(classes, classesOverrides, cx),
+                    [classes, getDependencyArrayRef(classesOverrides), cx]
                 );
 
                 // @ts-expect-error: Type safety non achievable.

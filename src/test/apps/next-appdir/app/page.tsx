@@ -2,7 +2,7 @@
 "use client";
 import React, { useReducer, memo } from "react";
 import { GlobalStyles } from "tss-react";
-import { makeStyles, useStyles, withStyles } from "../shared/makeStyles";
+import { tss, useStyles, withStyles } from "../shared/tss-mui";
 import { styled } from "@mui/material";
 import Button from "@mui/material/Button"
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -206,98 +206,99 @@ const { App } = (() => {
         );
     }
 
-    const useStyles = makeStyles<void, "child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">({
-        "name": { App },
-        "uniqId": "s4phyZ"
-    })((theme, _params, classes) => {
+    const useStyles = tss
+        .withName("App")
+        .withNestedSelectors<"child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">("s4phyZ")
+        .createUseStyles(({ theme, classes }) => {
 
-        const childRefTest_wrapper2 = {
-            "border": "1px solid black",
-            "margin": 30,
-            "height": 100,
-            "color": "black"
-        };
-
-        return {
-            "root": {
-                "& > h1:nth-child(2)": {
-                    "color": theme.palette.primary.main,
-                }
-            },
-            "ovStyled": {
-                "color": "darkred"
-            },
-            "ovInternal": {
-                "backgroundColor": "darkblue"
-            },
-            "parent": {
+            const childRefTest_wrapper2 = {
                 "border": "1px solid black",
-                "padding": 30,
-                [`&:hover .${classes.child}`]: {
-                    "background": "red",
-                }
-            },
-            "child": {
-                "background": "blue",
-                "border": "1px solid black"
-            },
-            "breadcrumbs_className": {
-                "backgroundColor": "lightblue",
-                "& .MuiBreadcrumbs-separator": {
+                "margin": 30,
+                "height": 100,
+                "color": "black"
+            };
+
+            return {
+                "root": {
+                    "& > h1:nth-child(2)": {
+                        "color": theme.palette.primary.main,
+                    }
+                },
+                "ovStyled": {
+                    "color": "darkred"
+                },
+                "ovInternal": {
+                    "backgroundColor": "darkblue"
+                },
+                "parent": {
+                    "border": "1px solid black",
+                    "padding": 30,
+                    [`&:hover .${classes.child}`]: {
+                        "background": "red",
+                    }
+                },
+                "child": {
+                    "background": "blue",
+                    "border": "1px solid black"
+                },
+                "breadcrumbs_className": {
+                    "backgroundColor": "lightblue",
+                    "& .MuiBreadcrumbs-separator": {
+                        "color": "red"
+                    },
+                    "&:hover .MuiBreadcrumbs-separator": {
+                        "color": "blue"
+                    }
+                },
+
+                "breadcrumbs2_root": {
+                    "backgroundColor": "lightblue",
+                    [`&:hover .${classes.breadcrumbs2_separator}`]: {
+                        "color": "blue"
+                    }
+                },
+                "breadcrumbs2_separator": {
                     "color": "red"
                 },
-                "&:hover .MuiBreadcrumbs-separator": {
-                    "color": "blue"
-                }
-            },
 
-            "breadcrumbs2_root": {
-                "backgroundColor": "lightblue",
-                [`&:hover .${classes.breadcrumbs2_separator}`]: {
-                    "color": "blue"
-                }
-            },
-            "breadcrumbs2_separator": {
-                "color": "red"
-            },
+                "button2_className": {
+                    "backgroundColor": "red"
+                },
 
-            "button2_className": {
-                "backgroundColor": "red"
-            },
+                "button2_root": {
+                    "backgroundColor": "red"
+                },
 
-            "button2_root": {
-                "backgroundColor": "red"
-            },
-
-            "testCx_bgYellow": {
-                "backgroundColor": "yellow"
-            },
-            "testCx_bgCyan": {
-                "backgroundColor": "cyan"
-            },
-
-            "childRefTest_wrapper": {
-                "border": "1px solid black",
-                [`&:hover .${classes.childRefTest_wrapper1}`]: {
+                "testCx_bgYellow": {
+                    "backgroundColor": "yellow"
+                },
+                "testCx_bgCyan": {
                     "backgroundColor": "cyan"
-                }
-            },
-            "childRefTest_wrapper1": {
-                ...childRefTest_wrapper2
-            },
-            childRefTest_wrapper2,
-            "childRefTest_textColorPink": {
-                "color": "pink"
-            },
-            "mq": {
-                "height": 100,
-                "backgroundColor": "lightgreen",
-                "@media (max-width: 960px)": {
-                    "backgroundColor": "cyan"
-                }
-            },
-        };
-    });
+                },
+
+                "childRefTest_wrapper": {
+                    "border": "1px solid black",
+                    [`&:hover .${classes.childRefTest_wrapper1}`]: {
+                        "backgroundColor": "cyan"
+                    }
+                },
+                "childRefTest_wrapper1": {
+                    ...childRefTest_wrapper2
+                },
+                childRefTest_wrapper2,
+                "childRefTest_textColorPink": {
+                    "color": "pink"
+                },
+                "mq": {
+                    "height": 100,
+                    "backgroundColor": "lightgreen",
+                    "@media (max-width: 960px)": {
+                        "backgroundColor": "cyan"
+                    }
+                },
+            };
+
+        });
 
     return { App };
 
@@ -393,11 +394,11 @@ const { SecondNestedSelectorExample } = (() => {
     });
     SecondNestedSelectorExample.displayName = "SecondNestedSelectorExample";
 
-    const useStyles = makeStyles<{ color: "primary" | "secondary" }, "child" | "small">({
-        "name": { SecondNestedSelectorExample },
-        "uniqId": "2rd8IJ"
-    })(
-        (theme, { color }, classes) => ({
+    const useStyles = tss
+        .withName("SecondNestedSelectorExample")
+        .withNestedSelectors<"child" | "small">("2rd8IJ")
+        .withParams<{ color: "primary" | "secondary" }>()
+        .createUseStyles(({ theme, color, classes }) => ({
             "root": {
                 "padding": 30,
                 [`&:hover .${classes.child}`]: {
@@ -412,8 +413,7 @@ const { SecondNestedSelectorExample } = (() => {
                     "height": 30,
                 }
             },
-        })
-    );
+        }));
 
     return { SecondNestedSelectorExample };
 
@@ -422,7 +422,7 @@ const { SecondNestedSelectorExample } = (() => {
 
 const { MyTestComponentForMergedClasses } = (() => {
 
-    const useStyles = makeStyles()({
+    const useStyles = tss.createUseStyles({
         "foo": {
             "border": "3px dotted black",
             "backgroundColor": "red"
@@ -438,7 +438,7 @@ const { MyTestComponentForMergedClasses } = (() => {
 
     const MyTestComponentForMergedClassesInternal = (props: Props) => {
 
-        const { classes } = useStyles(undefined, { props });
+        const { classes } = useStyles({ "classesOverrides": props.classes });
 
         return (
             <div className={classes.foo}>
@@ -463,7 +463,7 @@ const { MyTestComponentForMergedClasses } = (() => {
 
 const { TestCastingMuiTypographyStyleToCSSObject } = (() => {
 
-    const useStyles = makeStyles()(theme => ({
+    const useStyles = tss.createUseStyles(({ theme }) => ({
         "root": {
             ...(theme.typography.subtitle2 as CSSObject),
             "color": "red"
@@ -531,7 +531,14 @@ const { TestingStyleOverrides } = (() => {
 
         const [isOn, toggleIsOn] = useReducer(isOn => !isOn, false);
 
-        const { classes, cx } = useStyles(undefined, { props, "ownerState": { isOn } });
+        //const { classes, cx } = useStyles(undefined, { props, "ownerState": { isOn } });
+        const { classes, cx } = useStyles({
+            "classesOverrides": props.classes,
+            "muiStyleOverridesParams": {
+                props,
+                "ownerState": { isOn }
+            }
+        });
 
         return (
             <div className={cx(classes.root, className)} >
@@ -544,23 +551,25 @@ const { TestingStyleOverrides } = (() => {
 
     }
 
-    const useStyles = makeStyles({ "name": { TestingStyleOverrides } })({
-        "root": {
-            "border": "1px solid black",
-            "width": 500,
-            "height": 200,
-            "position": "relative",
-            "color": "black"
-        },
-        "lightBulb": {
-            "position": "absolute",
-            "width": 50,
-            "height": 50,
-            "top": 120,
-            "left": 500 / 2 - 50,
-            "borderRadius": "50%"
-        }
-    });
+    const useStyles = tss
+        .withName("TestingStyleOverrides")
+        .createUseStyles({
+            "root": {
+                "border": "1px solid black",
+                "width": 500,
+                "height": 200,
+                "position": "relative",
+                "color": "black"
+            },
+            "lightBulb": {
+                "position": "absolute",
+                "width": 50,
+                "height": 50,
+                "top": 120,
+                "left": 500 / 2 - 50,
+                "borderRadius": "50%"
+            }
+        });
 
     return { TestingStyleOverrides };
 
@@ -578,43 +587,43 @@ const StyledTab = withStyles(Tab, {
 
 const TestWithStylesWithClassComponents = (() => {
 
-	type Props = {
-		className?: string;
-		classes?: Partial<Record<"root" | "span", string>>;
-		isBig: boolean;
-	};
+    type Props = {
+        className?: string;
+        classes?: Partial<Record<"root" | "span", string>>;
+        isBig: boolean;
+    };
 
-	class MyComponent extends React.Component<Props> {
-		render() {
+    class MyComponent extends React.Component<Props> {
+        render() {
 
-			const classes = withStyles.getClasses(this.props)
+            const classes = withStyles.getClasses(this.props)
 
-			return (
-				<div className={classes.root}>
-					<span className={classes.span}>Background color should be green on big screen, red on small screen, there is a black border on the text</span>
-				</div>
-			);
-		}
-	}
+            return (
+                <div className={classes.root}>
+                    <span className={classes.span}>Background color should be green on big screen, red on small screen, there is a black border on the text</span>
+                </div>
+            );
+        }
+    }
 
-	const MyComponentStyled = withStyles(
-		MyComponent,
-		(theme, props) => ({
-			"root": {
-				"backgroundColor": theme.palette.primary.main,
-				"height": props.isBig ? 200 : undefined
-			},
-			"span": {
-				"border": "1px solid black"
-			},
-			"@media (max-width: 960px)": {
-				"root": {
-					"backgroundColor": "red"
-				}
-			}
-		})
-	);
+    const MyComponentStyled = withStyles(
+        MyComponent,
+        (theme, props) => ({
+            "root": {
+                "backgroundColor": theme.palette.primary.main,
+                "height": props.isBig ? 200 : undefined
+            },
+            "span": {
+                "border": "1px solid black"
+            },
+            "@media (max-width: 960px)": {
+                "root": {
+                    "backgroundColor": "red"
+                }
+            }
+        })
+    );
 
-	return MyComponentStyled;
+    return MyComponentStyled;
 
 })();

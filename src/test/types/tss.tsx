@@ -76,7 +76,7 @@ const { tss } = createTss({
     assert<Equals<typeof cx, Cx>>();
 
     useStyles({
-        "classesFromProps": {
+        "classesOverrides": {
             "root": "xxx-yy"
         }
     });
@@ -127,7 +127,7 @@ const { tss } = createTss({
     const useStyles = tssMui.createUseStyles({});
 
     useStyles({
-        "classesFromProps": {},
+        "classesOverrides": {},
         "muiStyleOverridesParams": {
             "ownerState": { "isOn": true },
             "props": {
