@@ -15,8 +15,8 @@
             "default": "./dist/index.js"
         },
         "./mui": {
-            "module": "./dist/esm/mui.js",
-            "default": "./dist/mui.js"
+            "module": "./dist/esm/mui/index.js",
+            "default": "./dist/mui/index.js"
         },
         "./next/pagesDir": {
             "module": "./dist/esm/next/pagesDir.js",
