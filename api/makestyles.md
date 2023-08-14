@@ -1,5 +1,9 @@
 # makeStyles -> useStyles
 
+{% hint style="warning" %}
+For new projects, we recommend using [the modern API instead](tss-usestyles.md) of the `makeStyles` API. While the `makeStyles` API was designed to mirror the Material-UI v4 `makeStyles` approach, a more streamlined and readable API has been introduced since. We encourage you to adopt this newer API. However, this does not imply that the `makeStyles` and `withStyle` APIs are deprecated.
+{% endhint %}
+
 ### `makeStyles()`
 
 Your component style may depend on the props and state of the components:

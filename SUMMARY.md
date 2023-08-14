@@ -6,6 +6,7 @@
   * [Gatsby](ssr/gatsby.md)
   * [Other backends](ssr/other-backends.md)
 * [🔍 API References](api/README.md)
+  * [tss / useStyles](api/tss-usestyles.md)
   * [makeStyles -> useStyles](api/makestyles.md)
   * [withStyles](api/withstyles.md)
   * [\<GlobalStyles />](api/globalstyles.md)
