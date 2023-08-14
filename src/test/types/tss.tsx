@@ -136,7 +136,9 @@ const { tss } = createTss({
         }
     });
 
-    useStyles();
+    const { css, cx, theme, ...rest } = useStyles();
+
+    assert<Equals<typeof rest, {}>>();
 }
 
 tss.createUseStyles(({ contextProp1, contextProp2, ...rest }) => {
