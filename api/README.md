@@ -4,14 +4,14 @@
 
 ```typescript
 import {
-    tss, //<- The modern API 
-    createTss, //<- Create an instance of tss where your context, usualy a dynamic theme
+    tss, //<- (only in 4.9.0-rc.0) The modern API 
+    createTss, //<- (only in 4.9.0-rc.0) Create an instance of tss where your context, usualy a dynamic theme
               // is made available.  
     createMakeAndWithStyles, //<- Create an instance of makeStyles() and withStyles() for your theme.
                              // Favor using the Moden API for a better Devloper experience.
     keyframes, //<- The function as defined in @emotion/react and @emotion/css
     GlobalStyles, //<- A component to define global styles. 
-} from "tss-react"; // Assuming v4.9.0-rc.0
+} from "tss-react";
 ```
 
 {% content-ref url="makestyles.md" %}
