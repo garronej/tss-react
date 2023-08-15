@@ -72,7 +72,7 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
 {% embed url="https://stackblitz.com/edit/vitejs-vite-sz4euf?file=src%2FMyButton.tsx" %}
 {% endtab %}
 
-{% tab title="With MUI - Moden API" %}
+{% tab title="With MUI - Modern API" %}
 ```bash
 yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
 yarn add tss-react@4.9.0-rc.0
