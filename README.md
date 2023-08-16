@@ -24,8 +24,8 @@
 </p>
 
 > You can think of `tss-react` as `@emotion/jss`.  
-> It's, in essence, [the JSS API](https://cssinjs.org/?v=v10.10.0#react-jss-example) but powered by Emotion.  
-> Just like `@emotion/styled` is the [styled-components API](https://styled-components.com/) but powered by Emotion.
+> It's, in essence, a type-safe equivalent of [the JSS API](https://cssinjs.org/?v=v10.10.0#react-jss-example) but powered by Emotion,
+> just like `@emotion/styled` is the [styled-components API](https://styled-components.com/) but powered by Emotion.
 
 -   🚀 Seamless integration with [MUI](https://mui.com).
 -   🌐 Works in [Next.js App and Page Router](https://docs.tss-react.dev/ssr/next.js).
