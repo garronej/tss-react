@@ -11,7 +11,7 @@ import { objectKeys } from "./tools/objectKeys";
 import { typeGuard } from "./tools/typeGuard";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { mergeClasses } from "./mergeClasses";
-import { isSsr } from "./tools/isSsr";
+import { isSSR } from "./tools/isSSR";
 
 export type Tss<
     Context extends Record<string, unknown>,
@@ -50,9 +50,9 @@ export type Tss<
         >;
         withNestedSelectors: <
             RuleNameSubsetReferencableInNestedSelectors extends string
-        >(
-            id?: string
-        ) => Tss<
+        >(params?: {
+            idForSSR?: string;
+        }) => Tss<
             Context,
             Params,
             RuleNameSubsetReferencableInNestedSelectors,
@@ -127,7 +127,7 @@ export namespace Tss {
             cx: Cx;
             css: Css;
             name: string | undefined;
-            id: string | undefined;
+            idForSSR: string | undefined;
         } & Context &
             PluginParams
     ) => {
@@ -167,7 +167,7 @@ export function createTss<
         useCache,
         useCssAndCx,
         "usePlugin": usePlugin ?? usePluginDefault,
-        "id": undefined,
+        "idForSSR": undefined,
         "name": undefined
     });
 
@@ -186,7 +186,7 @@ function createTss_internal<
     useCache: () => EmotionCache;
     useCssAndCx: () => { css: Css; cx: Cx };
     usePlugin: Tss.UsePlugin<Context, PluginParams>;
-    id: string | undefined;
+    idForSSR: string | undefined;
     name: string | undefined;
 }): Tss<
     Context,
@@ -194,21 +194,22 @@ function createTss_internal<
     RuleNameSubsetReferencableInNestedSelectors,
     PluginParams
 > {
-    const { useContext, useCache, useCssAndCx, usePlugin, id, name } = params;
+    const { useContext, useCache, useCssAndCx, usePlugin, idForSSR, name } =
+        params;
 
     return {
         "withParams": () => createTss_internal({ ...params }),
         "withName": name => createTss_internal({ ...params, name }),
-        "withNestedSelectors": id => {
-            if (isSsr() && id === undefined) {
+        "withNestedSelectors": ({ idForSSR } = {}) => {
+            if (isSSR() && idForSSR === undefined) {
                 console.warn(
-                    "In SSR setups you must provide an id to withNestedSelectors()"
+                    "Nested selector require an uniq id to be provided: .withNestedSelectors({ idForSSR: <uniqId> })"
                 );
             }
 
             return createTss_internal({
                 ...params,
-                "id": id ?? `${counter++}`
+                "idForSSR": idForSSR ?? `${counter++}`
             });
         },
         "createUseStyles": <RuleName extends string>(
@@ -253,7 +254,7 @@ function createTss_internal<
                     const cssObjectByRuleName = getCssObjectByRuleName({
                         ...params,
                         ...context,
-                        ...(id === undefined
+                        ...(idForSSR === undefined
                             ? {}
                             : {
                                   "classes":
@@ -273,7 +274,9 @@ function createTss_internal<
 
                                                     return (refClassesCache[
                                                         propertyKey
-                                                    ] = `${cache.key}-${id}${
+                                                    ] = `${
+                                                        cache.key
+                                                    }-${idForSSR}${
                                                         name !== undefined
                                                             ? `-${name}`
                                                             : ""
@@ -335,7 +338,7 @@ function createTss_internal<
                     classes,
                     css,
                     cx,
-                    id,
+                    idForSSR,
                     name,
                     ...context,
                     ...paramsAndPluginParams

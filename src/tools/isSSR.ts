@@ -2,7 +2,7 @@ declare const jest: any;
 declare const mocha: any;
 declare const __vitest_worker__: any;
 
-export function isSsr() {
+export function isSSR() {
     const isBrowser =
         typeof document === "object" &&
         typeof document?.getElementById === "function";

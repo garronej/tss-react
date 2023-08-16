@@ -20,7 +20,7 @@ export const useMuiThemeStyleOverridesPlugin: Tss.UsePlugin<
     MuiThemeStyleOverridesPluginParams
 > = ({ classes, theme, muiStyleOverridesParams, css, cx, name }) => {
     require_named: {
-        // NOTE: Hack for backwards compatibility with the makeStyle API.
+        // NOTE: Hack for backwards compatibility with the makeStyles API.
         if (name === "makeStyle no name") {
             name = undefined;
             break require_named;
