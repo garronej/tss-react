@@ -5,7 +5,7 @@ import React, { useMemo } from "react";
 import type { ReactNode } from "react";
 import { objectFromEntries } from "./tools/polyfills/Object.fromEntries";
 import { objectKeys } from "./tools/objectKeys";
-import type { CSSObject, CSSInterpolation } from "./types";
+import type { CSSObject } from "./types";
 import { createUseCssAndCx } from "./cssAndCx";
 import { getDependencyArrayRef } from "./tools/getDependencyArrayRef";
 import { typeGuard } from "./tools/typeGuard";
@@ -13,6 +13,12 @@ import { assert } from "./tools/assert";
 import { mergeClasses } from "./mergeClasses";
 import type { EmotionCache } from "@emotion/cache";
 import { createContext, useContext } from "react";
+import { useMuiThemeStyleOverridesPlugin } from "./mui/themeStyleOverridesPlugin";
+import type {
+    MuiThemeStyleOverridesPluginParams,
+    MuiThemeLike
+} from "./mui/themeStyleOverridesPlugin";
+
 declare module "@emotion/react" {
     export function __unsafe_useEmotionCache(): EmotionCache | null;
 }
@@ -27,30 +33,7 @@ export function createMakeStyles<Theme>(params: {
 }) {
     const { useTheme, cache: cacheProvidedAtInception } = params;
 
-    function useCache() {
-        const contextualCache = useContextualCache();
-
-        const cacheExplicitlyProvidedForTss = useCacheProvidedByProvider();
-
-        const cacheToBeUsed =
-            cacheProvidedAtInception ??
-            cacheExplicitlyProvidedForTss ??
-            contextualCache;
-
-        if (cacheToBeUsed === null) {
-            throw new Error(
-                [
-                    "In order to get SSR working with tss-react you need to explicitly provide an Emotion cache.",
-                    "MUI users be aware: This is not an error strictly related to tss-react, with or without tss-react,",
-                    "MUI needs an Emotion cache to be provided for SSR to work.",
-                    "Here is the MUI documentation related to SSR setup: https://mui.com/material-ui/guides/server-rendering/",
-                    "TSS provides helper that makes the process of setting up SSR easier: https://docs.tss-react.dev/ssr"
-                ].join("\n")
-            );
-        }
-
-        return cacheToBeUsed;
-    }
+    const { useCache } = createUseCache({ cacheProvidedAtInception });
 
     const { useCssAndCx } = createUseCssAndCx({ useCache });
 
@@ -59,7 +42,8 @@ export function createMakeStyles<Theme>(params: {
         Params = void,
         RuleNameSubsetReferencableInNestedSelectors extends string = never
     >(params?: { name?: string | Record<string, unknown>; uniqId?: string }) {
-        const { name: nameOrWrappedName, uniqId = counter++ } = params ?? {};
+        const { name: nameOrWrappedName, uniqId = `${counter++}` } =
+            params ?? {};
 
         const name =
             typeof nameOrWrappedName !== "object"
@@ -89,22 +73,11 @@ export function createMakeStyles<Theme>(params: {
 
             return function useStyles(
                 params: Params,
-                styleOverrides?: {
-                    props: any;
-                    ownerState?: Record<string, unknown>;
-                }
+                muiStyleOverridesParams?: MuiThemeStyleOverridesPluginParams["muiStyleOverridesParams"]
             ) {
-                //See: https://github.com/garronej/tss-react/issues/158
-                const styleOverrides_props = styleOverrides?.props as
-                    | ({ classes?: Record<string, string> } & Record<
-                          string,
-                          unknown
-                      >)
-                    | undefined;
-
                 const theme = useTheme();
 
-                const { css, cx } = useCssAndCx();
+                let { css, cx } = useCssAndCx();
 
                 const cache = useCache();
 
@@ -174,84 +147,39 @@ export function createMakeStyles<Theme>(params: {
                     return classes;
                 }, [cache, css, cx, theme, getDependencyArrayRef(params)]);
 
-                const propsClasses = styleOverrides_props?.classes;
-
-                classes = useMemo(
-                    () => mergeClasses(classes, propsClasses, cx),
-                    [classes, getDependencyArrayRef(propsClasses), cx]
-                );
-
                 {
-                    let cssObjectByRuleNameOrGetCssObjectByRuleName:
-                        | Record<
-                              string,
-                              | CSSInterpolation
-                              | ((params: {
-                                    ownerState: any;
-                                    theme: Theme;
-                                }) => CSSInterpolation)
-                          >
-                        | undefined = undefined;
-
-                    try {
-                        cssObjectByRuleNameOrGetCssObjectByRuleName =
-                            name !== undefined
-                                ? (theme as any).components?.[name]
-                                      ?.styleOverrides
-                                : undefined;
-
-                        // eslint-disable-next-line no-empty
-                    } catch {}
-
-                    const themeClasses = useMemo(() => {
-                        if (!cssObjectByRuleNameOrGetCssObjectByRuleName) {
-                            return undefined;
-                        }
-
-                        const themeClasses: Record<string, string> = {};
-
-                        for (const ruleName in cssObjectByRuleNameOrGetCssObjectByRuleName) {
-                            const cssObjectOrGetCssObject =
-                                cssObjectByRuleNameOrGetCssObjectByRuleName[
-                                    ruleName
-                                ];
-
-                            if (!(cssObjectOrGetCssObject instanceof Object)) {
-                                continue;
-                            }
-
-                            themeClasses[ruleName] = css(
-                                typeof cssObjectOrGetCssObject === "function"
-                                    ? cssObjectOrGetCssObject({
-                                          theme,
-                                          "ownerState":
-                                              styleOverrides?.ownerState,
-                                          ...styleOverrides_props
-                                      })
-                                    : cssObjectOrGetCssObject
-                            );
-                        }
-
-                        return themeClasses;
-                    }, [
-                        cssObjectByRuleNameOrGetCssObjectByRuleName ===
-                        undefined
-                            ? undefined
-                            : typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
-                              "function"
-                            ? cssObjectByRuleNameOrGetCssObjectByRuleName
-                            : JSON.stringify(
-                                  cssObjectByRuleNameOrGetCssObjectByRuleName
-                              ),
-                        getDependencyArrayRef(styleOverrides_props),
-                        getDependencyArrayRef(styleOverrides?.ownerState),
-                        css
-                    ]);
+                    const propsClasses = muiStyleOverridesParams?.props
+                        .classes as Record<string, string> | undefined;
 
                     classes = useMemo(
-                        () => mergeClasses(classes, themeClasses, cx),
-                        [classes, themeClasses, cx]
+                        () => mergeClasses(classes, propsClasses, cx),
+                        [classes, getDependencyArrayRef(propsClasses), cx]
                     );
+                }
+
+                {
+                    const pluginResultWrap = useMuiThemeStyleOverridesPlugin({
+                        classes,
+                        css,
+                        cx,
+                        "name": name ?? "makeStyle no name",
+                        "idForSSR": uniqId,
+                        muiStyleOverridesParams,
+                        // NOTE: If it's not a Mui Theme the plugin is resilient, it will not crash
+                        "theme": theme as MuiThemeLike
+                    });
+
+                    if (pluginResultWrap.classes !== undefined) {
+                        classes = pluginResultWrap.classes;
+                    }
+
+                    if (pluginResultWrap.css !== undefined) {
+                        css = pluginResultWrap.css;
+                    }
+
+                    if (pluginResultWrap.cx !== undefined) {
+                        cx = pluginResultWrap.cx;
+                    }
                 }
 
                 return {
@@ -275,12 +203,6 @@ export function createMakeStyles<Theme>(params: {
 
 const reactContext = createContext<EmotionCache | undefined>(undefined);
 
-function useCacheProvidedByProvider() {
-    const cacheExplicitlyProvidedForTss = useContext(reactContext);
-
-    return cacheExplicitlyProvidedForTss;
-}
-
 export function TssCacheProvider(props: {
     value: EmotionCache;
     children: ReactNode;
@@ -291,3 +213,46 @@ export function TssCacheProvider(props: {
         <reactContext.Provider value={value}>{children}</reactContext.Provider>
     );
 }
+
+export const { createUseCache } = (() => {
+    function useCacheProvidedByProvider() {
+        const cacheExplicitlyProvidedForTss = useContext(reactContext);
+
+        return cacheExplicitlyProvidedForTss;
+    }
+
+    function createUseCache(params: {
+        cacheProvidedAtInception?: EmotionCache;
+    }) {
+        const { cacheProvidedAtInception } = params;
+
+        function useCache() {
+            const contextualCache = useContextualCache();
+
+            const cacheExplicitlyProvidedForTss = useCacheProvidedByProvider();
+
+            const cacheToBeUsed =
+                cacheProvidedAtInception ??
+                cacheExplicitlyProvidedForTss ??
+                contextualCache;
+
+            if (cacheToBeUsed === null) {
+                throw new Error(
+                    [
+                        "In order to get SSR working with tss-react you need to explicitly provide an Emotion cache.",
+                        "MUI users be aware: This is not an error strictly related to tss-react, with or without tss-react,",
+                        "MUI needs an Emotion cache to be provided for SSR to work.",
+                        "Here is the MUI documentation related to SSR setup: https://mui.com/material-ui/guides/server-rendering/",
+                        "TSS provides helper that makes the process of setting up SSR easier: https://docs.tss-react.dev/ssr"
+                    ].join("\n")
+                );
+            }
+
+            return cacheToBeUsed;
+        }
+
+        return { useCache };
+    }
+
+    return { createUseCache };
+})();

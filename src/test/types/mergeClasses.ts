@@ -14,7 +14,7 @@ const useStyles = makeStyles()({
 
 const { classes } = useStyles();
 
-const classesFromProps:
+const classesOverrides:
     | {
           foo?: string;
           bar?: string;
@@ -23,7 +23,7 @@ const classesFromProps:
     | undefined = null as any;
 
 {
-    const mergedClasses = mergeClasses(classes, classesFromProps, null as any);
+    const mergedClasses = mergeClasses(classes, classesOverrides, null as any);
 
     assert<
         Equals<

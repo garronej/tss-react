@@ -6,12 +6,12 @@ import { objectKeys } from "./tools/objectKeys";
 
 export function mergeClasses<T extends string, U extends string>(
     classesFromUseStyles: Record<T, string>,
-    classesFromProps: Partial<Record<U, string>> | undefined,
+    classesOverrides: Partial<Record<U, string>> | undefined,
     cx: Cx
 ): Record<T, string> &
     (string extends U ? {} : Partial<Record<Exclude<U, T>, string>>) {
-    //NOTE: We use this test to be resilient in case classesFromProps is not of the expected type.
-    if (!(classesFromProps instanceof Object)) {
+    //NOTE: We use this test to be resilient in case classesOverrides is not of the expected type.
+    if (!(classesOverrides instanceof Object)) {
         return classesFromUseStyles as any;
     }
 
@@ -21,16 +21,16 @@ export function mergeClasses<T extends string, U extends string>(
         ruleName =>
             (out[ruleName] = cx(
                 classesFromUseStyles[ruleName],
-                classesFromProps[ruleName]
+                classesOverrides[ruleName]
             ))
     );
 
-    objectKeys(classesFromProps).forEach(ruleName => {
+    objectKeys(classesOverrides).forEach(ruleName => {
         if (ruleName in classesFromUseStyles) {
             return;
         }
 
-        const className = classesFromProps[ruleName];
+        const className = classesOverrides[ruleName];
 
         //...Same here, that why we don't do className === undefined
         if (typeof className !== "string") {
