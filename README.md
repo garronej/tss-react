@@ -89,9 +89,11 @@ const useStyles = makeStyles<{ color: "red" | "blue" }>()(
 {% endtab %}
 
 {% tab title="With MUI - Modern API" %}
+_Introduced in v4.9_
+
 ```bash
 yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
-yarn add tss-react@4.9.0-rc.0
+yarn add tss-react@4.9.0-rc.4
 ```
 
 {% code title="src/MyButton.tsx" %}
