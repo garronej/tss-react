@@ -4,7 +4,7 @@
 
 ```typescript
 import {
-    tss, //<- (only in 4.9.0-rc.0) The modern API 
+    tss, //<- (only in 4.9.0-rc.4) The modern API 
     createTss, //<- (only in 4.9.0-rc.0) Create an instance of tss where your context, usualy a dynamic theme
               // is made available.  
     createMakeAndWithStyles, //<- Create an instance of makeStyles() and withStyles() for your theme.
