@@ -51,7 +51,7 @@ const { tss } = createTss({
 
 {
     const useStyles = tss
-        .withNestedSelectors<"xxx">({ "idForSSR": "xIdLs" })
+        .withNestedSelectors<"xxx">()
         .createUseStyles(({ contextProp1, contextProp2, classes, ...rest }) => {
             assert<Equals<typeof contextProp1, Context["contextProp1"]>>();
             assert<Equals<typeof contextProp2, Context["contextProp2"]>>();

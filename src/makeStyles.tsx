@@ -163,7 +163,7 @@ export function createMakeStyles<Theme>(params: {
                         css,
                         cx,
                         "name": name ?? "makeStyle no name",
-                        "idForSSR": uniqId,
+                        "idOfUseStyles": uniqId,
                         muiStyleOverridesParams,
                         // NOTE: If it's not a Mui Theme the plugin is resilient, it will not crash
                         "theme": theme as MuiThemeLike

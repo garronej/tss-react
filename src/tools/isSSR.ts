@@ -2,7 +2,7 @@ declare const jest: any;
 declare const mocha: any;
 declare const __vitest_worker__: any;
 
-export function isSSR() {
+export const isSSR = (() => {
     const isBrowser =
         typeof document === "object" &&
         typeof document?.getElementById === "function";
@@ -13,4 +13,4 @@ export function isSSR() {
     const isVitest = typeof __vitest_worker__ !== "undefined";
 
     return !isBrowser && !isJest && !isMocha && !isVitest;
-}
+})();

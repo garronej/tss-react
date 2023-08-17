@@ -50,9 +50,7 @@ export type Tss<
         >;
         withNestedSelectors: <
             RuleNameSubsetReferencableInNestedSelectors extends string
-        >(params?: {
-            idForSSR?: string;
-        }) => Tss<
+        >() => Tss<
             Context,
             Params,
             RuleNameSubsetReferencableInNestedSelectors,
@@ -127,7 +125,7 @@ export namespace Tss {
             cx: Cx;
             css: Css;
             name: string | undefined;
-            idForSSR: string | undefined;
+            idOfUseStyles: string;
         } & Context &
             PluginParams
     ) => {
@@ -167,14 +165,20 @@ export function createTss<
         useCache,
         useCssAndCx,
         "usePlugin": usePlugin ?? usePluginDefault,
-        "idForSSR": undefined,
-        "name": undefined
+        "name": undefined,
+        "doesUseNestedSelectors": false
     });
 
     return { tss };
 }
 
 let counter = 0;
+
+const nestedSelectorUsageTrackRecord: {
+    name: string | undefined;
+    idOfUseStyles: string;
+    nestedSelectorRuleNames: Set<string>;
+}[] = [];
 
 function createTss_internal<
     Context extends Record<string, unknown>,
@@ -186,32 +190,31 @@ function createTss_internal<
     useCache: () => EmotionCache;
     useCssAndCx: () => { css: Css; cx: Cx };
     usePlugin: Tss.UsePlugin<Context, PluginParams>;
-    idForSSR: string | undefined;
     name: string | undefined;
+    doesUseNestedSelectors: boolean;
 }): Tss<
     Context,
     Params,
     RuleNameSubsetReferencableInNestedSelectors,
     PluginParams
 > {
-    const { useContext, useCache, useCssAndCx, usePlugin, idForSSR, name } =
-        params;
+    const {
+        useContext,
+        useCache,
+        useCssAndCx,
+        usePlugin,
+        name,
+        doesUseNestedSelectors
+    } = params;
 
     return {
         "withParams": () => createTss_internal({ ...params }),
         "withName": name => createTss_internal({ ...params, name }),
-        "withNestedSelectors": ({ idForSSR } = {}) => {
-            if (isSSR() && idForSSR === undefined) {
-                console.warn(
-                    "Nested selector require an uniq id to be provided: .withNestedSelectors({ idForSSR: <uniqId> })"
-                );
-            }
-
-            return createTss_internal({
+        "withNestedSelectors": () =>
+            createTss_internal({
                 ...params,
-                "idForSSR": idForSSR ?? `${counter++}`
-            });
-        },
+                "doesUseNestedSelectors": true
+            }),
         "createUseStyles": <RuleName extends string>(
             cssObjectByRuleNameOrGetCssObjectByRuleName: Tss.CssObjectByRuleNameOrGetCssObjectByRuleName<
                 Context,
@@ -220,6 +223,10 @@ function createTss_internal<
                 RuleName
             >
         ) => {
+            // NOTE: Not isomorphic. Not guaranteed to be the same on client and server.
+            // Do not attempt to 'simplify' the code without taking this fact into account.
+            const idOfUseStyles = `x${counter++}`;
+
             const getCssObjectByRuleName =
                 typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
                 "function"
@@ -254,33 +261,75 @@ function createTss_internal<
                     const cssObjectByRuleName = getCssObjectByRuleName({
                         ...params,
                         ...context,
-                        ...(idForSSR === undefined
+                        ...(!doesUseNestedSelectors
                             ? {}
                             : {
                                   "classes":
                                       typeof Proxy === "undefined"
                                           ? ({} as RefClasses)
                                           : new Proxy<RefClasses>({} as any, {
-                                                "get": (
-                                                    _target,
-                                                    propertyKey
-                                                ) => {
-                                                    if (
-                                                        typeof propertyKey ===
-                                                        "symbol"
-                                                    ) {
-                                                        assert(false);
+                                                "get": (_target, ruleName) => {
+                                                    /* prettier-ignore */
+                                                    if ( typeof ruleName === "symbol") { 
+                                                        assert(false); 
                                                     }
 
-                                                    return (refClassesCache[
-                                                        propertyKey
-                                                    ] = `${
-                                                        cache.key
-                                                    }-${idForSSR}${
-                                                        name !== undefined
-                                                            ? `-${name}`
-                                                            : ""
-                                                    }-${propertyKey}-ref`);
+                                                    if (isSSR) {
+                                                        {
+                                                            /* prettier-ignore */
+                                                            let wrap = nestedSelectorUsageTrackRecord.find( wrap =>
+                                                                wrap.name === name &&
+                                                                wrap.idOfUseStyles === idOfUseStyles
+                                                            );
+
+                                                            /* prettier-ignore */
+                                                            if ( wrap === undefined) {
+
+                                                                /* prettier-ignore */
+                                                                wrap = {
+                                                                    name,
+                                                                    idOfUseStyles,
+                                                                    "nestedSelectorRuleNames": new Set()
+                                                                };
+
+                                                                /* prettier-ignore */
+                                                                nestedSelectorUsageTrackRecord.push(wrap);
+                                                            }
+
+                                                            /* prettier-ignore */
+                                                            wrap.nestedSelectorRuleNames.add(ruleName);
+                                                        }
+
+                                                        if (
+                                                            /* prettier-ignore */
+                                                            nestedSelectorUsageTrackRecord.find(
+                                                                wrap =>
+                                                                    wrap.name === name &&
+                                                                    wrap.idOfUseStyles !== idOfUseStyles &&
+                                                                    wrap.nestedSelectorRuleNames.has(ruleName)
+                                                            ) !== undefined
+                                                        ) {
+                                                            throw new Error(
+                                                                [
+                                                                    `tss-react: Duplicate nested selector "${ruleName}" detected in ${
+                                                                        name ===
+                                                                        undefined
+                                                                            ? `useStyles named "${name}"`
+                                                                            : "anonymous useStyles function"
+                                                                    }.`,
+                                                                    `In SSR setups, this may lead to CSS class name collisions, causing nested selectors to target elements outside of the intended scope.`,
+                                                                    `Solution: Ensure each useStyles using nested selectors has a unique name. Use tss.withName("UniqueName").withNestedSelectors<...>()... to set a name.`
+                                                                ].join("\n")
+                                                            );
+                                                        }
+                                                    }
+
+                                                    /* prettier-ignore */
+                                                    return (
+                                                      refClassesCache[ruleName] 
+                                                      =
+                                                      `${cache.key}-${idOfUseStyles}${name !== undefined ? `-${name}` : ""}-${ruleName}-ref`
+                                                    );
                                                 }
                                             })
                               })
@@ -338,7 +387,7 @@ function createTss_internal<
                     classes,
                     css,
                     cx,
-                    idForSSR,
+                    idOfUseStyles,
                     name,
                     ...context,
                     ...paramsAndPluginParams

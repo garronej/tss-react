@@ -208,7 +208,7 @@ const { App } = (() => {
 
     const useStyles = tss
         .withName("App")
-        .withNestedSelectors<"child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">({ "idForSSR": "s4phyZ" })
+        .withNestedSelectors<"child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">()
         .createUseStyles(({ theme, classes }) => {
 
             const childRefTest_wrapper2 = {
@@ -396,7 +396,7 @@ const { SecondNestedSelectorExample } = (() => {
 
     const useStyles = tss
         .withName("SecondNestedSelectorExample")
-        .withNestedSelectors<"child" | "small">({ "idForSSR": "2rd8IJ" })
+        .withNestedSelectors<"child" | "small">()
         .withParams<{ color: "primary" | "secondary" }>()
         .createUseStyles(({ theme, color, classes }) => ({
             "root": {
