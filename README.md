@@ -11,8 +11,24 @@ yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
 yarn add tss-react
 ```
 
+#### The `makeStyles` API: A Trusted Bridge to Material-UI v4
+
+The `makeStyles` API in our library is here to stay—it will not be deprecated. Initially designed to closely mirror Material-UI v4's `makeStyles`, this API serves as a seamless bridge for those transitioning from Material-UI v4. It aims to offer a familiar experience, mimicking the original Material-UI API as closely as possible.
+
+#### Opt for a Brighter Future with the Modern API
+
+While the `makeStyles` API remains a dependable choice, we encourage you to consider our **Modern API** for your new projects or when refactoring existing ones. The Modern API is designed with an emphasis on improved developer experience and superior readability. It represents our commitment to staying on the cutting edge and offering a clean, efficient, and enjoyable styling solution for React.
+
+#### Migrating from `@material-ui/core` (v4) to `@mui/material` (v5)?
+
+If you are transitioning from `@material-ui/core` (v4) to `@mui/material` (v5), we recommend consulting the official MUI migration guide. You can find it on MUI's documentation website here (please replace '#' with the actual link).
+
+#### Encountering Display Issues After Migration? We’ve Got Your Back!
+
+If, after migrating, you notice that components aren't rendering as they used to, don't worry—we are here to help. Check out our comprehensive Troubleshooting Guide (please replace '#' with the actual link) for step-by-step solutions to common issues, or reach out to our supportive community forum (please replace '#' with the actual link) for personalized assistance.
+
 {% hint style="info" %}
-The makeStyles API isn't and will never be deprecated, however from now on I encourage the use of the "modern API" that provide a much beter developer experience. &#x20;
+The makeStyles API isn't and will never be deprecated, however it's more like a polifil for material-ui v4's makeStyles. It tries to stay as close as possible to the original material-ui API.  You'll get a beter devlopement experience and beter readability by opting for the Modern API instead. &#x20;
 
 If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
 
