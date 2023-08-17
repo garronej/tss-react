@@ -395,7 +395,7 @@ const { SecondNestedSelectorExample } = (() => {
     SecondNestedSelectorExample.displayName = "SecondNestedSelectorExample";
 
     const useStyles = tss
-        .withName("SecondNestedSelectorExample")
+        .withName({ SecondNestedSelectorExample })
         .withNestedSelectors<"child" | "small">()
         .withParams<{ color: "primary" | "secondary" }>()
         .createUseStyles(({ theme, color, classes }) => ({

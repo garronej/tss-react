@@ -40,7 +40,7 @@ export type Tss<
             ExcludedMethod | "withParams"
         >;
         withName: (
-            name: string
+            name: string | Record<string, unknown>
         ) => Tss<
             Context,
             Params,
@@ -209,7 +209,14 @@ function createTss_internal<
 
     return {
         "withParams": () => createTss_internal({ ...params }),
-        "withName": name => createTss_internal({ ...params, name }),
+        "withName": nameOrWrappedName =>
+            createTss_internal({
+                ...params,
+                "name":
+                    typeof nameOrWrappedName !== "object"
+                        ? nameOrWrappedName
+                        : Object.keys(nameOrWrappedName)[0]
+            }),
         "withNestedSelectors": () =>
             createTss_internal({
                 ...params,
@@ -270,31 +277,31 @@ function createTss_internal<
                                           : new Proxy<RefClasses>({} as any, {
                                                 "get": (_target, ruleName) => {
                                                     /* prettier-ignore */
-                                                    if ( typeof ruleName === "symbol") { 
-                                                        assert(false); 
-                                                    }
+                                                    if (typeof ruleName === "symbol") {
+                                                    assert(false);
+                                                }
 
                                                     if (isSSR) {
                                                         {
                                                             /* prettier-ignore */
-                                                            let wrap = nestedSelectorUsageTrackRecord.find( wrap =>
-                                                                wrap.name === name &&
-                                                                wrap.idOfUseStyles === idOfUseStyles
-                                                            );
+                                                            let wrap = nestedSelectorUsageTrackRecord.find(wrap =>
+                                                            wrap.name === name &&
+                                                            wrap.idOfUseStyles === idOfUseStyles
+                                                        );
 
                                                             /* prettier-ignore */
-                                                            if ( wrap === undefined) {
+                                                            if (wrap === undefined) {
 
-                                                                /* prettier-ignore */
-                                                                wrap = {
-                                                                    name,
-                                                                    idOfUseStyles,
-                                                                    "nestedSelectorRuleNames": new Set()
-                                                                };
+                                                            /* prettier-ignore */
+                                                            wrap = {
+                                                                name,
+                                                                idOfUseStyles,
+                                                                "nestedSelectorRuleNames": new Set()
+                                                            };
 
-                                                                /* prettier-ignore */
-                                                                nestedSelectorUsageTrackRecord.push(wrap);
-                                                            }
+                                                            /* prettier-ignore */
+                                                            nestedSelectorUsageTrackRecord.push(wrap);
+                                                        }
 
                                                             /* prettier-ignore */
                                                             wrap.nestedSelectorRuleNames.add(ruleName);
@@ -303,11 +310,11 @@ function createTss_internal<
                                                         if (
                                                             /* prettier-ignore */
                                                             nestedSelectorUsageTrackRecord.find(
-                                                                wrap =>
-                                                                    wrap.name === name &&
-                                                                    wrap.idOfUseStyles !== idOfUseStyles &&
-                                                                    wrap.nestedSelectorRuleNames.has(ruleName)
-                                                            ) !== undefined
+                                                            wrap =>
+                                                                wrap.name === name &&
+                                                                wrap.idOfUseStyles !== idOfUseStyles &&
+                                                                wrap.nestedSelectorRuleNames.has(ruleName)
+                                                        ) !== undefined
                                                         ) {
                                                             throw new Error(
                                                                 [
@@ -326,10 +333,10 @@ function createTss_internal<
 
                                                     /* prettier-ignore */
                                                     return (
-                                                      refClassesCache[ruleName] 
-                                                      =
-                                                      `${cache.key}-${idOfUseStyles}${name !== undefined ? `-${name}` : ""}-${ruleName}-ref`
-                                                    );
+                                                    refClassesCache[ruleName]
+                                                    =
+                                                    `${cache.key}-${idOfUseStyles}${name !== undefined ? `-${name}` : ""}-${ruleName}-ref`
+                                                );
                                                 }
                                             })
                               })
