@@ -4,6 +4,9 @@ description: Start using TSS, with or without MUI
 
 # 🔧 Setup
 
+> 📣 We Want Your Opinion! 📊 `tss.createUseStyles(...)` or `tss.create(...)` ? [Vote here](https://github.com/garronej/tss-react/discussions/143)\
+> Thank you! 🙏
+
 {% tabs %}
 {% tab title="With MUI - makeStyles API" %}
 ```bash
