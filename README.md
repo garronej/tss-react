@@ -25,7 +25,7 @@
 
 > 📣 We Want Your Opinion! 📊
 > `tss.createUseStyles(...)` or `tss.create(...)` ?
-> [Vote here](https://github.com/garronej/tss-react/discussions/143)  
+> [Vote here](https://github.com/garronej/tss-react/discussions/191)  
 > Thank you! 🙏
 
 You can think of `tss-react` as `@emotion/jss`.  
