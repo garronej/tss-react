@@ -9,4 +9,4 @@ export const { tss } = createTss({
     }
 });
 
-export const useStyles = tss.createUseStyles({});
+export const useStyles = tss.create({});

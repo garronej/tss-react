@@ -24,7 +24,7 @@ export type Tss<
         | "withNestedSelectors" = never
 > = Omit<
     {
-        createUseStyles: <RuleName extends string>(
+        create: <RuleName extends string>(
             cssObjectByRuleNameOrGetCssObjectByRuleName: Tss.CssObjectByRuleNameOrGetCssObjectByRuleName<
                 Context,
                 Params,
@@ -222,7 +222,7 @@ function createTss_internal<
                 ...params,
                 "doesUseNestedSelectors": true
             }),
-        "createUseStyles": <RuleName extends string>(
+        "create": <RuleName extends string>(
             cssObjectByRuleNameOrGetCssObjectByRuleName: Tss.CssObjectByRuleNameOrGetCssObjectByRuleName<
                 Context,
                 Params,

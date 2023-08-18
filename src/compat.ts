@@ -31,4 +31,4 @@ export const { tss } = createTss({
     "useContext": () => ({})
 });
 
-export const useStyles = tss.createUseStyles({});
+export const useStyles = tss.create({});

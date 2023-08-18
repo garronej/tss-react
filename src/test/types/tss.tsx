@@ -22,10 +22,7 @@ const { tss } = createTss({
     assert<
         Equals<
             keyof typeof tss,
-            | "createUseStyles"
-            | "withParams"
-            | "withName"
-            | "withNestedSelectors"
+            "create" | "withParams" | "withName" | "withNestedSelectors"
         >
     >();
 
@@ -34,25 +31,23 @@ const { tss } = createTss({
     assert<
         Equals<
             keyof typeof tss_1,
-            "createUseStyles" | "withParams" | "withNestedSelectors"
+            "create" | "withParams" | "withNestedSelectors"
         >
     >();
 
     const tss_2 = tss_1.withParams<{ prop1: string }>();
 
-    assert<
-        Equals<keyof typeof tss_2, "createUseStyles" | "withNestedSelectors">
-    >();
+    assert<Equals<keyof typeof tss_2, "create" | "withNestedSelectors">>();
 
     const tss_3 = tss_2.withNestedSelectors<"foo" | "bar">();
 
-    assert<Equals<keyof typeof tss_3, "createUseStyles">>();
+    assert<Equals<keyof typeof tss_3, "create">>();
 }
 
 {
     const useStyles = tss
         .withNestedSelectors<"xxx">()
-        .createUseStyles(({ contextProp1, contextProp2, classes, ...rest }) => {
+        .create(({ contextProp1, contextProp2, classes, ...rest }) => {
             assert<Equals<typeof contextProp1, Context["contextProp1"]>>();
             assert<Equals<typeof contextProp2, Context["contextProp2"]>>();
             assert<Equals<typeof classes, Record<"xxx", string>>>();
@@ -86,25 +81,23 @@ const { tss } = createTss({
     const useStyles = tss
         .withNestedSelectors<"xxx">()
         .withParams<{ prop1: { _brand_prop1: unknown } }>()
-        .createUseStyles(
-            ({ contextProp1, contextProp2, classes, prop1, ...rest }) => {
-                assert<Equals<typeof contextProp1, Context["contextProp1"]>>();
-                assert<Equals<typeof contextProp2, Context["contextProp2"]>>();
-                assert<Equals<typeof prop1, { _brand_prop1: unknown }>>();
-                assert<Equals<typeof classes, Record<"xxx", string>>>();
-                assert<Equals<typeof rest, {}>>();
+        .create(({ contextProp1, contextProp2, classes, prop1, ...rest }) => {
+            assert<Equals<typeof contextProp1, Context["contextProp1"]>>();
+            assert<Equals<typeof contextProp2, Context["contextProp2"]>>();
+            assert<Equals<typeof prop1, { _brand_prop1: unknown }>>();
+            assert<Equals<typeof classes, Record<"xxx", string>>>();
+            assert<Equals<typeof rest, {}>>();
 
-                return {
-                    "root": {
-                        "backgroundColor": "red",
-                        [`& .${classes.xxx}`]: {
-                            "color": "white"
-                        }
-                    },
-                    "xxx": {}
-                };
-            }
-        );
+            return {
+                "root": {
+                    "backgroundColor": "red",
+                    [`& .${classes.xxx}`]: {
+                        "color": "white"
+                    }
+                },
+                "xxx": {}
+            };
+        });
 
     // @ts-expect-error: Missing prop1
     useStyles();
@@ -124,7 +117,7 @@ const { tss } = createTss({
 }
 
 {
-    const useStyles = tssMui.createUseStyles({});
+    const useStyles = tssMui.create({});
 
     useStyles({
         "classesOverrides": {},
@@ -141,7 +134,7 @@ const { tss } = createTss({
     assert<Equals<typeof rest, {}>>();
 }
 
-tss.createUseStyles(({ contextProp1, contextProp2, ...rest }) => {
+tss.create(({ contextProp1, contextProp2, ...rest }) => {
     assert<Equals<typeof rest, {}>>();
 
     return {};

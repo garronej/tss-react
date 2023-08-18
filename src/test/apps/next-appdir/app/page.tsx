@@ -209,7 +209,7 @@ const { App } = (() => {
     const useStyles = tss
         .withName("App")
         .withNestedSelectors<"child" | "breadcrumbs2_separator" | "childRefTest_wrapper2" | "childRefTest_wrapper1">()
-        .createUseStyles(({ theme, classes }) => {
+        .create(({ theme, classes }) => {
 
             const childRefTest_wrapper2 = {
                 "border": "1px solid black",
@@ -398,7 +398,7 @@ const { SecondNestedSelectorExample } = (() => {
         .withName({ SecondNestedSelectorExample })
         .withNestedSelectors<"child" | "small">()
         .withParams<{ color: "primary" | "secondary" }>()
-        .createUseStyles(({ theme, color, classes }) => ({
+        .create(({ theme, color, classes }) => ({
             "root": {
                 "padding": 30,
                 [`&:hover .${classes.child}`]: {
@@ -422,7 +422,7 @@ const { SecondNestedSelectorExample } = (() => {
 
 const { MyTestComponentForMergedClasses } = (() => {
 
-    const useStyles = tss.createUseStyles({
+    const useStyles = tss.create({
         "foo": {
             "border": "3px dotted black",
             "backgroundColor": "red"
@@ -463,7 +463,7 @@ const { MyTestComponentForMergedClasses } = (() => {
 
 const { TestCastingMuiTypographyStyleToCSSObject } = (() => {
 
-    const useStyles = tss.createUseStyles(({ theme }) => ({
+    const useStyles = tss.create(({ theme }) => ({
         "root": {
             ...(theme.typography.subtitle2 as CSSObject),
             "color": "red"
@@ -553,7 +553,7 @@ const { TestingStyleOverrides } = (() => {
 
     const useStyles = tss
         .withName("TestingStyleOverrides")
-        .createUseStyles({
+        .create({
             "root": {
                 "border": "1px solid black",
                 "width": 500,

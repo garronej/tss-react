@@ -19,4 +19,4 @@ export const { tss } = createTss({
     "usePlugin": useMuiThemeStyleOverridesPlugin
 });
 
-export const useStyles = tss.createUseStyles({});
+export const useStyles = tss.create({});
