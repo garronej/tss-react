@@ -1,7 +1,4 @@
-# tss / useStyles
-
-
-
+# tss - the Modern API
 
 ## useStyles
 
@@ -28,7 +25,7 @@ function MyComponent(){
 
 ## tss.create(...)
 
-`tss.create(...)` enables to separate the definition of styles from their usage.  
+`tss.create(...)` enables to separate the definition of styles from their usage.
 
 ```tsx
 import { tss } from "tss-react";
@@ -57,9 +54,9 @@ const useStyles = tss.create({
 });
 ```
 
-## tss.withParams<O>()
+## tss.withParams()
 
-`tss.withParams<O>()` enables to dynamically generate styles based on parameters.  
+`tss.withParams<O>()` enables to dynamically generate styles based on parameters.
 
 ```tsx
 import { useState } from "react";
@@ -101,7 +98,7 @@ const useStyles = tss
 
 ## tss.withName(name)
 
-Providing a name is useful when you open the debugger and want to quickly find the useStyles that generated a class name.  
+Providing a name is useful when you open the debugger and want to quickly find the useStyles that generated a class name.
 
 ```tsx
 import { tss } from "tss-react";
@@ -116,7 +113,7 @@ const useStyles = tss
 
 ## tss.withNestedSelectors<"a" | "b" | "c">()
 
-Enables to writes styles that reference each other.  
+Enables to writes styles that reference each other.
 
 ```tsx
 import { tss } from "tss-react";
@@ -159,17 +156,19 @@ const useStyles = tss
 ```
 
 {% embed url="https://user-images.githubusercontent.com/6702424/150658036-89ad047b-1282-4892-a0b6-e8d555d5cad5.mp4" %}
+
 The render of the above code
 
 > WARNING: In SSR setups you must provide a unique name when using nested selectors. `tss.withName("SomethingUnique").withNestedSelectors<...>().create(...)`
 
 ## createTss()
 
-`createTss()` enables to create a `tss` instance with a custom context.  
-The context will be passed as argument to the function you provide to `tss.create(...)`.  
-Let's see an example with a dark mode context:  
+`createTss()` enables to create a `tss` instance with a custom context.\
+The context will be passed as argument to the function you provide to `tss.create(...)`.\
+Let's see an example with a dark mode context:
 
 `src/tss.ts`:
+
 ```ts
 import { createContext } from "react";
 import { createTss } from "tss-react";
@@ -195,12 +194,13 @@ export const { tss } = createTss({
 ```
 
 `src/MyComponent.tsx`:
+
 ```tsx
 import { tss } from "./tss";
 
 function MyComponent(){
 
-    const { cx, classes } = useStyles();
+    const { cx, classes, isDarkMode } = useStyles();
 
     return (
         <div className={cx(classes.root, "myClassName")}>
