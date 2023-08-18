@@ -2,7 +2,7 @@
 
 `tss-react` unlike `jss-react` doesn't support the `$` syntax but a better alternative.
 
-## `makeStyles`
+## With the Modern API and makeStyles API
 
 In **JSS** you can do:
 
@@ -31,7 +31,82 @@ In **JSS** you can do:
 
 This is how you would achieve the same result with `tss-react`
 
-```jsx
+{% tabs %}
+{% tab title="Modern API" %}
+```tsx
+export function MyComponent() {
+    const { classes } = useStyles();
+
+    return (
+        <div className={classes.parent}>
+            <div className={classes.child}>
+                Background turns red when mouse is hover the parent.
+            </div>
+        </div>
+    );
+}
+
+const useStyles = tss
+    .withName("MyComponent") // It's important to set a name in SSR setups
+    .withNestedSelectors<"child">()
+    .create(({ classes }) => ({
+        "parent": {
+            "padding": 30,
+            [`&:hover .${classes.child}`]: {
+                "backgroundColor": "red"
+            }
+        },
+        "child": {
+            "backgroundColor": "blue"
+        },
+    }));
+```
+
+An other example:
+
+```tsx
+export function MyComponent() {
+    const { classes, cx } = useStyles({ "color": "primary" });
+
+    return (
+        <div className={classes.root}>
+            <div className={classes.child}>
+                The Background take the primary theme color when the mouse is
+                hover the parent.
+            </div>
+            <div className={cx(classes.child, classes.small)}>
+                The Background take the primary theme color when the mouse is
+                hover the parent. I am smaller than the other child.
+            </div>
+        </div>
+    );
+}
+
+const useStyles = tss
+    .withName("MyComponent") 
+    .withNestedSelectors<"child" | "small">()
+    .withParams<{ color: "primary" | "secondary" }>()
+    .create(({ theme, color, classes })=> ({
+        root: {
+            padding: 30,
+            [`&:hover .${classes.child}`]: {
+                backgroundColor: theme.palette[color].main
+            }
+        },
+        small: {},
+        child: {
+            border: "1px solid black",
+            height: 50,
+            [`&.${classes.small}`]: {
+                height: 30
+            }
+        }
+    }));
+```
+{% endtab %}
+
+{% tab title="makeStyles" %}
+```tsx
 export function App() {
     const { classes } = useStyles();
 
@@ -99,6 +174,8 @@ const useStyles = makeStyles<
     }
 }));
 ```
+{% endtab %}
+{% endtabs %}
 
 {% embed url="https://user-images.githubusercontent.com/6702424/150658036-89ad047b-1282-4892-a0b6-e8d555d5cad5.mp4" %}
 The render of the avove code
@@ -113,6 +190,8 @@ The render of the avove code
 {% embed url="https://user-images.githubusercontent.com/6702424/143791304-7705816a-4d25-4df7-9d45-470c5c9ec1bf.mp4" %}
 
 ## SSR
+
+**NOTE: This do not apply for the Modern API**
 
 In SSR setups, on stylesheets using nested selectors, you could end up with warnings like: &#x20;
 
@@ -177,4 +256,5 @@ withStyles: &#x20;
 <strong> }, { 
 </strong><strong>   name: "MyDiv",
 </strong><strong>+  uniqId: "xDTt4n"
-</strong><strong> });</strong></code></pre>
+</strong><strong> });
+</strong></code></pre>
