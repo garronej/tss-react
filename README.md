@@ -4,37 +4,21 @@ description: Start using TSS, with or without MUI
 
 # 🔧 Setup
 
-
 {% tabs %}
 {% tab title="With MUI - makeStyles API" %}
+
+Think of the `makeStyles` and `withStyles` APIs as continuity solutions that replace the deprecated API of the same name, which was provided in Material-UI v4. 
+[Migration guide on the MUI website](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
+
+Rest assured, these APIs are here to stay and are not on the path to deprecation. However, if you are willing to deviate slightly from the familiar Material-UI API, you are encouraged to explore and adopt the Modern API. It is designed to be more readable and user-friendly, offering a cleaner and more intuitive approach to styling your components.
+
+After completing your migration, if elements do not display as they used to, [do this and everything should work](troubleshoot-migration-to-muiv5-with-tss.md).  
+
+
 ```bash
 yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
 yarn add tss-react
 ```
-
-#### The `makeStyles` API: A Trusted Bridge to Material-UI v4
-
-The `makeStyles` API in our library is here to stay—it will not be deprecated. Initially designed to closely mirror Material-UI v4's `makeStyles`, this API serves as a seamless bridge for those transitioning from Material-UI v4. It aims to offer a familiar experience, mimicking the original Material-UI API as closely as possible.
-
-#### Opt for a Brighter Future with the Modern API
-
-While the `makeStyles` API remains a dependable choice, we encourage you to consider our **Modern API** for your new projects or when refactoring existing ones. The Modern API is designed with an emphasis on improved developer experience and superior readability. It represents our commitment to staying on the cutting edge and offering a clean, efficient, and enjoyable styling solution for React.
-
-#### Migrating from `@material-ui/core` (v4) to `@mui/material` (v5)?
-
-If you are transitioning from `@material-ui/core` (v4) to `@mui/material` (v5), we recommend consulting the official MUI migration guide. You can find it on MUI's documentation website here (please replace '#' with the actual link).
-
-#### Encountering Display Issues After Migration? We’ve Got Your Back!
-
-If, after migrating, you notice that components aren't rendering as they used to, don't worry—we are here to help. Check out our comprehensive Troubleshooting Guide (please replace '#' with the actual link) for step-by-step solutions to common issues, or reach out to our supportive community forum (please replace '#' with the actual link) for personalized assistance.
-
-{% hint style="info" %}
-The makeStyles API isn't and will never be deprecated, however it's more like a polifil for material-ui v4's makeStyles. It tries to stay as close as possible to the original material-ui API.  You'll get a beter devlopement experience and beter readability by opting for the Modern API instead. &#x20;
-
-If you are migrating from `@material-ui/core` (v4) to `@mui/material` (v5) checkout the migration guide from MUI's documentation website [here](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
-
-Things don’t display as they use to before migrating? Don't worry, [I got you covered](troubleshoot-migration-to-muiv5-with-tss.md)!
-{% endhint %}
 
 {% code title="src/MyButton.tsx" %}
 ```tsx
@@ -94,7 +78,7 @@ _Introduced in v4.9_
 
 ```bash
 yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
-yarn add tss-react@4.9.0-rc.4
+yarn add tss-react@4.9.0-rc.5
 ```
 
 {% code title="src/MyButton.tsx" %}
@@ -152,7 +136,7 @@ const useStyles = tss
 
 {% tab title="Standalone" %}
 ```bash
-yarn add tss-react@4.9.0-rc.0 @emotion/react
+yarn add tss-react@4.9.0-rc.5 @emotion/react
 ```
 
 {% code title="src/tss.ts" %}
@@ -160,11 +144,13 @@ yarn add tss-react@4.9.0-rc.0 @emotion/react
 import { createTss } from "tss-react";
 
 function useContext() {
-    const theme = {
+    const myTheme = {
         primaryColor: "#32CD32", // This is LimeGreen in hex
     };
+
     
-    return { theme };
+    // You can return anything here, you decide what's the context.
+    return { myTheme };
 }
 
 export const { tss } = createTss({ useContext });
@@ -188,7 +174,7 @@ export function MyComponent(props: Props) {
 
   const [color, setColor] = useState<'red' | 'blue'>('red');
 
-  const { classes, cx } = useStyles({ color });
+  const { classes, cx /*,myTheme*/ } = useStyles({ color });
 
   //Thanks to cx, className will take priority over classes.root 🤩
   return (
@@ -203,14 +189,14 @@ export function MyComponent(props: Props) {
 
 const useStyles = tss
   .withParams<{ color: 'red' | 'blue'; }>()
-  .create(({ theme, color }) => ({
+  .create(({ myTheme, color }) => ({
     root: {
       cursor: 'pointer',
       // The color of the text is red or blue depending on the state of the component
       color,
       // When mouse is hover, green border
       '&:hover': {
-        border: `4px solid ${theme.primaryColor}`,
+        border: `4px solid ${myTheme.primaryColor}`,
       },
       // On big screen, a big black border
       '@media (min-width:48em)': {
@@ -230,13 +216,12 @@ If you don't want to end up writing things like:
 import { makeStyles } from "../../../../../../tss";
 ```
 
-You can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your tsconfig.json and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
+In Vite, you can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your tsconfig.json and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
 
 In the above example it would be:
 
 ```typescript
 import { makeStyles } from "tss";
-If you are in a Next.js setup there is an extra step to get SSR working:  
 ```
 {% endhint %}
 {% endtab %}
