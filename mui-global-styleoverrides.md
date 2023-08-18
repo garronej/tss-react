@@ -1,12 +1,70 @@
-# 🍭 MUI Theme styleOverrides
+# 🍭 MUI Global styleOverrides
 
 TSS Support [MUI Global style overrides from `createTheme`](https://mui.com/customization/theme-components/%23global-style-overrides)  out of the box.  Previously in material-ui v4 it was: [global theme overrides](https://v4.mui.com/customization/components/#global-theme-override).
 
 By default, however, only the `theme` object is passed to the callbacks, if you want to pass the correct `props`, and a specific `ownerState` have a look at the following example: &#x20;
 
-`MyComponent.tsx`
+{% tabs %}
+{% tab title="Modern API" %}
+{% code title="MyComponent.tsx" %}
+```tsx
+import { tss } from "tss-react/mui";
 
-```typescript
+export type Props = {
+    className?: string;
+    classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
+    lightBulbBorderColor: string;
+}
+
+function MyComponent(props: Props) {
+
+    const { className } = props;
+
+    const [isOn, toggleIsOn] = useReducer(isOn => !isOn, false);
+
+    const { classes, cx } = useStyles({ 
+        muiStyleOverridesParams: { 
+            props, 
+            "ownerState": { isOn } 
+        }
+    });
+
+    return (
+        <div className={cx(classes.root, className)} >
+            <div className={classes.lightBulb}></div>
+            <button onClick={toggleIsOn}>{`Turn ${isOn?"off":"on"}`}</button>
+            <p>Div should have a border, background should be white</p>
+            <p>Light bulb should have black border, it should be yellow when turned on.</p>
+        </div>
+    );
+
+}
+
+const useStyles = tss
+    .withName("MyComponent")
+    .create({
+        root: {
+            border: "1px solid black",
+            width: 500,
+            height: 200,
+            position: "relative",
+            color: "black"
+        },
+        lightBulb: {
+            position: "absolute",
+            width: 50,
+            height: 50,
+            top: 120,
+            left: 500/2 - 50,
+            borderRadius: "50%"
+        }
+    });
+```
+{% endcode %}
+{% endtab %}
+
+{% tab title="makeStyles API" %}
+```tsx
 export type Props = {
     className?: string;
     classes?: Partial<ReturnType<typeof useStyles>["classes"]>;
@@ -32,8 +90,7 @@ function MyComponent(props: Props) {
 
 }
 
-//NOTE: you can also write { "name": "MyComponent" }
-const useStyles = makeStyles({ "name": { MyComponent } })(theme => ({
+const useStyles = makeStyles({ name: "MyComponent" })({
     "root": {
         "border": "1px solid black",
         "width": 500,
@@ -49,12 +106,10 @@ const useStyles = makeStyles({ "name": { MyComponent } })(theme => ({
         "left": 500/2 - 50,
         "borderRadius": "50%"
     }
-}));
+});
 ```
-
-{% hint style="info" %}
-You can also write `makeStyles({ "name": "MyComponent" })`, see [specific doc](api/makestyles.md#naming-the-stylesheets-useful-for-debugging-and-theme-styleoverrides).
-{% endhint %}
+{% endtab %}
+{% endtabs %}
 
 Declaration of the theme: &#x20;
 
