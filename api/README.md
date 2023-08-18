@@ -2,16 +2,21 @@
 
 ### Exposed APIs
 
+
 ```typescript
 import {
-    tss, //<- (only in 4.9.0-rc.4) The modern API 
-    createTss, //<- (only in 4.9.0-rc.0) Create an instance of tss where your context, usualy a dynamic theme
-              // is made available.  
-    createMakeAndWithStyles, //<- Create an instance of makeStyles() and withStyles() for your theme.
-                             // Favor using the Moden API for a better Devloper experience.
+    createTss, //<- (From in 4.9) The Modern API, you provide your context like a dynamic theme for example.
+    tss, //<- The Modern API, to use when you don't have a dynamic theme object that you want to make available when you write your styles. 
     keyframes, //<- The function as defined in @emotion/react and @emotion/css
     GlobalStyles, //<- A component to define global styles. 
 } from "tss-react";
+
+import {
+    tss // <- The Modern API, that use the global MUI theme as context. It's also configured to enable global theme overrides on your custom components.  
+    makeStyles, //<- A function similar to @material-ui/core/styles configured to use the global MUI theme.
+    withStyles, //<- A function similar to @material-ui/core/styles configured to use the global MUI theme.
+} from "tss-react/mui";
+
 ```
 
 {% content-ref url="makestyles.md" %}
