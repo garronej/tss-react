@@ -2,7 +2,6 @@
 
 ### Exposed APIs
 
-
 ```typescript
 import {
     createTss, //<- (From in 4.9) The Modern API, you provide your context like a dynamic theme for example.
@@ -16,15 +15,12 @@ import {
     makeStyles, //<- A function similar to @material-ui/core/styles configured to use the global MUI theme.
     withStyles, //<- A function similar to @material-ui/core/styles configured to use the global MUI theme.
 } from "tss-react/mui";
-
 ```
 
-{% content-ref url="makestyles.md" %}
-[makestyles.md](makestyles.md)
-{% endcontent-ref %}
 
-{% content-ref url="withstyles.md" %}
-[withstyles.md](withstyles.md)
+
+{% content-ref url="tss-usestyles.md" %}
+[tss-usestyles.md](tss-usestyles.md)
 {% endcontent-ref %}
 
 {% content-ref url="globalstyles.md" %}
@@ -35,6 +31,10 @@ import {
 [keyframes.md](keyframes.md)
 {% endcontent-ref %}
 
-{% content-ref url="broken-reference" %}
-[Broken link](broken-reference)
+{% content-ref url="makestyles.md" %}
+[makestyles.md](makestyles.md)
+{% endcontent-ref %}
+
+{% content-ref url="withstyles.md" %}
+[withstyles.md](withstyles.md)
 {% endcontent-ref %}
