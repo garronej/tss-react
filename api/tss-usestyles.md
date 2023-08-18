@@ -20,12 +20,12 @@ const { tss } = createTss({
 });
 ```
 
-### `createUseStyles()`
+### `create()`
 
-The primary method to create styles is `createUseStyles`. It returns a `useStyles` hook that you can use in your components.
+The primary method to create styles is `create`. It returns a `useStyles` hook that you can use in your components.
 
 ```
-const useStyles = tss.createUseStyles(({ contextProp1, contextProp2 }) => {
+const useStyles = tss.create(({ contextProp1, contextProp2 }) => {
     return {
         "root": {
             // ...styles
@@ -43,7 +43,7 @@ To provide a name for your styles (useful for debugging), you can chain the `wit
 ```
 const useStyles = tss
     .withName("MyComponent")
-    .createUseStyles(({ contextProp1, contextProp2 }) => {
+    .create(({ contextProp1, contextProp2 }) => {
         return {
             "root": {
                 // ...styles
@@ -59,7 +59,7 @@ If you want your styles to depend on certain parameters, you can use the `withPa
 ```
 const useStyles = tss
     .withParams<{ prop1: string }>()
-    .createUseStyles(({ contextProp1, contextProp2, prop1 }) => {
+    .create(({ contextProp1, contextProp2, prop1 }) => {
         return {
             "root": {
                 // ...styles based on prop1
@@ -79,7 +79,7 @@ For styles that have nested selectors, you can use the `withNestedSelectors` met
 ```
 const useStyles = tss
     .withNestedSelectors<"xxx">()
-    .createUseStyles(({ contextProp1, contextProp2, classes }) => {
+    .create(({ contextProp1, contextProp2, classes }) => {
         return {
             "root": {
                 "backgroundColor": "red",
@@ -105,7 +105,7 @@ const useStyles = tss
     .withName("MyComponent")
     .withParams<{ prop1: { _brand_prop1: unknown } }>()
     .withNestedSelectors<"xxx">()
-    .createUseStyles(({ contextProp1, contextProp2, classes, prop1 }) => {
+    .create(({ contextProp1, contextProp2, classes, prop1 }) => {
         return {
             "root": {
                 "backgroundColor": "red",
@@ -129,7 +129,7 @@ const { classes } = useStyles({
 For those using Material-UI, there's a dedicated method to create styles:
 
 ```
-const useStyles = tssMui.createUseStyles({});
+const useStyles = tssMui.create({});
 
 useStyles({
     "classesFromProps": {},

@@ -4,8 +4,6 @@ description: Start using TSS, with or without MUI
 
 # 🔧 Setup
 
-> 📣 We Want Your Opinion! 📊 `tss.createUseStyles(...)` or `tss.create(...)` ? [Vote here](https://github.com/garronej/tss-react/discussions/191)\
-> Thank you! 🙏
 
 {% tabs %}
 {% tab title="With MUI - makeStyles API" %}
@@ -131,7 +129,7 @@ export function MyButton(props: Props) {
 
 const useStyles = tss
     .withParams<{ color: "red" | "blue"; }>()
-    .createUseStyles(({ theme, color })=> ({
+    .create(({ theme, color })=> ({
         root: {
             // The color of the text is either blue or red depending of 
             // the state fo the component.
@@ -171,7 +169,7 @@ function useContext() {
 
 export const { tss } = createTss({ useContext });
 
-export const useStyles = tss.createUseStyles({});
+export const useStyles = tss.create({});
 ```
 {% endcode %}
 
@@ -205,7 +203,7 @@ export function MyComponent(props: Props) {
 
 const useStyles = tss
   .withParams<{ color: 'red' | 'blue'; }>()
-  .createUseStyles(({ theme, color }) => ({
+  .create(({ theme, color }) => ({
     root: {
       cursor: 'pointer',
       // The color of the text is red or blue depending on the state of the component
