@@ -6,14 +6,11 @@ description: Start using TSS, with or without MUI
 
 {% tabs %}
 {% tab title="With MUI - makeStyles API" %}
-
-Think of the `makeStyles` and `withStyles` APIs as continuity solutions that replace the deprecated API of the same name, which was provided in Material-UI v4. 
-[Migration guide on the MUI website](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
+Think of the `makeStyles` and `withStyles` APIs as continuity solutions that replace the deprecated API of the same name, which was provided in Material-UI v4. [Migration guide on the MUI website](https://mui.com/material-ui/migration/migrating-from-jss/#2-use-tss-react).
 
 Rest assured, these APIs are here to stay and are not on the path to deprecation. However, if you are willing to deviate slightly from the familiar Material-UI API, you are encouraged to explore and adopt the Modern API. It is designed to be more readable and user-friendly, offering a cleaner and more intuitive approach to styling your components.
 
-After completing your migration, if elements do not display as they used to, [do this and everything should work](troubleshoot-migration-to-muiv5-with-tss.md).  
-
+After completing your migration, if elements do not display as they used to, [do this and everything should work](troubleshoot-migration-to-muiv5-with-tss.md).
 
 ```bash
 yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
@@ -78,7 +75,7 @@ _Introduced in v4.9_
 
 ```bash
 yarn add @mui/material @emotion/styled @emotion/react #Required for MUI
-yarn add tss-react@4.9.0-rc.5
+yarn add tss-react
 ```
 
 {% code title="src/MyButton.tsx" %}
@@ -136,7 +133,7 @@ const useStyles = tss
 
 {% tab title="Standalone" %}
 ```bash
-yarn add tss-react@4.9.0-rc.5 @emotion/react
+yarn add tss-react @emotion/react
 ```
 
 {% code title="src/tss.ts" %}
