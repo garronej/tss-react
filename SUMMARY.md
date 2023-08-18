@@ -12,7 +12,7 @@
   * [Gatsby](ssr/gatsby.md)
   * [Other backends](ssr/other-backends.md)
 * [🎯 Increase specificity](increase-specificity.md)
-* [🦱 Your own classes prop](your-own-classes-prop.md)
+* [🦱 classes overrides](your-own-classes-prop.md)
 * [🧹 Detecting unused classes](detecting-unused-classes.md)
 * [💽 Emotion Cache](cache.md)
 * [💫 Nested selectors (ex $ syntax)](nested-selectors.md)

@@ -3,10 +3,10 @@
 You can abitratly increace specificity using `&`.\
 The more you add, the more specific your selector will get.
 
-For example, matchall selectors are very low specificity. Any other rule will overwrite them.  Adding extra & ensures your custom style will get applied. &#x20;
+For example, matchall selectors are very low specificity. Any other rule will overwrite them. Adding extra & ensures your custom style will get applied.
 
 ```diff
-const useStyles = makeStyles()({
+const useStyles = tss.create({
   row: {
     height: 50,
     cursor: "pointer",
@@ -21,10 +21,10 @@ const useStyles = makeStyles()({
 });
 ```
 
-You can use && everywhere: &#x20;
+You can use && everywhere:
 
 ```diff
-const useStyles = makeStyles()({
+const useStyles = tss.create({
   select: {
 +   "&&": {
       width: 150,

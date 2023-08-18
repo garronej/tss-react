@@ -1,6 +1,6 @@
 # 🧹 Detecting unused classes
 
-There is [an ESLint plugin](https://github.com/garronej/eslint-plugin-tss-unused-classes) that detects unused classes:
+There is [an ESLint plugin](https://github.com/garronej/eslint-plugin-tss-unused-classes) that detects unused classes for makeStyles and the Modern API: &#x20;
 
 {% embed url="https://user-images.githubusercontent.com/6702424/167232362-828171de-b64c-4e92-9d01-cd9542fd02b8.mp4" %}
 
