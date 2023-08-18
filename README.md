@@ -23,11 +23,6 @@
   <a href="https://stackblitz.com/edit/vercel-next-js-bmc6dm?file=ui%2FTssLogo.tsx">Playground</a>
 </p>
 
-> 📣 We Want Your Opinion! 📊
-> `tss.createUseStyles(...)` or `tss.create(...)` ?
-> [Vote here](https://github.com/garronej/tss-react/discussions/191)  
-> Thank you! 🙏
-
 You can think of `tss-react` as `@emotion/jss`.  
 It's, in essence, a type-safe equivalent of [the JSS API](https://cssinjs.org/?v=v10.10.0#react-jss-example) but powered by Emotion,
 just like `@emotion/styled` is the [styled-components API](https://styled-components.com/) but powered by Emotion.
