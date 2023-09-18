@@ -11,7 +11,9 @@ import type { ReactNode } from "react";
 
 export type NextAppDirEmotionCacheProviderProps = {
     /** This is the options passed to createCache() from 'import createCache from "@emotion/cache"' */
-    options: Omit<OptionsOfCreateCache, "insertionPoint">;
+    options: Omit<OptionsOfCreateCache, "insertionPoint"> & {
+        prepend?: boolean;
+    };
     /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
     CacheProvider?: (props: {
         value: EmotionCache;
@@ -23,7 +25,13 @@ export type NextAppDirEmotionCacheProviderProps = {
 export function NextAppDirEmotionCacheProvider(
     props: NextAppDirEmotionCacheProviderProps
 ) {
-    const { options, CacheProvider = DefaultCacheProvider, children } = props;
+    const {
+        options: optionsWithPrepend,
+        CacheProvider = DefaultCacheProvider,
+        children
+    } = props;
+
+    const { prepend = false, ...options } = optionsWithPrepend;
 
     const [{ cache, flush }] = useState(() => {
         const cache = createCache(options);
@@ -76,6 +84,9 @@ export function NextAppDirEmotionCacheProvider(
             }
         }
 
+        const get__Html = (style: string) =>
+            prepend ? `@layer emotion {${style}}` : style;
+
         return (
             <>
                 {globals.map(({ name, style }) => (
@@ -83,14 +94,16 @@ export function NextAppDirEmotionCacheProvider(
                         nonce={options.nonce}
                         key={name}
                         data-emotion={`${cache.key}-global ${name}`}
-                        dangerouslySetInnerHTML={{ "__html": style }}
+                        dangerouslySetInnerHTML={{ "__html": get__Html(style) }}
                     />
                 ))}
                 {styles !== "" && (
                     <style
                         nonce={options.nonce}
                         data-emotion={dataEmotionAttribute}
-                        dangerouslySetInnerHTML={{ "__html": styles }}
+                        dangerouslySetInnerHTML={{
+                            "__html": get__Html(styles)
+                        }}
                     />
                 )}
             </>
