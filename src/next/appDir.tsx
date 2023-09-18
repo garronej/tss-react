@@ -80,6 +80,7 @@ export function NextAppDirEmotionCacheProvider(
             <>
                 {globals.map(({ name, style }) => (
                     <style
+                        nonce={options.nonce}
                         key={name}
                         data-emotion={`${cache.key}-global ${name}`}
                         dangerouslySetInnerHTML={{ "__html": style }}
@@ -87,6 +88,7 @@ export function NextAppDirEmotionCacheProvider(
                 ))}
                 {styles !== "" && (
                     <style
+                        nonce={options.nonce}
                         data-emotion={dataEmotionAttribute}
                         dangerouslySetInnerHTML={{ "__html": styles }}
                     />

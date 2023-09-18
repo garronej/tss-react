@@ -56,6 +56,7 @@ export function createEmotionSsrAdvancedApproach(options: CreateCacheOption) {
                                     .styles.filter(({ css }) => css !== "")
                                     .map(style => (
                                         <style
+                                            nonce={options.nonce}
                                             data-emotion={`${
                                                 style.key
                                             } ${style.ids.join(" ")}`}
