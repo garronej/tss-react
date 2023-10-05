@@ -1,13 +1,13 @@
 # 💫 Nested selectors (ex $ syntax)
 
-`tss-react` unlike `jss-react` doesn't support the `$` syntax but a better alternative.
+`tss-react` unlike `jss-react` doesn't support the `$` syntax but is a better alternative.
 
 ## With the Modern API and makeStyles API
 
 In **JSS** you can do:
 
 ```jsx
-//WARNIG: This is legacy JSS code!
+//WARNING: This is legacy JSS code!
 {
   "parent": {
       "padding": 30,
@@ -22,7 +22,7 @@ In **JSS** you can do:
 //...
 <div className={classes.parent}>
     <div className={classes.child}>
-        Background turns red when the mouse is hover the parent
+        Background turns red when the mouse is hovering over the parent
     </div>
 </div>
 ```
@@ -40,7 +40,7 @@ export function MyComponent() {
     return (
         <div className={classes.parent}>
             <div className={classes.child}>
-                Background turns red when mouse is hover the parent.
+                Background turns red when the mouse is hovering over the parent.
             </div>
         </div>
     );
@@ -62,7 +62,7 @@ const useStyles = tss
     }));
 ```
 
-An other example:
+Another example:
 
 ```tsx
 export function MyComponent() {
@@ -71,12 +71,12 @@ export function MyComponent() {
     return (
         <div className={classes.root}>
             <div className={classes.child}>
-                The Background take the primary theme color when the mouse is
-                hover the parent.
+                The Background takes the primary theme color when the mouse is
+                hovering over the parent.
             </div>
             <div className={cx(classes.child, classes.small)}>
-                The Background take the primary theme color when the mouse is
-                hover the parent. I am smaller than the other child.
+                The Background takes the primary theme color when the mouse is
+                hovering over the parent. I am smaller than the other child.
             </div>
         </div>
     );
@@ -113,7 +113,7 @@ export function App() {
     return (
         <div className={classes.parent}>
             <div className={classes.child}>
-                Background turns red when mouse is hover the parent.
+                Background turns red when the mouse is hovering over the parent.
             </div>
         </div>
     );
@@ -134,7 +134,7 @@ const useStyles = makeStyles<void, "child">()(
 );
 ```
 
-An other example:
+Another example:
 
 ```tsx
 export function App() {
@@ -143,12 +143,12 @@ export function App() {
     return (
         <div className={classes.root}>
             <div className={classes.child}>
-                The Background take the primary theme color when the mouse is
-                hover the parent.
+                The Background takes the primary theme color when the mouse is
+                hovering over the parent.
             </div>
             <div className={cx(classes.child, classes.small)}>
-                The Background take the primary theme color when the mouse is
-                hover the parent. I am smaller than the other child.
+                The Background takes the primary theme color when the mouse is
+                hovering over the parent. I am smaller than the other child.
             </div>
         </div>
     );
@@ -178,7 +178,7 @@ const useStyles = makeStyles<
 {% endtabs %}
 
 {% embed url="https://user-images.githubusercontent.com/6702424/150658036-89ad047b-1282-4892-a0b6-e8d555d5cad5.mp4" %}
-The render of the avove code
+The render of the above code
 {% endembed %}
 
 > WARNING: Nested selectors requires [ES6 Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Proxy) support which [IE doesn't support](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Proxy#browser\_compatibility).\
@@ -191,7 +191,7 @@ The render of the avove code
 
 ## SSR
 
-**NOTE: This do not apply for the Modern API**
+**NOTE: This does not apply to the Modern API**
 
 In SSR setups, on stylesheets using nested selectors, you could end up with warnings like: &#x20;
 
@@ -201,7 +201,7 @@ In SSR setups, on stylesheets using nested selectors, you could end up with warn
 
 ![Example of error you may run against with Next.js](.gitbook/assets/image.png)
 
-You can fix this error by providing an uniq id when calling `makeStyles` or `withStyles` (It will set XXX and YYY). &#x20;
+You can fix this error by providing a unique id when calling `makeStyles` or `withStyles` (It will set XXX and YYY). &#x20;
 
 {% hint style="info" %}
 Short unique identifiers can be generated with [this website](https://shortunique.id/).
