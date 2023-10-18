@@ -84,7 +84,7 @@ export function createWithStyles<Theme>(params: {
                 const { name } = Component_;
 
                 if (name) {
-                    return name;
+                    return name.replace(/\$/g, "usd");
                 }
             }
         })();
