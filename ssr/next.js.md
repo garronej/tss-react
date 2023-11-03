@@ -88,6 +88,7 @@ If you want TSS and MUI to use different caches you can implement this approach.
 {% code title="app/layout.tsx" %}
 ```tsx
 import { NextAppDirEmotionCacheProvider } from "tss-react/next/appDir";
+import { TssCacheProvider } from "tss-react";
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
     return (
