@@ -5,7 +5,7 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 ![](https://user-images.githubusercontent.com/6702424/136705025-dadfff08-7d9a-49f7-8696-533ca38ec38f.gif)
 
 {% hint style="info" %}
-&#x20;[Using `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles\_classes.tsx#L112-L142) can often helps when you get red squiggly lines.
+[Using `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles\_classes.tsx#L112-L142) can often helps when you get red squiggly lines.
 {% endhint %}
 
 ### With functional component
@@ -15,7 +15,7 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 import { withStyles } from "tss-react/mui";
 
 type Props = {
-    className?: string;cod
+    className?: string;
     classes?: Partial<Record<"root" | "label", string>>;
     colorSmall: string;
 };
@@ -208,7 +208,7 @@ const MyStyledButton = withStyles(Button, {
 });
 </code></pre>
 
-What's very powerfull about the withStyles API it it's capable to infer the type of the nested overwritable classes, example: &#x20;
+What's very powerfull about the withStyles API it it's capable to infer the type of the nested overwritable classes, example:
 
 <figure><img src="../.gitbook/assets/nestedSelectors_small.46ae0227.gif" alt=""><figcaption></figcaption></figure>
 
@@ -263,11 +263,11 @@ const MyDiv = withStyles("div", {
 //The class apllied to the div will be like: "css-xxxxxx-MyDiv-root"
 ```
 
-### Use in place of styled &#x20;
+### Use in place of styled
 
-If you want to use `withStyles` instead of `styled` for the extra type safety it provides: &#x20;
+If you want to use `withStyles` instead of `styled` for the extra type safety it provides:
 
-Before:&#x20;
+Before:
 
 ```tsx
 import { styled } from '@mui/material/styles';
@@ -288,7 +288,7 @@ const StyledPopper = styled(Popper)({
 });
 ```
 
-After (just wrap everything into `root`): &#x20;
+After (just wrap everything into `root`):
 
 ```typescript
 import { withStyles } from 'tss-react/mui';
