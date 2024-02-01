@@ -8,11 +8,15 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 [Using `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles\_classes.tsx#L112-L142) can often helps when you get red squiggly lines.
 {% endhint %}
 
-### With functional component
-
+{% tabs %}
+{% tab title="Functional Component" %}
 {% code title="MyComponent.tsx" %}
 ```tsx
-import { withStyles } from "tss-react/mui";
+import { withStyles } from "tss-react/mui";
+// When using withStyles, if you need to combine classes 
+// you can use the clsx package. (But use const { cx } = useStyles()
+// with makeStyles!)
+import clsx from "clsx";
 
 type Props = {
     className?: string;
@@ -65,15 +69,19 @@ render(
     />
 );
 ```
+{% endtab %}
 
-### With class components
-
+{% tab title="Class Component" %}
 The main reason you would use `withStyles` over `makeStyles` is to support class based components.
 
 {% code title="MyComponent.tsx" %}
 ```tsx
 import * as React from "react";
 import { withStyles } from "tss-react/mui";
+// When using withStyles, if you need to combine classes 
+// you can use the clsx package. (But use const { cx } = useStyles()
+// with makeStyles!)
+import clsx from "clsx";
 
 export type Props ={
   className?: string;
@@ -128,6 +136,8 @@ render(
     />
 );
 ```
+{% endtab %}
+{% endtabs %}
 
 ### With no classes props
 
