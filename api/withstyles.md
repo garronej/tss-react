@@ -16,7 +16,7 @@ import { withStyles } from "tss-react/mui";
 
 type Props = {
     className?: string;
-    classes?: Partial<Record<"root" | "label", string>>;
+    classes?: Partial<Record<"root" | "text", string>>;
     colorSmall: string;
 };
 
@@ -25,7 +25,7 @@ function MyComponent(props: Props) {
     const classes = withStyles.getClasses(props);
 
     return (
-      {/* props.classeName and props.classes.root are merged, props.className get higher specificity */}
+      // props.classeName and props.classes.root are merged, props.className get higher specificity
       <div className={classes.root}>
         <span className={classes.text}>The background color should be different when the screen is small.</span>
       </div>
