@@ -72,21 +72,44 @@ export function createWithStyles<Theme>(params: {
                 }
             }
 
-            {
+            let name: string | undefined = undefined;
+
+            displayName: {
                 const displayName = (Component_ as any).displayName;
 
-                if (typeof displayName === "string" && displayName !== "") {
-                    return displayName;
+                if (typeof displayName !== "string" || displayName === "") {
+                    break displayName;
                 }
+
+                name = displayName;
             }
 
-            {
-                const { name } = Component_;
-
-                if (name) {
-                    return name.replace(/\$/g, "usd");
+            functionName: {
+                if (name !== undefined) {
+                    break functionName;
                 }
+
+                const functionName = Component_.name;
+
+                if (typeof functionName !== "string" || functionName === "") {
+                    break functionName;
+                }
+
+                name = functionName;
             }
+
+            if (name === undefined) {
+                return undefined;
+            }
+
+            // Special case for dollar sign
+            name = name.replace(/\$/g, "usd");
+            // Replacing open and close parentheses
+            name = name.replace(/\(/g, "_").replace(/\)/g, "_");
+            // Catch-all replacement for characters not allowed in CSS class names
+            name = name.replace(/[^a-zA-Z0-9-_]/g, "_");
+
+            return name;
         })();
 
         const useStyles = makeStyles<Props, any>({ ...params, name })(
