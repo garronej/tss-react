@@ -69,6 +69,53 @@ render(
     />
 );
 ```
+
+If you have your styles defined as a separate function: &#x20;
+
+{% code title="MyComponent.tsx" %}
+```tsx
+import { withStyles } from "tss-react/mui";
+import type { Theme } from '@mui/material';
+import clsx from "clsx";
+
+type Props = {
+    className?: string;
+    classes?: Partial<Record<keyof ReturnType<typeof styles>, string>>;
+    colorSmall: string;
+};
+
+function MyComponent(props: Props) {
+
+    const classes = withStyles.getClasses(props);
+
+    return (
+      // props.classeName and props.classes.root are merged, props.className get higher specificity
+      <div className={classes.root}>
+        <span className={classes.text}>The background color should be different when the screen is small.</span>
+      </div>
+    );
+}
+
+const styles = (theme: Theme, props: Props) => ({
+    root: {
+        backgroundColor: theme.palette.primary.main,
+        height: 100
+    },
+    text: {
+        border: "1px solid red"
+    },
+    "@media (max-width: 960px)": {
+        root: {
+            backgroundColor: props.colorSmall
+        }
+    }
+});
+
+const MyComponentStyled = withStyles(MyComponent, styles);
+
+export default MyComponentStyled;
+```
+{% endcode %}
 {% endtab %}
 
 {% tab title="Class Component" %}
@@ -91,7 +138,6 @@ export type Props ={
 
 class MyComponent extends React.Component<Props> {
   render() {
-  
     const classes = withStyles.getClasses(this.props);
 
     return (
@@ -135,6 +181,53 @@ render(
        colorSmall="cyan" 
     />
 );
+```
+
+Or, if you have your styles defined as a separate function: &#x20;
+
+```tsx
+import * as React from "react";
+import { withStyles } from "tss-react/mui";
+import type { Theme } from '@mui/material';
+import clsx from "clsx";
+
+type Props = {
+    className?: string;
+    classes?: Partial<Record<keyof ReturnType<typeof styles>, string>>;
+    colorSmall: string;
+};
+
+class MyComponent extends React.Component<Props> {
+  render() {
+    const classes = withStyles.getClasses(this.props);
+
+    return (
+      {/* props.classeName and props.classes.root are merged, props.className get higher specificity */}
+      <div className={classes.root}>
+        <span className={classes.span}>The background color should be different when the screen is small.</span>
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme, props: Props) => ({
+    root: {
+        backgroundColor: theme.palette.primary.main,
+        height: 100
+    },
+    text: {
+        border: "1px solid red"
+    },
+    "@media (max-width: 960px)": {
+        root: {
+            backgroundColor: props.colorSmall
+        }
+    }
+});
+
+const MyComponentStyled = withStyles(MyComponent, styles);
+
+export default MyComponentStyled;
 ```
 {% endtab %}
 {% endtabs %}
