@@ -1,8 +1,8 @@
 # \<GlobalStyles />
 
-Sometimes you might want to insert global css. You can use the `<GlobalStyles />` component to do this.
+Sometimes you might want to insert global css. You can use the `<GlobalStyles />` component to do this.&#x20;
 
-It's `styles` (with an s) prop should be of same type as the [`css()`](makestyles.md#usestyles) function argument.
+It's `styles` (with an s) prop should be of same type as the [`css()`](makestyles.md#usestyles) function argument or you can use string interpolation (see below). &#x20;
 
 ```tsx
 import { GlobalStyles } from "tss-react";
@@ -28,6 +28,16 @@ function MyComponent() {
         </>
     );
 }
+```
+
+Use string interpolation, for example to import font face: &#x20;
+
+```tsx
+<GlobalStyles
+  styles={`
+    @import url(${typography.fontFace.import});
+  `}
+/>
 ```
 
 {% hint style="info" %}
