@@ -16,11 +16,11 @@ function MyComponent() {
         <>
             <GlobalStyles
                 styles={{
-                    "body": {
-                        "backgroundColor": theme.palette.background.default,
+                    body: {
+                        backgroundColor: theme.palette.background.default,
                     },
                     ".foo": {
-                        "color": "cyan"
+                        color: "cyan"
                     },
                 }}
             />
