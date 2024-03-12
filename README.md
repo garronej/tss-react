@@ -55,9 +55,9 @@ const useStyles = tss
                 border: '4px solid black'
             },
             // On screens bigger than MD the button will have a big cyan border
- 	    [theme.breakpoints.up("md")]: {
-	        border: '10px solid cyan'
-	    }
+            [theme.breakpoints.up("md")]: {
+                border: '10px solid cyan'
+            }
         }
     }));
 ```
