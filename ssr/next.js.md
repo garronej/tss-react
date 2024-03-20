@@ -1,7 +1,8 @@
 # Next.js
 
 {% hint style="success" %}
-Users of MUI: Utilizing this toolset eliminates the need for you to configure SSR for MUI manually. The MUI team [is using our provider in their example setup for Next.js App Router](https://github.com/mui/material-ui/blob/4036eb60b45c260e9f49904f1b54f8c947a944d2/examples/material-next-app-router-ts/src/components/ThemeRegistry/EmotionCache.tsx#L20-L21).&#x20;
+Users of MUI: The MUI team now provides [a dedicated package for easing up the integration with Next: @mui/material-nextjs](https://mui.com/material-ui/integrations/nextjs/). You can use it instead of the TSS tooling documented below.  \
+In any case you should use one (@mui/material-nextjs)  or the other (tss-react/next) but not both! &#x20;
 {% endhint %}
 
 ### Single emotion cache (recommended approach)
