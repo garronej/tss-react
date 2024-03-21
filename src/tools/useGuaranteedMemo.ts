@@ -13,7 +13,7 @@ export function useGuaranteedMemo<T>(
     if (
         ref.current === undefined ||
         deps.length !== ref.current.prevDeps.length ||
-        ref.current.prevDeps.map((v, i) => v === deps[i]).indexOf(false) >= 0
+        ref.current.prevDeps.find((v, i) => v !== deps[i]) !== undefined
     ) {
         ref.current = {
             "v": fn(),
