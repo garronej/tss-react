@@ -10,7 +10,7 @@ export function useGuaranteedMemo<T>(
 
     if (
         !ref.current ||
-        deps.length !== ref.current.prevDeps.length ||
+        deps.length !== ref.current.prevDeps?.length ||
         ref.current.prevDeps.map((v, i) => v === deps[i]).indexOf(false) >= 0
     ) {
         ref.current = {
