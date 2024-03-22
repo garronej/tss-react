@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 /** Like react's useMemo but with guarantee that the fn
  * won't be invoked again if deps hasn't change */
@@ -6,14 +6,12 @@ export function useGuaranteedMemo<T>(
     fn: () => T,
     deps: React.DependencyList
 ): T {
-    const [ref] = useState<{
-        current: { v: T; prevDeps: unknown[] } | undefined;
-    }>({ "current": undefined });
+    const ref = useRef<{ v: T; prevDeps: unknown[] }>();
 
     if (
-        ref.current === undefined ||
+        !ref.current ||
         deps.length !== ref.current.prevDeps.length ||
-        ref.current.prevDeps.find((v, i) => v !== deps[i]) !== undefined
+        ref.current.prevDeps.map((v, i) => v === deps[i]).indexOf(false) >= 0
     ) {
         ref.current = {
             "v": fn(),
