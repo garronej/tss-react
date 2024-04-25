@@ -281,46 +281,74 @@ function createTss_internal<
                                                         assert(false);
                                                     }
 
-                                                    if (isSSR) {
-                                                        {
-                                                            /* prettier-ignore */
-                                                            let wrap = nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name && wrap.idOfUseStyles === idOfUseStyles);
+                                                    {
+                                                        /* prettier-ignore */
+                                                        let wrap = nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name && wrap.idOfUseStyles === idOfUseStyles);
+
+                                                        /* prettier-ignore */
+                                                        if (wrap === undefined) {
 
                                                             /* prettier-ignore */
-                                                            if (wrap === undefined) {
-
-                                                                /* prettier-ignore */
-                                                                wrap = { name, idOfUseStyles, "nestedSelectorRuleNames": new Set() };
-
-                                                                /* prettier-ignore */
-                                                                nestedSelectorUsageTrackRecord.push(wrap);
-                                                            }
+                                                            wrap = { name, idOfUseStyles, "nestedSelectorRuleNames": new Set() };
 
                                                             /* prettier-ignore */
-                                                            wrap.nestedSelectorRuleNames.add(ruleName);
+                                                            nestedSelectorUsageTrackRecord.push(wrap);
                                                         }
+
+                                                        /* prettier-ignore */
+                                                        wrap.nestedSelectorRuleNames.add(ruleName);
+                                                    }
+
+                                                    if (
+                                                        isSSR &&
+                                                        name === undefined
+                                                    ) {
+                                                        throw new Error(
+                                                            [
+                                                                `tss-react: In SSR setups, in order to use nested selectors, you must also give a unique name to the useStyle function.`,
+                                                                `Solution: Use tss.withName("ComponentName").withNestedSelectors<...>()... to set a name.`
+                                                            ].join("\n")
+                                                        );
+                                                    }
+
+                                                    detect_potential_conflicts: {
+                                                        if (
+                                                            name === undefined
+                                                        ) {
+                                                            break detect_potential_conflicts;
+                                                        }
+
+                                                        const hasPotentialConflict =
+                                                            nestedSelectorUsageTrackRecord.find(
+                                                                wrap =>
+                                                                    wrap.idOfUseStyles !==
+                                                                        idOfUseStyles &&
+                                                                    wrap.name ===
+                                                                        name &&
+                                                                    wrap.nestedSelectorRuleNames.has(
+                                                                        ruleName
+                                                                    )
+                                                            ) !== undefined;
 
                                                         if (
-                                                            /* prettier-ignore */
-                                                            nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name && wrap.idOfUseStyles !== idOfUseStyles && wrap.nestedSelectorRuleNames.has(ruleName)) !== undefined
+                                                            !hasPotentialConflict
                                                         ) {
-                                                            throw new Error(
-                                                                [
-                                                                    `tss-react: Duplicate nested selector "${ruleName}" detected in ${
-                                                                        name !==
-                                                                        undefined
-                                                                            ? `useStyles named "${name}"`
-                                                                            : "anonymous useStyles function"
-                                                                    }.`,
-                                                                    `In SSR setups, this may lead to CSS class name collisions, causing nested selectors to target elements outside of the intended scope.`,
-                                                                    `Solution: Ensure each useStyles using nested selectors has a unique name. Use tss.withName("UniqueName").withNestedSelectors<...>()... to set a name.`
-                                                                ].join("\n")
-                                                            );
+                                                            break detect_potential_conflicts;
                                                         }
+
+                                                        throw new Error(
+                                                            [
+                                                                `tss-react: There are in your codebase two different useStyles named "${name}" that`,
+                                                                `both use use the nested selector ${ruleName}.\n`,
+                                                                `This may lead to CSS class name collisions, causing nested selectors to target elements outside of the intended scope.\n`,
+                                                                `Solution: Ensure each useStyles using nested selectors has a unique name.\n`,
+                                                                `Use: tss.withName("UniqueName").withNestedSelectors<...>()...`
+                                                            ].join(" ")
+                                                        );
                                                     }
 
                                                     /* prettier-ignore */
-                                                    return (refClassesCache[ruleName] = `${cache.key}-${idOfUseStyles}${name !== undefined ? `-${name}` : ""}-${ruleName}-ref`);
+                                                    return (refClassesCache[ruleName] = `${cache.key}-${name !== undefined ? name : idOfUseStyles}-${ruleName}-ref`);
                                                 }
                                             })
                               })
