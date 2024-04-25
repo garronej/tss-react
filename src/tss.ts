@@ -278,30 +278,23 @@ function createTss_internal<
                                                 "get": (_target, ruleName) => {
                                                     /* prettier-ignore */
                                                     if (typeof ruleName === "symbol") {
-                                                    assert(false);
-                                                }
+                                                        assert(false);
+                                                    }
 
                                                     if (isSSR) {
                                                         {
                                                             /* prettier-ignore */
-                                                            let wrap = nestedSelectorUsageTrackRecord.find(wrap =>
-                                                            wrap.name === name &&
-                                                            wrap.idOfUseStyles === idOfUseStyles
-                                                        );
+                                                            let wrap = nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name && wrap.idOfUseStyles === idOfUseStyles);
 
                                                             /* prettier-ignore */
                                                             if (wrap === undefined) {
 
-                                                            /* prettier-ignore */
-                                                            wrap = {
-                                                                name,
-                                                                idOfUseStyles,
-                                                                "nestedSelectorRuleNames": new Set()
-                                                            };
+                                                                /* prettier-ignore */
+                                                                wrap = { name, idOfUseStyles, "nestedSelectorRuleNames": new Set() };
 
-                                                            /* prettier-ignore */
-                                                            nestedSelectorUsageTrackRecord.push(wrap);
-                                                        }
+                                                                /* prettier-ignore */
+                                                                nestedSelectorUsageTrackRecord.push(wrap);
+                                                            }
 
                                                             /* prettier-ignore */
                                                             wrap.nestedSelectorRuleNames.add(ruleName);
@@ -309,12 +302,7 @@ function createTss_internal<
 
                                                         if (
                                                             /* prettier-ignore */
-                                                            nestedSelectorUsageTrackRecord.find(
-                                                            wrap =>
-                                                                wrap.name === name &&
-                                                                wrap.idOfUseStyles !== idOfUseStyles &&
-                                                                wrap.nestedSelectorRuleNames.has(ruleName)
-                                                        ) !== undefined
+                                                            nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name && wrap.idOfUseStyles !== idOfUseStyles && wrap.nestedSelectorRuleNames.has(ruleName)) !== undefined
                                                         ) {
                                                             throw new Error(
                                                                 [
@@ -332,11 +320,7 @@ function createTss_internal<
                                                     }
 
                                                     /* prettier-ignore */
-                                                    return (
-                                                    refClassesCache[ruleName]
-                                                    =
-                                                    `${cache.key}-${idOfUseStyles}${name !== undefined ? `-${name}` : ""}-${ruleName}-ref`
-                                                );
+                                                    return (refClassesCache[ruleName] = `${cache.key}-${idOfUseStyles}${name !== undefined ? `-${name}` : ""}-${ruleName}-ref`);
                                                 }
                                             })
                               })
