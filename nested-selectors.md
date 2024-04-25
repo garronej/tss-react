@@ -119,7 +119,11 @@ export function App() {
     );
 }
 
-const useStyles = makeStyles<void, "child">()(
+const useStyles = makeStyles<void, "child">({
+  uniqId: "QnWmDL" // In SSR setups, you must give an unique id to all
+                   // your useStyles that uses nested selectors.
+                   // See below for mor infos.  
+})(
     (_theme, _params, classes) => ({
         "parent": {
             "padding": 30,
@@ -157,7 +161,9 @@ export function App() {
 const useStyles = makeStyles<
     { color: "primary" | "secondary" },
     "child" | "small"
->()((theme, { color }, classes) => ({
+>({
+  uniqId: "GnWmDK"
+})((theme, { color }, classes) => ({
     "root": {
         "padding": 30,
         [`&:hover .${classes.child}`]: {
@@ -193,7 +199,7 @@ The render of the above code
 
 **NOTE: This does not apply to the Modern API**
 
-In SSR setups, on stylesheets using nested selectors, you could end up with warnings like: &#x20;
+In SSR setups, on stylesheets using nested selectors, you could end up with warnings like:
 
 {% hint style="danger" %}
 `Warning: Prop className did not match. Server: "tss-XXX-root-ref" Client: "tss-YYY-root-ref"`.
@@ -201,7 +207,7 @@ In SSR setups, on stylesheets using nested selectors, you could end up with warn
 
 ![Example of error you may run against with Next.js](.gitbook/assets/image.png)
 
-You can fix this error by providing a unique id when calling `makeStyles` or `withStyles` (It will set XXX and YYY). &#x20;
+You can fix this error by providing a unique id when calling `makeStyles` or `withStyles` (It will set XXX and YYY).
 
 {% hint style="info" %}
 Short unique identifiers can be generated with [this website](https://shortunique.id/).
@@ -247,7 +253,7 @@ Short unique identifiers can be generated with [this website](https://shortuniqu
  );
 ```
 
-withStyles: &#x20;
+withStyles:
 
 <pre class="language-diff"><code class="lang-diff"> const MyDiv = withStyles("div", {
    "root": {
