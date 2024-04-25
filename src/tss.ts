@@ -307,7 +307,7 @@ function createTss_internal<
                                                             throw new Error(
                                                                 [
                                                                     `tss-react: Duplicate nested selector "${ruleName}" detected in ${
-                                                                        name ===
+                                                                        name !==
                                                                         undefined
                                                                             ? `useStyles named "${name}"`
                                                                             : "anonymous useStyles function"
