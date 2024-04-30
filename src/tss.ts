@@ -135,6 +135,14 @@ export namespace Tss {
     };
 }
 
+let counter = 0;
+
+const nestedSelectorUsageTrackRecord: {
+    name: string | undefined;
+    idOfUseStyles: string;
+    nestedSelectorRuleNames: Set<string>;
+}[] = [];
+
 export function createTss<
     Context extends Record<string, unknown>,
     PluginParams extends Record<string, unknown>
@@ -143,6 +151,12 @@ export function createTss<
     usePlugin?: Tss.UsePlugin<Context, PluginParams>;
     cache?: EmotionCache;
 }): { tss: Tss<Context, Record<never, unknown>, never, PluginParams, never> } {
+    counter = 0;
+    nestedSelectorUsageTrackRecord.splice(
+        0,
+        nestedSelectorUsageTrackRecord.length
+    );
+
     const { useContext, usePlugin, cache: cacheProvidedAtInception } = params;
 
     const { useCache } = createUseCache({ cacheProvidedAtInception });
@@ -171,14 +185,6 @@ export function createTss<
 
     return { tss };
 }
-
-let counter = 0;
-
-const nestedSelectorUsageTrackRecord: {
-    name: string | undefined;
-    idOfUseStyles: string;
-    nestedSelectorRuleNames: Set<string>;
-}[] = [];
 
 function createTss_internal<
     Context extends Record<string, unknown>,
