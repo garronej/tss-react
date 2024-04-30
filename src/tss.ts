@@ -183,6 +183,7 @@ let counter = 0;
 const nestedSelectorUsageTrackRecord: {
     name: string;
     nestedSelectorRuleNames: Set<string>;
+    idOfUseStyles: string;
 }[] = [];
 
 function createTss_internal<
@@ -325,13 +326,13 @@ function createTss_internal<
                                                         }
 
                                                         /* prettier-ignore */
-                                                        let wrap = nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name);
+                                                        let wrap = nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name && wrap.idOfUseStyles === idOfUseStyles);
 
                                                         /* prettier-ignore */
                                                         if (wrap === undefined) {
 
                                                             /* prettier-ignore */
-                                                            wrap = { name, "nestedSelectorRuleNames": new Set() };
+                                                            wrap = { name, idOfUseStyles, "nestedSelectorRuleNames": new Set() };
 
                                                             /* prettier-ignore */
                                                             nestedSelectorUsageTrackRecord.push(wrap);
@@ -353,6 +354,8 @@ function createTss_internal<
                                                                 wrap =>
                                                                     wrap.name ===
                                                                         name &&
+                                                                    wrap.idOfUseStyles !==
+                                                                        idOfUseStyles &&
                                                                     wrap.nestedSelectorRuleNames.has(
                                                                         ruleName
                                                                     )
