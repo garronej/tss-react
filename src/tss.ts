@@ -135,14 +135,6 @@ export namespace Tss {
     };
 }
 
-let counter = 0;
-
-const nestedSelectorUsageTrackRecord: {
-    name: string | undefined;
-    idOfUseStyles: string;
-    nestedSelectorRuleNames: Set<string>;
-}[] = [];
-
 export function createTss<
     Context extends Record<string, unknown>,
     PluginParams extends Record<string, unknown>
@@ -185,6 +177,13 @@ export function createTss<
 
     return { tss };
 }
+
+let counter = 0;
+
+const nestedSelectorUsageTrackRecord: {
+    name: string;
+    nestedSelectorRuleNames: Set<string>;
+}[] = [];
 
 function createTss_internal<
     Context extends Record<string, unknown>,
@@ -240,6 +239,25 @@ function createTss_internal<
             // Do not attempt to 'simplify' the code without taking this fact into account.
             const idOfUseStyles = `x${counter++}`;
 
+            // NOTE: Cleanup for hot module reloading.
+            if (name !== undefined) {
+                // eslint-disable-next-line no-constant-condition
+                while (true) {
+                    const wrap = nestedSelectorUsageTrackRecord.find(
+                        wrap => wrap.name === name
+                    );
+
+                    if (wrap === undefined) {
+                        break;
+                    }
+
+                    nestedSelectorUsageTrackRecord.splice(
+                        nestedSelectorUsageTrackRecord.indexOf(wrap),
+                        1
+                    );
+                }
+            }
+
             const getCssObjectByRuleName =
                 typeof cssObjectByRuleNameOrGetCssObjectByRuleName ===
                 "function"
@@ -287,24 +305,6 @@ function createTss_internal<
                                                         assert(false);
                                                     }
 
-                                                    {
-                                                        /* prettier-ignore */
-                                                        let wrap = nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name && wrap.idOfUseStyles === idOfUseStyles);
-
-                                                        /* prettier-ignore */
-                                                        if (wrap === undefined) {
-
-                                                            /* prettier-ignore */
-                                                            wrap = { name, idOfUseStyles, "nestedSelectorRuleNames": new Set() };
-
-                                                            /* prettier-ignore */
-                                                            nestedSelectorUsageTrackRecord.push(wrap);
-                                                        }
-
-                                                        /* prettier-ignore */
-                                                        wrap.nestedSelectorRuleNames.add(ruleName);
-                                                    }
-
                                                     if (
                                                         isSSR &&
                                                         name === undefined
@@ -317,6 +317,30 @@ function createTss_internal<
                                                         );
                                                     }
 
+                                                    update_nested_selector_usage_track_record: {
+                                                        if (
+                                                            name === undefined
+                                                        ) {
+                                                            break update_nested_selector_usage_track_record;
+                                                        }
+
+                                                        /* prettier-ignore */
+                                                        let wrap = nestedSelectorUsageTrackRecord.find(wrap => wrap.name === name);
+
+                                                        /* prettier-ignore */
+                                                        if (wrap === undefined) {
+
+                                                            /* prettier-ignore */
+                                                            wrap = { name, "nestedSelectorRuleNames": new Set() };
+
+                                                            /* prettier-ignore */
+                                                            nestedSelectorUsageTrackRecord.push(wrap);
+                                                        }
+
+                                                        /* prettier-ignore */
+                                                        wrap.nestedSelectorRuleNames.add(ruleName);
+                                                    }
+
                                                     detect_potential_conflicts: {
                                                         if (
                                                             name === undefined
@@ -327,8 +351,6 @@ function createTss_internal<
                                                         const hasPotentialConflict =
                                                             nestedSelectorUsageTrackRecord.find(
                                                                 wrap =>
-                                                                    wrap.idOfUseStyles !==
-                                                                        idOfUseStyles &&
                                                                     wrap.name ===
                                                                         name &&
                                                                     wrap.nestedSelectorRuleNames.has(
