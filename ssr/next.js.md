@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode; }) {
             {/* It's important to keep a head tag, even if it's empty */}
 	    <head></head> 
 	    <body>
-	        <NextAppDirEmotionCacheProvider options={{ key: "css" }}>
+		<NextAppDirEmotionCacheProvider options={{ key: "css" }}>
 		    {children}
 		</NextAppDirEmotionCacheProvider>
 	    </body>
