@@ -15,8 +15,8 @@
 </strong><strong>    40% {
 </strong><strong>        opacity: 1;
 </strong><strong>    }
-</strong>`;
-
+</strong><strong>`;
+</strong>
 const useStyles = tss.create({
     "svg": {
         "&#x26; g": {
