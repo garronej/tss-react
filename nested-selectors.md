@@ -11,7 +11,7 @@ In **JSS** you can do:
 {
   "parent": {
       "padding": 30,
-      "&:hover $child": {
+      "&:hover $child": { // <- This do not work in TSS
           "backgroundColor": "red"
       },
   },
@@ -197,7 +197,7 @@ The render of the above code
 
 ## SSR
 
-**NOTE: This does not apply to the Modern API**
+**NOTE: This does not apply to the Modern API, only for makeStyles and withStyles**
 
 In SSR setups, on stylesheets using nested selectors, you could end up with warnings like:
 
