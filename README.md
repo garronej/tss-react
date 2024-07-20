@@ -28,7 +28,7 @@ export function MyButton(props: Props) {
 
     const [isClicked, setIsClicked] = useState(false);
 
-    const { classes, cx } = useStyles({ "color": isClicked ? "blue": "red" });
+    const { classes, cx } = useStyles({ color: isClicked ? "blue": "red" });
 
     //Thanks to cx, className will take priority over classes.root 🤩
     //With TSS you must stop using clsx and use cx instead.
@@ -93,7 +93,7 @@ export function MyButton(props: Props) {
 
     const [isClicked, setIsClicked] = useState(false);
 
-    const { classes, cx } = useStyles({ "color": isClicked ? "blue": "red" });
+    const { classes, cx } = useStyles({ color: isClicked ? "blue": "red" });
 
     //Thanks to cx, className will take priority over classes.root 🤩
     //With TSS you must stop using clsx and use cx instead.
