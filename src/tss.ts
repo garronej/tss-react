@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { useMemo } from "react";
 import type { CSSObject, Css, Cx } from "./types";
 import type { EmotionCache } from "@emotion/cache";
 import { createUseCache } from "./makeStyles";
@@ -281,7 +280,7 @@ function createTss_internal<
 
                 const cache = useCache();
 
-                let classes = useMemo(() => {
+                const getClasses = () => {
                     const refClassesCache: Record<string, string> = {};
 
                     type RefClasses = Record<
@@ -385,7 +384,7 @@ function createTss_internal<
                               })
                     });
 
-                    const classes = objectFromEntries(
+                    let classes = objectFromEntries(
                         objectKeys(cssObjectByRuleName).map(ruleName => {
                             const cssObject = cssObjectByRuleName[ruleName];
 
@@ -418,19 +417,23 @@ function createTss_internal<
                             refClassesCache[ruleName];
                     });
 
-                    return classes;
-                }, [
-                    cache,
-                    css,
-                    cx,
-                    getDependencyArrayRef(params),
-                    ...Object.values(context)
-                ]);
+                    classes = mergeClasses(classes, classesOverrides, cx);
 
-                classes = useMemo(
-                    () => mergeClasses(classes, classesOverrides, cx),
-                    [classes, getDependencyArrayRef(classesOverrides), cx]
-                );
+                    return classes;
+                };
+
+                const classes = runGetClassesOrUseCache({
+                    cache,
+                    cssObjectByRuleNameOrGetCssObjectByRuleName,
+                    "classesOverridesRef":
+                        getDependencyArrayRef(classesOverrides),
+                    "paramsAndPluginParamsRef": getDependencyArrayRef(
+                        paramsAndPluginParams
+                    ),
+                    idOfUseStyles,
+                    context,
+                    getClasses
+                });
 
                 // @ts-expect-error: Type safety non achievable.
                 const pluginResultWrap = usePlugin({
@@ -452,4 +455,162 @@ function createTss_internal<
             };
         }
     };
+}
+
+const mapCache = new WeakMap<
+    Object /* cache */,
+    WeakMap<
+        Function | Object /* cssObjectByRuleNameOrGetCssObjectByRuleName */,
+        Map<
+            any /* classesOverridesRef */,
+            Map<
+                any /* paramsAndPluginParamsRef */,
+                {
+                    idOfUseStyles: string;
+                    context: Record<string, unknown>;
+                    result: unknown;
+                }[]
+            >
+        >
+    >
+>();
+
+function runGetClassesOrUseCache<T>(params: {
+    cache: Object;
+    cssObjectByRuleNameOrGetCssObjectByRuleName: Function | Object;
+    classesOverridesRef: string | undefined;
+    paramsAndPluginParamsRef: any;
+    idOfUseStyles: string;
+    context: Record<string, unknown>;
+    getClasses: () => T;
+}): T {
+    const {
+        cache,
+        cssObjectByRuleNameOrGetCssObjectByRuleName,
+        classesOverridesRef,
+        paramsAndPluginParamsRef,
+        idOfUseStyles,
+        context,
+        getClasses
+    } = params;
+
+    use_cache: {
+        const mapCache_in = mapCache.get(cache);
+
+        if (mapCache_in === undefined) {
+            break use_cache;
+        }
+
+        const mapCache_in_in = mapCache_in.get(
+            cssObjectByRuleNameOrGetCssObjectByRuleName
+        );
+
+        if (mapCache_in_in === undefined) {
+            break use_cache;
+        }
+
+        const mapCache_in_in_in = mapCache_in_in.get(classesOverridesRef);
+
+        if (mapCache_in_in_in === undefined) {
+            break use_cache;
+        }
+
+        const arr = mapCache_in_in_in.get(paramsAndPluginParamsRef);
+
+        if (arr === undefined) {
+            break use_cache;
+        }
+
+        const entry = arr.find(({ context: context_i }) => {
+            if (context_i === context) {
+                return true;
+            }
+
+            if (objectKeys(context_i).length !== objectKeys(context).length) {
+                return false;
+            }
+
+            for (const key in context_i) {
+                if (context_i[key] !== context[key]) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        if (entry === undefined) {
+            break use_cache;
+        }
+
+        if (entry?.idOfUseStyles !== idOfUseStyles) {
+            arr.splice(arr.indexOf(entry), 1);
+
+            break use_cache;
+        }
+
+        return entry.result as T;
+    }
+
+    const result = getClasses();
+
+    {
+        if (!mapCache.has(cache)) {
+            mapCache.set(cache, new WeakMap());
+        }
+
+        const mapCache_in = mapCache.get(cache);
+
+        assert(mapCache_in !== undefined);
+
+        if (!mapCache_in.has(cssObjectByRuleNameOrGetCssObjectByRuleName)) {
+            mapCache_in.set(
+                cssObjectByRuleNameOrGetCssObjectByRuleName,
+                new Map()
+            );
+        }
+
+        const mapCache_in_in = mapCache_in.get(
+            cssObjectByRuleNameOrGetCssObjectByRuleName
+        );
+
+        assert(mapCache_in_in !== undefined);
+
+        if (!mapCache_in_in.has(classesOverridesRef)) {
+            if (mapCache_in_in.size > 200) {
+                mapCache_in_in.clear();
+            }
+
+            mapCache_in_in.set(classesOverridesRef, new Map());
+        }
+
+        const mapCache_in_in_in = mapCache_in_in.get(classesOverridesRef);
+
+        assert(mapCache_in_in_in !== undefined);
+
+        if (!mapCache_in_in_in.has(paramsAndPluginParamsRef)) {
+            clear_cache: {
+                const threshold =
+                    typeof paramsAndPluginParamsRef === "string" ? 257 : 5;
+
+                if (mapCache_in_in_in.size < threshold) {
+                    break clear_cache;
+                }
+                mapCache_in_in_in.clear();
+            }
+
+            mapCache_in_in_in.set(paramsAndPluginParamsRef, []);
+        }
+
+        let arr = mapCache_in_in_in.get(paramsAndPluginParamsRef);
+
+        assert(arr !== undefined);
+
+        if (arr.length > 5) {
+            arr = [];
+        }
+        arr.push({ idOfUseStyles, context, result });
+    }
+
+    return result;
 }
