@@ -531,7 +531,10 @@ function runGetClassesOrUseCache<T>(params: {
             }
 
             for (const key in context_i) {
-                if (context_i[key] !== context[key]) {
+                if (
+                    getDependencyArrayRef(context_i[key]) !==
+                    getDependencyArrayRef(context[key])
+                ) {
                     return false;
                 }
             }
