@@ -75,3 +75,9 @@ yarn start_spa  # For testing in in a Create React App setup
 yarn start_ssr # For testing in a Next.js setup
 yarn start_appdir #  Next.js 13 setup in App directory mode
 ```
+
+## Security contact information
+
+To report a security vulnerability, please use the
+[Tidelift security contact](https://tidelift.com/security).
+Tidelift will coordinate the fix and disclosure.
