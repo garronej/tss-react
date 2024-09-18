@@ -14,9 +14,33 @@ yarn add --dev eslint-plugin-tss-unused-classes
 
 1. Enable it in you ESLint config
 
-**Case 1**: You are in a [`create-react-app`](https://create-react-app.dev/) project:\
+**Case 1**: You have installed ESLint manually:\
+Edit your  `eslint.config.js` file:
+
+<pre class="language-javascript" data-title="eslint.config.js"><code class="lang-javascript"><strong>import tssUnusedClasses from 'eslint-plugin-tss-unused-classes'
+</strong>
+export default tseslint.config(
+  { ignores: ['dist'] },
+  {
+    plugins: {
+      // ...
+<strong>      'tss-unused-classes': tssUnusedClasses,
+</strong>    },
+    rules: {
+      // ...
+<strong>      'tss-unused-classes/unused-classes': 'warn',
+</strong>    },
+  },
+)
+
+</code></pre>
+
+[Example project](https://github.com/InseeFrLab/onyxia-ui)
+
+**Case 2**: You are (still) in a [`create-react-app`](https://create-react-app.dev/) project:\
 Edit your `package.json`:
 
+{% code title="package.json" %}
 ```json
 {
   //...
@@ -32,27 +56,9 @@ Edit your `package.json`:
   //...
 }
 ```
+{% endcode %}
 
 [Example projet](https://github.com/InseeFrLab/onyxia-web)
-
-**Case 2**: You have installed ESLint manually:\
-Edit your `.eslintrc.js` file:
-
-```javascript
-module.exports = {
-  // ...
-  plugins: [
-    // ...
-    'tss-unused-classes'
-  ],
-  rules: {
-    // ...
-    'tss-unused-classes/unused-classes': 'warn'
-  }
-}
-```
-
-[Example project](https://github.com/InseeFrLab/onyxia-ui)
 
 ### Disabling warnings
 
