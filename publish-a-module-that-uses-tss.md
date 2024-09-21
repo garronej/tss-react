@@ -15,7 +15,7 @@ description: How to express you dependencies requirements
 },
 "peerDependencies": {
     "react": "^16.8.0 || ^17.0.2 || 18.0.0" ,
-    "@mui/material": "^5.0.1",
+    "@mui/material": "^5.9.3 || ^6.0.0",
     "@emotion/react": "^11.4.1",
 },
 "devDependencies": {

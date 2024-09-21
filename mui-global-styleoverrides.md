@@ -118,13 +118,13 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
-    "components": {
+    components: {
         //@ts-ignore: It's up to you to define the types for your library
-        "MyComponent": {
-            "styleOverrides": {
-                "lightBulb": ({ theme, ownerState: { isOn }, lightBulbBorderColor })=>({
-                    "border": `1px solid ${lightBulbBorderColor}`,
-		    "backgroundColor": isOn ? theme.palette.info.main : "grey"
+        MyComponent: {
+            styleOverrides: {
+                lightBulb: ({ theme, ownerState: { isOn }, lightBulbBorderColor })=>({
+                    border: `1px solid ${lightBulbBorderColor}`,
+		    backgroundColor: isOn ? theme.palette.info.main : "grey"
                 })
             }		
         }
@@ -150,9 +150,9 @@ function App(){
         <MyComponent 
             className={css({ "backgroundColor": "white" })}
             classes={{
-                "root": css({
-                    "backgroundColor": "red",
-                    "border": "1px solid black"
+                root: css({
+                    backgroundColor: "red",
+                    border: "1px solid black"
                 })
             }}
             lightBulbBorderColor="black"

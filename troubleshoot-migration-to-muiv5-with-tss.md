@@ -17,12 +17,12 @@ import createCache from "@emotion/cache";
 import App from "./App";
 
 const muiCache = createCache({
-    "key": "mui",
-    "prepend": true
+    key: "mui",
+    prepend: true
 });
 
 const tssCache = createCache({
-    "key": "tss"
+    key: "tss"
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

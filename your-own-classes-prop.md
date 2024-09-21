@@ -36,12 +36,12 @@ function MyComponent(props: Props) {
 }
 
 const useStyles = tss.create({
-    "foo": {
-        "border": "3px dotted black",
-        "backgroundColor": "red"
+    foo: {
+        border: "3px dotted black",
+        backgroundColor: "red"
     }
-    "bar": {
-        "color": "pink"
+    bar: {
+        color: "pink"
     }
 });
 
@@ -79,11 +79,11 @@ function MyTestComponentForMergedClassesInternal(props: Props) {
 }
 
 const useStyles = makeStyles<{ color: string; }>()({
-    "foo": {
-        "border": "3px dotted black",
-        "backgroundColor": "red"
+    foo: {
+        border: "3px dotted black",
+        backgroundColor: "red"
     }
-    "bar": {
+    bar: {
         color
     }
 });

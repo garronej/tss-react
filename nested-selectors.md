@@ -9,14 +9,14 @@ In **JSS** you can do:
 ```jsx
 //WARNING: This is legacy JSS code!
 {
-  "parent": {
-      "padding": 30,
+  parent: {
+      padding: 30,
       "&:hover $child": { // <- This do not work in TSS
-          "backgroundColor": "red"
+          backgroundColor: "red"
       },
   },
-  "child": {
-      "backgroundColor": "blue"
+  child: {
+      backgroundColor: "blue"
   }
 }
 //...
@@ -50,14 +50,14 @@ const useStyles = tss
     .withName("MyComponent") // It's important to set a name in SSR setups
     .withNestedSelectors<"child">()
     .create(({ classes }) => ({
-        "parent": {
-            "padding": 30,
+        parent: {
+            padding: 30,
             [`&:hover .${classes.child}`]: {
-                "backgroundColor": "red"
+                backgroundColor: "red"
             }
         },
-        "child": {
-            "backgroundColor": "blue"
+        child: {
+            backgroundColor: "blue"
         },
     }));
 ```
@@ -66,7 +66,7 @@ Another example:
 
 ```tsx
 export function MyComponent() {
-    const { classes, cx } = useStyles({ "color": "primary" });
+    const { classes, cx } = useStyles({ color: "primary" });
 
     return (
         <div className={classes.root}>

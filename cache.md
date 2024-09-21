@@ -62,7 +62,7 @@ import createCache from "@emotion/cache";
 import { createTss } from "tss-react";
 
 const cache = createCache({
-  "key": "tss"
+  key: "tss"
 });
 
 export const { tss } = createTss({
@@ -80,7 +80,7 @@ import { useTheme } from "@mui/material/styles";
 import { createMakeAndWithStyles } from "tss-react";
 
 const cache = createCache({
-  "key": "tss"
+  key: "tss"
 });
 
 export const { makeStyles, withStyles, useStyles } = createMakeAndWithStyles({
