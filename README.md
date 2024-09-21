@@ -210,15 +210,16 @@ const useStyles = tss
 If you don't want to end up writing things like:
 
 ```typescript
-import { makeStyles } from "../../../../../../tss";
+import { tss } from "../../../../../../tss";
 ```
 
-In Vite, you can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your tsconfig.json and import things [relative to your `src/` directory](https://github.com/garronej/tss-react/blob/314aaab87198e7fd3523e34300288495f3242800/src/test/spa/src/index.tsx#L2-L3).
+In Vite, you can put [`"baseUrl": "src"`](https://github.com/InseeFrLab/onyxia-web/blob/ae02b05cd7b17d74fb6a8cbc4c7b1c6f569dfa41/tsconfig.json#L3) in your tsconfig.json and [use the `vite-tsconfig-paths` plugin](https://github.com/keycloakify/oidc-spa/blob/a06808eb695f6537cb1716459a9594dfd2e0875b/examples/tanstack-router-file-based/vite.config.ts#L5).\
+
 
 In the above example it would be:
 
 ```typescript
-import { makeStyles } from "tss";
+import { tss } from "tss";
 ```
 {% endhint %}
 {% endtab %}
