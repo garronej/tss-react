@@ -15,10 +15,7 @@ export type NextAppDirEmotionCacheProviderProps = {
         prepend?: boolean;
     };
     /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
-    CacheProvider?: (props: {
-        value: EmotionCache;
-        children: ReactNode;
-    }) => JSX.Element | null;
+    CacheProvider?: React.Provider<EmotionCache>;
     children: ReactNode;
 };
 

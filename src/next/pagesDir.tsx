@@ -1,5 +1,4 @@
 import * as React from "react";
-import type { ReactNode } from "react";
 import type createEmotionServer_t from "@emotion/server/create-instance";
 import type { DocumentContext } from "next/document";
 import type { EmotionCache } from "@emotion/cache";
@@ -19,10 +18,7 @@ export function createEmotionSsrAdvancedApproach(
         prepend?: boolean;
     },
     /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
-    CacheProvider: (props: {
-        value: EmotionCache;
-        children: ReactNode;
-    }) => JSX.Element | null = DefaultCacheProvider
+    CacheProvider: React.Provider<EmotionCache> = DefaultCacheProvider
 ) {
     const { prepend, ...optionsWithoutPrependProp } = options;
 
