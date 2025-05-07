@@ -18,12 +18,10 @@ import type {
     MuiThemeStyleOverridesPluginParams,
     MuiThemeLike
 } from "./mui/themeStyleOverridesPlugin";
+// @ts-expect-error: It's not declared but it's there.
+import { __unsafe_useEmotionCache } from "@emotion/react";
 
-declare module "@emotion/react" {
-    export function __unsafe_useEmotionCache(): EmotionCache | null;
-}
-
-import { __unsafe_useEmotionCache as useContextualCache } from "@emotion/react";
+const useContextualCache: () => EmotionCache | null = __unsafe_useEmotionCache;
 
 let counter = 0;
 
