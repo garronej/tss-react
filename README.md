@@ -6,7 +6,7 @@
     <br>
     <br>
     <a href="https://github.com/garronej/tss-react/actions">
-      <img src="https://github.com/garronej/tss-react/workflows/ci/badge.svg?branch=main">
+      <img src="https://github.com/garronej/tss-react/actions/workflows/ci.yaml/badge.svg">
     </a>
     <a href="https://www.npmjs.com/package/tss-react">
       <img src="https://img.shields.io/npm/dm/tss-react">
