@@ -5,7 +5,7 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 ![](https://user-images.githubusercontent.com/6702424/136705025-dadfff08-7d9a-49f7-8696-533ca38ec38f.gif)
 
 {% hint style="info" %}
-[Using `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles\_classes.tsx#L112-L142) can often helps when you get red squiggly lines.
+[Using `as const`](https://github.com/garronej/tss-react/blob/0b8d83d0d49b1198af438409cc2e2b9dc023e6f0/src/test/types/withStyles_classes.tsx#L112-L142) can often helps when you get red squiggly lines.
 {% endhint %}
 
 {% tabs %}
@@ -13,10 +13,6 @@ It's like [the material-ui v4 higher-order component API](https://mui.com/styles
 {% code title="MyComponent.tsx" %}
 ```tsx
 import { withStyles } from "tss-react/mui";
-// When using withStyles, if you need to combine classes 
-// you can use the clsx package. (But use const { cx } = useStyles()
-// with makeStyles!)
-import clsx from "clsx";
 
 type Props = {
     className?: string;
@@ -76,7 +72,6 @@ If you have your styles defined as a separate function: &#x20;
 ```tsx
 import { withStyles } from "tss-react/mui";
 import type { Theme } from '@mui/material';
-import clsx from "clsx";
 
 type Props = {
     className?: string;
@@ -125,10 +120,6 @@ The main reason you would use `withStyles` over `makeStyles` is to support class
 ```tsx
 import * as React from "react";
 import { withStyles } from "tss-react/mui";
-// When using withStyles, if you need to combine classes 
-// you can use the clsx package. (But use const { cx } = useStyles()
-// with makeStyles!)
-import clsx from "clsx";
 
 export type Props ={
   className?: string;
@@ -189,7 +180,6 @@ Or, if you have your styles defined as a separate function: &#x20;
 import * as React from "react";
 import { withStyles } from "tss-react/mui";
 import type { Theme } from '@mui/material';
-import clsx from "clsx";
 
 type Props = {
     className?: string;
