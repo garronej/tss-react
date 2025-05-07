@@ -1,6 +1,6 @@
 {
     "name": "tss-react",
-    "version": "4.9.17",
+    "version": "4.9.18-rc.2",
     "description": "Type safe CSS-in-JS API heavily inspired by react-jss",
     "repository": {
         "type": "git",
@@ -52,7 +52,7 @@
         }
     },
     "scripts": {
-        "build": "tsc && tsc -p tsconfig-esm.json",
+        "build": "tsc && tsc -p tsconfig-esm.json && ts-node src/bin/shim_jsx_element.ts",
         "start_spa": "yarn yarn_link && cd src/test/apps/spa && yarn start",
         "start_ssr": "yarn yarn_link && cd src/test/apps/ssr && yarn dev",
         "start_appdir": "yarn yarn_link && cd src/test/apps/next-appdir && yarn dev",
