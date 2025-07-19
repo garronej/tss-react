@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import * as React from "react";
 import type createEmotionServer_t from "@emotion/server/create-instance";
 import type { DocumentContext } from "next/document";
@@ -17,8 +18,13 @@ export function createEmotionSsrAdvancedApproach(
     options: Omit<OptionsOfCreateCache, "insertionPoint"> & {
         prepend?: boolean;
     },
-    /** By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"' */
-    CacheProvider: React.Provider<EmotionCache> = DefaultCacheProvider
+    /**
+     * By default <CacheProvider /> from 'import { CacheProvider } from "@emotion/react"'
+     *
+     * NOTE: The actual expected type is `React.Provider<EmotionCache>` but we use `Function` because
+     * to make it work regardless of if you are using React 18 or React 19 type def.
+     */
+    CacheProvider: Function = DefaultCacheProvider
 ) {
     const { prepend, ...optionsWithoutPrependProp } = options;
 
